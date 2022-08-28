@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'customDrawer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,60 +26,33 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              const DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                ),
-                child: Text('Drawer Header'),
-              ),
-              ListTile(
-                title: Text('Homepage'),
-                onTap: () {},
-              ),
-              ListTile(
-                title: Text('Your Services'),
-                onTap: () {},
-              ),
-              ListTile(
-                title: Text('Your Requests'),
-                onTap: () {},
-              ),
-              ListTile(
-                title: Text('Find a request'),
-                onTap: () {},
-              ),
-              ListTile(
-                title: Text('Profile'),
-                onTap: () {},
-              ),
-              ListTile(
-                title: Text('Settings'),
-                onTap: () {},
-              )
-            ],
-          ),
-        ),
         appBar: AppBar(
           title: Text('Home Page'),
         ),
+        drawer: CustomDrawer(), //look at customDrawer.dart
         body: Column(
           children: [
             Text('Recent services'),
+            Container(
+              height: 100,
+              width: 80,
+              child: ListView(
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(8),
+                children: [
+                  Text('Service 1'),
+                  Text('Service 2'),
+                  Text('Service 3'),
+                  Text('Service 4'),
+                  Text('Service 5'),
+                  Text('Service 6'),
+                  Text('Service 7'),
+                ],
+              ),
+            ),
             Text('Your Requests'),
             Text('Time Balance'),
             Row(children: [
