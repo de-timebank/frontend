@@ -36,6 +36,43 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: Text('Drawer Header'),
+              ),
+              ListTile(
+                title: Text('Homepage'),
+                onTap: () {},
+              ),
+              ListTile(
+                title: Text('Your Services'),
+                onTap: () {},
+              ),
+              ListTile(
+                title: Text('Your Requests'),
+                onTap: () {},
+              ),
+              ListTile(
+                title: Text('Find a request'),
+                onTap: () {},
+              ),
+              ListTile(
+                title: Text('Profile'),
+                onTap: () {},
+              ),
+              ListTile(
+                title: Text('Settings'),
+                onTap: () {},
+              )
+            ],
+          ),
+        ),
         appBar: AppBar(
           title: Text('Home Page'),
         ),
