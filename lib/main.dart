@@ -37,8 +37,13 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Text('Recent services'),
             Container(
-              height: 100,
-              width: 80,
+               height: 100,
+               //width: 80,
+               margin: EdgeInsets.all(20.0),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(10),
+              ),
               child: ListView(
                 shrinkWrap: true,
                 padding: const EdgeInsets.all(8),
@@ -54,9 +59,45 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Text('Your Requests'),
+            Container(
+              height: 100,
+              //width: 80,
+              margin: EdgeInsets.all(20.0),
+               decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: ListView(
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(8),
+                children: [
+                  Text('Request 1'),
+                  Text('Request 2'),
+                  Text('Request 3'),
+                  Text('Request 4'),
+                  Text('Request 5'),
+                  Text('Request 6'),
+                  Text('Request 7'),
+                ],
+              ),
+            ),
             Text('Time Balance'),
+            Divider( //horizontal line
+              height: 50,
+              thickness: 2,
+              indent: 30,
+              endIndent: 30
+            ),
             Row(children: [
-              Text('Find a service request'),
+              InkWell(
+                onTap: () {},
+                child: Ink.image(
+                  image: AssetImage('asset/folder.png'),
+                  height: 100,
+                  width: 100,
+                  //child: Text('Find a service request'),
+                )
+              ),
               Column(
                 children: [
                   Text('Make a request'),
