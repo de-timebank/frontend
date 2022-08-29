@@ -13,6 +13,10 @@ class MyApp extends StatelessWidget {
       title: 'Time Bank Blockchain',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        textTheme: GoogleFonts.inter(
+          Theme.of(context).textTheme,
+        )
+        
       ),
       home: MyHomePage(),
     );
@@ -89,7 +93,11 @@ class _MyHomePageState extends State<MyHomePage> {
               endIndent: 30
             ),
             Row(children: [
-              InkWell(
+              Column(
+                children: [
+                  Text('Find a service request'),
+                  Text('Help others with your skills'),
+                  InkWell(
                 onTap: () {},
                 child: Ink.image(
                   image: AssetImage('asset/folder.png'),
@@ -97,6 +105,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: 100,
                   //child: Text('Find a service request'),
                 )
+              ),
+                ]
               ),
               Column(
                 children: [
