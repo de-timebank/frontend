@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'customDrawer.dart';
 
 void main() {
@@ -13,10 +14,9 @@ class MyApp extends StatelessWidget {
       title: 'Time Bank Blockchain',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        textTheme: GoogleFonts.inter(
+        textTheme: GoogleFonts.interTextTheme(
           Theme.of(context).textTheme,
-        )
-        
+        ),
       ),
       home: MyHomePage(),
     );
@@ -41,9 +41,9 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Text('Recent services'),
             Container(
-               height: 100,
-               //width: 80,
-               margin: EdgeInsets.all(20.0),
+              height: 100,
+              //width: 80,
+              margin: EdgeInsets.all(20.0),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(10),
@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 100,
               //width: 80,
               margin: EdgeInsets.all(20.0),
-               decoration: BoxDecoration(
+              decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -86,28 +86,25 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Text('Time Balance'),
-            Divider( //horizontal line
-              height: 50,
-              thickness: 2,
-              indent: 30,
-              endIndent: 30
-            ),
+            Divider(
+                //horizontal line
+                height: 50,
+                thickness: 2,
+                indent: 30,
+                endIndent: 30),
             Row(children: [
-              Column(
-                children: [
-                  Text('Find a service request'),
-                  Text('Help others with your skills'),
-                  InkWell(
-                onTap: () {},
-                child: Ink.image(
-                  image: AssetImage('asset/folder.png'),
-                  height: 100,
-                  width: 100,
-                  //child: Text('Find a service request'),
-                )
-              ),
-                ]
-              ),
+              Column(children: [
+                Text('Find a service request'),
+                Text('Help others with your skills'),
+                InkWell(
+                    onTap: () {},
+                    child: Ink.image(
+                      image: AssetImage('asset/folder.png'),
+                      height: 100,
+                      width: 100,
+                      //child: Text('Find a service request'),
+                    )),
+              ]),
               Column(
                 children: [
                   Text('Make a request'),
