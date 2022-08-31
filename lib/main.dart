@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+//import 'package:google_fonts/google_fonts.dart';
 import 'customDrawer.dart';
+import 'customHeadline.dart';
+import 'customOngoingTask.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,11 +15,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Time Bank Blockchain',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        textTheme: GoogleFonts.interTextTheme(
-          Theme.of(context).textTheme,
-        ),
-      ),
+          primarySwatch: Colors.blue,
+          fontFamily: 'Inter',
+          // textTheme: GoogleFonts.interTextTheme(
+          //   Theme.of(context).textTheme,
+          // ),
+          textTheme: const TextTheme(
+              headline1: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(200, 44, 44, 44)), //color for #2c2c2c
+              bodyText1: TextStyle(fontSize: 20))),
       home: MyHomePage(),
     );
   }
@@ -30,6 +38,24 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List listService = [
+    'Service 1',
+    'Service 2',
+    'Service 3',
+    'Service 4',
+    'Service 5',
+    'Service 6',
+    'Service 8',
+  ];
+  List listRequest = [
+    'Request 1',
+    'Request 2',
+    'Request 3',
+    'Request 4',
+    'Request 5',
+    'Request 6',
+    'Request 8',
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,53 +64,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         drawer: CustomDrawer(), //look at customDrawer.dart
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Recent services'),
-            Container(
-              height: 100,
-              //width: 80,
-              margin: EdgeInsets.all(20.0),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: ListView(
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(8),
-                children: [
-                  Text('Service 1'),
-                  Text('Service 2'),
-                  Text('Service 3'),
-                  Text('Service 4'),
-                  Text('Service 5'),
-                  Text('Service 6'),
-                  Text('Service 7'),
-                ],
-              ),
-            ),
-            Text('Your Requests'),
-            Container(
-              height: 100,
-              //width: 80,
-              margin: EdgeInsets.all(20.0),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: ListView(
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(8),
-                children: [
-                  Text('Request 1'),
-                  Text('Request 2'),
-                  Text('Request 3'),
-                  Text('Request 4'),
-                  Text('Request 5'),
-                  Text('Request 6'),
-                  Text('Request 7'),
-                ],
-              ),
-            ),
+            CustomHeadline('Your Service'),
+            CustomOngoingTask(listService),
+            CustomHeadline('Your Request'),
+            CustomOngoingTask(listRequest),
             Text('Time Balance'),
             Divider(
                 //horizontal line
@@ -94,21 +79,27 @@ class _MyHomePageState extends State<MyHomePage> {
                 endIndent: 30),
             Row(children: [
               Column(children: [
-                Text('Find a service request'),
-                Text('Help others with your skills'),
                 InkWell(
                     onTap: () {},
-                    child: Ink.image(
-                      image: AssetImage('asset/folder.png'),
-                      height: 100,
-                      width: 100,
-                      //child: Text('Find a service request'),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Find a service request'),
+                        Text('Help others with your skills'),
+                        Ink.image(
+                          image: AssetImage('asset/folder.png'),
+                          height: 100,
+                          width: 100,
+                          //child: Text('Find a service request'),
+                        ),
+                      ],
                     )),
               ]),
               Column(
                 children: [
-                  Text('Make a request'),
-                  Text('Too watana waberiadgabhariel'),
+                  Text('Make a request\nLet others help you'),
+                  SizedBox(height: 25),
+                  Text('Too watana waberiadgabhariel\non tak on tak on'),
                 ],
               ),
             ])
