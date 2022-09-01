@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:testfyp/main.dart';
+import 'service.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key? key}) : super(key: key);
@@ -18,13 +20,21 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             title: Text('Homepage'),
             onTap: () {
-              Navigator.pop(context); //close sidebar after user click it
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => MyHomePage()));
+              //Navigator.pop(context); //close sidebar after user click it
             },
           ),
           ListTile(
             title: Text('Your Services'),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => ServicePage()));
+              //Navigator.pop(context);
             },
           ),
           ListTile(
