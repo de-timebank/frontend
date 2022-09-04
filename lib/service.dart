@@ -13,9 +13,8 @@ class _ServicePageState extends State<ServicePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: Text('Request'),
       ),
-      drawer: CustomDrawer(),
       body: Center(
         child: Text('Can I get a huhhhh'),
       ),
