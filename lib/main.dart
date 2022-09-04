@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           // ),
           textTheme: const TextTheme(
               headline1: TextStyle(
-                  fontSize: 20,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold,
                   color: Color.fromARGB(200, 44, 44, 44)), //color for #2c2c2c
               // headline2: TextStyle(
@@ -47,11 +47,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
-  static List<Widget> _widgetOption = <Widget>[
+  static final List<Widget> _widgetOption = <Widget>[
     //MyHomePage(),
     //Das
     DashBoard(),
-
     ServicePage(),
     RequestPage(),
     ProfilePage()
@@ -81,6 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
     'Request 6',
     'Request 8',
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,7 +88,8 @@ class _MyHomePageState extends State<MyHomePage> {
         //   title: Text('Home Page'),
         // ),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.blueAccent,
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Color.fromARGB(255, 41, 108, 224),
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(

@@ -32,7 +32,7 @@ class _DashBoardState extends State<DashBoard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: const Text('Home Page'),
       ),
       body: Container(
           child: Column(
@@ -74,63 +74,63 @@ class _DashBoardState extends State<DashBoard> {
               thickness: 2,
               indent: 30,
               endIndent: 30),
-          // Row(
-          //   //crossAxisAlignment: CrossAxisAlignment.center,
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     Column(children: [
-          //       Card(
-          //         child: InkWell(
-          //             onTap: () {},
-          //             child: Column(
-          //               crossAxisAlignment: CrossAxisAlignment.start,
-          //               children: [
-          //                 Padding(
-          //                   padding: const EdgeInsets.all(8.0),
-          //                   child: Text(
-          //                     'Find a service\nrequest',
-          //                     style: Theme.of(context).textTheme.headline1,
-          //                   ),
-          //                 ),
-          //                 //SizedBox(height: 10),
-          //                 Padding(
-          //                   padding: const EdgeInsets.all(8.0),
-          //                   child: Text('Help others with your skills'),
-          //                 ),
-          //                 //SizedBox(height: 10),
-          //                 Ink.image(
-          //                   image: AssetImage('asset/folder.png'),
-          //                   height: 70,
-          //                   width: 70,
-          //                 ),
-          //               ],
-          //             )),
-          //       ),
-          //     ]),
-          //     Column(
-          //       //mainAxisAlignment: MainAxisAlignment.center,
-          //       //crossAxisAlignment: CrossAxisAlignment.stretch,
-          //       children: [
-          //         Card(
-          //             child: InkWell(
-          //                 onTap: () {},
-          //                 child: Padding(
-          //                   padding: const EdgeInsets.all(15.0),
-          //                   child: Text('Make a request\nLet others help you'),
-          //                 ))),
-          //         //SizedBox(height: 25),
-          //         Card(
-          //             child: InkWell(
-          //           onTap: () {},
-          //           child: Padding(
-          //             padding: const EdgeInsets.all(15.0),
-          //             child: Text('Too watana wabl\non tak on tak on'),
-          //           ),
-          //         )),
-          //       ],
-          //     ),
-          //   ],
-          // )
+          Row(
+            //crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Column(children: [
+                Card(
+                  child: InkWell(
+                      onTap: () {},
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Find a service\nrequest',
+                              style: Theme.of(context).textTheme.headline1,
+                            ),
+                          ),
+                          //SizedBox(height: 10),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('Help others with your skills'),
+                          ),
+                          //SizedBox(height: 10),
+                          Ink.image(
+                            image: AssetImage('asset/folder.png'),
+                            height: 40,
+                            width: 40,
+                          ),
+                        ],
+                      )),
+                ),
+              ]),
+              Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                //crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Card(
+                      child: InkWell(
+                          onTap: () {},
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Text('Make a request\nLet others help you'),
+                          ))),
+                  //SizedBox(height: 25),
+                  Card(
+                      child: InkWell(
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text('Too watana wabl\non tak on tak on'),
+                    ),
+                  )),
+                ],
+              ),
+            ],
+          )
         ],
       )),
     );
