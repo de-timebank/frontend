@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:testfyp/requestForm.dart';
 
 class RequestPage extends StatefulWidget {
   RequestPage({Key? key}) : super(key: key);
@@ -10,8 +11,27 @@ class RequestPage extends StatefulWidget {
 class _RequestPageState extends State<RequestPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('This is a request page...'),
-    );
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Request'),
+        ),
+        body: Column(
+          children: [
+            Center(
+              child: Text('Your request is empty, try adding a service...'),
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RequestForm(),
+                ));
+          },
+          icon: Icon(Icons.add),
+          label: Text('Add Request'),
+        ));
   }
 }
