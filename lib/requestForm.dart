@@ -11,13 +11,19 @@ class RequestForm extends StatefulWidget {
 class _RequestFormState extends State<RequestForm> {
   late TextfieldTagsController _controller;
   late double _distanceToField;
-
+  final myController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  var n = 0;
+  List reqList = [
+    {'Title': '', 'Rate': '', 'Tag': '', 'Location': '', 'Description': ''}
+  ];
   //title
   //category
   //rate
   //location
   //description
+  void insertData() {}
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -26,8 +32,10 @@ class _RequestFormState extends State<RequestForm> {
 
   @override
   void dispose() {
+    // Clean up the controller when the widget is disposed.
     super.dispose();
     _controller.dispose();
+    myController.dispose();
   }
 
   @override
@@ -61,6 +69,9 @@ class _RequestFormState extends State<RequestForm> {
                     }
                     return null;
                   },
+                  // onFieldSubmitted: (value) {
+                  //   reqList[0][0][1] = value;
+                  // },
                 ),
                 SizedBox(
                   height: 20,
@@ -70,6 +81,7 @@ class _RequestFormState extends State<RequestForm> {
                     SizedBox(
                       width: 100,
                       child: TextFormField(
+                        //controller: myController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
@@ -79,6 +91,10 @@ class _RequestFormState extends State<RequestForm> {
                             return 'Please enter rate..';
                           }
                           return null;
+                        },
+                        onChanged: (value) {
+                          value.toString();
+                          reqList[0][1] = value;
                         },
                       ),
                     ),
@@ -228,13 +244,20 @@ class _RequestFormState extends State<RequestForm> {
                 ),
                 ElevatedButton(
                     onPressed: () {
+                      myController.clear();
                       _controller.clearTags();
                       if (_formKey.currentState!.validate()) {
+                        print(reqList[0][1]);
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Processing Data')));
                       }
                     },
-                    child: const Text('Submit'))
+                    child: const Text('Submit')),
+                ElevatedButton(
+                    onPressed: () {
+                      print(reqList[0][0].title);
+                    },
+                    child: const Text('Check List'))
               ],
             ),
           ),
