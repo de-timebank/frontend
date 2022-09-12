@@ -15,7 +15,8 @@ class _RequestFormState extends State<RequestForm> {
   final _formKey = GlobalKey<FormState>();
   var n = 0;
   List reqList = [
-    {'Title': '', 'Rate': '', 'Tag': '', 'Location': '', 'Description': ''}
+    //{'title': '', 'rate': '', 'tag': '', 'location': '', 'description': ''}
+    {}
   ];
   //title
   //category
@@ -69,9 +70,9 @@ class _RequestFormState extends State<RequestForm> {
                     }
                     return null;
                   },
-                  // onFieldSubmitted: (value) {
-                  //   reqList[0][0][1] = value;
-                  // },
+                  onFieldSubmitted: (value) {
+                    reqList[0]['Title'] = value;
+                  },
                 ),
                 SizedBox(
                   height: 20,
@@ -255,7 +256,7 @@ class _RequestFormState extends State<RequestForm> {
                     child: const Text('Submit')),
                 ElevatedButton(
                     onPressed: () {
-                      print(reqList[0][0].title);
+                      print(reqList[0]['Title']);
                     },
                     child: const Text('Check List'))
               ],
