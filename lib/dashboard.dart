@@ -74,62 +74,98 @@ class _DashBoardState extends State<DashBoard> {
               thickness: 2,
               indent: 30,
               endIndent: 30),
-          Row(
-            //crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(children: [
-                Card(
-                  child: InkWell(
-                      onTap: () {},
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Find a service\nrequest',
-                              style: Theme.of(context).textTheme.headline1,
-                            ),
-                          ),
-                          //SizedBox(height: 10),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('Help others with your skills'),
-                          ),
-                          //SizedBox(height: 10),
-                          Ink.image(
-                            image: AssetImage('asset/folder.png'),
-                            height: 40,
-                            width: 40,
-                          ),
-                        ],
-                      )),
-                ),
-              ]),
-              Column(
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.all(15),
+              child: Row(
+                // crossAxisAlignment: CrossAxisAlignment.stretch,
                 //mainAxisAlignment: MainAxisAlignment.center,
-                //crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Card(
-                      child: InkWell(
-                          onTap: () {},
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Text('Make a request\nLet others help you'),
-                          ))),
-                  //SizedBox(height: 25),
-                  Card(
-                      child: InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Text('Too watana wabl\non tak on tak on'),
+                  Column(
+                      //crossAxisAlignment: CrossAxisAlignment.center,
+                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Card(
+                            child: InkWell(
+                                onTap: () {},
+                                child: Column(
+                                  //crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Text(
+                                        'Find a service request',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline1,
+                                      ),
+                                    ),
+                                    //SizedBox(height: 10),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child:
+                                          Text('Help others with your skills'),
+                                    ),
+                                    //SizedBox(height: 10),
+                                    Ink.image(
+                                      image: AssetImage('asset/folder.png'),
+                                      height: 40,
+                                      width: 40,
+                                    ),
+                                  ],
+                                )),
+                          ),
+                        ),
+                      ]),
+                  Expanded(
+                    child: Column(
+                      //mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Flexible(
+                          flex: 1,
+                          child: Card(
+                            child: InkWell(
+                                onTap: () {},
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      'Make a request',
+                                      style:
+                                          Theme.of(context).textTheme.headline1,
+                                    ),
+                                    Text('Let others help you')
+                                  ],
+                                )),
+                          ),
+                        ),
+                        //SizedBox(height: 15),
+                        Flexible(
+                          flex: 1,
+                          child: Card(
+                            child: InkWell(
+                                onTap: () {},
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      'This is another function',
+                                      style:
+                                          Theme.of(context).textTheme.headline1,
+                                    ),
+                                    Text('Let others help you')
+                                  ],
+                                )),
+                          ),
+                        ),
+                      ],
                     ),
-                  )),
+                  ),
                 ],
               ),
-            ],
+            ),
           )
         ],
       )),
