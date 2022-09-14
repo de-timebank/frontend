@@ -9,20 +9,63 @@ class ServicePage extends StatefulWidget {
 }
 
 class _ServicePageState extends State<ServicePage> {
+  bool isEmpty = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Request'),
+          title: Text('Service'),
         ),
-        body: Column(
-          children: [
-            Center(
-              child:
-                  Text('Your service is empty, try searching for a service...'),
-            ),
-          ],
-        ),
+        body: isEmpty
+            ? Center(
+                child: Text('No available service'),
+              )
+            : ListView(
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(15),
+                    child: Card(
+                      child: Row(
+                        children: [
+                          Flexible(
+                            flex: 4,
+                            child: Container(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Help Me with some Python Programming',
+                                    style:
+                                        Theme.of(context).textTheme.headline1,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text('John Smith'),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                              flex: 2,
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('3\$ Time/hour'),
+                                  ))),
+                          IconButton(
+                              onPressed: (() {}),
+                              icon: Icon(Icons.favorite_border_outlined))
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {},
           icon: Icon(Icons.search),

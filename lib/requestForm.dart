@@ -75,10 +75,14 @@ class _RequestFormState extends State<RequestForm> {
                 // SizedBox(
                 //   height: 20,
                 // ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Title'),
+                ),
                 TextFormField(
                   controller: titleController,
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(), labelText: 'Enter Title'),
+                      border: OutlineInputBorder(), hintText: 'Enter Title'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some text';
@@ -89,39 +93,10 @@ class _RequestFormState extends State<RequestForm> {
                   //   reqList[0]['Title'] = value;
                   // },
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 100,
-                      child: TextFormField(
-                        controller: rateController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Enter Rate'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter rate..';
-                          }
-                          return null;
-                        },
-                        onChanged: (value) {
-                          value.toString();
-                          reqList[0][1] = value;
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text('\$ time/hour')
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
+
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Tags'),
                 ),
                 TextFieldTags(
                   textfieldTagsController: _controller,
@@ -166,7 +141,7 @@ class _RequestFormState extends State<RequestForm> {
                           //     width: 3.0,
                           //   ),
                           // ),
-                          helperText: 'Enter Categories...',
+                          //helperText: 'Enter Categories...',
                           helperStyle: const TextStyle(
                             color: Color.fromARGB(255, 74, 137, 92),
                           ),
@@ -230,14 +205,16 @@ class _RequestFormState extends State<RequestForm> {
                     });
                   },
                 ),
-                SizedBox(
-                  height: 20,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Location'),
                 ),
                 TextFormField(
                   controller: locationController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Enter Location'),
+                      hintText: 'Enter Location',
+                      prefixIcon: Icon(Icons.map)),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some text';
@@ -245,20 +222,53 @@ class _RequestFormState extends State<RequestForm> {
                     return null;
                   },
                 ),
-                SizedBox(
-                  height: 20,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Description'),
                 ),
                 TextFormField(
                   controller: descriptionController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Enter Description'),
+                      hintText: 'Enter Description'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some text';
                     }
                     return null;
                   },
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Rate'),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: rateController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter Rate',
+                            helperText: 'Make sure you have enough \$ to pay'),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter rate..';
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          value.toString();
+                          reqList[0][1] = value;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('\$ time/hour'),
+                    ),
+                  ],
                 ),
                 ElevatedButton(
                     onPressed: () {
@@ -269,17 +279,17 @@ class _RequestFormState extends State<RequestForm> {
                       descriptionController.clear();
                       _controller.clearTags();
                       if (_formKey.currentState!.validate()) {
-                        print(reqList[0][1]);
+                        //print(reqList[0][1]);
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Processing Data')));
                       }
                     },
-                    child: const Text('Submit')),
-                ElevatedButton(
-                    onPressed: () {
-                      print(reqList[0]['Title']);
-                    },
-                    child: const Text('Check List'))
+                    child: const Text('Create Request')),
+                // ElevatedButton(
+                //     onPressed: () {
+                //       print(reqList[0]['Title']);
+                //     },
+                //     child: const Text('Check List'))
               ],
             ),
           ),

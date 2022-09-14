@@ -34,8 +34,7 @@ class _DashBoardState extends State<DashBoard> {
       appBar: AppBar(
         title: const Text('Home Page'),
       ),
-      body: Container(
-          child: Column(
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomHeadline('Your Service'),
@@ -70,13 +69,13 @@ class _DashBoardState extends State<DashBoard> {
           ),
           const Divider(
               //horizontal line
-              height: 40,
+              height: 30,
               thickness: 2,
               indent: 30,
               endIndent: 30),
           Expanded(
             child: Container(
-              margin: EdgeInsets.all(15),
+              margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
               child: Row(
                 // crossAxisAlignment: CrossAxisAlignment.stretch,
                 //mainAxisAlignment: MainAxisAlignment.center,
@@ -122,15 +121,16 @@ class _DashBoardState extends State<DashBoard> {
                       ]),
                   Expanded(
                     child: Column(
-                      //mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Flexible(
-                          flex: 1,
+                          flex: 2,
                           child: Card(
                             child: InkWell(
                                 onTap: () {},
                                 child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
                                     Text(
                                       'Make a request',
@@ -149,6 +149,8 @@ class _DashBoardState extends State<DashBoard> {
                             child: InkWell(
                                 onTap: () {},
                                 child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
                                     Text(
                                       'This is another function',
@@ -168,7 +170,7 @@ class _DashBoardState extends State<DashBoard> {
             ),
           )
         ],
-      )),
+      ),
     );
   }
 }

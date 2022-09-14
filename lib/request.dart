@@ -15,12 +15,8 @@ class _RequestPageState extends State<RequestPage> {
         appBar: AppBar(
           title: Text('Request'),
         ),
-        body: Column(
-          children: [
-            Center(
-              child: Text('Your request is empty, try adding a service...'),
-            ),
-          ],
+        body: Center(
+          child: Text('Your request is empty, try adding a request...'),
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
