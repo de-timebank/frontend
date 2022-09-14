@@ -272,16 +272,18 @@ class _RequestFormState extends State<RequestForm> {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      titleController.clear();
-                      rateController.clear();
-                      categoryController.clear();
-                      locationController.clear();
-                      descriptionController.clear();
+                      // titleController.clear();
+                      // rateController.clear();
+                      // categoryController.clear();
+                      // locationController.clear();
+                      // descriptionController.clear();
                       _controller.clearTags();
+
                       if (_formKey.currentState!.validate()) {
                         //print(reqList[0][1]);
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Processing Data')));
+                        //dispose();
                       }
                     },
                     child: const Text('Create Request')),
