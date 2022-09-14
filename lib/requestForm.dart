@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:textfield_tags/textfield_tags.dart';
+import 'requestModel.dart';
+import 'package:http/http.dart' as http;
 
 class RequestForm extends StatefulWidget {
   RequestForm({Key? key}) : super(key: key);
@@ -8,10 +10,18 @@ class RequestForm extends StatefulWidget {
   State<RequestForm> createState() => _RequestFormState();
 }
 
+// Future<RequestModel> submitData() async{
+//   var response = await http.post(url)
+// }
+
 class _RequestFormState extends State<RequestForm> {
   late TextfieldTagsController _controller;
   late double _distanceToField;
-  final myController = TextEditingController();
+  final titleController = TextEditingController();
+  final categoryController = TextEditingController();
+  final rateController = TextEditingController();
+  final locationController = TextEditingController();
+  final descriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var n = 0;
   List reqList = [
@@ -36,7 +46,11 @@ class _RequestFormState extends State<RequestForm> {
     // Clean up the controller when the widget is disposed.
     super.dispose();
     _controller.dispose();
-    myController.dispose();
+    titleController.dispose();
+    rateController.dispose();
+    categoryController.dispose();
+    locationController.dispose();
+    descriptionController.dispose();
   }
 
   @override
@@ -62,6 +76,7 @@ class _RequestFormState extends State<RequestForm> {
                 //   height: 20,
                 // ),
                 TextFormField(
+                  controller: titleController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), labelText: 'Enter Title'),
                   validator: (value) {
@@ -70,9 +85,9 @@ class _RequestFormState extends State<RequestForm> {
                     }
                     return null;
                   },
-                  onFieldSubmitted: (value) {
-                    reqList[0]['Title'] = value;
-                  },
+                  // onFieldSubmitted: (value) {
+                  //   reqList[0]['Title'] = value;
+                  // },
                 ),
                 SizedBox(
                   height: 20,
@@ -82,7 +97,7 @@ class _RequestFormState extends State<RequestForm> {
                     SizedBox(
                       width: 100,
                       child: TextFormField(
-                        //controller: myController,
+                        controller: rateController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
@@ -121,7 +136,7 @@ class _RequestFormState extends State<RequestForm> {
                   textSeparators: const [
                     ' ',
                     ','
-                  ], // when user press space, it will enter as a tag
+                  ], // when user press space or ',', it will enter as a tag
                   letterCase: LetterCase.small,
                   validator: (String tag) {
                     if (tag == 'php') {
@@ -219,6 +234,7 @@ class _RequestFormState extends State<RequestForm> {
                   height: 20,
                 ),
                 TextFormField(
+                  controller: locationController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Enter Location'),
@@ -233,6 +249,7 @@ class _RequestFormState extends State<RequestForm> {
                   height: 20,
                 ),
                 TextFormField(
+                  controller: descriptionController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Enter Description'),
@@ -245,7 +262,11 @@ class _RequestFormState extends State<RequestForm> {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      myController.clear();
+                      titleController.clear();
+                      rateController.clear();
+                      categoryController.clear();
+                      locationController.clear();
+                      descriptionController.clear();
                       _controller.clearTags();
                       if (_formKey.currentState!.validate()) {
                         print(reqList[0][1]);
