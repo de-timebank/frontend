@@ -99,12 +99,13 @@ class _DashBoardState extends State<DashBoard> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
-                                      child: Text(
-                                        'Find a service request',
-                                        // style: Theme.of(context)
-                                        //     .textTheme
-                                        //     .headline1,
-                                      ),
+                                      child: Text('Find a service request',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold)
+                                          // style: Theme.of(context)
+                                          //     .textTheme
+                                          //     .headline1,
+                                          ),
                                     ),
                                     //SizedBox(height: 10),
                                     Padding(
@@ -138,12 +139,15 @@ class _DashBoardState extends State<DashBoard> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
+                                    Text('Make a request',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)
+                                        //Theme.of(context).textTheme.headline1,
+                                        ),
                                     Text(
-                                      'Make a request',
-                                      // style:
-                                      //Theme.of(context).textTheme.headline1,
-                                    ),
-                                    Text('Let others help you')
+                                      'Let others help you',
+                                      style: TextStyle(fontSize: 13),
+                                    )
                                   ],
                                 )),
                           ),
@@ -160,12 +164,16 @@ class _DashBoardState extends State<DashBoard> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
+                                    Text('Transaction History',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)
+                                        // style:
+                                        //Theme.of(context).textTheme.headline1,
+                                        ),
                                     Text(
-                                      'Transaction History',
-                                      // style:
-                                      //Theme.of(context).textTheme.headline1,
-                                    ),
-                                    Text('View previous transactions')
+                                      'View previous transactions',
+                                      style: TextStyle(fontSize: 12),
+                                    )
                                   ],
                                 )),
                           ),

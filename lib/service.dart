@@ -25,6 +25,7 @@ class _ServicePageState extends State<ServicePage> {
                   Container(
                     margin: EdgeInsets.all(15),
                     child: Card(
+                      elevation: 5,
                       child: Row(
                         children: [
                           Flexible(
@@ -34,15 +35,16 @@ class _ServicePageState extends State<ServicePage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Help Me with some Python Programming',
-                                    // style:
-                                    //     Theme.of(context).textTheme.headline1,
-                                  ),
+                                  Text('Help Me with some Python Programming',
+                                      style:
+                                          TextStyle(fontWeight: FontWeight.bold)
+                                      //     Theme.of(context).textTheme.headline1,
+                                      ),
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  Text('John Smith'),
+                                  Text('John Smith',
+                                      style: TextStyle(fontSize: 12)),
                                 ],
                               ),
                             ),

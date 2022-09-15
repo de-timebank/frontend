@@ -44,7 +44,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       Text(
                         'Siti Fatimah Albuquerque',
-                        //style: Theme.of(context).textTheme.headline1,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                       Text('123456'),
                     ],
@@ -57,9 +58,12 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Text(
                   'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et '),
             ),
-            Text(
-              'Skilled in',
-              //style: Theme.of(context).textTheme.headline1,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Skilled in',
+                  style: TextStyle(fontWeight: FontWeight.bold)
+                  //style: Theme.of(context).textTheme.headline1,
+                  ),
             ),
             SizedBox(
               height: 50,
@@ -68,6 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 scrollDirection: Axis.horizontal,
                 children: [
                   Card(
+                    elevation: 5,
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Text('Cooking'),
@@ -75,18 +80,21 @@ class _ProfilePageState extends State<ProfilePage> {
                     margin: EdgeInsets.all(5),
                   ),
                   Card(
+                    elevation: 5,
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Text('Programming with fast typing'),
                     ),
                   ),
                   Card(
+                    elevation: 5,
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Text('This is another skill that you should'),
                     ),
                   ),
                   Card(
+                    elevation: 5,
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Text('Kill me senpai'),
@@ -106,12 +114,14 @@ class _ProfilePageState extends State<ProfilePage> {
                 Flexible(
                   flex: 1,
                   child: Card(
+                    elevation: 5,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(15.0),
-                          child: Text('Rating'),
+                          child: Text('Rating',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
                         Text('4.5')
                       ],
@@ -121,12 +131,14 @@ class _ProfilePageState extends State<ProfilePage> {
                 Flexible(
                   flex: 1,
                   child: Card(
+                    elevation: 5,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(15.0),
-                          child: Text('Service Provided'),
+                          child: Text('Service Provided',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
                         Text('2')
                       ],

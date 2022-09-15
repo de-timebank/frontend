@@ -19,8 +19,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Time Bank Blockchain',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
-        //fontFamily: GoogleFonts.inter(),
+        scaffoldBackgroundColor: Color.fromARGB(255, 234, 234, 234),
+        //primarySwatch: Colors.purple,
+        //brightness: Brightness.dark,
+        primaryColor: Color.fromARGB(255, 127, 17, 224),
+        //fontFamily: 'Georgia',
         textTheme: GoogleFonts.interTextTheme(
           Theme.of(context).textTheme,
         ),
