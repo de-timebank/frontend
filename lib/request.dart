@@ -13,12 +13,14 @@ class _RequestPageState extends State<RequestPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 127, 17, 224),
           title: Text('Request'),
         ),
         body: Center(
           child: Text('Your request is empty, try adding a request...'),
         ),
         floatingActionButton: FloatingActionButton.extended(
+          backgroundColor: Color.fromARGB(255, 127, 17, 224),
           onPressed: () {
             Navigator.push(
                 context,

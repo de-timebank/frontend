@@ -65,6 +65,7 @@ class _RequestFormState extends State<RequestForm> {
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           title: Text('Request Form'),
+          backgroundColor: Color.fromARGB(255, 127, 17, 224),
         ),
         body: Form(
           key: _formKey,

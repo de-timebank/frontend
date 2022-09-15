@@ -14,6 +14,7 @@ class _ServicePageState extends State<ServicePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 127, 17, 224),
           title: Text('Service'),
         ),
         body: isEmpty
@@ -69,6 +70,7 @@ class _ServicePageState extends State<ServicePage> {
                 ],
               ),
         floatingActionButton: FloatingActionButton.extended(
+          backgroundColor: Color.fromARGB(255, 127, 17, 224),
           onPressed: () {},
           icon: Icon(Icons.search),
           label: Text('Find Service'),
