@@ -44,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       Text(
                         'Siti Fatimah Albuquerque',
-                        style: Theme.of(context).textTheme.headline1,
+                        //style: Theme.of(context).textTheme.headline1,
                       ),
                       Text('123456'),
                     ],
@@ -59,7 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Text(
               'Skilled in',
-              style: Theme.of(context).textTheme.headline1,
+              //style: Theme.of(context).textTheme.headline1,
             ),
             SizedBox(
               height: 50,

@@ -36,8 +36,8 @@ class _ServicePageState extends State<ServicePage> {
                                 children: [
                                   Text(
                                     'Help Me with some Python Programming',
-                                    style:
-                                        Theme.of(context).textTheme.headline1,
+                                    // style:
+                                    //     Theme.of(context).textTheme.headline1,
                                   ),
                                   SizedBox(
                                     height: 10,

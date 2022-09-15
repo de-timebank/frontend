@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:testfyp/dashboard.dart';
 import 'package:testfyp/request.dart';
-//import 'package:google_fonts/google_fonts.dart';
 import 'customDrawer.dart';
 import 'customHeadline.dart';
 import 'customOngoingTask.dart';
@@ -19,21 +19,20 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Time Bank Blockchain',
       theme: ThemeData(
-          // primarySwatch: Colors.blue,
-          fontFamily: 'Inter',
-          // textTheme: GoogleFonts.interTextTheme(
-          //   Theme.of(context).textTheme,
-          // ),
-          textTheme: const TextTheme(
-              headline1: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(200, 44, 44, 44)), //color for #2c2c2c
-              // headline2: TextStyle(
-              //     fontSize: 20,
-              //     fontWeight: FontWeight.bold,
-              //     color: Color.fromARGB(200, 44, 44, 44)),
-              bodyText1: TextStyle(fontSize: 20))),
+        primarySwatch: Colors.purple,
+        //fontFamily: GoogleFonts.inter(),
+        textTheme: GoogleFonts.interTextTheme(
+          Theme.of(context).textTheme,
+        ),
+        // textTheme: const TextTheme(
+        //     headline1: TextStyle(
+        //       //fontFamily: ,
+        //         fontSize: 15,
+        //         fontWeight: FontWeight.bold,
+        //         color: Color.fromARGB(200, 44, 44, 44)), //color for #2c2c2c
+        //     bodyText1: TextStyle(fontSize: 20),
+        //     subtitle1: TextStyle(fontSize: 12))
+      ),
       home: MyHomePage(),
     );
   }
@@ -65,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Color.fromARGB(255, 41, 108, 224),
+          backgroundColor: Color.fromARGB(255, 127, 17, 224),
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(

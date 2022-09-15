@@ -33,6 +33,7 @@ class _DashBoardState extends State<DashBoard> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home Page'),
+        backgroundColor: Color.fromARGB(255, 127, 17, 224),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,7 +46,7 @@ class _DashBoardState extends State<DashBoard> {
             padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
             child: Card(
                 elevation: 5,
-                color: Colors.black54,
+                color: Color.fromARGB(255, 203, 197, 234),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
@@ -54,7 +55,8 @@ class _DashBoardState extends State<DashBoard> {
                       child: Text(
                         'Time Balance',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 24, 54, 66)),
                       ),
                     ),
                     Padding(
@@ -62,7 +64,7 @@ class _DashBoardState extends State<DashBoard> {
                       child: Text('\$time/hour: 15.50',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Colors.white)),
+                              color: Color.fromARGB(255, 24, 54, 66))),
                     )
                   ],
                 )),
@@ -86,10 +88,12 @@ class _DashBoardState extends State<DashBoard> {
                       children: [
                         Expanded(
                           child: Card(
+                            elevation: 5,
+                            color: Color.fromARGB(255, 234, 234, 234),
                             child: InkWell(
                                 onTap: () {},
                                 child: Column(
-                                  //crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
@@ -97,9 +101,9 @@ class _DashBoardState extends State<DashBoard> {
                                       padding: const EdgeInsets.all(5.0),
                                       child: Text(
                                         'Find a service request',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline1,
+                                        // style: Theme.of(context)
+                                        //     .textTheme
+                                        //     .headline1,
                                       ),
                                     ),
                                     //SizedBox(height: 10),
@@ -124,8 +128,10 @@ class _DashBoardState extends State<DashBoard> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Flexible(
-                          flex: 2,
+                          flex: 1,
                           child: Card(
+                            elevation: 5,
+                            color: Color.fromARGB(255, 234, 234, 234),
                             child: InkWell(
                                 onTap: () {},
                                 child: Column(
@@ -134,8 +140,8 @@ class _DashBoardState extends State<DashBoard> {
                                   children: [
                                     Text(
                                       'Make a request',
-                                      style:
-                                          Theme.of(context).textTheme.headline1,
+                                      // style:
+                                      //Theme.of(context).textTheme.headline1,
                                     ),
                                     Text('Let others help you')
                                   ],
@@ -146,6 +152,8 @@ class _DashBoardState extends State<DashBoard> {
                         Flexible(
                           flex: 1,
                           child: Card(
+                            elevation: 5,
+                            color: Color.fromARGB(255, 234, 234, 234),
                             child: InkWell(
                                 onTap: () {},
                                 child: Column(
@@ -153,11 +161,11 @@ class _DashBoardState extends State<DashBoard> {
                                       MainAxisAlignment.spaceAround,
                                   children: [
                                     Text(
-                                      'This is another function',
-                                      style:
-                                          Theme.of(context).textTheme.headline1,
+                                      'Transaction History',
+                                      // style:
+                                      //Theme.of(context).textTheme.headline1,
                                     ),
-                                    Text('Let others help you')
+                                    Text('View previous transactions')
                                   ],
                                 )),
                           ),
