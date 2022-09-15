@@ -66,6 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
+          unselectedItemColor: Color.fromARGB(255, 234, 234, 234),
+          selectedItemColor: Color.fromARGB(255, 203, 197, 234),
           type: BottomNavigationBarType.fixed,
           backgroundColor: Color.fromARGB(255, 127, 17, 224),
           items: <BottomNavigationBarItem>[
