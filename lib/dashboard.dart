@@ -35,16 +35,19 @@ class _DashBoardState extends State<DashBoard> {
         title: const Text('Home Page'),
         backgroundColor: Color.fromARGB(255, 127, 17, 224),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CustomHeadline('Your Service'),
-          CustomOngoingTask(listService),
-          CustomHeadline('Your Request'),
-          CustomOngoingTask(listRequest),
-          Container(
-            padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-            child: Card(
+      body: Container(
+        margin: EdgeInsets.symmetric(horizontal: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomHeadline('Your Service'),
+            CustomOngoingTask(listService),
+            CustomHeadline('Your Request'),
+            CustomOngoingTask(listRequest),
+            SizedBox(
+              height: 10,
+            ),
+            Card(
                 elevation: 5,
                 color: Color.fromARGB(255, 203, 197, 234),
                 child: Row(
@@ -68,16 +71,13 @@ class _DashBoardState extends State<DashBoard> {
                     )
                   ],
                 )),
-          ),
-          const Divider(
-              //horizontal line
-              height: 30,
-              thickness: 2,
-              indent: 30,
-              endIndent: 30),
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
+            const Divider(
+                //horizontal line
+                height: 30,
+                thickness: 2,
+                indent: 20,
+                endIndent: 20),
+            Expanded(
               child: Row(
                 // crossAxisAlignment: CrossAxisAlignment.stretch,
                 //mainAxisAlignment: MainAxisAlignment.center,
@@ -183,9 +183,9 @@ class _DashBoardState extends State<DashBoard> {
                   ),
                 ],
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

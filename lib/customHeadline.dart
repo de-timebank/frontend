@@ -8,7 +8,7 @@ class CustomHeadline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(25, 10, 0, 10),
+      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
       child: Text(
         heading,
         style: TextStyle(fontWeight: FontWeight.bold),

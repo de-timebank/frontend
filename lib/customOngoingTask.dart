@@ -15,7 +15,7 @@ class _CustomOngoingTaskState extends State<CustomOngoingTask> {
     return Container(
       height: 100,
       //width: 80,
-      margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0),
+      //margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey),
         borderRadius: BorderRadius.circular(10),
