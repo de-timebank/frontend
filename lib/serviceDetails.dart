@@ -75,7 +75,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                   const SnackBar(
                                       content: Text('Processing Data')));
                             }),
-                            child: Text('Rate')),
+                            child: Text('Bid')),
                         TextButton(
                             onPressed: (() {
                               Navigator.pop(context, 'Cancel');
