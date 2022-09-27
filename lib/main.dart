@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:testfyp/dashboard.dart';
 import 'package:testfyp/request.dart';
-import 'customDrawer.dart';
-import 'customHeadline.dart';
-import 'customOngoingTask.dart';
 import 'service.dart';
 import 'profile.dart';
 
