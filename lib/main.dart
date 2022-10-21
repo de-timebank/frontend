@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/dashboard.dart';
 import 'package:testfyp/request.dart';
 import 'service.dart';
 import 'profile.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
+  await Supabase.initialize(
+    url: '[https://qcoqbidwruiakpykidlf.supabase.co]',
+    anonKey:
+        '[eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjb3FiaWR3cnVpYWtweWtpZGxmIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjYzNDEzODYsImV4cCI6MTk4MTkxNzM4Nn0.ol5POkel6KTRNrDk7Z_yUvYhzJ7_SXbY7Yt94Wvzi-Q]',
+  );
 }
 
 class MyApp extends StatelessWidget {
