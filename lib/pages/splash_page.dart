@@ -1,18 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_quickstart/components/auth_state.dart';
+import 'package:testfyp/constants.dart';
 
 class SplashPage extends StatefulWidget {
-  const SplashPage({Key? key}) : super(key: key);
+  const SplashPage({super.key});
 
   @override
   _SplashPageState createState() => _SplashPageState();
 }
 
-class _SplashPageState extends AuthState<SplashPage> {
+class _SplashPageState extends State<SplashPage> {
+  bool _redicrectCalled = false;
   @override
-  void initState() {
-    recoverSupabaseSession();
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _redirect();
+  }
+
+  Future<void> _redirect() async {
+    await Future.delayed(Duration.zero);
+    if (_redicrectCalled || !mounted) {
+      return;
+    }
+
+    _redicrectCalled = true;
+    final session = supabase.auth.currentSession;
+    if (session != null) {
+      Navigator.of(context).pushReplacementNamed('/account');
+    } else {
+      Navigator.of(context).pushReplacementNamed('/login');
+    }
   }
 
   @override

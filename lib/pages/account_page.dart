@@ -1,40 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:supabase/supabase.dart';
-import 'package:supabase_quickstart/components/auth_required_state.dart';
-import 'package:supabase_quickstart/utils/constants.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:testfyp/components/avatar.dart';
+import 'package:testfyp/constants.dart';
 
 class AccountPage extends StatefulWidget {
-  const AccountPage({Key? key}) : super(key: key);
+  const AccountPage({super.key});
 
   @override
   _AccountPageState createState() => _AccountPageState();
 }
 
-class _AccountPageState extends AuthRequiredState<AccountPage> {
+class _AccountPageState extends State<AccountPage> {
   final _usernameController = TextEditingController();
   final _websiteController = TextEditingController();
+  String? _avatarUrl;
   var _loading = false;
 
   /// Called once a user id is received within `onAuthenticated()`
-  Future<void> _getProfile(String userId) async {
+  Future<void> _getProfile() async {
     setState(() {
       _loading = true;
     });
-    final response = await supabase
-        .from('profiles')
-        .select()
-        .eq('id', userId)
-        .single()
-        .execute();
-    final error = response.error;
-    if (error != null && response.status != 406) {
-      context.showErrorSnackBar(message: error.message);
-    }
-    final data = response.data;
-    if (data != null) {
+
+    try {
+      final userId = supabase.auth.currentUser!.id;
+      final data = await supabase
+          .from('profiles')
+          .select()
+          .eq('id', userId)
+          .single() as Map;
       _usernameController.text = (data['username'] ?? '') as String;
       _websiteController.text = (data['website'] ?? '') as String;
+      _avatarUrl = (data['avatar_url'] ?? '') as String;
+    } on PostgrestException catch (error) {
+      context.showErrorSnackBar(message: error.message);
+    } catch (error) {
+      context.showErrorSnackBar(message: 'Unexpected exception occured');
     }
+
     setState(() {
       _loading = false;
     });
@@ -54,12 +57,15 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
       'website': website,
       'updated_at': DateTime.now().toIso8601String(),
     };
-    final response = await supabase.from('profiles').upsert(updates).execute();
-    final error = response.error;
-    if (error != null) {
+    try {
+      await supabase.from('profiles').upsert(updates);
+      if (mounted) {
+        context.showSnackBar(message: 'Successfully updated profile!');
+      }
+    } on PostgrestException catch (error) {
       context.showErrorSnackBar(message: error.message);
-    } else {
-      context.showSnackBar(message: 'Successfully updated profile!');
+    } catch (error) {
+      context.showErrorSnackBar(message: 'Unexpeted error occured');
     }
     setState(() {
       _loading = false;
@@ -67,19 +73,22 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
   }
 
   Future<void> _signOut() async {
-    final response = await supabase.auth.signOut();
-    final error = response.error;
-    if (error != null) {
+    try {
+      await supabase.auth.signOut();
+    } on AuthException catch (error) {
       context.showErrorSnackBar(message: error.message);
+    } catch (error) {
+      context.showErrorSnackBar(message: 'Unexpected error occured');
+    }
+    if (mounted) {
+      Navigator.of(context).pushReplacementNamed('/');
     }
   }
 
   @override
-  void onAuthenticated(Session session) {
-    final user = session.user;
-    if (user != null) {
-      _getProfile(user.id);
-    }
+  void initState() {
+    super.initState();
+    _getProfile();
   }
 
   @override
@@ -107,10 +116,11 @@ class _AccountPageState extends AuthRequiredState<AccountPage> {
           ),
           const SizedBox(height: 18),
           ElevatedButton(
-              onPressed: _updateProfile,
-              child: Text(_loading ? 'Saving...' : 'Update')),
+            onPressed: _updateProfile,
+            child: Text(_loading ? 'Saving...' : 'Update'),
+          ),
           const SizedBox(height: 18),
-          ElevatedButton(onPressed: _signOut, child: const Text('Sign Out')),
+          TextButton(onPressed: _signOut, child: const Text('Sign Out')),
         ],
       ),
     );
