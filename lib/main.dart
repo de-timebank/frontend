@@ -4,6 +4,8 @@ import 'package:testfyp/pages/account_page.dart';
 import 'package:testfyp/pages/login_page.dart';
 import 'package:testfyp/pages/splash_page.dart';
 
+//adb shell am start -W -a android.intent.action.VIEW -d "io.supabase.flutterquickstart://login-callback/"
+
 Future<void> main() async {
   await Supabase.initialize(
     // TODO: Replace credentials with your own
