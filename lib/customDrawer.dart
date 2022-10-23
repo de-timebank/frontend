@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:testfyp/main.dart';
+import 'package:testfyp/dashboard.dart';
 import 'service.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -23,7 +23,7 @@ class CustomDrawer extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext context) => MyHomePage()));
+                      builder: (BuildContext context) => DashBoard()));
               //Navigator.pop(context); //close sidebar after user click it
             },
           ),
