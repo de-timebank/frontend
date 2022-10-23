@@ -1,8 +1,3 @@
-//  a splash screen that will be shown to
-//users right after they open the app.
-//This screen retrieves the current session
-//and redirects the user accordingly.
-
 import 'package:flutter/material.dart';
 import 'package:testfyp/constants.dart';
 

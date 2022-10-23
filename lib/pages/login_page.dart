@@ -1,15 +1,9 @@
-//Let's create a Flutter widget to manage logins and sign ups.
-//We'll use Magic Links, so users can sign in with their
-//email without using passwords. Notice that this page sets up a
-// listener on the user's auth state using onAuthStateChange.
-// A new event will fire when the user comes back to the app by
-//clicking their magic link,
-//which this page can catch and redirect the user accordingly.
-
 import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
 import 'package:testfyp/constants.dart';
 
 class LoginPage extends StatefulWidget {

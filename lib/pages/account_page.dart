@@ -1,5 +1,3 @@
-//After a user is signed in we can allow them to edit their
-//profile details and manage their account.
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/components/avatar.dart';
