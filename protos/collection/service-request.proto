@@ -1,0 +1,161 @@
+syntax = "proto3";
+package timebank.servicerequest;
+
+import "collection/service-rating.proto";
+
+service ServiceRequest {
+    rpc create (Create.Request) returns (Create.Response);
+    rpc get (Get.Request) returns (Get.Response);
+    rpc update (Update.Request) returns (Update.Response);
+    rpc delete (Delete.Request) returns (Delete.Response);
+    rpc selectBid (SelectBid.Request) returns (SelectBid.Response);
+    rpc getRating (GetRating.Request) returns (GetRating.Response);
+    rpc completeService (CompleteService.Request) returns (CompleteService.Response);
+}
+
+message TServiceRequest {    
+    message Details {
+        string title = 1;
+        string description = 2;
+    }
+    
+    message Location {
+        message Coordinate {
+            string latitude = 1;
+            string longitude = 2;
+        }
+
+        string name = 1;
+        Coordinate coordinate = 2;
+    }
+
+    enum State {
+        PENDING = 0;
+        ACCEPTED = 1;
+        ONGOING = 2;
+        COMPLETED = 3;
+        ABORTED = 4;
+    }
+
+    string id = 1;
+    string requestor = 2;
+    optional string provider = 3;
+    Location location = 4;
+    State state = 5;
+    Details details = 6;
+    repeated string media_attachments = 7;
+    float rate = 8;
+    optional string accepted_bid = 9;
+    optional string rating = 10;
+    string created_at = 11;
+    string updated_at = 12;
+} 
+
+message Create {
+    message TNewServiceRequest {
+        TServiceRequest.Details details = 1;
+        TServiceRequest.Location location = 2;
+        float rate = 3;
+        repeated string media_attachments = 4;
+    }
+
+    message Payload {
+        TNewServiceRequest request_data = 1;
+        string requestor = 2;
+    }
+
+    message Request {
+        Payload payload = 1;
+        // string auth_token = 3;
+    }
+
+    message Response {
+        TServiceRequest request = 1;
+    }
+}
+
+message Delete {
+    message Payload {
+        string request_id = 1;
+    }
+
+    message Request {
+        Payload payload = 1;
+    }
+
+    message Response {
+    }
+}
+
+message Get {
+    message Payload {
+        string column = 1;
+        string filter = 2;
+    }
+    
+    message Request {
+        Payload payload = 1;
+    }
+    
+    message Response {
+        repeated TServiceRequest requests = 1;
+    }
+}
+
+message Update {
+    message Payload {
+        string request_id = 1;
+        string update = 2;
+    }
+
+    message Request {
+        Payload payload = 1;
+    }
+
+    message Response {
+        TServiceRequest request = 1;
+    }
+}
+
+message SelectBid {
+    message Payload {
+        string request_id = 1;
+        string bid_id = 2;
+    }
+
+    message Request {
+        Payload payload = 1;
+    }
+
+    message Response {
+        TServiceRequest request = 1;
+    }
+}
+
+message GetRating {
+    message Payload {
+        string request_id = 1;
+    }
+
+    message Request {
+        Payload payload = 1;
+    }
+
+    message Response {
+        timebank.servicerating.TServiceRating rating = 1;
+    }
+}
+
+message CompleteService {
+    message Payload {
+        string request_id = 1;
+        string user_id = 2;
+    }
+
+    message Request {
+        Payload payload = 1;
+    }
+
+    message Response {
+    }
+}

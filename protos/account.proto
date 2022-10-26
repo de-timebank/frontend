@@ -1,0 +1,67 @@
+syntax = "proto3";
+package account;
+
+import "collection/service-rating.proto";
+
+service User {
+    rpc get (Get.Request) returns (Get.Response);
+    rpc update (Update.Request) returns (Update.Response);
+    rpc getRating (GetRating.Request) returns (GetRating.Response);
+}
+
+message Contact {
+    string type = 1;
+    string address = 2;
+}
+
+message TUserProfile {
+    string user_id = 1;
+    string name = 2;
+    repeated string skills = 3;
+    repeated Contact contacts = 4;
+    string created_at = 5;
+    string updated_at = 6;
+}
+
+message Get {
+    message Payload {
+        string user_id = 1;
+    }
+
+    message Request {
+        Payload payload = 1;
+    }
+
+    message Response {
+        TUserProfile user = 1;
+    }
+}
+
+message Update {
+    message Payload {
+        string user_id = 1;
+        string update = 2;
+    }
+
+    message Request {
+        Payload payload = 1;
+    }
+
+    message Response {
+        TUserProfile user = 1;
+    }
+}
+
+message GetRating {
+    message Payload {
+        string user_id = 1;
+    }
+
+    message Request {
+        Payload payload = 1;
+    }
+
+    message Response {
+        repeated timebank.servicerating.TServiceRating ratings = 1;
+    }
+}
