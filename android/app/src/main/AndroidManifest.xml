@@ -1,9 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.testfyp">
+    
    <application
         android:label="testfyp"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:networkSecurityConfig="@xml/network_security_config"
+        >
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -34,6 +37,9 @@
               <data
                 android:scheme="io.supabase.fluttercallback"
                 android:host="login-callback" />
+                <data
+                android:scheme="10.0.2.2"
+                android:host="5000" />
             </intent-filter>
       
         </activity>
