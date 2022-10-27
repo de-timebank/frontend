@@ -4,6 +4,7 @@ import 'package:testfyp/navigation.dart';
 import 'package:testfyp/pages/account_page.dart';
 import 'package:testfyp/pages/login_page.dart';
 import 'package:testfyp/pages/splash_page.dart';
+import 'package:testfyp/profile.dart';
 
 //adb shell am start -W -a android.intent.action.VIEW -d "io.supabase.flutterquickstart://login-callback/"
 
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
         '/login': (_) => const LoginPage(),
         '/account': (_) => const AccountPage(),
         '/navigation': (_) => const BottomBarNavigation(),
+        '/profile': (_) => ProfilePage(),
       },
     );
   }

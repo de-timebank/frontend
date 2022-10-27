@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:testfyp/constants.dart';
 import 'package:testfyp/pages/account_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -10,6 +12,44 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  late String _username = '';
+  late String _website = '';
+  String? _avatarUrl;
+  var _loading = false;
+
+  Future<void> _getProfile() async {
+    setState(() {
+      _loading = true;
+    });
+
+    try {
+      final userId = supabase.auth.currentUser!.id;
+      final data = await supabase
+          .from('profiles')
+          .select()
+          .eq('id', userId)
+          .single() as Map;
+      _username = (data['username'] ?? '') as String;
+      _website = (data['website'] ?? '') as String;
+      _avatarUrl = (data['avatar_url'] ?? '') as String;
+    } on PostgrestException catch (error) {
+      context.showErrorSnackBar(message: error.message);
+    } catch (error) {
+      context.showErrorSnackBar(message: 'Unexpected exception occured');
+    }
+
+    setState(() {
+      _loading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    //_getProfile();
+    Future.delayed(Duration.zero, _getProfile);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +57,7 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundColor: Color.fromARGB(255, 127, 17, 224),
         actions: [
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: const Icon(Icons.settings),
             onPressed: () {
               Navigator.push(
                   context,
@@ -51,11 +91,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Siti Fatimah Albuquerque',
+                        _username,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 15),
                       ),
-                      Text('123456'),
+                      Text(_website),
                     ],
                   ),
                 ),

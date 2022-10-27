@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/components/avatar.dart';
 import 'package:testfyp/constants.dart';
+import 'package:testfyp/pages/splash_page.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -81,7 +82,12 @@ class _AccountPageState extends State<AccountPage> {
       context.showErrorSnackBar(message: 'Unexpected error occured');
     }
     if (mounted) {
-      Navigator.of(context).pushReplacementNamed('/');
+      //Navigator.of(context).pushReplacementNamed('/');
+      Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => const SplashPage()));
     }
   }
 
