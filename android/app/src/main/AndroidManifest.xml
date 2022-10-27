@@ -38,8 +38,8 @@
                 android:scheme="io.supabase.fluttercallback"
                 android:host="login-callback" />
                 <data
-                android:scheme="10.0.2.2"
-                android:host="5000" />
+                android:scheme="127.0.0.1"
+                android:host="3000" />
             </intent-filter>
       
         </activity>

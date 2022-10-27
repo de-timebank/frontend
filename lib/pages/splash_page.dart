@@ -1,3 +1,8 @@
+//splash screen that will be shown
+//to users right after they open the app.
+//This screen retrieves the current session and
+//redirects the user accordingly.
+
 import 'package:flutter/material.dart';
 import 'package:testfyp/constants.dart';
 
@@ -25,7 +30,7 @@ class _SplashPageState extends State<SplashPage> {
     _redicrectCalled = true;
     final session = supabase.auth.currentSession;
     if (session != null) {
-      Navigator.of(context).pushReplacementNamed('/account');
+      Navigator.of(context).pushReplacementNamed('/dashboard');
     } else {
       Navigator.of(context).pushReplacementNamed('/login');
     }
