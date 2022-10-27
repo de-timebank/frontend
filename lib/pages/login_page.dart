@@ -83,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
           ElevatedButton(
               onPressed: (() {
-                Navigator.of(context).pushReplacementNamed('/dashboard');
+                Navigator.of(context).pushReplacementNamed('/navigation');
               }),
               child: Text('Skip (for developers)'))
         ],

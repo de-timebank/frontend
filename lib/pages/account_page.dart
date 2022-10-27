@@ -113,7 +113,8 @@ class _AccountPageState extends State<AccountPage> {
   @override
   void initState() {
     super.initState();
-    _getProfile();
+    //_getProfile();
+    Future.delayed(Duration.zero, _getProfile);
   }
 
   @override
@@ -126,7 +127,10 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Profile')),
+      appBar: AppBar(
+        title: const Text('Profile Settings'),
+        backgroundColor: Colors.purple,
+      ),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
         children: [
@@ -150,6 +154,12 @@ class _AccountPageState extends State<AccountPage> {
             child: Text(_loading ? 'Saving...' : 'Update'),
           ),
           const SizedBox(height: 18),
+          // ElevatedButton(
+          //   onPressed: (() {
+          //     Navigator.of(context).pushReplacementNamed('/navigation');
+          //   }),
+          //   child: Text('Go to DashBoard'),
+          // ),
           TextButton(onPressed: _signOut, child: const Text('Sign Out')),
         ],
       ),

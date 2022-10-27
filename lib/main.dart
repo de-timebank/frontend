@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:testfyp/dashboard.dart';
+import 'package:testfyp/navigation.dart';
 import 'package:testfyp/pages/account_page.dart';
 import 'package:testfyp/pages/login_page.dart';
 import 'package:testfyp/pages/splash_page.dart';
@@ -26,13 +26,13 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.purple,
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-            foregroundColor: Colors.blue,
+            foregroundColor: Colors.purple,
           ),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.white,
-            backgroundColor: Colors.blue,
+            backgroundColor: Colors.purple,
           ),
         ),
       ),
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         '/': (_) => const SplashPage(),
         '/login': (_) => const LoginPage(),
         '/account': (_) => const AccountPage(),
-        '/dashboard': (_) => DashBoard(),
+        '/navigation': (_) => const BottomBarNavigation(),
       },
     );
   }
