@@ -1,7 +1,11 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/components/avatar.dart';
 import 'package:testfyp/constants.dart';
+import 'package:testfyp/dashboard.dart';
+import 'package:testfyp/navigation.dart';
 import 'package:testfyp/pages/splash_page.dart';
 
 class AccountPage extends StatefulWidget {
@@ -14,6 +18,10 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   final _usernameController = TextEditingController();
   final _websiteController = TextEditingController();
+  final _matricController = TextEditingController();
+  final _genderController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  final _skillsController = TextEditingController(); //array?
   String? _avatarUrl;
   var _loading = false;
 
@@ -32,11 +40,15 @@ class _AccountPageState extends State<AccountPage> {
           .single() as Map;
       _usernameController.text = (data['username'] ?? '') as String;
       _websiteController.text = (data['website'] ?? '') as String;
+      _matricController.text = (data['matricNum'] ?? '') as String;
+      _genderController.text = (data['gender'] ?? '') as String;
+      _descriptionController.text = (data['description'] ?? '') as String;
+      //_skillsController.text = (data['skills'] ?? '') as Array;
       _avatarUrl = (data['avatar_url'] ?? '') as String;
     } on PostgrestException catch (error) {
       context.showErrorSnackBar(message: error.message);
     } catch (error) {
-      context.showErrorSnackBar(message: 'Unexpected exception occured');
+      context.showErrorSnackBar(message: 'Missing Description');
     }
 
     setState(() {
@@ -51,12 +63,20 @@ class _AccountPageState extends State<AccountPage> {
     });
     final userName = _usernameController.text;
     final website = _websiteController.text;
+    final matricNum = _matricController.text;
     final user = supabase.auth.currentUser;
+    final gender = _genderController.text;
+    final description = _descriptionController.text;
+    //final skills = _skillsController;
     final updates = {
       'id': user!.id,
       'username': userName,
       'website': website,
       'updated_at': DateTime.now().toIso8601String(),
+      'matricNum': matricNum,
+      'gender': gender,
+      'description': description,
+      //'skills': skills,
     };
     try {
       await supabase.from('profiles').upsert(updates);
@@ -66,7 +86,7 @@ class _AccountPageState extends State<AccountPage> {
     } on PostgrestException catch (error) {
       context.showErrorSnackBar(message: error.message);
     } catch (error) {
-      context.showErrorSnackBar(message: 'Unexpeted error occured');
+      context.showErrorSnackBar(message: 'Unable to Update Profile');
     }
     setState(() {
       _loading = false;
@@ -127,6 +147,9 @@ class _AccountPageState extends State<AccountPage> {
   void dispose() {
     _usernameController.dispose();
     _websiteController.dispose();
+    _matricController.dispose();
+    _genderController.dispose();
+    _descriptionController.dispose();
     super.dispose();
   }
 
@@ -149,6 +172,18 @@ class _AccountPageState extends State<AccountPage> {
             controller: _usernameController,
             decoration: const InputDecoration(labelText: 'User Name'),
           ),
+          TextFormField(
+            controller: _genderController,
+            decoration: const InputDecoration(labelText: 'Gender'),
+          ),
+          TextFormField(
+            controller: _matricController,
+            decoration: const InputDecoration(labelText: 'Matric Number'),
+          ),
+          TextFormField(
+            controller: _descriptionController,
+            decoration: const InputDecoration(labelText: 'Description'),
+          ),
           const SizedBox(height: 18),
           TextFormField(
             controller: _websiteController,
@@ -159,13 +194,18 @@ class _AccountPageState extends State<AccountPage> {
             onPressed: _updateProfile,
             child: Text(_loading ? 'Saving...' : 'Update'),
           ),
-          const SizedBox(height: 18),
-          // ElevatedButton(
-          //   onPressed: (() {
-          //     Navigator.of(context).pushReplacementNamed('/navigation');
-          //   }),
-          //   child: Text('Go to DashBoard'),
-          // ),
+          //const SizedBox(height: 18),
+          ElevatedButton(
+            onPressed: (() {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          BottomBarNavigation()));
+            }),
+            child: Text('Go to DashBoard'),
+          ),
           TextButton(onPressed: _signOut, child: const Text('Sign Out')),
         ],
       ),

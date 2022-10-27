@@ -49,7 +49,7 @@ class _DashBoardState extends State<DashBoard> {
             ),
             Card(
                 elevation: 5,
-                color: Color.fromARGB(255, 203, 197, 234),
+                color: Color.fromARGB(255, 219, 216, 233),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [

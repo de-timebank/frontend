@@ -10,7 +10,6 @@ import 'package:testfyp/profile.dart';
 
 Future<void> main() async {
   await Supabase.initialize(
-    // TODO: Replace credentials with your own
     url: 'https://qcoqbidwruiakpykidlf.supabase.co',
     anonKey:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjb3FiaWR3cnVpYWtweWtpZGxmIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjYzNDEzODYsImV4cCI6MTk4MTkxNzM4Nn0.ol5POkel6KTRNrDk7Z_yUvYhzJ7_SXbY7Yt94Wvzi-Q',
