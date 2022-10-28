@@ -3,18 +3,29 @@ import 'package:grpc/grpc.dart';
 import 'package:testfyp/generated/auth_proto/auth.pbgrpc.dart';
 
 class Client {
-  ClientChannel? channel;
-  AuthClient? stub;
-  var response;
-  bool executionInProgress = true;
+  //ClientChannel? channel;
+  late AuthClient stub;
 
-  // Future<Category> _sign_up(SignUp signUp)async {
+  Future<void> main() async {
+    final channel = ClientChannel('127.0.0.1', //ammar bagi
+        port: 8080,
+        options:
+            const ChannelOptions(credentials: ChannelCredentials.insecure()));
+    // var client = Client(
+    //     //client.main();
+    //     );
+    stub = AuthClient(channel,
+        options: CallOptions(timeout: const Duration(seconds: 30)));
 
-  // }
-}
+    try {
+      await SignIn();
+      await SignUp();
+    } catch (e) {
+      print('Caught error: $e');
+    }
+  }
 
-void main() {
-  var client = Client(
-      //client.main();
-      );
+  // var response;
+  // bool executionInProgress = true;
+
 }

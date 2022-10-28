@@ -1,0 +1,69 @@
+syntax = "proto3";
+package timebank.servicerating;
+
+service Rating {
+    rpc createForRequestor (Create.Request) returns (Create.Response);
+    rpc createForProvider (Create.Request) returns (Create.Response);
+    rpc getBy (GetBy.Request) returns (GetBy.Response);
+    rpc update (Update.Request) returns (Update.Response);
+    rpc delete (Delete.Request) returns (Delete.Response);
+}
+
+message RatingData {
+    string id = 1;
+    string author = 2;
+    string recipient = 3;
+    int32 value = 4;
+    string comment = 5;
+    string created_at = 6;
+    string updated_at = 7;
+    string request_id = 8;
+}
+
+message Create {
+    message NewRatingData {
+        string author = 1;
+        int32 value = 2;
+        string comment = 3;
+        string request_id = 4;
+    }
+
+    message Request {
+        NewRatingData rating = 1;
+    }
+
+    message Response {
+        RatingData rating = 1;
+    }
+}
+
+message GetBy {
+    message Request {
+        string column = 1;
+        string filter = 2;
+    }
+
+    message Response {
+        repeated RatingData ratings = 1;
+    }
+}
+
+message Update {
+    message Request {
+        string rating_id = 1;
+        string body = 2;
+    }
+
+    message Response {
+        RatingData rating = 1;
+    }
+}
+
+message Delete {
+    message Request {
+        string rating_id = 1;
+    }
+
+    message Response {
+    }
+}

@@ -11,6 +11,8 @@ service ServiceRequest {
     rpc selectBid (SelectBid.Request) returns (SelectBid.Response);
     rpc getRating (GetRating.Request) returns (GetRating.Response);
     rpc completeService (CompleteService.Request) returns (CompleteService.Response);
+    rpc getById (GetById.Request) returns (GetById.Response);
+    rpc getCommitment (GetCommitment.Request) returns (GetCommitment.Response);
 }
 
 message TServiceRequest {    
@@ -52,7 +54,7 @@ message TServiceRequest {
 } 
 
 message Create {
-    message TNewServiceRequest {
+    message NewServiceRequestData {
         TServiceRequest.Details details = 1;
         TServiceRequest.Location location = 2;
         float rate = 3;
@@ -60,13 +62,12 @@ message Create {
     }
 
     message Payload {
-        TNewServiceRequest request_data = 1;
+        NewServiceRequestData request_data = 1;
         string requestor = 2;
     }
 
     message Request {
         Payload payload = 1;
-        // string auth_token = 3;
     }
 
     message Response {
@@ -142,7 +143,7 @@ message GetRating {
     }
 
     message Response {
-        timebank.servicerating.TServiceRating rating = 1;
+        timebank.servicerating.RatingData rating = 1;
     }
 }
 
@@ -157,5 +158,40 @@ message CompleteService {
     }
 
     message Response {
+    }
+}
+
+message TServiceCommitment {
+    string requestor = 1;
+    string provider = 2;
+    uint32 amount = 3;
+    bool is_completed = 4;   
+}
+
+message GetCommitment {
+    message Payload {
+        string request_id = 1;
+    }
+
+    message Request {
+        Payload payload = 1;
+    }
+
+    message Response {
+        TServiceCommitment commitment = 1;
+    }
+}
+
+message GetById {
+    message Payload {
+        string request_id = 1;
+    }
+
+    message Request {
+        Payload payload = 1;
+    }
+
+    message Response {
+        TServiceRequest request = 1;
     }
 }
