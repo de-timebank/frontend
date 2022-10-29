@@ -28,13 +28,13 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.purple,
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-            foregroundColor: Colors.purple,
+            foregroundColor: Color.fromARGB(255, 127, 17, 224),
           ),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.white,
-            backgroundColor: Colors.purple,
+            backgroundColor: Color.fromARGB(255, 127, 17, 224),
           ),
         ),
       ),

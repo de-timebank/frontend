@@ -1,18 +1,18 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/constants.dart';
-import 'package:testfyp/pages/signUpPage.dart';
+// import 'package:testfyp/pages/signUpPage.dart';
 
 class PasswordPage extends StatefulWidget {
   const PasswordPage({super.key});
 
   @override
-  _PasswordPageState createState() => _PasswordPageState();
+  PasswordPageState createState() => PasswordPageState();
 }
 
-class _PasswordPageState extends State<PasswordPage> {
+class PasswordPageState extends State<PasswordPage> {
   bool _isLoading = false;
   //bool _redirecting = false;
   //late final TextEditingController _emailController;
@@ -73,7 +73,10 @@ class _PasswordPageState extends State<PasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Password Reset')),
+      appBar: AppBar(
+        title: const Text('Password Reset'),
+        backgroundColor: Color.fromARGB(255, 127, 17, 224),
+      ),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
         children: [

@@ -51,7 +51,11 @@ class _LoginPageState extends State<LoginPage> {
     _authStateSubscription = supabase.auth.onAuthStateChange.listen((data) {
       if (_redirecting) return;
       final session = data.session;
-      if (session != null) {
+      final AuthChangeEvent event = data.event;
+      if (event == AuthChangeEvent.passwordRecovery && session != null) {
+        // handle signIn
+        Navigator.of(context).pushReplacementNamed('/passwordReset');
+      } else if (session != null) {
         _redirecting = true;
         Navigator.of(context).pushReplacementNamed('/navigation');
       }
@@ -70,7 +74,10 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Log In')),
+      appBar: AppBar(
+        title: const Text('Log In'),
+        backgroundColor: Color.fromARGB(255, 127, 17, 224),
+      ),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
         children: [

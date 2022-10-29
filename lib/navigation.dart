@@ -28,32 +28,32 @@ class _BottomBarNavigationState extends State<BottomBarNavigation> {
     ProfilePage()
   ];
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    // _authStateSubscription = supabase.auth.onAuthStateChange.listen((data) {
-    //   if (_redirecting) return;
-    //   final session = data.session;
-    //   final AuthChangeEvent event = data.event;
-    //   if (event == AuthChangeEvent.passwordRecovery && session != null) {
-    //     // handle signIn
-    //     Navigator.of(context).pushReplacementNamed('/passwordReset');
-    //   }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   // _authStateSubscription = supabase.auth.onAuthStateChange.listen((data) {
+  //   //   if (_redirecting) return;
+  //   //   final session = data.session;
+  //   //   final AuthChangeEvent event = data.event;
+  //   //   if (event == AuthChangeEvent.passwordRecovery && session != null) {
+  //   //     // handle signIn
+  //   //     Navigator.of(context).pushReplacementNamed('/passwordReset');
+  //   //   }
 
-    //   // if (session != null) {
-    //   //   _redirecting = true;
-    //   //   Navigator.of(context).pushReplacementNamed('/passwordReset');
-    //   // }
-    // });
-    super.initState();
-  }
+  //   //   // if (session != null) {
+  //   //   //   _redirecting = true;
+  //   //   //   Navigator.of(context).pushReplacementNamed('/passwordReset');
+  //   //   // }
+  //   // });
+  //   super.initState();
+  // }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    //_authStateSubscription.cancel();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   //_authStateSubscription.cancel();
+  //   super.dispose();
+  // }
 
   void _onItemTapped(int index) {
     setState(() {

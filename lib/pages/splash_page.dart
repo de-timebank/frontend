@@ -4,7 +4,7 @@
 //redirects the user accordingly.
 
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+// import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/constants.dart';
 
 class SplashPage extends StatefulWidget {
@@ -30,7 +30,6 @@ class _SplashPageState extends State<SplashPage> {
 
     _redicrectCalled = true;
     final session = supabase.auth.currentSession;
-    //final sessionP = sup
     if (session != null) {
       Navigator.of(context).pushReplacementNamed('/navigation');
     } else {

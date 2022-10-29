@@ -158,7 +158,7 @@ class _AccountPageState extends State<AccountPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile Settings'),
-        backgroundColor: Colors.purple,
+        backgroundColor: Color.fromARGB(255, 127, 17, 224),
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
