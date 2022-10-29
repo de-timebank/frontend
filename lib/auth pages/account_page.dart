@@ -1,11 +1,11 @@
-import 'dart:ffi';
+//import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/components/avatar.dart';
-import 'package:testfyp/constants.dart';
-import 'package:testfyp/dashboard.dart';
+import 'package:testfyp/components/constants.dart';
+//import 'package:testfyp/dashboard.dart';
 import 'package:testfyp/navigation.dart';
-import 'package:testfyp/pages/splash_page.dart';
+import 'package:testfyp/auth%20pages/splash_page.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -20,8 +20,8 @@ class _AccountPageState extends State<AccountPage> {
   final _matricController = TextEditingController();
   final _genderController = TextEditingController();
   final _descriptionController = TextEditingController();
-  final _skillsController = TextEditingController(); //array?
-  String? _avatarUrl;
+  //final _skillsController = TextEditingController(); //array?
+  late String _avatarUrl = '';
   var _loading = false;
 
   /// Called once a user id is received within `onAuthenticated()`
@@ -42,8 +42,8 @@ class _AccountPageState extends State<AccountPage> {
       _matricController.text = (data['matricNum'] ?? '') as String;
       _genderController.text = (data['gender'] ?? '') as String;
       _descriptionController.text = (data['description'] ?? '') as String;
-      //_skillsController.text = (data['skills'] ?? '') as Array;
       _avatarUrl = (data['avatar_url'] ?? '') as String;
+      //_skillsController.text = (data['skills'] ?? '') as Array;
     } on PostgrestException catch (error) {
       context.showErrorSnackBar(message: error.message);
     } catch (error) {
@@ -66,6 +66,7 @@ class _AccountPageState extends State<AccountPage> {
     final user = supabase.auth.currentUser;
     final gender = _genderController.text;
     final description = _descriptionController.text;
+    //final avatar =
     //final skills = _skillsController;
     final updates = {
       'id': user!.id,
@@ -75,6 +76,7 @@ class _AccountPageState extends State<AccountPage> {
       'matricNum': matricNum,
       'gender': gender,
       'description': description,
+      //'avatar_url': _avatarUrl,
       //'skills': skills,
     };
     try {
@@ -111,7 +113,7 @@ class _AccountPageState extends State<AccountPage> {
     }
   }
 
-  /// Called when image has been uploaded to Supabase storage from within Avatar widget
+  // Called when image has been uploaded to Supabase storage from within Avatar widget
   Future<void> _onUpload(String imageUrl) async {
     try {
       final userId = supabase.auth.currentUser!.id;
@@ -158,7 +160,7 @@ class _AccountPageState extends State<AccountPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile Settings'),
-        backgroundColor: Color.fromARGB(255, 127, 17, 224),
+        // backgroundColor: Color.fromARGB(255, 127, 17, 224),
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
@@ -167,6 +169,17 @@ class _AccountPageState extends State<AccountPage> {
             imageUrl: _avatarUrl,
             onUpload: _onUpload,
           ),
+          // GestureDetector(
+          //   onTap: () {
+          //     _onUpload(_avatarUrl);
+          //   },
+          //   child: Container(
+          //       height: 150,
+          //       width: 150,
+          //       child: CircleAvatar(
+          //         backgroundImage: NetworkImage(_avatarUrl),
+          //       )),
+          // ),
           const SizedBox(height: 18),
           TextFormField(
             controller: _usernameController,

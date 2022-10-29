@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:testfyp/dashboard.dart';
-import 'service.dart';
+import 'package:testfyp/dashboard%20pages/dashboard.dart';
+import '../service pages/service.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key? key}) : super(key: key);

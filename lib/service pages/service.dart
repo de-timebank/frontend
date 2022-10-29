@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'customDrawer.dart';
 import 'serviceDetails.dart';
 
 class ServicePage extends StatefulWidget {
@@ -15,7 +14,7 @@ class _ServicePageState extends State<ServicePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 127, 17, 224),
+          // backgroundColor: Color.fromARGB(255, 127, 17, 224),
           title: Text('Service'),
         ),
         body: isEmpty

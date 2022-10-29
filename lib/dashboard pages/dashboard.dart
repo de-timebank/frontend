@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'customOngoingTask.dart';
-import 'customHeadline.dart';
+import '../custom widgets/customHeadline.dart';
+import '../custom widgets/customOngoingTask.dart';
 
 class DashBoard extends StatefulWidget {
   DashBoard({Key? key}) : super(key: key);
@@ -33,7 +33,7 @@ class _DashBoardState extends State<DashBoard> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home Page'),
-        backgroundColor: Color.fromARGB(255, 127, 17, 224),
+        // backgroundColor: Color.fromARGB(255, 127, 17, 224),
       ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 15),

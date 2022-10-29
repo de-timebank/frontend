@@ -2,7 +2,7 @@ import 'dart:async';
 // import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:testfyp/constants.dart';
+import 'package:testfyp/components/constants.dart';
 // import 'package:testfyp/pages/signUpPage.dart';
 
 class PasswordPage extends StatefulWidget {
@@ -75,7 +75,7 @@ class PasswordPageState extends State<PasswordPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Password Reset'),
-        backgroundColor: Color.fromARGB(255, 127, 17, 224),
+        // backgroundColor: Color.fromARGB(255, 127, 17, 224),
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),

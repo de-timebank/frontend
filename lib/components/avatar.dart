@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:testfyp/constants.dart';
+import 'package:testfyp/components/constants.dart';
 
 class Avatar extends StatefulWidget {
   const Avatar({
@@ -28,17 +28,28 @@ class _AvatarState extends State<Avatar> {
           Container(
             width: 150,
             height: 150,
-            color: Colors.grey,
+            decoration: BoxDecoration(
+                color: Color.fromARGB(255, 127, 17, 224),
+                shape: BoxShape.circle),
             child: const Center(
               child: Text('No Image'),
             ),
           )
         else
-          Image.network(
-            widget.imageUrl!,
-            width: 150,
-            height: 150,
-            fit: BoxFit.cover,
+          Container(
+            padding: EdgeInsets.all(7),
+            decoration: BoxDecoration(
+                color: Color.fromARGB(255, 127, 17, 224),
+                shape: BoxShape.circle),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: Image.network(
+                widget.imageUrl!,
+                width: 150,
+                height: 150,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
         ElevatedButton(
           onPressed: _isLoading ? null : _upload,

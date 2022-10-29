@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/navigation.dart';
-import 'package:testfyp/pages/account_page.dart';
-import 'package:testfyp/pages/loginPage.dart';
-import 'package:testfyp/pages/password.dart';
-import 'package:testfyp/pages/signUpPage.dart';
-import 'package:testfyp/pages/splash_page.dart';
-import 'package:testfyp/profile.dart';
+import 'package:testfyp/auth%20pages/account_page.dart';
+import 'package:testfyp/auth%20pages/loginPage.dart';
+import 'package:testfyp/auth%20pages/password.dart';
+import 'package:testfyp/auth%20pages/signUpPage.dart';
+import 'package:testfyp/auth%20pages/splash_page.dart';
+import 'package:testfyp/profile%20pages/profile.dart';
 
 //adb shell am start -W -a android.intent.action.VIEW -d "io.supabase.flutterquickstart://login-callback/"
 
@@ -24,17 +25,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Supabase Flutter',
-      theme: ThemeData.light().copyWith(
-        primaryColor: Colors.purple,
+      theme: ThemeData(
+        appBarTheme:
+            const AppBarTheme(color: Color.fromARGB(255, 127, 17, 224)),
+        primaryColor: const Color.fromARGB(255, 127, 17, 224),
+        textTheme: GoogleFonts.interTextTheme(),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-            foregroundColor: Color.fromARGB(255, 127, 17, 224),
+            foregroundColor: const Color.fromARGB(255, 127, 17, 224),
           ),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.white,
-            backgroundColor: Color.fromARGB(255, 127, 17, 224),
+            backgroundColor: const Color.fromARGB(255, 127, 17, 224),
           ),
         ),
       ),

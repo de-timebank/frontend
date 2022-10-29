@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/components/avatar.dart';
-import 'package:testfyp/constants.dart';
-import 'package:testfyp/pages/account_page.dart';
-import 'package:testfyp/pages/splash_page.dart';
+import 'package:testfyp/components/constants.dart';
+import 'package:testfyp/auth%20pages/account_page.dart';
+import 'package:testfyp/auth%20pages/splash_page.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key? key}) : super(key: key);
@@ -88,7 +88,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 127, 17, 224),
+        // backgroundColor: Color.fromARGB(255, 127, 17, 224),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -122,11 +122,23 @@ class _ProfilePageState extends State<ProfilePage> {
                       width: 150,
                       padding: EdgeInsets.all(5),
                       child: isAvatarEqual()
-                          ? CircleAvatar(
-                              backgroundColor: Colors.grey,
+                          ? Container(
+                              padding: EdgeInsets.all(7),
+                              decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 127, 17, 224),
+                                  shape: BoxShape.circle),
+                              child: CircleAvatar(
+                                backgroundColor: Colors.grey,
+                              ),
                             )
-                          : CircleAvatar(
-                              backgroundImage: NetworkImage(_avatarUrl),
+                          : Container(
+                              padding: EdgeInsets.all(7),
+                              decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 127, 17, 224),
+                                  shape: BoxShape.circle),
+                              child: CircleAvatar(
+                                backgroundImage: NetworkImage(_avatarUrl),
+                              ),
                             )),
                   SizedBox(
                     width: 8,

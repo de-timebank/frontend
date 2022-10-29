@@ -5,7 +5,7 @@
 
 import 'package:flutter/material.dart';
 // import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:testfyp/constants.dart';
+import 'package:testfyp/components/constants.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});

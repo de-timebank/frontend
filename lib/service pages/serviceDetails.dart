@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'heading2.dart';
-import 'customHeadline.dart';
+import '../custom widgets/customHeadline.dart';
+import '../custom widgets/heading2.dart';
 
 class ServiceDetails extends StatefulWidget {
   ServiceDetails({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 127, 17, 224),
+        // backgroundColor: Color.fromARGB(255, 127, 17, 224),
         title: Text('Service Details'),
       ),
       body: Padding(
