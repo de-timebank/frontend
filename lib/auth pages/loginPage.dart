@@ -74,55 +74,90 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false, //avoid keyboard overflow
       appBar: AppBar(
         title: const Text('Log In'),
         // backgroundColor: Color.fromARGB(255, 127, 17, 224),
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
-        children: [
-          const Text('Log in with your email and password'),
-          const SizedBox(height: 18),
-          TextFormField(
-            controller: _emailController,
-            decoration: const InputDecoration(labelText: 'Email'),
-          ),
-          const SizedBox(height: 18),
-          TextFormField(
-            controller: _passwordController,
-            decoration: const InputDecoration(labelText: 'Password'),
-          ),
-          const SizedBox(height: 18),
-          ElevatedButton(
-            onPressed: _isLoading ? null : _logIn,
-            child: Text(_isLoading ? 'Loading' : 'Login'),
-          ),
-          ElevatedButton(
-            onPressed: (() {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const PasswordRecoveryPage(),
-                  ));
-            }),
-            child: const Text('Forgot Password'),
-          ),
-          TextButton(
-            onPressed: (() {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SignUpPage(),
-                  ));
-            }),
-            child: const Text('Sign Up'),
-          ),
-          ElevatedButton(
+      body: Container(
+        padding: EdgeInsets.all(15),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          //padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
+          children: [
+            const Text(
+              'Budi',
+              style: TextStyle(
+                  color: Color.fromARGB(255, 127, 17, 224),
+                  fontSize: 65,
+                  fontWeight: FontWeight.bold),
+            ),
+            const Text(
+              'Blockchain-Based Time Bank',
+              style: TextStyle(
+                  color: Color.fromARGB(255, 127, 17, 224),
+                  fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            const Text('Log in with your email and password'),
+            const SizedBox(height: 18),
+            TextFormField(
+              //cursorColor: Color.fromARGB(255, 127, 17, 224),,
+              controller: _emailController,
+              //style: TextStyle(),
+
+              decoration: const InputDecoration(
+                labelText: 'Email',
+                labelStyle: TextStyle(
+                  color: Color.fromARGB(255, 127, 17, 224),
+                ),
+
+                focusedBorder: UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(color: Color.fromARGB(255, 127, 17, 224)),
+                ),
+                // suffixIconColor: Color.fromARGB(255, 127, 17, 224),
+              ),
+            ),
+            const SizedBox(height: 18),
+            TextFormField(
+              controller: _passwordController,
+              decoration: const InputDecoration(labelText: 'Password'),
+            ),
+            const SizedBox(height: 18),
+            ElevatedButton(
+              onPressed: _isLoading ? null : _logIn,
+              child: Text(_isLoading ? 'Loading' : 'Login'),
+            ),
+            ElevatedButton(
               onPressed: (() {
-                Navigator.of(context).pushNamed('/navigation');
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PasswordRecoveryPage(),
+                    ));
               }),
-              child: const Text('Skip (for developers)'))
-        ],
+              child: const Text('Forgot Password'),
+            ),
+            TextButton(
+              onPressed: (() {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SignUpPage(),
+                    ));
+              }),
+              child: const Text('Sign Up'),
+            ),
+            // ElevatedButton(
+            //     onPressed: (() {
+            //       Navigator.of(context).pushNamed('/navigation');
+            //     }),
+            //     child: const Text('Skip (for developers)'))
+          ],
+        ),
       ),
     );
   }

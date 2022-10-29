@@ -93,11 +93,11 @@ class _SignUpPageState extends State<SignUpPage> {
             onPressed: _isLoading ? null : _signIn,
             child: Text(_isLoading ? 'Loading' : 'Sign Up'),
           ),
-          ElevatedButton(
-              onPressed: (() {
-                Navigator.of(context).pushReplacementNamed('/navigation');
-              }),
-              child: Text('Skip (for developers)'))
+          // ElevatedButton(
+          //     onPressed: (() {
+          //       Navigator.of(context).pushReplacementNamed('/navigation');
+          //     }),
+          //     child: Text('Skip (for developers)'))
         ],
       ),
     );

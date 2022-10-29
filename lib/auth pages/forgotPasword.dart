@@ -111,11 +111,11 @@ class PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
             }),
             child: const Text('Sign Up'),
           ),
-          ElevatedButton(
-              onPressed: (() {
-                Navigator.of(context).pushNamed('/navigation');
-              }),
-              child: const Text('Skip (for developers)'))
+          // ElevatedButton(
+          //     onPressed: (() {
+          //       Navigator.of(context).pushNamed('/navigation');
+          //     }),
+          //     child: const Text('Skip (for developers)'))
         ],
       ),
     );
