@@ -60,20 +60,20 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     //_getProfile();
-    // supabase.auth.onAuthStateChange.listen((data) {
-    //   //final AuthChangeEvent event = data.event;
+    supabase.auth.onAuthStateChange.listen((data) {
+      final AuthChangeEvent event = data.event;
 
-    //   // if (_redirecting) return;
-    //   // final session = data.session;
-    //   // if (event == AuthChangeEvent.passwordRecovery) {
-    //   //   // handle signIn
-    //   //   Navigator.of(context).pushReplacementNamed('/passwordReset');
-    //   // }
-    //   // if (session != null) {
-    //   //   _redirecting = true;
-    //   //   Navigator.of(context).pushReplacementNamed('/dashboard');
-    //   // }
-    // });
+      // if (_redirecting) return;
+      // final session = data.session;
+      if (event == AuthChangeEvent.passwordRecovery) {
+        // handle signIn
+        Navigator.of(context).pushReplacementNamed('/passwordReset');
+      }
+      // if (session != null) {
+      //   _redirecting = true;
+      //   Navigator.of(context).pushReplacementNamed('/dashboard');
+      // }
+    });
     Future.delayed(Duration.zero, _getProfile);
   }
 

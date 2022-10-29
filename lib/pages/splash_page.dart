@@ -4,6 +4,7 @@
 //redirects the user accordingly.
 
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/constants.dart';
 
 class SplashPage extends StatefulWidget {
@@ -35,6 +36,20 @@ class _SplashPageState extends State<SplashPage> {
     } else {
       Navigator.of(context).pushReplacementNamed('/login');
     }
+    //  supabase.auth.onAuthStateChange.listen((data) {
+    //   final AuthChangeEvent event = data.event;
+
+    //   // if (_redirecting) return;
+    //   // final session = data.session;
+    //   if (event == AuthChangeEvent.passwordRecovery) {
+    //     // handle signIn
+    //     Navigator.of(context).pushReplacementNamed('/passwordReset');
+    //   }
+    //   // if (session != null) {
+    //   //   _redirecting = true;
+    //   //   Navigator.of(context).pushReplacementNamed('/dashboard');
+    //   // }
+    // });
   }
 
   @override

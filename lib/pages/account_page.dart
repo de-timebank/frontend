@@ -81,6 +81,7 @@ class _AccountPageState extends State<AccountPage> {
       await supabase.from('profiles').upsert(updates);
       if (mounted) {
         context.showSnackBar(message: 'Successfully updated profile!');
+        Navigator.pop(context);
       }
     } on PostgrestException catch (error) {
       context.showErrorSnackBar(message: error.message);

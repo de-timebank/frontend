@@ -16,6 +16,8 @@ class _PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
   bool _isLoading = false;
   bool _redirecting = false;
   late final TextEditingController _emailController;
+  late final StreamSubscription<AuthState> _authStateSubscription;
+
   //late final TextEditingController _passwordController;
   //late final StreamSubscription<AuthState> _authStateSubscription;
 
@@ -55,14 +57,27 @@ class _PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
     //     Navigator.of(context).pushReplacementNamed('/dashboard');
     //   }
     // });
-    super.initState();
+    _authStateSubscription = supabase.auth.onAuthStateChange.listen((data) {
+      if (_redirecting) return;
+      final session = data.session;
+      final AuthChangeEvent event = data.event;
+      if (event == AuthChangeEvent.passwordRecovery && session != null) {
+        // handle signIn
+        Navigator.of(context).pushReplacementNamed('/passwordReset');
+      }
+
+      // if (session != null) {
+      //   _redirecting = true;
+      //   Navigator.of(context).pushReplacementNamed('/passwordReset');
+      // }
+    });
   }
 
   @override
   void dispose() {
     _emailController.dispose();
     // _passwordController.dispose();
-    // _authStateSubscription.cancel();
+    _authStateSubscription.cancel();
     super.dispose();
   }
 

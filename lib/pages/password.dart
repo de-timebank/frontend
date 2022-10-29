@@ -34,7 +34,7 @@ class _PasswordPageState extends State<PasswordPage> {
       );
       if (mounted) {
         context.showSnackBar(message: 'Password Updated!');
-        Navigator.of(context).pushReplacementNamed('/dashboard');
+        Navigator.of(context).pushReplacementNamed('/navigation');
         _passwordController.clear();
       }
     } on AuthException catch (error) {
