@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
         '/account': (_) => const AccountPage(),
         '/navigation': (_) => const BottomBarNavigation(),
         '/profile': (_) => ProfilePage(),
-        '/passwordReset': (_) => PasswordPage(),
+        '/passwordReset': (_) => const PasswordPage(),
       },
     );
   }

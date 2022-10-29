@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/constants.dart';
@@ -40,7 +39,6 @@ class _LoginPageState extends State<LoginPage> {
     } catch (error) {
       context.showErrorSnackBar(message: 'Unexpected error occured');
     }
-
     setState(() {
       _isLoading = false;
     });
@@ -55,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
       final session = data.session;
       if (session != null) {
         _redirecting = true;
-        Navigator.of(context).pushReplacementNamed('/dashboard');
+        Navigator.of(context).pushReplacementNamed('/navigation');
       }
     });
     super.initState();
@@ -100,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                     builder: (context) => const PasswordRecoveryPage(),
                   ));
             }),
-            child: Text('Forgot Password'),
+            child: const Text('Forgot Password'),
           ),
           TextButton(
             onPressed: (() {
@@ -110,13 +108,13 @@ class _LoginPageState extends State<LoginPage> {
                     builder: (context) => const SignUpPage(),
                   ));
             }),
-            child: Text('Sign Up'),
+            child: const Text('Sign Up'),
           ),
           ElevatedButton(
               onPressed: (() {
                 Navigator.of(context).pushNamed('/navigation');
               }),
-              child: Text('Skip (for developers)'))
+              child: const Text('Skip (for developers)'))
         ],
       ),
     );
