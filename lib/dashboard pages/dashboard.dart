@@ -93,9 +93,8 @@ class _DashBoardState extends State<DashBoard> {
                             child: InkWell(
                                 onTap: () {},
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
@@ -136,17 +135,20 @@ class _DashBoardState extends State<DashBoard> {
                             child: InkWell(
                                 onTap: () {},
                                 child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text('Make a request',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)
-                                        //Theme.of(context).textTheme.headline1,
-                                        ),
+                                    Text(
+                                      'Make a request',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                      //Theme.of(context).textTheme.headline1,
+                                    ),
                                     Text(
                                       'Let others help you',
                                       style: TextStyle(fontSize: 13),
+                                      textAlign: TextAlign.center,
                                     )
                                   ],
                                 )),
@@ -161,18 +163,21 @@ class _DashBoardState extends State<DashBoard> {
                             child: InkWell(
                                 onTap: () {},
                                 child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text('Transaction History',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)
-                                        // style:
-                                        //Theme.of(context).textTheme.headline1,
-                                        ),
+                                    Text(
+                                      'Transaction History',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                      // style:
+                                      //Theme.of(context).textTheme.headline1,
+                                    ),
                                     Text(
                                       'View previous transactions',
                                       style: TextStyle(fontSize: 12),
+                                      textAlign: TextAlign.center,
                                     )
                                   ],
                                 )),
@@ -183,6 +188,9 @@ class _DashBoardState extends State<DashBoard> {
                   ),
                 ],
               ),
+            ),
+            SizedBox(
+              height: 10,
             )
           ],
         ),

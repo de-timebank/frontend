@@ -75,10 +75,10 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false, //avoid keyboard overflow
-      appBar: AppBar(
-        title: const Text('Log In'),
-        // backgroundColor: Color.fromARGB(255, 127, 17, 224),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Log In'),
+      //   // backgroundColor: Color.fromARGB(255, 127, 17, 224),
+      // ),
       body: Container(
         padding: EdgeInsets.all(15),
         child: Column(
