@@ -4,17 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/constants.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
   bool _isLoading = false;
   bool _redirecting = false;
   late final TextEditingController _emailController;
+  late final TextEditingController _passwordController;
   late final StreamSubscription<AuthState> _authStateSubscription;
 
   Future<void> _signIn() async {
@@ -22,13 +23,14 @@ class _LoginPageState extends State<LoginPage> {
       _isLoading = true;
     });
     try {
-      await supabase.auth.signInWithOtp(
+      await supabase.auth.signUp(
         email: _emailController.text,
+        password: _passwordController.text,
         emailRedirectTo:
-            kIsWeb ? null : 'io.supabase.fluttercallback://login-callback/',
+            kIsWeb ? null : 'io.supabase.fluttercallback://SignUp-callback/',
       );
       if (mounted) {
-        context.showSnackBar(message: 'Check your email for login link!');
+        context.showSnackBar(message: 'Check your email for SignUp link!');
         _emailController.clear();
       }
     } on AuthException catch (error) {
@@ -45,6 +47,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     _emailController = TextEditingController();
+    _passwordController = TextEditingController();
     _authStateSubscription = supabase.auth.onAuthStateChange.listen((data) {
       if (_redirecting) return;
       final session = data.session;
@@ -59,6 +62,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void dispose() {
     _emailController.dispose();
+    _passwordController.dispose();
     _authStateSubscription.cancel();
     super.dispose();
   }
@@ -66,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Sign In')),
+      appBar: AppBar(title: const Text('Sign Up')),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
         children: [
@@ -75,6 +79,11 @@ class _LoginPageState extends State<LoginPage> {
           TextFormField(
             controller: _emailController,
             decoration: const InputDecoration(labelText: 'Email'),
+          ),
+          const SizedBox(height: 18),
+          TextFormField(
+            controller: _passwordController,
+            decoration: const InputDecoration(labelText: 'Password'),
           ),
           const SizedBox(height: 18),
           ElevatedButton(

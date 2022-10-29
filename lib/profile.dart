@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/components/avatar.dart';
 import 'package:testfyp/constants.dart';
 import 'package:testfyp/pages/account_page.dart';
+import 'package:testfyp/pages/splash_page.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key? key}) : super(key: key);
@@ -18,6 +21,8 @@ class _ProfilePageState extends State<ProfilePage> {
   late String _matric = '';
   late String _gender = '';
   late String _desc = '';
+  bool _redirecting = false;
+  late final StreamSubscription<AuthState> _authStateSubscription;
 
   String _avatarUrl = 'asset/girl.png';
   var _loading = false;
@@ -55,6 +60,19 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     //_getProfile();
+    supabase.auth.onAuthStateChange.listen((data) {
+      final AuthChangeEvent event = data.event;
+      if (event == AuthChangeEvent.passwordRecovery) {
+        // handle signIn
+        Navigator.of(context).pushReplacementNamed('/passwordReset');
+      }
+      // if (_redirecting) return;
+      // final session = data.session;
+      // if (session != null) {
+      //   _redirecting = true;
+      //   Navigator.of(context).pushReplacementNamed('/dashboard');
+      // }
+    });
     Future.delayed(Duration.zero, _getProfile);
   }
 
