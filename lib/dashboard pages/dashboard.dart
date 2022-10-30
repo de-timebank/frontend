@@ -32,7 +32,7 @@ class _DashBoardState extends State<DashBoard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Page'),
+        title: const Text('Dashboard'),
         // backgroundColor: Color.fromARGB(255, 127, 17, 224),
       ),
       body: Container(

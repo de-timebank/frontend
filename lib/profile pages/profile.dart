@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -61,14 +60,14 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     //_getProfile();
     supabase.auth.onAuthStateChange.listen((data) {
-      final AuthChangeEvent event = data.event;
+      // final AuthChangeEvent event = data.event;
 
       // if (_redirecting) return;
       // final session = data.session;
-      if (event == AuthChangeEvent.passwordRecovery) {
-        // handle signIn
-        Navigator.of(context).pushReplacementNamed('/passwordReset');
-      }
+      // if (event == AuthChangeEvent.passwordRecovery) {
+      //   // handle signIn
+      //   Navigator.of(context).pushReplacementNamed('/passwordReset');
+      // }
       // if (session != null) {
       //   _redirecting = true;
       //   Navigator.of(context).pushReplacementNamed('/dashboard');
@@ -97,6 +96,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const AccountPage(),
+                  )).then((value) => setState(
+                    () {
+                      _getProfile();
+                    },
                   ));
             },
           )

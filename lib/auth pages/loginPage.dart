@@ -74,19 +74,21 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false, //avoid keyboard overflow
+      //resizeToAvoidBottomInset: false, //avoid keyboard overflow
       // appBar: AppBar(
       //   title: const Text('Log In'),
       //   // backgroundColor: Color.fromARGB(255, 127, 17, 224),
       // ),
-      body: Container(
-        padding: EdgeInsets.all(15),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: Center(
+        child: ListView(
+          shrinkWrap: true,
+          padding: const EdgeInsets.all(15),
+          //mainAxisAlignment: MainAxisAlignment.center,
           //padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
           children: [
             const Text(
               'Budi',
+              textAlign: TextAlign.center,
               style: TextStyle(
                   color: Color.fromARGB(255, 127, 17, 224),
                   fontSize: 65,
@@ -94,6 +96,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const Text(
               'Blockchain-Based Time Bank',
+              textAlign: TextAlign.center,
               style: TextStyle(
                   color: Color.fromARGB(255, 127, 17, 224),
                   fontWeight: FontWeight.w600),
@@ -101,7 +104,10 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(
               height: 5,
             ),
-            const Text('Log in with your email and password'),
+            const Text(
+              'Log in with your email and password',
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(height: 18),
             TextFormField(
               //cursorColor: Color.fromARGB(255, 127, 17, 224),,

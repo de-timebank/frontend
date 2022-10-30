@@ -32,6 +32,7 @@ class _SignUpPageState extends State<SignUpPage> {
       if (mounted) {
         context.showSnackBar(message: 'Check your email for SignUp link!');
         _emailController.clear();
+        _passwordController.clear();
       }
     } on AuthException catch (error) {
       context.showErrorSnackBar(message: error.message);

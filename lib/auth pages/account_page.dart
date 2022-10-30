@@ -101,7 +101,7 @@ class _AccountPageState extends State<AccountPage> {
     } on AuthException catch (error) {
       context.showErrorSnackBar(message: error.message);
     } catch (error) {
-      context.showErrorSnackBar(message: 'Unexpected error occured');
+      context.showErrorSnackBar(message: 'Unable to signout');
     }
     if (mounted) {
       //Navigator.of(context).pushReplacementNamed('/');
@@ -169,17 +169,6 @@ class _AccountPageState extends State<AccountPage> {
             imageUrl: _avatarUrl,
             onUpload: _onUpload,
           ),
-          // GestureDetector(
-          //   onTap: () {
-          //     _onUpload(_avatarUrl);
-          //   },
-          //   child: Container(
-          //       height: 150,
-          //       width: 150,
-          //       child: CircleAvatar(
-          //         backgroundImage: NetworkImage(_avatarUrl),
-          //       )),
-          // ),
           const SizedBox(height: 18),
           TextFormField(
             controller: _usernameController,
