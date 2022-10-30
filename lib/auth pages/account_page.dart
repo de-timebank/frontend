@@ -5,7 +5,7 @@ import 'package:testfyp/components/avatar.dart';
 import 'package:testfyp/components/constants.dart';
 //import 'package:testfyp/dashboard.dart';
 import 'package:testfyp/navigation.dart';
-import 'package:testfyp/auth%20pages/splash_page.dart';
+import 'package:testfyp/splash_page.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -31,7 +31,7 @@ class _AccountPageState extends State<AccountPage> {
     });
 
     try {
-      final userId = supabase.auth.currentUser!.id;
+      final userId = supabase.auth.currentUser!.id; //map the user ID
       final data = await supabase
           .from('profiles')
           .select()
@@ -45,7 +45,11 @@ class _AccountPageState extends State<AccountPage> {
       _avatarUrl = (data['avatar_url'] ?? '') as String;
       //_skillsController.text = (data['skills'] ?? '') as Array;
     } on PostgrestException catch (error) {
-      context.showErrorSnackBar(message: error.message);
+      if (_usernameController.text == '') {
+        context.showSnackBar(message: 'Welcome to BUDI!');
+      } else {
+        context.showErrorSnackBar(message: error.message);
+      }
     } catch (error) {
       context.showErrorSnackBar(message: 'Missing Description');
     }
@@ -83,7 +87,11 @@ class _AccountPageState extends State<AccountPage> {
       await supabase.from('profiles').upsert(updates);
       if (mounted) {
         context.showSnackBar(message: 'Successfully updated profile!');
-        Navigator.pop(context);
+        Navigator.of(context).popUntil((route) => route.isFirst);
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => const SplashPage()));
       }
     } on PostgrestException catch (error) {
       context.showErrorSnackBar(message: error.message);

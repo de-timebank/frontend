@@ -14,25 +14,40 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   bool _isLoading = false;
   bool _redirecting = false;
+  bool _passwordVisible = false;
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
   late final StreamSubscription<AuthState> _authStateSubscription;
 
   Future<void> _signIn() async {
+    //final session = supabase.auth.currentSession;
+    // final userId = supabase.auth.currentUser!.id; //map the user ID
+    // final data = await supabase.from('profiles').select().eq('id', userId);
+    // print('The data is' + data['username']);
     setState(() {
       _isLoading = true;
     });
     try {
-      await supabase.auth.signUp(
+      final response = await supabase.auth.signUp(
         email: _emailController.text,
         password: _passwordController.text,
         emailRedirectTo:
             kIsWeb ? null : 'io.supabase.fluttercallback://SignUp-callback/',
       );
-      if (mounted) {
+
+      // ERROR: Prompt the user to try again!
+      print(response.user!.identities);
+      // if (session != null) {!
+      //   context.showSnackBar(message: 'User Already Registered!!');
+      // }
+      if (response.user!.identities!.isEmpty) {
+        context.showSnackBar(message: 'User Already Registered!!');
+        // _emailController.clear();
+        // _passwordController.clear();
+      } else if (mounted) {
         context.showSnackBar(message: 'Check your email for SignUp link!');
-        _emailController.clear();
-        _passwordController.clear();
+        // _emailController.clear();
+        // _passwordController.clear();
       }
     } on AuthException catch (error) {
       context.showErrorSnackBar(message: error.message);
@@ -57,6 +72,7 @@ class _SignUpPageState extends State<SignUpPage> {
         Navigator.of(context).pushReplacementNamed('/account');
       }
     });
+
     super.initState();
   }
 
@@ -82,12 +98,30 @@ class _SignUpPageState extends State<SignUpPage> {
           const SizedBox(height: 18),
           TextFormField(
             controller: _emailController,
-            decoration: const InputDecoration(labelText: 'Email'),
+            decoration: const InputDecoration(
+              labelText: 'Email',
+            ),
           ),
           const SizedBox(height: 18),
           TextFormField(
             controller: _passwordController,
-            decoration: const InputDecoration(labelText: 'Password'),
+            obscureText: !_passwordVisible,
+            decoration: InputDecoration(
+              labelText: 'Password',
+              suffixIcon: IconButton(
+                icon: Icon(
+                  // Based on passwordVisible state choose the icon
+                  _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: Theme.of(context).primaryColor,
+                ),
+                onPressed: () {
+                  // Update the state i.e. toogle the state of passwordVisible variable
+                  setState(() {
+                    _passwordVisible = !_passwordVisible;
+                  });
+                },
+              ),
+            ),
           ),
           const SizedBox(height: 18),
           ElevatedButton(

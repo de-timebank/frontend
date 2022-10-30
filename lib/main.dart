@@ -6,7 +6,7 @@ import 'package:testfyp/auth%20pages/account_page.dart';
 import 'package:testfyp/auth%20pages/loginPage.dart';
 import 'package:testfyp/auth%20pages/password.dart';
 import 'package:testfyp/auth%20pages/signUpPage.dart';
-import 'package:testfyp/auth%20pages/splash_page.dart';
+import 'package:testfyp/splash_page.dart';
 import 'package:testfyp/profile%20pages/profile.dart';
 
 //adb shell am start -W -a android.intent.action.VIEW -d "io.supabase.flutterquickstart://login-callback/"

@@ -42,7 +42,9 @@ class _SplashPageState extends State<SplashPage> {
     }
 
     _redicrectCalled = true;
+
     final session = supabase.auth.currentSession;
+
     if (session != null) {
       Navigator.of(context).pushReplacementNamed('/navigation');
     } else {

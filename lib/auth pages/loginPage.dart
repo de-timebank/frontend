@@ -15,6 +15,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool _isLoading = false;
   bool _redirecting = false;
+  bool _passwordVisible = false;
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
   late final StreamSubscription<AuthState> _authStateSubscription;
@@ -37,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
     } on AuthException catch (error) {
       context.showErrorSnackBar(message: error.message);
     } catch (error) {
-      context.showErrorSnackBar(message: 'Unexpected error occured');
+      context.showErrorSnackBar(message: 'User is already registered');
     }
     setState(() {
       _isLoading = false;
@@ -130,7 +131,23 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 18),
             TextFormField(
               controller: _passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
+              obscureText: !_passwordVisible,
+              decoration: InputDecoration(
+                labelText: 'Password',
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    // Based on passwordVisible state choose the icon
+                    _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  onPressed: () {
+                    // Update the state i.e. toogle the state of passwordVisible variable
+                    setState(() {
+                      _passwordVisible = !_passwordVisible;
+                    });
+                  },
+                ),
+              ),
             ),
             const SizedBox(height: 18),
             ElevatedButton(

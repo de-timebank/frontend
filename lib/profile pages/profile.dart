@@ -5,7 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/components/avatar.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/auth%20pages/account_page.dart';
-import 'package:testfyp/auth%20pages/splash_page.dart';
+import 'package:testfyp/splash_page.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key? key}) : super(key: key);
