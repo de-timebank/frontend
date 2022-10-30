@@ -1,10 +1,10 @@
 syntax = "proto3";
-package timebank.servicerating;
+package timebank.rating;
 
 service Rating {
     rpc createForRequestor (Create.Request) returns (Create.Response);
     rpc createForProvider (Create.Request) returns (Create.Response);
-    rpc getBy (GetBy.Request) returns (GetBy.Response);
+    rpc get (Get.Request) returns (Get.Response);
     rpc update (Update.Request) returns (Update.Response);
     rpc delete (Delete.Request) returns (Delete.Response);
 }
@@ -37,10 +37,10 @@ message Create {
     }
 }
 
-message GetBy {
+message Get {
     message Request {
-        string column = 1;
-        string filter = 2;
+        string key = 1;
+        string value = 2;
     }
 
     message Response {

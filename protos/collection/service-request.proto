@@ -1,21 +1,21 @@
 syntax = "proto3";
 package timebank.servicerequest;
 
-import "collection/service-rating.proto";
+import "collection/rating.proto";
 
 service ServiceRequest {
     rpc create (Create.Request) returns (Create.Response);
     rpc get (Get.Request) returns (Get.Response);
+    rpc getById (GetById.Request) returns (GetById.Response);
     rpc update (Update.Request) returns (Update.Response);
     rpc delete (Delete.Request) returns (Delete.Response);
-    rpc selectBid (SelectBid.Request) returns (SelectBid.Response);
-    rpc getRating (GetRating.Request) returns (GetRating.Response);
+    rpc applyProvider (ApplyProvider.Request) returns (ApplyProvider.Response);
+    rpc selectProvider (SelectProvider.Request) returns (SelectProvider.Response);
     rpc completeService (CompleteService.Request) returns (CompleteService.Response);
-    rpc getById (GetById.Request) returns (GetById.Response);
     rpc getCommitment (GetCommitment.Request) returns (GetCommitment.Response);
 }
 
-message TServiceRequest {    
+message ServiceRequestData {    
     message Details {
         string title = 1;
         string description = 2;
@@ -47,41 +47,33 @@ message TServiceRequest {
     Details details = 6;
     repeated string media_attachments = 7;
     float rate = 8;
-    optional string accepted_bid = 9;
-    optional string rating = 10;
-    string created_at = 11;
-    string updated_at = 12;
+    repeated string applicants = 9;
+    string created_at = 10;
+    string updated_at = 11;
+    optional string completed_at = 12;
 } 
 
 message Create {
     message NewServiceRequestData {
-        TServiceRequest.Details details = 1;
-        TServiceRequest.Location location = 2;
+        ServiceRequestData.Details details = 1;
+        ServiceRequestData.Location location = 2;
         float rate = 3;
         repeated string media_attachments = 4;
     }
 
-    message Payload {
+    message Request {
         NewServiceRequestData request_data = 1;
         string requestor = 2;
     }
 
-    message Request {
-        Payload payload = 1;
-    }
-
     message Response {
-        TServiceRequest request = 1;
+        ServiceRequestData request = 1;
     }
 }
 
 message Delete {
-    message Payload {
-        string request_id = 1;
-    }
-
     message Request {
-        Payload payload = 1;
+        string request_id = 1;
     }
 
     message Response {
@@ -89,79 +81,48 @@ message Delete {
 }
 
 message Get {
-    message Payload {
-        string column = 1;
-        string filter = 2;
-    }
-    
     message Request {
-        Payload payload = 1;
+        string key = 1;
+        string value = 2;
     }
     
     message Response {
-        repeated TServiceRequest requests = 1;
+        repeated ServiceRequestData requests = 1;
+    }
+}
+
+message GetById {
+    message Request {
+        string request_id = 1;
+    }
+
+    message Response {
+        ServiceRequestData request = 1;
     }
 }
 
 message Update {
-    message Payload {
-        string request_id = 1;
-        string update = 2;
-    }
-
     message Request {
-        Payload payload = 1;
+        string request_id = 1;
+        string body = 2;
     }
 
     message Response {
-        TServiceRequest request = 1;
-    }
-}
-
-message SelectBid {
-    message Payload {
-        string request_id = 1;
-        string bid_id = 2;
-    }
-
-    message Request {
-        Payload payload = 1;
-    }
-
-    message Response {
-        TServiceRequest request = 1;
-    }
-}
-
-message GetRating {
-    message Payload {
-        string request_id = 1;
-    }
-
-    message Request {
-        Payload payload = 1;
-    }
-
-    message Response {
-        timebank.servicerating.RatingData rating = 1;
+        ServiceRequestData request = 1;
     }
 }
 
 message CompleteService {
-    message Payload {
+    message Request {
         string request_id = 1;
         string user_id = 2;
-    }
-
-    message Request {
-        Payload payload = 1;
     }
 
     message Response {
     }
 }
 
-message TServiceCommitment {
+message ServiceCommitmentData {
     string requestor = 1;
     string provider = 2;
     uint32 amount = 3;
@@ -169,29 +130,32 @@ message TServiceCommitment {
 }
 
 message GetCommitment {
-    message Payload {
+    message Request {
         string request_id = 1;
     }
 
-    message Request {
-        Payload payload = 1;
-    }
-
     message Response {
-        TServiceCommitment commitment = 1;
+        ServiceCommitmentData commitment = 1;
     }
 }
 
-message GetById {
-    message Payload {
-        string request_id = 1;
-    }
-
+message ApplyProvider {
     message Request {
-        Payload payload = 1;
+        string request_id = 1;
+        string provider = 2;
     }
 
     message Response {
-        TServiceRequest request = 1;
+    }
+}
+
+message SelectProvider {
+    message Request {
+        string request_id = 1;
+        string provider = 2;
+        string caller = 3;
+    }
+
+    message Response {
     }
 }
