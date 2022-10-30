@@ -36,16 +36,16 @@ class _SignUpPageState extends State<SignUpPage> {
       );
 
       // ERROR: Prompt the user to try again!
-      print(response.user!.identities);
+      print(response.user!.identities!.length);
       // if (session != null) {!
       //   context.showSnackBar(message: 'User Already Registered!!');
       // }
-      if (response.user!.identities!.isEmpty) {
+      if (response.user!.identities!.length == 0) {
         context.showSnackBar(message: 'User Already Registered!!');
         // _emailController.clear();
         // _passwordController.clear();
       } else if (mounted) {
-        context.showSnackBar(message: 'Check your email for SignUp link!');
+        context.showSnackBar(message: 'Check your email for sign up link!');
         // _emailController.clear();
         // _passwordController.clear();
       }

@@ -7,6 +7,8 @@ import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/navigation.dart';
 import 'package:testfyp/splash_page.dart';
 
+import '../profile pages/profile.dart';
+
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
 
@@ -91,7 +93,7 @@ class _AccountPageState extends State<AccountPage> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (BuildContext context) => const SplashPage()));
+                builder: (BuildContext context) => ProfilePage()));
       }
     } on PostgrestException catch (error) {
       context.showErrorSnackBar(message: error.message);
@@ -135,7 +137,7 @@ class _AccountPageState extends State<AccountPage> {
     } on PostgrestException catch (error) {
       context.showErrorSnackBar(message: error.message);
     } catch (error) {
-      context.showErrorSnackBar(message: 'Unexpected error has occured');
+      context.showErrorSnackBar(message: 'Unable to change picture');
     }
     if (!mounted) {
       return;
