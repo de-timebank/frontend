@@ -93,7 +93,7 @@ class _AccountPageState extends State<AccountPage> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (BuildContext context) => ProfilePage()));
+                builder: (BuildContext context) => BottomBarNavigation()));
       }
     } on PostgrestException catch (error) {
       context.showErrorSnackBar(message: error.message);
