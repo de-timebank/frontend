@@ -36,7 +36,7 @@ class _SignUpPageState extends State<SignUpPage> {
       );
 
       // ERROR: Prompt the user to try again!
-      print(response.user!.identities!.length);
+      // print(response.user!.identities!.length);
       // if (session != null) {!
       //   context.showSnackBar(message: 'User Already Registered!!');
       // }
@@ -108,6 +108,7 @@ class _SignUpPageState extends State<SignUpPage> {
             obscureText: !_passwordVisible,
             decoration: InputDecoration(
               labelText: 'Password',
+              helperText: 'Do not close this page when signing up',
               suffixIcon: IconButton(
                 icon: Icon(
                   // Based on passwordVisible state choose the icon

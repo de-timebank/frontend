@@ -109,7 +109,7 @@ class _AccountPageState extends State<AccountPage> {
     try {
       await supabase.auth.signOut();
     } on AuthException catch (error) {
-      context.showErrorSnackBar(message: error.message);
+      context.showErrorSnackBar(message: 'error signing out');
     } catch (error) {
       context.showErrorSnackBar(message: 'Unable to signout');
     }

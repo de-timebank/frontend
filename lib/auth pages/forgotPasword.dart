@@ -6,6 +6,8 @@ import 'package:testfyp/components/constants.dart';
 //import 'package:testfyp/pages/password.dart';
 import 'package:testfyp/auth%20pages/signUpPage.dart';
 
+import '../splash_page.dart';
+
 class PasswordRecoveryPage extends StatefulWidget {
   const PasswordRecoveryPage({super.key});
 
@@ -18,6 +20,7 @@ class PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
   bool _redirecting = false;
   late final TextEditingController _emailController;
   late final StreamSubscription<AuthState> _authStateSubscription;
+  //final session = supabase.auth.currentSession;
   //late final TextEditingController _passwordController;
   //late final StreamSubscription<AuthState> _authStateSubscription;
   Future<void> _passwordRecover() async {
@@ -29,10 +32,26 @@ class PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
         _emailController.text,
         redirectTo: kIsWeb ? null : 'io.supabase.flutter://reset-callback/',
       );
+      // final data = await supabase
+      //     .from('profiles')
+      //     .select()
+      //     .eq('Email', _emailController.text);
+      // print(data);
+      //final session = supabase.auth.currentSession;
+      //print(session!.user.id.length);
+      //print(object)
+      // if (response.user!.identities!.length == 0) {
+      //   context.showSnackBar(message: 'User Already Registered!!');
+      //   // _emailController.clear();
+      //   // _passwordController.clear();
+      // } else
       if (mounted) {
         context.showSnackBar(
             message: 'Check your email for password recovery!');
-        _emailController.clear();
+        // _emailController.clear();
+        // Navigator.of(context).popUntil((route) => route.isFirst);
+        // Navigator.pushReplacement(context,
+        //     MaterialPageRoute(builder: (BuildContext context) => SplashPage()));
       }
     } on AuthException catch (error) {
       context.showErrorSnackBar(message: error.message);
@@ -51,6 +70,7 @@ class PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
       if (_redirecting) return;
       final session = data.session;
       final AuthChangeEvent event = data.event;
+      //print(event);
       if (event == AuthChangeEvent.passwordRecovery && session != null) {
         // handle signIn
         Navigator.of(context).pushReplacementNamed('/passwordReset');
@@ -75,7 +95,7 @@ class PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Password Recovery'),
+        title: const Text('Password Change'),
         // backgroundColor: Color.fromARGB(255, 127, 17, 224),
       ),
       body: ListView(
@@ -85,14 +105,17 @@ class PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
           const SizedBox(height: 18),
           TextFormField(
             controller: _emailController,
-            decoration: const InputDecoration(labelText: 'Email'),
+            decoration: const InputDecoration(
+                labelText: 'Email',
+                //hintText: 'Do not close this page during password change',
+                helperText: 'Do not close this page during password change'),
           ),
           // const SizedBox(height: 18),
           // TextFormField(
           //   controller: _passwordController,
           //   decoration: const InputDecoration(labelText: 'Password'),
           // ),
-          // const SizedBox(height: 18),
+          const SizedBox(height: 10),
           ElevatedButton(
             onPressed: _isLoading ? null : _passwordRecover,
             child: Text(_isLoading ? 'Loading' : 'Submit'),

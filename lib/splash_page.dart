@@ -5,7 +5,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+//import 'package:supabase_flutter/supabase_flutter.dart';
 // import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/components/constants.dart';
 
@@ -17,23 +17,32 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  bool _redirecting = false;
-  late final StreamSubscription<AuthState> _authStateSubscription;
+  //bool _redirecting = false;
+  //late final StreamSubscription<AuthState> _authStateSubscription;
   bool _redicrectCalled = false;
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _authStateSubscription = supabase.auth.onAuthStateChange.listen((data) {
-      if (_redirecting) return;
-      final session1 = data.session;
-      final AuthChangeEvent event = data.event;
-      if (event == AuthChangeEvent.passwordRecovery && session1 != null) {
-        // handle signIn
-        Navigator.of(context).pushReplacementNamed('/passwordReset');
-      }
-    });
+    //_passwordRecovery();
     _redirect();
   }
+
+  // Future<void> _passwordRecovery() async {
+  //   _authStateSubscription = supabase.auth.onAuthStateChange.listen((data) {
+  //     //if (_redirecting) return;
+  //     final session = data.session;
+  //     final AuthChangeEvent event = data.event;
+  //     //print(event);
+  //     if (event == AuthChangeEvent.passwordRecovery && session != null) {
+  //       // handle signIn
+  //       Navigator.of(context).pushReplacementNamed('/passwordReset');
+  //     }
+  //     // Navigator.pushReplacement(
+  //     //     context,
+  //     //     MaterialPageRoute(
+  //     //         builder: (BuildContext context) => const PasswordPage()));
+  //   });
+  // }
 
   Future<void> _redirect() async {
     await Future.delayed(Duration.zero);
@@ -44,6 +53,16 @@ class _SplashPageState extends State<SplashPage> {
     _redicrectCalled = true;
 
     final session = supabase.auth.currentSession;
+    //print('The session is ' + session.toString());
+    // _authStateSubscription = supabase.auth.onAuthStateChange.listen((data) {
+    //   //if (_redirecting) return;
+    //   final session1 = data.session;
+    //   final AuthChangeEvent event = data.event;
+    //   if (event == AuthChangeEvent.passwordRecovery && session1 != null) {
+    //     // handle signIn
+    //     Navigator.of(context).pushReplacementNamed('/passwordReset');
+    //   } else
+    // });
 
     if (session != null) {
       Navigator.of(context).pushReplacementNamed('/navigation');
@@ -52,17 +71,24 @@ class _SplashPageState extends State<SplashPage> {
     }
   }
 
+  @override
+  void dispose() {
+    //_authStateSubscription.cancel();
+    super.dispose();
+  }
+
   // @override
   // void initState() {
   //   _authStateSubscription = supabase.auth.onAuthStateChange.listen((data) {
-  //     if (_redirecting) return;
+  //     //if (_redirecting) return;
   //     final session = data.session;
   //     final AuthChangeEvent event = data.event;
-  //     if (event == AuthChangeEvent.passwordRecovery && session != null) {
+  //     if (event == AuthChangeEvent.passwordRecovery) {
   //       // handle signIn
   //       Navigator.of(context).pushReplacementNamed('/passwordReset');
   //     }
   //   });
+  //   _redirect();
   //   super.initState();
   // }
 

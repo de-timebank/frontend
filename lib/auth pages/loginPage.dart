@@ -52,11 +52,12 @@ class _LoginPageState extends State<LoginPage> {
     _authStateSubscription = supabase.auth.onAuthStateChange.listen((data) {
       if (_redirecting) return;
       final session = data.session;
-      final AuthChangeEvent event = data.event;
-      if (event == AuthChangeEvent.passwordRecovery && session != null) {
-        // handle signIn
-        Navigator.of(context).pushReplacementNamed('/passwordReset');
-      } else if (session != null) {
+      // final AuthChangeEvent event = data.event;
+      // if (event == AuthChangeEvent.passwordRecovery && session != null) {
+      //   // handle signIn
+      //   Navigator.of(context).pushReplacementNamed('/passwordReset');
+      // } else
+      if (session != null) {
         _redirecting = true;
         Navigator.of(context).pushReplacementNamed('/navigation');
       }
