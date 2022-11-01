@@ -89,12 +89,11 @@ class _AccountPageState extends State<AccountPage> {
       await supabase.from('profiles').upsert(updates);
       if (mounted) {
         context.showSnackBar(message: 'Successfully updated profile!');
-        Navigator.of(context).pop();
-        // Navigator.of(context).popUntil((route) => route.isFirst);
-        // Navigator.pushReplacement(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (BuildContext context) => BottomBarNavigation()));
+        Navigator.of(context).popUntil((route) => route.isFirst);
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => BottomBarNavigation()));
       }
     } on PostgrestException catch (error) {
       context.showErrorSnackBar(message: error.message);
