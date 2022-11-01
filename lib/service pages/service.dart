@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'customDrawer.dart';
 import 'serviceDetails.dart';
 
 class ServicePage extends StatefulWidget {
@@ -15,7 +14,7 @@ class _ServicePageState extends State<ServicePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 127, 17, 224),
+          // backgroundColor: Color.fromARGB(255, 127, 17, 224),
           title: Text('Service'),
         ),
         body: isEmpty
@@ -97,6 +96,7 @@ class _ServicePageState extends State<ServicePage> {
                           //         )));
                         },
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Flexible(
                               flex: 4,
@@ -120,19 +120,26 @@ class _ServicePageState extends State<ServicePage> {
                               ),
                             ),
                             Flexible(
-                                flex: 2,
+                                flex: 3,
                                 child: Container(
                                     decoration: BoxDecoration(
-                                        color: Colors.grey,
+                                        color:
+                                            Color.fromARGB(255, 219, 216, 233),
                                         borderRadius:
                                             BorderRadius.circular(10)),
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Text('3\$ Time/hour'),
+                                      child: Text(
+                                        '3\$ Time/hour',
+                                        style: TextStyle(fontSize: 11),
+                                      ),
                                     ))),
-                            IconButton(
-                                onPressed: (() {}),
-                                icon: Icon(Icons.favorite_border_outlined))
+                            Flexible(
+                              flex: 1,
+                              child: IconButton(
+                                  onPressed: (() {}),
+                                  icon: Icon(Icons.favorite_border_outlined)),
+                            )
                           ],
                         ),
                       ),

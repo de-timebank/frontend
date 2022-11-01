@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'customOngoingTask.dart';
-import 'customHeadline.dart';
+import '../custom widgets/customHeadline.dart';
+import '../custom widgets/customOngoingTask.dart';
 
 class DashBoard extends StatefulWidget {
   DashBoard({Key? key}) : super(key: key);
@@ -32,8 +32,8 @@ class _DashBoardState extends State<DashBoard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Page'),
-        backgroundColor: Color.fromARGB(255, 127, 17, 224),
+        title: const Text('Dashboard'),
+        // backgroundColor: Color.fromARGB(255, 127, 17, 224),
       ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 15),
@@ -49,7 +49,7 @@ class _DashBoardState extends State<DashBoard> {
             ),
             Card(
                 elevation: 5,
-                color: Color.fromARGB(255, 203, 197, 234),
+                color: Color.fromARGB(255, 219, 216, 233),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
@@ -93,9 +93,8 @@ class _DashBoardState extends State<DashBoard> {
                             child: InkWell(
                                 onTap: () {},
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
@@ -136,17 +135,20 @@ class _DashBoardState extends State<DashBoard> {
                             child: InkWell(
                                 onTap: () {},
                                 child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text('Make a request',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)
-                                        //Theme.of(context).textTheme.headline1,
-                                        ),
+                                    Text(
+                                      'Make a request',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                      //Theme.of(context).textTheme.headline1,
+                                    ),
                                     Text(
                                       'Let others help you',
                                       style: TextStyle(fontSize: 13),
+                                      textAlign: TextAlign.center,
                                     )
                                   ],
                                 )),
@@ -161,18 +163,21 @@ class _DashBoardState extends State<DashBoard> {
                             child: InkWell(
                                 onTap: () {},
                                 child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text('Transaction History',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)
-                                        // style:
-                                        //Theme.of(context).textTheme.headline1,
-                                        ),
+                                    Text(
+                                      'Transaction History',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                      // style:
+                                      //Theme.of(context).textTheme.headline1,
+                                    ),
                                     Text(
                                       'View previous transactions',
                                       style: TextStyle(fontSize: 12),
+                                      textAlign: TextAlign.center,
                                     )
                                   ],
                                 )),
@@ -183,6 +188,9 @@ class _DashBoardState extends State<DashBoard> {
                   ),
                 ],
               ),
+            ),
+            SizedBox(
+              height: 10,
             )
           ],
         ),

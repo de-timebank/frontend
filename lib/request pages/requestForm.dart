@@ -65,7 +65,7 @@ class _RequestFormState extends State<RequestForm> {
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           title: Text('Request Form'),
-          backgroundColor: Color.fromARGB(255, 127, 17, 224),
+          // backgroundColor: Color.fromARGB(255, 127, 17, 224),
         ),
         body: Form(
           key: _formKey,
@@ -97,7 +97,7 @@ class _RequestFormState extends State<RequestForm> {
 
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Tags'),
+                  child: Text('Category'),
                 ),
                 TextFieldTags(
                   textfieldTagsController: _controller,
@@ -146,7 +146,7 @@ class _RequestFormState extends State<RequestForm> {
                           helperStyle: const TextStyle(
                             color: Color.fromARGB(255, 74, 137, 92),
                           ),
-                          hintText: _controller.hasTags ? '' : "Enter tag...",
+                          hintText: _controller.hasTags ? '' : "Enter Category",
                           errorText: error,
                           prefixIconConstraints:
                               BoxConstraints(maxWidth: _distanceToField * 0.74),
@@ -271,10 +271,10 @@ class _RequestFormState extends State<RequestForm> {
                     ),
                   ],
                 ),
-                OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      backgroundColor: Colors.black, //<-- SEE HERE
-                    ),
+                ElevatedButton(
+                    // style: OutlinedButton.styleFrom(
+                    //   backgroundColor: Colors.black, //<-- SEE HERE
+                    // ),
                     //style: ButtonStyle(backgroundColor: ),
                     onPressed: () {
                       // titleController.clear();
