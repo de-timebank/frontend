@@ -1,0 +1,68 @@
+syntax = "proto3";
+package timebank.user;
+
+import "collection/rating.proto";
+
+service User {
+    rpc get (Get.Request) returns (Get.Response);
+    rpc getById (GetById.Request) returns (GetById.Response);
+    rpc update (Update.Request) returns (Update.Response);
+    rpc getRating (GetRating.Request) returns (GetRating.Response);
+}
+
+message Contact {
+    string type = 1;
+    string address = 2;
+}
+
+message UserProfile {
+    string user_id = 1;
+    string name = 2;
+    repeated string skills = 3;
+    repeated Contact contacts = 4;
+    string created_at = 5;
+    string updated_at = 6;
+}
+
+message Get {
+    message Request {
+        string key = 1;
+        string value = 2;
+    }
+
+    message Response {
+        repeated UserProfile users = 1;
+    }
+}
+
+message GetById {
+    message Request {
+        string user_id = 1;
+    }
+
+    message Response {
+        UserProfile user = 1;
+    }
+}
+
+message Update {
+    message Request {
+        string user_id = 1;
+        string body = 2;
+    }
+
+    message Response {
+        UserProfile user = 1;
+    }
+}
+
+message GetRating {
+    message Request {
+        string user_id = 1;
+    }
+
+    message Response {
+        int32 average = 1;
+        repeated timebank.rating.RatingData ratings = 2;
+    }
+}

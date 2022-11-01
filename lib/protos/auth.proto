@@ -1,0 +1,46 @@
+syntax = "proto3";
+package auth;
+
+service Auth {
+    rpc signIn (SignIn.Request) returns (SignIn.Response);
+    rpc signUp (SignUp.Request) returns (SignUp.Response);
+}
+
+message SignIn {
+    message Payload {
+        string email = 1;
+        string password = 2;
+    }
+
+    message Request {
+        Payload payload = 1;
+    }   
+    
+    message Response {
+        string user_id = 1;
+        string auth_token = 2;
+    }
+}
+
+message SignUp {
+    message MatricCard {
+        bytes front = 1;
+        bytes back = 2;
+    }
+
+    message Payload {
+        string email = 1;
+        string password = 2;
+        string name = 3;
+        string phone_number = 4;
+        string matric_number = 5;
+        MatricCard matric_card = 6;
+    }   
+
+    message Request {
+        Payload payload = 1;
+    }
+
+    message Response {
+    }
+}
