@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:testfyp/bin/client_rating.dart';
 import 'package:testfyp/bin/client_service_request.dart';
 import 'package:testfyp/bin/common.dart';
+import 'package:testfyp/request%20pages/requestForm.dart';
 
 class RequestPage extends StatefulWidget {
   RequestPage({Key? key}) : super(key: key);
@@ -12,15 +13,10 @@ class RequestPage extends StatefulWidget {
 
 class _RequestPageState extends State<RequestPage> {
   late Common _common;
-  // late ClientServiceRequest _service;
-  // late ClientRating _rating;
-  //late final channel;
+
   @override
   void initState() {
     _common = Common();
-
-    // _rating = ClientRating();
-    // _service = ClientServiceRequest(Common().channel);
     super.initState();
   }
 
@@ -41,13 +37,13 @@ class _RequestPageState extends State<RequestPage> {
             // var result = await _service
             //     .getResponseById('9b5f1dca-ea47-4774-867c-8102daef586c');
             // print(result);
-            _getRequest();
+            //_getRequest();
 
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (context) => RequestForm(),
-            //     ));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RequestForm(),
+                ));
           },
           icon: Icon(Icons.add),
           label: Text('Add Request'),
