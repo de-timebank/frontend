@@ -4,22 +4,27 @@ import '../generated/services/service-request.pbgrpc.dart';
 import 'common.dart';
 
 class ClientServiceRequest {
-  final common = Common();
+  //final common = Common();
+  //final channel = Common().channel;
   late ServiceRequestClient stub;
+
+  ClientServiceRequest(ClientChannel channel) {
+    stub = ServiceRequestClient(channel,
+        options: CallOptions(timeout: Duration(seconds: 30)));
+  }
 
   Future<void> main() async {
     final channel = Common().channel;
-    stub = ServiceRequestClient(channel,
-        options: CallOptions(timeout: Duration(seconds: 30)));
+    // stub = ServiceRequestClient(channel,
+    //     options: CallOptions(timeout: Duration(seconds: 30)));
 
-    final response = await stub.getById(
-        GetById_Request()..requestId = '9b5f1dca-ea47-4774-867c-8102daef586c');
+    // final response = await stub.getById(
+    //     GetById_Request()..requestId = '9b5f1dca-ea47-4774-867c-8102daef586c');
 
     // return response;
     // print(response.toString());
     var result2 = await getResponseById('9b5f1dca-ea47-4774-867c-8102daef586c');
     print(result2);
-    //getResponse();
     await channel.shutdown();
   }
 
@@ -99,6 +104,8 @@ class ClientServiceRequest {
 }
 
 void main() {
-  var client = ClientServiceRequest();
+  final common = Common();
+  final channel = Common().channel;
+  var client = ClientServiceRequest(channel);
   client.main();
 }

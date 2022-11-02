@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-// import 'package:testfyp/generated/rating/rating.pb.dart';
-// import '../generated/services/service-request.pb.dart';
-// import 'requestForm.dart';
-//import 'request_service.dart';
+import 'package:testfyp/bin/client_rating.dart';
 import 'package:testfyp/bin/client_service_request.dart';
+import 'package:testfyp/bin/common.dart';
 
 class RequestPage extends StatefulWidget {
   RequestPage({Key? key}) : super(key: key);
@@ -13,6 +11,19 @@ class RequestPage extends StatefulWidget {
 }
 
 class _RequestPageState extends State<RequestPage> {
+  late Common _common;
+  // late ClientServiceRequest _service;
+  // late ClientRating _rating;
+  //late final channel;
+  @override
+  void initState() {
+    _common = Common();
+
+    // _rating = ClientRating();
+    // _service = ClientServiceRequest(Common().channel);
+    super.initState();
+  }
+
   //var client = Client();
   @override
   Widget build(BuildContext context) {
@@ -27,11 +38,11 @@ class _RequestPageState extends State<RequestPage> {
         floatingActionButton: FloatingActionButton.extended(
           backgroundColor: Color.fromARGB(255, 127, 17, 224),
           onPressed: () async {
-            // var result = await client.stub.getById(GetById_Request()
-            //   ..requestId = '9b5f1dca-ea47-4774-867c-8102daef586c');
-            // var result = await client.getResponse();
+            // var result = await _service
+            //     .getResponseById('9b5f1dca-ea47-4774-867c-8102daef586c');
             // print(result);
-            //_getRequest();
+            _getRequest();
+
             // Navigator.push(
             //     context,
             //     MaterialPageRoute(
@@ -43,8 +54,9 @@ class _RequestPageState extends State<RequestPage> {
         ));
   }
 
-  // Future<void> _getRequest() async {
-  //   var request = await ServiceRequest.getRequest();
-  //   print(request);
-  // }
+  Future<void> _getRequest() async {
+    var request = await ClientServiceRequest(Common().channel)
+        .getResponseById('9b5f1dca-ea47-4774-867c-8102daef586c');
+    print(request);
+  }
 }
