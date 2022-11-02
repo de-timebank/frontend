@@ -4,15 +4,15 @@ package timebank.servicerequest;
 //import "collection/rating.proto";
 
 service ServiceRequest {
-    rpc create (Create.Request) returns (Create.Response);
-    rpc get (Get.Request) returns (Get.Response);
-    rpc getById (GetById.Request) returns (GetById.Response);
-    rpc update (Update.Request) returns (Update.Response);
-    rpc delete (Delete.Request) returns (Delete.Response);
-    rpc applyProvider (ApplyProvider.Request) returns (ApplyProvider.Response);
-    rpc selectProvider (SelectProvider.Request) returns (SelectProvider.Response);
-    rpc completeService (CompleteService.Request) returns (CompleteService.Response);
-    rpc getCommitment (GetCommitment.Request) returns (GetCommitment.Response);
+    rpc create (Create.Request) returns (Create.Response); //done
+    rpc get (Get.Request) returns (Get.Response); //done
+    rpc getById (GetById.Request) returns (GetById.Response); //done
+    rpc update (Update.Request) returns (Update.Response); //done
+    rpc delete (Delete.Request) returns (Delete.Response); //done
+    rpc applyProvider (ApplyProvider.Request) returns (ApplyProvider.Response);//done
+    rpc selectProvider (SelectProvider.Request) returns (SelectProvider.Response);//done
+    rpc completeService (CompleteService.Request) returns (CompleteService.Response); //done
+    rpc getCommitment (GetCommitment.Request) returns (GetCommitment.Response); //
 }
 
 message ServiceRequestData {    
