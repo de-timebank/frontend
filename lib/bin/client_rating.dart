@@ -1,16 +1,25 @@
 import 'package:grpc/grpc.dart';
+import 'package:testfyp/bin/common.dart';
 import '../generated/rating/rating.pbgrpc.dart';
 
 class ClientRating {
+  final common = Common();
   late RatingClient stub;
   void main() async {
-    final channel = ClientChannel('127.0.0.1',
-        port: 8080,
-        options:
-            const ChannelOptions(credentials: ChannelCredentials.insecure()));
+    // final channel = ClientChannel('127.0.0.1',
+    //     port: 8080,
+    //     options:
+    //         const ChannelOptions(credentials: ChannelCredentials.insecure()));
+    final channel = Common().channel;
 
     stub = RatingClient(channel,
         options: CallOptions(timeout: Duration(seconds: 30)));
+
+    // var result =
+    //     await getResponse('id', '416056b5-e518-4e1b-8770-8d9ac1f58868');
+    // print(result);
+
+    await channel.shutdown();
   }
 
   Future<Create_Response> ratingForRequestor(
@@ -49,18 +58,8 @@ class ClientRating {
     return await stub.delete(Delete_Request()..ratingId = id);
   }
 }
-// class grpcClient {
-//   late RouteGuideClient stub;
 
-//   Future<void> main() async {
-//     final channel = ClientChannel('127.0.0.1',
-//         port: 8080,
-//         options:
-//             const ChannelOptions(credentials: ChannelCredentials.insecure()));
-
-//     stub = RouteGuideClient(channel,
-//         options: CallOptions(timeout: Duration(seconds: 30)));
-
-//     await channel.shutdown();
-//   }
-// }
+void main() {
+  var client = ClientRating();
+  client.main();
+}

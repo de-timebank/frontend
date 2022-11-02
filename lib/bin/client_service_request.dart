@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+//import 'package:flutter/foundation.dart';
 import 'package:grpc/grpc.dart';
 import '../generated/services/service-request.pbgrpc.dart';
 import 'common.dart';
@@ -8,10 +8,6 @@ class ClientServiceRequest {
   late ServiceRequestClient stub;
 
   Future<void> main() async {
-    // final channel = ClientChannel('127.0.0.1',
-    //     port: 8080,
-    //     options:
-    //         const ChannelOptions(credentials: ChannelCredentials.insecure()));
     final channel = Common().channel;
     stub = ServiceRequestClient(channel,
         options: CallOptions(timeout: Duration(seconds: 30)));
