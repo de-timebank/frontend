@@ -107,7 +107,8 @@ class _ServicePageState extends State<ServicePage> {
                                   children: [
                                     Text('Help Me with some Python Programming',
                                         style: TextStyle(
-                                            fontWeight: FontWeight.bold)
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14)
                                         //     Theme.of(context).textTheme.headline1,
                                         ),
                                     SizedBox(

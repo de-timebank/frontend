@@ -55,15 +55,15 @@ message ServiceRequestData {
 
 message Create {
     message NewServiceRequestData {
-        ServiceRequestData.Details details = 1;
-        ServiceRequestData.Location location = 2;
-        float rate = 3;
-        repeated string media_attachments = 4;
+        ServiceRequestData.Details details = 1; //2
+        ServiceRequestData.Location location = 2; //3
+        float rate = 3; //1
+        repeated string media_attachments = 4; //1
     }
 
     message Request {
-        NewServiceRequestData request_data = 1;
-        string requestor = 2;
+        NewServiceRequestData request_data = 1; //0
+        string requestor = 2; //1
     }
 
     message Response {

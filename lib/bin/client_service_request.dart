@@ -41,28 +41,28 @@ class ClientServiceRequest {
       ..value = value);
   }
 
-  Future<Create_Response> createResponse(
+  Future<Create_Response> createServiceRequest(
       String title,
       String description,
       String latitude,
       String longitude,
       String locName,
       double rate,
-      List<String> media) async {
+      List<String> media,
+      String requestor) async {
     return await stub.create(Create_Request(
-            requestData: Create_NewServiceRequestData(
-                details: ServiceRequestData_Details() //details
-                  ..title = title
-                  ..description = description,
-                location: ServiceRequestData_Location(
-                    //location
-                    coordinate: ServiceRequestData_Location_Coordinate()
-                      ..latitude = latitude
-                      ..longitude = longitude)
-                  ..name = locName)
-              ..rate = rate //rate
-              ..media_attachments = media) //media
-        );
+        requestData: Create_NewServiceRequestData(
+            details: ServiceRequestData_Details()
+              ..title = title
+              ..description = description,
+            location: ServiceRequestData_Location(
+                coordinate: ServiceRequestData_Location_Coordinate()
+                  ..latitude = latitude
+                  ..longitude = longitude)
+              ..name = locName)
+          ..rate = rate
+          ..media_attachments = media)
+      ..requestor = requestor);
   }
 
   Future<Update_Response> updateService(String id, String body) async {

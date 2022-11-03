@@ -15,9 +15,9 @@ class ClientRating {
     stub = RatingClient(channel,
         options: CallOptions(timeout: Duration(seconds: 30)));
 
-    // var result =
-    //     await getResponse('id', '416056b5-e518-4e1b-8770-8d9ac1f58868');
-    // print(result);
+    var result =
+        await getResponse('id', '416056b5-e518-4e1b-8770-8d9ac1f58868');
+    print(result);
 
     await channel.shutdown();
   }

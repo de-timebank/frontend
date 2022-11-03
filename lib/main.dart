@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
         appBarTheme:
             const AppBarTheme(color: Color.fromARGB(255, 127, 17, 224)),
         primaryColor: const Color.fromARGB(255, 127, 17, 224),
+        //Color.fromARGB(255, 219, 216, 233)
         textTheme: GoogleFonts.interTextTheme(),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(

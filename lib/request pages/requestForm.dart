@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:textfield_tags/textfield_tags.dart';
-import 'requestModel.dart';
-import 'package:http/http.dart' as http;
+//import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:testfyp/bin/client_service_request.dart';
+import 'package:testfyp/components/constants.dart';
+//import 'package:textfield_tags/textfield_tags.dart';
+
+//import 'package:http/http.dart' as http;
+
+import '../bin/common.dart';
+
+//map API
+//https://levelup.gitconnected.com/how-to-add-google-maps-in-a-flutter-app-and-get-the-current-location-of-the-user-dynamically-2172f0be53f6
 
 class RequestForm extends StatefulWidget {
   RequestForm({Key? key}) : super(key: key);
@@ -10,24 +18,38 @@ class RequestForm extends StatefulWidget {
   State<RequestForm> createState() => _RequestFormState();
 }
 
-// Future<RequestModel> submitData() async{
-//   var response = await http.post(url)
-// }
-
 class _RequestFormState extends State<RequestForm> {
-  late TextfieldTagsController _controller;
-  late double _distanceToField;
-  final titleController = TextEditingController();
-  final categoryController = TextEditingController();
-  final rateController = TextEditingController();
-  final locationController = TextEditingController();
-  final descriptionController = TextEditingController();
+  late Common _common;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _common = Common(); //get server
+    super.initState();
+  }
+
+  //list
+  // - title
+  // - description
+  // - latitude
+  // - longitude
+  // - locname
+  // - rate
+  //late TextfieldTagsController _controller;
+  //late double _distanceToField;
+
+  final _titleController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  //final _categoryController = TextEditingController();
+  final _latitudeController = TextEditingController();
+  final _longitudeController = TextEditingController();
+  final _locationController = TextEditingController();
+  final _rateController = TextEditingController();
+  final _mediaController = TextEditingController();
+  List<String> media = ['Test media'];
   final _formKey = GlobalKey<FormState>();
   var n = 0;
-  List reqList = [
-    //{'title': '', 'rate': '', 'tag': '', 'location': '', 'description': ''}
-    {}
-  ];
+
   //title
   //category
   //rate
@@ -35,29 +57,30 @@ class _RequestFormState extends State<RequestForm> {
   //description
   void insertData() {}
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _distanceToField = MediaQuery.of(context).size.width;
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   //_distanceToField = MediaQuery.of(context).size.width;
+  // }
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is disposed.
+    _titleController.dispose();
+    _descriptionController.dispose();
+    _latitudeController.dispose();
+    _longitudeController.dispose();
+    _locationController.dispose();
+    _rateController.dispose();
+    _mediaController.dispose();
+
     super.dispose();
-    _controller.dispose();
-    titleController.dispose();
-    rateController.dispose();
-    categoryController.dispose();
-    locationController.dispose();
-    descriptionController.dispose();
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextfieldTagsController();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   //_controller = TextfieldTagsController();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +104,7 @@ class _RequestFormState extends State<RequestForm> {
                   child: Text('Title'),
                 ),
                 TextFormField(
-                  controller: titleController,
+                  controller: _titleController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), hintText: 'Enter Title'),
                   validator: (value) {
@@ -94,127 +117,15 @@ class _RequestFormState extends State<RequestForm> {
                   //   reqList[0]['Title'] = value;
                   // },
                 ),
-
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Category'),
-                ),
-                TextFieldTags(
-                  textfieldTagsController: _controller,
-                  //this will show the initial tags https://pub.dev/packages/textfield_tags
-                  // initialTags: const [
-                  //   'pick',
-                  //   'your',
-                  //   'favorite',
-                  //   'programming',
-                  //   'language'
-                  // ],
-                  textSeparators: const [
-                    ' ',
-                    ','
-                  ], // when user press space or ',', it will enter as a tag
-                  letterCase: LetterCase.small,
-                  validator: (String tag) {
-                    if (tag == 'php') {
-                      return 'No, please just no';
-                    } else if (_controller.getTags!.contains(tag)) {
-                      return 'you already entered that';
-                    }
-                    return null;
-                  },
-                  inputfieldBuilder: //build ur own custom  widget
-                      (context, tec, fn, error, onChanged, onSubmitted) {
-                    return ((context, sc, tags, onTagDelete) {
-                      return TextField(
-                        controller: tec,
-                        focusNode: fn,
-                        decoration: InputDecoration(
-                          //isDense: true,
-                          border: const OutlineInputBorder(
-                              // borderSide: BorderSide(
-                              //   color: Color.fromARGB(255, 74, 137, 92),
-                              //   width: 3.0,
-                              // ),
-                              ),
-                          // focusedBorder: const OutlineInputBorder(
-                          //   borderSide: BorderSide(
-                          //     color: Color.fromARGB(255, 74, 137, 92),
-                          //     width: 3.0,
-                          //   ),
-                          // ),
-                          //helperText: 'Enter Categories...',
-                          helperStyle: const TextStyle(
-                            color: Color.fromARGB(255, 74, 137, 92),
-                          ),
-                          hintText: _controller.hasTags ? '' : "Enter Category",
-                          errorText: error,
-                          prefixIconConstraints:
-                              BoxConstraints(maxWidth: _distanceToField * 0.74),
-                          prefixIcon: tags.isNotEmpty
-                              ? SingleChildScrollView(
-                                  controller: sc,
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                      children: tags.map((String tag) {
-                                    return Container(
-                                      decoration: const BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(20.0),
-                                        ),
-                                        color: Color.fromARGB(255, 74, 137, 92),
-                                      ),
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 5.0),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10.0, vertical: 5.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          InkWell(
-                                            child: Text(
-                                              '#$tag',
-                                              style: const TextStyle(
-                                                  color: Colors.white),
-                                            ),
-                                            onTap: () {
-                                              print("$tag selected");
-                                            },
-                                          ),
-                                          const SizedBox(width: 4.0),
-                                          InkWell(
-                                            child: const Icon(
-                                              Icons.cancel,
-                                              size: 14.0,
-                                              color: Color.fromARGB(
-                                                  255, 233, 233, 233),
-                                            ),
-                                            onTap: () {
-                                              onTagDelete(tag);
-                                            },
-                                          )
-                                        ],
-                                      ),
-                                    );
-                                  }).toList()),
-                                )
-                              : null,
-                        ),
-                        onChanged: onChanged,
-                        onSubmitted: onSubmitted,
-                      );
-                    });
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text('Location'),
+                  child: Text('Description'),
                 ),
                 TextFormField(
-                  controller: locationController,
+                  controller: _descriptionController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: 'Enter Location',
+                      hintText: 'Enter description of the job',
                       prefixIcon: Icon(Icons.map)),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -225,13 +136,40 @@ class _RequestFormState extends State<RequestForm> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Description'),
+                  child: Text('Location'),
                 ),
                 TextFormField(
-                  controller: descriptionController,
+                  controller: _latitudeController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter Latitude',
+                    //prefixIcon: Icon(Icons.map)
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 8),
+                TextFormField(
+                  controller: _longitudeController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: 'Enter Description'),
+                      hintText: 'Enter Longitude'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 8),
+                TextFormField(
+                  controller: _locationController,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(), hintText: 'Enter Location'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some text';
@@ -241,13 +179,29 @@ class _RequestFormState extends State<RequestForm> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
+                  child: Text('Attachment'),
+                ),
+                TextFormField(
+                  controller: _mediaController,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Enter attachment'),
+                  // validator: (value) {
+                  //   if (value == null || value.isEmpty) {
+                  //     return 'Please enter some text';
+                  //   }
+                  //   return null;
+                  // },
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Text('Rate'),
                 ),
                 Row(
                   children: [
                     Expanded(
                       child: TextFormField(
-                        controller: rateController,
+                        controller: _rateController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
@@ -259,10 +213,6 @@ class _RequestFormState extends State<RequestForm> {
                           }
                           return null;
                         },
-                        onChanged: (value) {
-                          value.toString();
-                          reqList[0][1] = value;
-                        },
                       ),
                     ),
                     Padding(
@@ -271,35 +221,59 @@ class _RequestFormState extends State<RequestForm> {
                     ),
                   ],
                 ),
+                SizedBox(height: 8),
                 ElevatedButton(
-                    // style: OutlinedButton.styleFrom(
-                    //   backgroundColor: Colors.black, //<-- SEE HERE
-                    // ),
-                    //style: ButtonStyle(backgroundColor: ),
-                    onPressed: () {
+                    onPressed: () async {
                       // titleController.clear();
                       // rateController.clear();
                       // categoryController.clear();
                       // locationController.clear();
                       // descriptionController.clear();
-                      _controller.clearTags();
-
+                      //_controller.clearTags();
+                      // _submitJobForm(
+                      //     'new title',
+                      //     'new  description',
+                      //     '123latitude',
+                      //     '321longitude',
+                      //     'Sabah',
+                      //     2,
+                      //     media,
+                      //     '291b79a7-c67c-4783-b004-239cb334804d');
                       if (_formKey.currentState!.validate()) {
-                        //print(reqList[0][1]);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Processing Data')));
-                        //dispose();
+                        var rate = double.parse(
+                            _rateController.text); //convert to double
+                        media.add(_mediaController.text); //add to array
+                        _submitJobForm(
+                            _titleController.text,
+                            _descriptionController.text,
+                            _latitudeController.text,
+                            _longitudeController.text,
+                            _locationController.text,
+                            rate,
+                            media,
+                            '291b79a7-c67c-4783-b004-239cb334804d');
+
+                        context.showSnackBar(message: 'Job Created');
+                        Navigator.of(context).pop();
                       }
                     },
                     child: const Text('Create Request')),
-                // ElevatedButton(
-                //     onPressed: () {
-                //       print(reqList[0]['Title']);
-                //     },
-                //     child: const Text('Check List'))
               ],
             ),
           ),
         ));
+  }
+
+  Future<void> _submitJobForm(
+      String title,
+      String description,
+      String latitude,
+      String longitude,
+      String locName,
+      double rate,
+      List<String> media,
+      String requestor) async {
+    await ClientServiceRequest(Common().channel).createServiceRequest(title,
+        description, latitude, longitude, locName, rate, media, requestor);
   }
 }

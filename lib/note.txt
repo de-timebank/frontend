@@ -1,0 +1,216 @@
+requestData: Create_NewServiceRequestData(
+                details: ServiceRequestData_Details() //details
+                  ..title = title
+                  ..description = description,
+                location: ServiceRequestData_Location(
+                    //location
+                    coordinate: ServiceRequestData_Location_Coordinate()
+                      ..latitude = latitude
+                      ..longitude = longitude)
+                  ..name = locName)
+              ..rate = rate //rate
+              ..media_attachments = media
+
+isLoad
+            ? Center(
+                child: Text(listRequest.toString()),
+              ) //ListView.builder(itemBuilder: itemBuilder)
+            : Center(
+                child: Text('Your request is empty, try adding a request...'),
+              ),
+
+
+Future<void> _getRequest() async {
+    var request = await ClientServiceRequest(Common().channel)
+        .getResponseById('9b5f1dca-ea47-4774-867c-8102daef586c');
+    print(request);
+  }
+
+
+
+
+// TextFieldTags(
+                //   textfieldTagsController: _controller,
+                //   //this will show the initial tags https://pub.dev/packages/textfield_tags
+                //   // initialTags: const [
+                //   //   'pick',
+                //   //   'your',
+                //   //   'favorite',
+                //   //   'programming',
+                //   //   'language'
+                //   // ],
+                //   textSeparators: const [
+                //     ' ',
+                //     ','
+                //   ], // when user press space or ',', it will enter as a tag
+                //   letterCase: LetterCase.small,
+                //   validator: (String tag) {
+                //     if (tag == 'php') {
+                //       return 'No, please just no';
+                //     } else if (_controller.getTags!.contains(tag)) {
+                //       return 'you already entered that';
+                //     }
+                //     return null;
+                //   },
+                //   inputfieldBuilder: //build ur own custom  widget
+                //       (context, tec, fn, error, onChanged, onSubmitted) {
+                //     return ((context, sc, tags, onTagDelete) {
+                //       return TextField(
+                //         controller: tec,
+                //         focusNode: fn,
+                //         decoration: InputDecoration(
+                //           //isDense: true,
+                //           border: const OutlineInputBorder(
+                //               // borderSide: BorderSide(
+                //               //   color: Color.fromARGB(255, 74, 137, 92),
+                //               //   width: 3.0,
+                //               // ),
+                //               ),
+                //           // focusedBorder: const OutlineInputBorder(
+                //           //   borderSide: BorderSide(
+                //           //     color: Color.fromARGB(255, 74, 137, 92),
+                //           //     width: 3.0,
+                //           //   ),
+                //           // ),
+                //           //helperText: 'Enter Categories...',
+                //           helperStyle: const TextStyle(
+                //             color: Color.fromARGB(255, 74, 137, 92),
+                //           ),
+                //           hintText: _controller.hasTags ? '' : "Enter Category",
+                //           errorText: error,
+                //           prefixIconConstraints:
+                //               BoxConstraints(maxWidth: _distanceToField * 0.74),
+                //           prefixIcon: tags.isNotEmpty
+                //               ? SingleChildScrollView(
+                //                   controller: sc,
+                //                   scrollDirection: Axis.horizontal,
+                //                   child: Row(
+                //                       children: tags.map((String tag) {
+                //                     return Container(
+                //                       decoration: const BoxDecoration(
+                //                         borderRadius: BorderRadius.all(
+                //                           Radius.circular(20.0),
+                //                         ),
+                //                         color: Color.fromARGB(255, 74, 137, 92),
+                //                       ),
+                //                       margin: const EdgeInsets.symmetric(
+                //                           horizontal: 5.0),
+                //                       padding: const EdgeInsets.symmetric(
+                //                           horizontal: 10.0, vertical: 5.0),
+                //                       child: Row(
+                //                         mainAxisAlignment:
+                //                             MainAxisAlignment.spaceBetween,
+                //                         children: [
+                //                           InkWell(
+                //                             child: Text(
+                //                               '#$tag',
+                //                               style: const TextStyle(
+                //                                   color: Colors.white),
+                //                             ),
+                //                             onTap: () {
+                //                               print("$tag selected");
+                //                             },
+                //                           ),
+                //                           const SizedBox(width: 4.0),
+                //                           InkWell(
+                //                             child: const Icon(
+                //                               Icons.cancel,
+                //                               size: 14.0,
+                //                               color: Color.fromARGB(
+                //                                   255, 233, 233, 233),
+                //                             ),
+                //                             onTap: () {
+                //                               onTagDelete(tag);
+                //                             },
+                //                           )
+                //                         ],
+                //                       ),
+                //                     );
+                //                   }).toList()),
+                //                 )
+                //               : null,
+                //         ),
+                //         onChanged: onChanged,
+                //         onSubmitted: onSubmitted,
+                //       );
+                //     });
+                //   },
+                // ),
+
+I/flutter ( 3813):   location: {
+I/flutter ( 3813):     name: Sabah
+I/flutter ( 3813):     coordinate: {
+I/flutter ( 3813):       latitude: 123latitude
+I/flutter ( 3813):       longitude: 321longitude
+I/flutter ( 3813):     }
+I/flutter ( 3813):   }
+I/flutter ( 3813):   details: {
+I/flutter ( 3813):     title: new title
+I/flutter ( 3813):     description: new  description
+I/flutter ( 3813):   }
+I/flutter ( 3813):   rate: 2.0
+I/flutter ( 3813):   createdAt: 2022-11-03T07:02:33.040343+00:00
+I/flutter ( 3813):   updatedAt: 2022-11-03T07:02:33.040343+00:00
+I/flutter ( 3813): }
+
+
+// showDialog(
+                          //     context: context,
+                          //     builder: ((context) => AlertDialog(
+                          //           title: Text(
+                          //               'Help Me with some Python Programming'),
+                          //           content: ListView(
+                          //             shrinkWrap: true,
+                          //             children: [
+                          //               Text('Requestor'),
+                          //               Text('John Smith'),
+                          //               Text('Category'),
+                          //               Text('Programming, Python, uhh'),
+                          //               Text('Location'),
+                          //               Text('IIUM'),
+                          //               Text('Description'),
+                          //               Text('This is just a test'),
+                          //               Card(
+                          //                 child: Padding(
+                          //                   padding: const EdgeInsets.all(15.0),
+                          //                   child: Row(
+                          //                     mainAxisAlignment:
+                          //                         MainAxisAlignment.spaceAround,
+                          //                     children: [
+                          //                       Text('Rate'),
+                          //                       Text('\$1 time/hour'),
+                          //                     ],
+                          //                   ),
+                          //                 ),
+                          //               ),
+                          //               TextFormField(
+                          //                 controller: rateServiceController,
+                          //                 decoration: InputDecoration(
+                          //                     border: OutlineInputBorder(),
+                          //                     hintText: 'Enter Title'),
+                          //                 validator: (value) {
+                          //                   if (value == null ||
+                          //                       value.isEmpty) {
+                          //                     return 'Please enter some text';
+                          //                   }
+                          //                   return null;
+                          //                 },
+                          //                 // onFieldSubmitted: (value) {
+                          //                 //   reqList[0]['Title'] = value;
+                          //                 // },
+                          //               ),
+                          //             ],
+                          //           ),
+                          //           actions: [
+                          //             TextButton(
+                          //                 onPressed: (() {
+                          //                   Navigator.pop(context, 'Rate');
+                          //                 }),
+                          //                 child: Text('Rate')),
+                          //             TextButton(
+                          //                 onPressed: (() {
+                          //                   Navigator.pop(context, 'Cancel');
+                          //                 }),
+                          //                 child: Text('Cancel'))
+                          //           ],
+                          //         )));
