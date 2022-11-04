@@ -32,16 +32,22 @@ class _RequestPageState extends State<RequestPage> {
   }
 
   void getinstance() async {
-    listRequest = await _getAllRequest();
+    listRequest = await ClientServiceRequest(Common().channel)
+        .getResponse('requestor', '291b79a7-c67c-4783-b004-239cb334804d');
     //index1 = listRequest.requests.length;
+    // print(await ClientServiceRequest(Common().channel)
+    //     .getResponse('requestor', '291b79a7-c67c-4783-b004-239cb334804d')
+    //     .toString());
     setState(() {
       isLoad = false;
     });
   }
 
-  Future<Get_Response> _getAllRequest() async {
-    return await ClientServiceRequest(Common().channel)
-        .getResponse('requestor', '291b79a7-c67c-4783-b004-239cb334804d');
+  void _deleteRequest(String id) async {
+    ClientServiceRequest(Common().channel).deleteService(id);
+    setState(() {
+      getinstance();
+    });
   }
 
   //var client = Client();
@@ -50,7 +56,7 @@ class _RequestPageState extends State<RequestPage> {
     return Scaffold(
         appBar: AppBar(
           // backgroundColor: Color.fromARGB(255, 127, 17, 224),
-          title: Text('Request'),
+          title: const Text('Request'),
         ),
         //Text(listRequest.requests[0].location.toString()), return location
         body: isLoad
@@ -116,22 +122,59 @@ class _RequestPageState extends State<RequestPage> {
                           ),
                           Flexible(
                             flex: 2,
-                            child: Container(
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Color.fromARGB(255, 219, 216, 233)),
-                              child: Text(
-                                'Rate: ' +
-                                    listRequest.requests[index].rate.toString(),
-                                style: TextStyle(fontSize: 13),
-                              ),
+                            child: Column(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color:
+                                          Color.fromARGB(255, 219, 216, 233)),
+                                  child: Text(
+                                    '\$ Time/hour : ' +
+                                        listRequest.requests[index].rate
+                                            .toString(),
+                                    style: TextStyle(fontSize: 13),
+                                  ),
+                                ),
+                                // Text(
+                                //   'Applicant: ' +
+                                //       listRequest.requests[index].applicant
+                                //           .toString(),
+                                //   style: TextStyle(fontSize: 13),
+                                // ),
+                              ],
                             ),
                           ),
                           Flexible(
                             flex: 1,
                             child: IconButton(
-                                onPressed: (() {}),
+                                onPressed: (() {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(
+                                        'Delete job request?',
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              _deleteRequest(listRequest
+                                                  .requests[index].id
+                                                  .toString());
+                                            },
+                                            child: const Text('Yes')),
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text('No'))
+                                      ],
+                                    ),
+                                  );
+                                }),
                                 icon: Icon(Icons.delete_outline)),
                           )
                         ],
