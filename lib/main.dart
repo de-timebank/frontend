@@ -9,6 +9,8 @@ import 'package:testfyp/auth%20pages/signUpPage.dart';
 import 'package:testfyp/splash_page.dart';
 import 'package:testfyp/profile%20pages/profile.dart';
 
+import 'request pages/request.dart';
+
 //adb shell am start -W -a android.intent.action.VIEW -d "io.supabase.flutterquickstart://login-callback/"
 
 Future<void> main() async {
@@ -52,6 +54,7 @@ class MyApp extends StatelessWidget {
         '/navigation': (_) => const BottomBarNavigation(),
         '/profile': (_) => ProfilePage(),
         '/passwordReset': (_) => const PasswordPage(),
+        '/request': (_) => RequestPage(),
       },
     );
   }

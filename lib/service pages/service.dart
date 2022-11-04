@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'serviceDetails.dart';
+import '../custom widgets/customCard.dart';
+import 'serviceRequestDetails.dart';
 
 class ServicePage extends StatefulWidget {
   ServicePage({Key? key}) : super(key: key);
@@ -23,69 +24,11 @@ class _ServicePageState extends State<ServicePage> {
               )
             : ListView(
                 children: [
-                  Container(
-                    margin: EdgeInsets.all(15),
-                    child: Card(
-                      elevation: 5,
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ServiceDetails(),
-                              ));
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Flexible(
-                              flex: 4,
-                              child: Container(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Help Me with some Python Programming',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14)
-                                        //     Theme.of(context).textTheme.headline1,
-                                        ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text('John Smith',
-                                        style: TextStyle(fontSize: 12)),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Flexible(
-                                flex: 3,
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 219, 216, 233),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        '3\$ Time/hour',
-                                        style: TextStyle(fontSize: 11),
-                                      ),
-                                    ))),
-                            Flexible(
-                              flex: 1,
-                              child: IconButton(
-                                  onPressed: (() {}),
-                                  icon: Icon(Icons.favorite_border_outlined)),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
+                  // CustomCard_ServiceRequest(
+                  //   rate: 3,
+                  //   requestor: 'ujai',
+                  //   title: 'Sample Title',
+                  // )
                 ],
               ),
         floatingActionButton: FloatingActionButton.extended(
