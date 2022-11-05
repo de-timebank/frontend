@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 //import 'package:testfyp/bin/client_rating.dart';
 import 'package:testfyp/bin/client_service_request.dart';
 import 'package:testfyp/bin/common.dart';
+import 'package:testfyp/components/constants.dart';
+import 'package:testfyp/custom%20widgets/customCard.dart';
 import 'package:testfyp/extension_string.dart';
 //import 'package:testfyp/generated/rating/rating.pb.dart';
 import 'package:testfyp/generated/services/service-request.pb.dart';
@@ -18,14 +22,14 @@ class _RequestPageState extends State<RequestPage> {
   late Common _common;
   late bool isLoad;
   late dynamic listRequest;
-  late int index1;
+  //late int index1;
   late String user;
   //late Future<dynamic> listRequest;
   @override
   void initState() {
     _common = Common();
     isLoad = true;
-    index1 = 2;
+    //index1 = 2;
     getinstance();
     //listRequest = _
     super.initState();
@@ -34,6 +38,8 @@ class _RequestPageState extends State<RequestPage> {
   void getinstance() async {
     listRequest = await ClientServiceRequest(Common().channel)
         .getResponse('requestor', '291b79a7-c67c-4783-b004-239cb334804d');
+    //print(listRequest);
+    //print(jsonEncode(listRequest));
     //index1 = listRequest.requests.length;
     // print(await ClientServiceRequest(Common().channel)
     //     .getResponse('requestor', '291b79a7-c67c-4783-b004-239cb334804d')
@@ -45,6 +51,15 @@ class _RequestPageState extends State<RequestPage> {
 
   void _deleteRequest(String id) async {
     ClientServiceRequest(Common().channel).deleteService(id);
+
+    setState(() {
+      getinstance();
+    });
+  }
+
+  void _updateRequest(String id, String body) async {
+    ClientServiceRequest(Common().channel).updateService(id, body);
+    //print(ClientServiceRequest(Common().channel).updateService(id, body));
     setState(() {
       getinstance();
     });
@@ -56,6 +71,24 @@ class _RequestPageState extends State<RequestPage> {
     return Scaffold(
         appBar: AppBar(
           // backgroundColor: Color.fromARGB(255, 127, 17, 224),
+          // actions: [
+          //   IconButton(
+          //     icon: const Icon(Icons.add),
+          //     onPressed: () {
+          //       Navigator.push(
+          //           context,
+          //           MaterialPageRoute(
+          //             builder: (context) => RequestForm(),
+          //           )).then((value) => setState(
+          //             () {
+          //               getinstance();
+          //               //_getProfile();
+          //             },
+          //           ));
+          //     },
+          //   ),
+          //   Text('Add Request'),
+          // ],
           title: const Text('Request'),
         ),
         //Text(listRequest.requests[0].location.toString()), return location
@@ -64,122 +97,26 @@ class _RequestPageState extends State<RequestPage> {
             : ListView.builder(
                 itemCount: listRequest.requests.length,
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 3, 8, 3),
-                    child: Card(
-                      elevation: 5,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Flexible(
-                            flex: 3,
-                            child: Padding(
-                              padding: const EdgeInsets.all(9.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    listRequest.requests[index].details.title
-                                        .toString()
-                                        .capitalize(),
-                                    style: TextStyle(
-                                        color: Theme.of(context).primaryColor,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(listRequest
-                                      .requests[index].details.description
-                                      .toString()
-                                      .capitalize()),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    'Location: ' +
-                                        listRequest
-                                            .requests[index].location.name
-                                            .toString()
-                                            .titleCase(),
-                                    style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                        decorationColor:
-                                            Theme.of(context).primaryColor,
-                                        fontSize: 11),
-                                  ),
-                                  Text(
-                                    'Requestor: ' +
-                                        listRequest.requests[index].requestor
-                                            .toString(),
-                                    style: TextStyle(fontSize: 10),
-                                  ),
-                                  Text(
-                                      'Request id:' +
-                                          listRequest.requests[index].id
-                                              .toString(),
-                                      style: TextStyle(fontSize: 10)),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Flexible(
-                            flex: 2,
-                            child: Column(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color:
-                                          Color.fromARGB(255, 219, 216, 233)),
-                                  child: Text(
-                                    '\$ Time/hour : ' +
-                                        listRequest.requests[index].rate
-                                            .toString(),
-                                    style: TextStyle(fontSize: 13),
-                                  ),
-                                ),
-                                // Text(
-                                //   'Applicant: ' +
-                                //       listRequest.requests[index].applicant
-                                //           .toString(),
-                                //   style: TextStyle(fontSize: 13),
-                                // ),
-                              ],
-                            ),
-                          ),
-                          Flexible(
-                            flex: 1,
-                            child: IconButton(
-                                onPressed: (() {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                      title: const Text(
-                                        'Delete job request?',
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                              _deleteRequest(listRequest
-                                                  .requests[index].id
-                                                  .toString());
-                                            },
-                                            child: const Text('Yes')),
-                                        TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text('No'))
-                                      ],
-                                    ),
-                                  );
-                                }),
-                                icon: Icon(Icons.delete_outline)),
-                          )
-                        ],
-                      ),
-                    ),
+                  return CustomCard_ServiceRequest(
+                    //function: getinstance,
+                    id: listRequest.requests[index].id,
+                    requestor: listRequest.requests[index].requestor,
+                    provider: listRequest.requests[index].provider,
+                    title: listRequest.requests[index].details.title,
+                    description:
+                        listRequest.requests[index].details.description,
+                    locationName: listRequest.requests[index].location.name,
+                    latitude: listRequest
+                        .requests[index].location.coordinate.latitude,
+                    longitude: listRequest
+                        .requests[index].location.coordinate.longitude,
+                    state: listRequest.requests[index].state,
+                    rate: listRequest.requests[index].rate,
+                    applicants: listRequest.requests[index].applicants,
+                    created: listRequest.requests[index].createdAt,
+                    updated: listRequest.requests[index].updatedAt,
+                    completed: listRequest.requests[index].completedAt,
+                    media: listRequest.requests[index].mediaAttachments,
                   );
                 },
               ),
@@ -188,7 +125,7 @@ class _RequestPageState extends State<RequestPage> {
           onPressed: () async {
             //_getRequest();
             //_getAllRequest();
-            print(listRequest.toString());
+            //print(listRequest.toString());
             Navigator.push(
                 context,
                 MaterialPageRoute(

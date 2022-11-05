@@ -13,20 +13,20 @@ class ClientServiceRequest {
         options: CallOptions(timeout: Duration(seconds: 30)));
   }
 
-  // Future<void> main() async {
-  //   final channel = Common().channel;
-  //   // stub = ServiceRequestClient(channel,
-  //   //     options: CallOptions(timeout: Duration(seconds: 30)));
+  Future<void> main() async {
+    //final channel = Common().channel;
+    // stub = ServiceRequestClient(channel,
+    //     options: CallOptions(timeout: Duration(seconds: 30)));
 
-  //   // final response = await stub.getById(
-  //   //     GetById_Request()..requestId = '9b5f1dca-ea47-4774-867c-8102daef586c');
+    // final response = await stub.getById(
+    //     GetById_Request()..requestId = '9b5f1dca-ea47-4774-867c-8102daef586c');
 
-  //   // return response;
-  //   // print(response.toString());
-  //   var result2 = await getResponseById('9b5f1dca-ea47-4774-867c-8102daef586c');
-  //   print(result2);
-  //   await channel.shutdown();
-  // }
+    // return response;
+    // print(response.toString());
+    var result2 = await getResponseById('9b5f1dca-ea47-4774-867c-8102daef586c');
+    print(result2);
+    //await channel.shutdown();
+  }
 
   Future<GetById_Response> getResponseById(String id) async {
     return await stub.getById(GetById_Request()..requestId = id);
@@ -103,9 +103,9 @@ class ClientServiceRequest {
   }
 }
 
-// void main() {
-//   final common = Common();
-//   final channel = Common().channel;
-//   var client = ClientServiceRequest(channel);
-//   client.main();
-// }
+void main() {
+  final common = Common();
+  final channel = Common().channel;
+  var client = ClientServiceRequest(channel);
+  client.main();
+}
