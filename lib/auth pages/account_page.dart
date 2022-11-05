@@ -24,6 +24,8 @@ class _AccountPageState extends State<AccountPage> {
   final _descriptionController = TextEditingController();
   //final _skillsController = TextEditingController(); //array?
   late String _avatarUrl = '';
+  late List<String> skill;
+  late List<dynamic> contact;
   var _loading = false;
 
   /// Called once a user id is received within `onAuthenticated()`
@@ -35,15 +37,15 @@ class _AccountPageState extends State<AccountPage> {
     try {
       final userId = supabase.auth.currentUser!.id; //map the user ID
       final data = await supabase
-          .from('profiles')
+          .from('user_profiles')
           .select()
-          .eq('id', userId)
+          .eq('user_id', userId)
           .single() as Map;
-      _usernameController.text = (data['username'] ?? '') as String;
-      _websiteController.text = (data['website'] ?? '') as String;
-      _matricController.text = (data['matricNum'] ?? '') as String;
-      _genderController.text = (data['gender'] ?? '') as String;
-      _descriptionController.text = (data['description'] ?? '') as String;
+      _usernameController.text = (data['name'] ?? '') as String;
+      //_websiteController.text = (data['website'] ?? '') as String;
+      //_matricController.text = (data['matricNum'] ?? '') as String;
+      //_genderController.text = (data['gender'] ?? '') as String;
+      //_descriptionController.text = (data['description'] ?? '') as String;
       _avatarUrl = (data['avatar_url'] ?? '') as String;
       //_skillsController.text = (data['skills'] ?? '') as Array;
     } on PostgrestException catch (error) {
@@ -67,21 +69,23 @@ class _AccountPageState extends State<AccountPage> {
       _loading = true;
     });
     final userName = _usernameController.text;
-    final website = _websiteController.text;
-    final matricNum = _matricController.text;
+    // final website = _websiteController.text;
+    // final matricNum = _matricController.text;
     final user = supabase.auth.currentUser;
-    final gender = _genderController.text;
-    final description = _descriptionController.text;
+    // final gender = _genderController.text;
+    // final description = _descriptionController.text;
     //final avatar =
     //final skills = _skillsController;
     final updates = {
       'id': user!.id,
       'username': userName,
-      'website': website,
+      'skills': skill,
+      'contacts': contact,
+      //'website': website,
       'updated_at': DateTime.now().toIso8601String(),
-      'matricNum': matricNum,
-      'gender': gender,
-      'description': description,
+      // 'matricNum': matricNum,
+      // 'gender': gender,
+      // 'description': description,
       //'avatar_url': _avatarUrl,
       //'skills': skills,
     };

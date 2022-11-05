@@ -14,11 +14,14 @@ import 'request pages/request.dart';
 //adb shell am start -W -a android.intent.action.VIEW -d "io.supabase.flutterquickstart://login-callback/"
 
 Future<void> main() async {
-  await Supabase.initialize(
-    url: 'https://qcoqbidwruiakpykidlf.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjb3FiaWR3cnVpYWtweWtpZGxmIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjYzNDEzODYsImV4cCI6MTk4MTkxNzM4Nn0.ol5POkel6KTRNrDk7Z_yUvYhzJ7_SXbY7Yt94Wvzi-Q',
-  );
+  const ujaiUrl = 'https://qcoqbidwruiakpykidlf.supabase.co';
+  const ujaiKey =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjb3FiaWR3cnVpYWtweWtpZGxmIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjYzNDEzODYsImV4cCI6MTk4MTkxNzM4Nn0.ol5POkel6KTRNrDk7Z_yUvYhzJ7_SXbY7Yt94Wvzi-Q';
+  const ammarUrl = 'https://quepskrrpovzwydvfezs.supabase.co/rest/v1';
+  const ammarKey =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF1ZXBza3JycG92end5ZHZmZXpzIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY2NzEyNTU3OSwiZXhwIjoxOTgyNzAxNTc5fQ.VwMvERKSiR_7fS_H3ROWBrTCnYkWrBtkPDRj8s8Ma_E';
+
+  await Supabase.initialize(url: ammarUrl, anonKey: ammarKey);
   runApp(MyApp());
 }
 
