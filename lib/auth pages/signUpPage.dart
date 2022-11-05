@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:testfyp/auth%20pages/account_page.dart';
 import 'package:testfyp/components/constants.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -69,7 +70,12 @@ class _SignUpPageState extends State<SignUpPage> {
       final session = data.session;
       if (session != null) {
         _redirecting = true;
-        Navigator.of(context).pushReplacementNamed('/account');
+        // Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (BuildContext context) => AccountPage()));
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('/account', (route) => false);
       }
     });
 

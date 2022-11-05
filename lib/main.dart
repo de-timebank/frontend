@@ -19,7 +19,7 @@ Future<void> main() async {
   const ammarKey =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF1ZXBza3JycG92end5ZHZmZXpzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjcxMjU1NzksImV4cCI6MTk4MjcwMTU3OX0.DCX9Qw3GKYdg-Ew96DHU-4wCIqdFm-AS7S63AAx8wFQ';
 
-  await Supabase.initialize(url: ammarUrl, anonKey: ammarKey);
+  await Supabase.initialize(url: ujaiUrl, anonKey: ujaiKey);
   runApp(MyApp());
 }
 
