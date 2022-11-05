@@ -12,12 +12,11 @@ class Heading2 extends StatelessWidget {
       child: Text(
         heading2,
         style: TextStyle(
-          color: Theme.of(context).primaryColor,
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          // decoration: TextDecoration.underline,
-          // decorationThickness: 1.5
-        ),
+            color: Color.fromARGB(255, 49, 61, 90),
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            decoration: TextDecoration.underline,
+            decorationThickness: 1.5),
       ),
     );
   }

@@ -5,10 +5,8 @@ class Common {
   late final channel;
   //Future<void> main() async {
   //'127.0.0.1'
-  final String emulator = '10.0.2.2';
-  final String server = '127.0.0.1';
   Common() {
-    channel = ClientChannel(emulator,
+    channel = ClientChannel('10.0.2.2',
         port: 8080,
         options:
             const ChannelOptions(credentials: ChannelCredentials.insecure()));

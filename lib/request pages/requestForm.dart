@@ -55,7 +55,7 @@ class _RequestFormState extends State<RequestForm> {
   //rate
   //location
   //description
-  //void insertData() {}
+  void insertData() {}
 
   // @override
   // void didChangeDependencies() {
