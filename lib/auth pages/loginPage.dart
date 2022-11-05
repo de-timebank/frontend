@@ -5,6 +5,9 @@ import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/auth%20pages/forgotPasword.dart';
 import 'package:testfyp/auth%20pages/signUpPage.dart';
 
+import '../bin/client_auth.dart';
+import '../bin/common.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -16,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _isLoading = false;
   bool _redirecting = false;
   bool _passwordVisible = false;
+  late Common _common;
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
   late final StreamSubscription<AuthState> _authStateSubscription;
@@ -31,6 +35,9 @@ class _LoginPageState extends State<LoginPage> {
         // emailRedirectTo:
         //     kIsWeb ? null : 'io.supabase.fluttercallback://Login-callback/',
       );
+      // await ClientAuth(Common().channel)
+      //     .signInUser(_emailController.text, _passwordController.text);
+
       // if (mounted) {
       //   context.showSnackBar(message: 'Check your email for Login link!');
       //   _emailController.clear();
@@ -41,6 +48,7 @@ class _LoginPageState extends State<LoginPage> {
       context.showErrorSnackBar(message: 'User is already registered');
     }
     setState(() {
+      _common = Common();
       _isLoading = false;
     });
   }

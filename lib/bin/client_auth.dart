@@ -23,8 +23,7 @@ class ClientAuth {
           ..matricNumber = matric));
   }
 
-  Future<SignIn_Response> signInUser(
-      String id, String token, String email, String password) async {
+  Future<SignIn_Response> signInUser(String email, String password) async {
     return await stub.signIn(SignIn_Request(
         payload: SignIn_Payload()
           ..email = email

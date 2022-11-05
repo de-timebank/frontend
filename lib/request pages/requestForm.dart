@@ -64,7 +64,6 @@ class _RequestFormState extends State<RequestForm> {
   //   super.didChangeDependencies();
   //   //_distanceToField = MediaQuery.of(context).size.width;
   // }
-  _getUserid() async {}
 
   @override
   void dispose() {
@@ -221,21 +220,6 @@ class _RequestFormState extends State<RequestForm> {
                 SizedBox(height: 8),
                 ElevatedButton(
                     onPressed: () async {
-                      // titleController.clear();
-                      // rateController.clear();
-                      // categoryController.clear();
-                      // locationController.clear();
-                      // descriptionController.clear();
-                      //_controller.clearTags();
-                      // _submitJobForm(
-                      //     'new title',
-                      //     'new  description',
-                      //     '123latitude',
-                      //     '321longitude',
-                      //     'Sabah',
-                      //     2,
-                      //     media,
-                      //     '291b79a7-c67c-4783-b004-239cb334804d');
                       if (_formKey.currentState!.validate()) {
                         var rate = double.parse(
                             _rateController.text); //convert to double
@@ -248,12 +232,13 @@ class _RequestFormState extends State<RequestForm> {
                           _locationController.text,
                           rate,
                           media,
+                          '291b79a7-c67c-4783-b004-239cb334804d',
                           //_user!.id.toString()
                         );
 
                         //'291b79a7-c67c-4783-b004-239cb334804d'
                         context.showSnackBar(message: 'Job Created');
-                        //Navigator.of(context).pop();
+                        Navigator.of(context).pop();
                       }
                     },
                     child: const Text('Create Request')),
@@ -264,25 +249,17 @@ class _RequestFormState extends State<RequestForm> {
   }
 
   Future<void> _submitJobForm(
-    String title,
-    String description,
-    String latitude,
-    String longitude,
-    String locName,
-    double rate,
-    List<String> media,
-    //String requestor
-  ) async {
-    final _user = await supabase.auth.currentUser;
-    print(_user!.id);
-    await ClientServiceRequest(Common().channel).createServiceRequest(
-        title,
-        description,
-        latitude,
-        longitude,
-        locName,
-        rate,
-        media,
-        'f53809c5-68e6-480c-902e-a5bc3821a003');
+      String title,
+      String description,
+      String latitude,
+      String longitude,
+      String locName,
+      double rate,
+      List<String> media,
+      String requestor) async {
+    // final _user = await supabase.auth.currentUser;
+    // print(_user!.id);
+    await ClientServiceRequest(Common().channel).createServiceRequest(title,
+        description, latitude, longitude, locName, rate, media, requestor);
   }
 }
