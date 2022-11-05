@@ -6,8 +6,7 @@ import 'package:testfyp/components/constants.dart';
 //import 'package:testfyp/dashboard.dart';
 import 'package:testfyp/navigation.dart';
 import 'package:testfyp/splash_page.dart';
-
-import '../profile pages/profile.dart';
+//import '../profile pages/profile.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});

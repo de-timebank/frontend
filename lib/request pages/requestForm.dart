@@ -20,7 +20,7 @@ class RequestForm extends StatefulWidget {
 
 class _RequestFormState extends State<RequestForm> {
   late Common _common;
-
+  late final _user;
   @override
   void initState() {
     // TODO: implement initState
@@ -46,8 +46,10 @@ class _RequestFormState extends State<RequestForm> {
   final _locationController = TextEditingController();
   final _rateController = TextEditingController();
   final _mediaController = TextEditingController();
+
   List<String> media = ['Test media'];
   final _formKey = GlobalKey<FormState>();
+
   var n = 0;
 
   //title
@@ -62,6 +64,7 @@ class _RequestFormState extends State<RequestForm> {
   //   super.didChangeDependencies();
   //   //_distanceToField = MediaQuery.of(context).size.width;
   // }
+  _getUserid() async {}
 
   @override
   void dispose() {
@@ -75,12 +78,6 @@ class _RequestFormState extends State<RequestForm> {
 
     super.dispose();
   }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   //_controller = TextfieldTagsController();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -244,17 +241,19 @@ class _RequestFormState extends State<RequestForm> {
                             _rateController.text); //convert to double
                         media.add(_mediaController.text); //add to array
                         _submitJobForm(
-                            _titleController.text,
-                            _descriptionController.text,
-                            _latitudeController.text,
-                            _longitudeController.text,
-                            _locationController.text,
-                            rate,
-                            media,
-                            '291b79a7-c67c-4783-b004-239cb334804d');
+                          _titleController.text,
+                          _descriptionController.text,
+                          _latitudeController.text,
+                          _longitudeController.text,
+                          _locationController.text,
+                          rate,
+                          media,
+                          //_user!.id.toString()
+                        );
 
+                        //'291b79a7-c67c-4783-b004-239cb334804d'
                         context.showSnackBar(message: 'Job Created');
-                        Navigator.of(context).pop();
+                        //Navigator.of(context).pop();
                       }
                     },
                     child: const Text('Create Request')),
@@ -265,15 +264,25 @@ class _RequestFormState extends State<RequestForm> {
   }
 
   Future<void> _submitJobForm(
-      String title,
-      String description,
-      String latitude,
-      String longitude,
-      String locName,
-      double rate,
-      List<String> media,
-      String requestor) async {
-    await ClientServiceRequest(Common().channel).createServiceRequest(title,
-        description, latitude, longitude, locName, rate, media, requestor);
+    String title,
+    String description,
+    String latitude,
+    String longitude,
+    String locName,
+    double rate,
+    List<String> media,
+    //String requestor
+  ) async {
+    final _user = await supabase.auth.currentUser;
+    print(_user!.id);
+    await ClientServiceRequest(Common().channel).createServiceRequest(
+        title,
+        description,
+        latitude,
+        longitude,
+        locName,
+        rate,
+        media,
+        'f53809c5-68e6-480c-902e-a5bc3821a003');
   }
 }

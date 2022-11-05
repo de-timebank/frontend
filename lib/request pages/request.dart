@@ -38,12 +38,6 @@ class _RequestPageState extends State<RequestPage> {
   void getinstance() async {
     listRequest = await ClientServiceRequest(Common().channel)
         .getResponse('requestor', '291b79a7-c67c-4783-b004-239cb334804d');
-    //print(listRequest);
-    //print(jsonEncode(listRequest));
-    //index1 = listRequest.requests.length;
-    // print(await ClientServiceRequest(Common().channel)
-    //     .getResponse('requestor', '291b79a7-c67c-4783-b004-239cb334804d')
-    //     .toString());
     setState(() {
       isLoad = false;
     });
@@ -51,7 +45,6 @@ class _RequestPageState extends State<RequestPage> {
 
   void _deleteRequest(String id) async {
     ClientServiceRequest(Common().channel).deleteService(id);
-
     setState(() {
       getinstance();
     });
@@ -59,7 +52,6 @@ class _RequestPageState extends State<RequestPage> {
 
   void _updateRequest(String id, String body) async {
     ClientServiceRequest(Common().channel).updateService(id, body);
-    //print(ClientServiceRequest(Common().channel).updateService(id, body));
     setState(() {
       getinstance();
     });
