@@ -106,10 +106,10 @@ class ServiceRequestDetails extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                  context.showSnackBar(message: 'Job updated!!');
+                  context.showSnackBar(message: 'Job Requested');
                   Navigator.of(context).pop();
                 },
-                child: Text('Update Job (coming soon)')),
+                child: Text('Request Job')),
             TextButton(
                 onPressed: () {
                   _deleteRequest(id);

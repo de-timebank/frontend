@@ -25,7 +25,7 @@ class _AccountPageState extends State<AccountPage> {
   late String _avatarUrl = '';
   // late List<String> skill;
   // late List<dynamic> contact;
-  var _loading = false;
+  var _loading = true;
 
   /// Called once a user id is received within `onAuthenticated()`
   Future<void> _getProfile() async {
@@ -93,12 +93,12 @@ class _AccountPageState extends State<AccountPage> {
       await supabase.from('profiles').upsert(updates);
       if (mounted) {
         context.showSnackBar(message: 'Successfully updated profile!');
-        // Navigator.of(context).pop();
+        Navigator.of(context).pop();
         // Navigator.of(context).popUntil((route) => route.isFirst);
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) => BottomBarNavigation()));
+        // Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (BuildContext context) => BottomBarNavigation()));
       }
     } on PostgrestException catch (error) {
       context.showErrorSnackBar(message: error.message);
@@ -177,55 +177,57 @@ class _AccountPageState extends State<AccountPage> {
         title: const Text('Profile Settings'),
         // backgroundColor: Color.fromARGB(255, 127, 17, 224),
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
-        children: [
-          Avatar(
-            imageUrl: _avatarUrl,
-            onUpload: _onUpload,
-          ),
-          const SizedBox(height: 18),
-          TextFormField(
-            controller: _usernameController,
-            decoration: const InputDecoration(labelText: 'User Name'),
-          ),
-          TextFormField(
-            controller: _genderController,
-            decoration: const InputDecoration(labelText: 'Gender'),
-          ),
-          TextFormField(
-            controller: _matricController,
-            decoration: const InputDecoration(labelText: 'Matric Number'),
-          ),
-          TextFormField(
-            controller: _descriptionController,
-            decoration: const InputDecoration(labelText: 'Description'),
-          ),
-          const SizedBox(height: 18),
-          TextFormField(
-            controller: _websiteController,
-            decoration: const InputDecoration(labelText: 'Website'),
-          ),
-          const SizedBox(height: 18),
-          ElevatedButton(
-            onPressed: _updateProfile,
-            child: Text(_loading ? 'Saving...' : 'Update'),
-          ),
-          //const SizedBox(height: 18),
-          ElevatedButton(
-            onPressed: (() {
-              Navigator.of(context).popUntil((route) => route.isFirst);
-              // Navigator.pushReplacement(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (BuildContext context) =>
-              //             BottomBarNavigation()));
-            }),
-            child: Text('Go to DashBoard'),
-          ),
-          TextButton(onPressed: _signOut, child: const Text('Sign Out')),
-        ],
-      ),
+      body: _loading
+          ? Center(child: CircularProgressIndicator())
+          : ListView(
+              padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
+              children: [
+                Avatar(
+                  imageUrl: _avatarUrl,
+                  onUpload: _onUpload,
+                ),
+                const SizedBox(height: 18),
+                TextFormField(
+                  controller: _usernameController,
+                  decoration: const InputDecoration(labelText: 'User Name'),
+                ),
+                TextFormField(
+                  controller: _genderController,
+                  decoration: const InputDecoration(labelText: 'Gender'),
+                ),
+                TextFormField(
+                  controller: _matricController,
+                  decoration: const InputDecoration(labelText: 'Matric Number'),
+                ),
+                TextFormField(
+                  controller: _descriptionController,
+                  decoration: const InputDecoration(labelText: 'Description'),
+                ),
+                const SizedBox(height: 18),
+                TextFormField(
+                  controller: _websiteController,
+                  decoration: const InputDecoration(labelText: 'Website'),
+                ),
+                const SizedBox(height: 18),
+                ElevatedButton(
+                  onPressed: _updateProfile,
+                  child: Text(_loading ? 'Loading...' : 'Update'),
+                ),
+                //const SizedBox(height: 18),
+                ElevatedButton(
+                  onPressed: (() {
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    // Navigator.pushReplacement(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (BuildContext context) =>
+                    //             BottomBarNavigation()));
+                  }),
+                  child: Text('Go to DashBoard'),
+                ),
+                TextButton(onPressed: _signOut, child: const Text('Sign Out')),
+              ],
+            ),
     );
   }
 }

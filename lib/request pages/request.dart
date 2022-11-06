@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:testfyp/bin/client_service_request.dart';
 import 'package:testfyp/bin/common.dart';
 import 'package:testfyp/components/constants.dart';
-import 'package:testfyp/custom%20widgets/customCard.dart';
+import 'package:testfyp/custom%20widgets/customCardRequest.dart';
 import 'package:testfyp/extension_string.dart';
 //import 'package:testfyp/generated/rating/rating.pb.dart';
 import 'package:testfyp/generated/services/service-request.pb.dart';
 import 'package:testfyp/request%20pages/requestForm.dart';
+
+import '../service pages/serviceRequestDetails.dart';
 
 class RequestPage extends StatefulWidget {
   RequestPage({Key? key}) : super(key: key);
@@ -23,7 +25,7 @@ class _RequestPageState extends State<RequestPage> {
   late bool isLoad;
   late dynamic listRequest;
   late final user;
-
+  bool _isEmpty = true;
   //registered user (budi)
   final ammar = 'f53809c5-68e6-480c-902e-a5bc3821a003';
   final evergreen = '06a7a82f-b04f-4111-b0c9-a92d918d3207';
@@ -49,12 +51,24 @@ class _RequestPageState extends State<RequestPage> {
 
   void getinstance() async {
     final user = supabase.auth.currentUser!.id;
+    //print(user);
     final _userCurrent = getCurrentUser(user);
     listRequest = await ClientServiceRequest(Common().channel)
         .getResponse('requestor', _userCurrent);
+    //print(listRequest);
     setState(() {
       isLoad = false;
     });
+  }
+
+  bool isEmpty() {
+    if (listRequest.length == 0) {
+      _isEmpty == true;
+      return _isEmpty;
+    } else {
+      _isEmpty == false;
+      return _isEmpty;
+    }
   }
 
   void _deleteRequest(String id) async {
@@ -98,30 +112,72 @@ class _RequestPageState extends State<RequestPage> {
           title: const Text('Request'),
         ),
         body: isLoad
-            ? Center(child: CircularProgressIndicator())
+            ? _isEmpty
+                ? Center(child: CircularProgressIndicator())
+                : Center(child: Text('No request have been made...'))
             : ListView.builder(
                 itemCount: listRequest.requests.length,
                 itemBuilder: (context, index) {
-                  return CustomCard_ServiceRequest(
-                    //function: getinstance,
-                    id: listRequest.requests[index].id,
-                    requestor: listRequest.requests[index].requestor,
-                    provider: listRequest.requests[index].provider,
-                    title: listRequest.requests[index].details.title,
-                    description:
-                        listRequest.requests[index].details.description,
-                    locationName: listRequest.requests[index].location.name,
-                    latitude: listRequest
-                        .requests[index].location.coordinate.latitude,
-                    longitude: listRequest
-                        .requests[index].location.coordinate.longitude,
-                    state: listRequest.requests[index].state,
-                    rate: listRequest.requests[index].rate,
-                    applicants: listRequest.requests[index].applicants,
-                    created: listRequest.requests[index].createdAt,
-                    updated: listRequest.requests[index].updatedAt,
-                    completed: listRequest.requests[index].completedAt,
-                    media: listRequest.requests[index].mediaAttachments,
+                  return InkWell(
+                    onTap: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(
+                              builder: (context) => ServiceRequestDetails(
+                                    id: listRequest.requests[index].id,
+                                    requestor:
+                                        listRequest.requests[index].requestor,
+                                    provider:
+                                        listRequest.requests[index].provider,
+                                    title: listRequest
+                                        .requests[index].details.title,
+                                    description: listRequest
+                                        .requests[index].details.description,
+                                    locationName: listRequest
+                                        .requests[index].location.name,
+                                    latitude: listRequest.requests[index]
+                                        .location.coordinate.latitude,
+                                    longitude: listRequest.requests[index]
+                                        .location.coordinate.longitude,
+                                    state: listRequest.requests[index].state,
+                                    rate: listRequest.requests[index].rate,
+                                    applicants:
+                                        listRequest.requests[index].applicants,
+                                    created:
+                                        listRequest.requests[index].createdAt,
+                                    updated:
+                                        listRequest.requests[index].updatedAt,
+                                    completed:
+                                        listRequest.requests[index].completedAt,
+                                    media: listRequest
+                                        .requests[index].mediaAttachments,
+                                  )))
+                          .then((value) => setState(
+                                () {
+                                  getinstance();
+                                },
+                              ));
+                    },
+                    child: CustomCard_ServiceRequest(
+                      //function: getinstance,
+                      //id: listRequest.requests[index].id,
+                      requestor: listRequest.requests[index].requestor,
+                      //provider: listRequest.requests[index].provider,
+                      title: listRequest.requests[index].details.title,
+                      // description:
+                      //     listRequest.requests[index].details.description,
+                      // locationName: listRequest.requests[index].location.name,
+                      // latitude: listRequest
+                      //     .requests[index].location.coordinate.latitude,
+                      // longitude: listRequest
+                      //     .requests[index].location.coordinate.longitude,
+                      // state: listRequest.requests[index].state,
+                      rate: listRequest.requests[index].rate,
+                      // applicants: listRequest.requests[index].applicants,
+                      // created: listRequest.requests[index].createdAt,
+                      // updated: listRequest.requests[index].updatedAt,
+                      // completed: listRequest.requests[index].completedAt,
+                      // media: listRequest.requests[index].mediaAttachments,
+                    ),
                   );
                 },
               ),

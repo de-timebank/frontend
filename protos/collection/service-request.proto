@@ -9,10 +9,10 @@ service ServiceRequest {
     rpc getById (GetById.Request) returns (GetById.Response); //done
     rpc update (Update.Request) returns (Update.Response); //done
     rpc delete (Delete.Request) returns (Delete.Response); //done
-    rpc applyProvider (ApplyProvider.Request) returns (ApplyProvider.Response);//done
-    rpc selectProvider (SelectProvider.Request) returns (SelectProvider.Response);//done
+    rpc applyProvider (ApplyProvider.Request) returns (ApplyProvider.Response);//done request job
+    rpc selectProvider (SelectProvider.Request) returns (SelectProvider.Response);//done select the person who request the job
     rpc completeService (CompleteService.Request) returns (CompleteService.Response); //done
-    rpc getCommitment (GetCommitment.Request) returns (GetCommitment.Response); //
+    rpc getCommitment (GetCommitment.Request) returns (GetCommitment.Response); // apply job
 }
 
 message ServiceRequestData {    
@@ -139,7 +139,7 @@ message GetCommitment {
     }
 }
 
-message ApplyProvider {
+message ApplyProvider { 
     message Request {
         string request_id = 1;
         string provider = 2;
