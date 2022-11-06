@@ -34,8 +34,11 @@ class PasswordPageState extends State<PasswordPage> {
       );
       if (mounted) {
         context.showSnackBar(message: 'Password Updated!');
-        Navigator.of(context).pushReplacementNamed('/navigation');
-        _passwordController.clear();
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('/navigation', (route) => false);
+        //Navigator.of(context).popUntil((route) => route.isFirst);
+        //Navigator.of(context).pushReplacementNamed('/');
+        //_passwordController.clear();
       }
     } on AuthException catch (error) {
       context.showErrorSnackBar(message: error.message);
