@@ -20,23 +20,12 @@ class RequestForm extends StatefulWidget {
 
 class _RequestFormState extends State<RequestForm> {
   late Common _common;
-  late final _user;
   @override
   void initState() {
     // TODO: implement initState
     _common = Common(); //get server
     super.initState();
   }
-
-  //list
-  // - title
-  // - description
-  // - latitude
-  // - longitude
-  // - locname
-  // - rate
-  //late TextfieldTagsController _controller;
-  //late double _distanceToField;
 
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
@@ -46,24 +35,12 @@ class _RequestFormState extends State<RequestForm> {
   final _locationController = TextEditingController();
   final _rateController = TextEditingController();
   final _mediaController = TextEditingController();
-
+  //registered user (budi)
+  final ammar = 'f53809c5-68e6-480c-902e-a5bc3821a003';
+  final evergreen = '06a7a82f-b04f-4111-b0c9-a92d918d3207';
+  final ujaiahmad = '291b79a7-c67c-4783-b004-239cb334804d';
   List<String> media = ['Test media'];
   final _formKey = GlobalKey<FormState>();
-
-  var n = 0;
-
-  //title
-  //category
-  //rate
-  //location
-  //description
-  //void insertData() {}
-
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   //_distanceToField = MediaQuery.of(context).size.width;
-  // }
 
   @override
   void dispose() {
@@ -76,6 +53,16 @@ class _RequestFormState extends State<RequestForm> {
     _mediaController.dispose();
 
     super.dispose();
+  }
+
+  getCurrentUser(String id) {
+    if (id == '94dba464-863e-4551-affd-4258724ae351') {
+      return ujaiahmad;
+    } else if (id == 'cd54d0d0-23ef-437c-8397-c5d5d754691f') {
+      return ammar; //ujai junior
+    } else {
+      return evergreen; //e6a7c29b-0b2d-4145-9211-a4e9b545102a
+    }
   }
 
   @override
@@ -220,6 +207,9 @@ class _RequestFormState extends State<RequestForm> {
                 SizedBox(height: 8),
                 ElevatedButton(
                     onPressed: () async {
+                      final user = supabase.auth.currentUser!.id;
+                      final _userCurrent = getCurrentUser(user);
+                      //print(_userCurrent);
                       if (_formKey.currentState!.validate()) {
                         var rate = double.parse(
                             _rateController.text); //convert to double
@@ -232,7 +222,7 @@ class _RequestFormState extends State<RequestForm> {
                           _locationController.text,
                           rate,
                           media,
-                          '291b79a7-c67c-4783-b004-239cb334804d',
+                          _userCurrent,
                           //_user!.id.toString()
                         );
 

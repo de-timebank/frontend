@@ -22,22 +22,36 @@ class _RequestPageState extends State<RequestPage> {
   late Common _common;
   late bool isLoad;
   late dynamic listRequest;
-  //late int index1;
-  late String user;
-  //late Future<dynamic> listRequest;
+  late final user;
+
+  //registered user (budi)
+  final ammar = 'f53809c5-68e6-480c-902e-a5bc3821a003';
+  final evergreen = '06a7a82f-b04f-4111-b0c9-a92d918d3207';
+  final ujaiahmad = '291b79a7-c67c-4783-b004-239cb334804d';
+
   @override
   void initState() {
     _common = Common();
     isLoad = true;
-    //index1 = 2;
     getinstance();
-    //listRequest = _
     super.initState();
   }
 
+  getCurrentUser(String id) {
+    if (id == '94dba464-863e-4551-affd-4258724ae351') {
+      return ujaiahmad;
+    } else if (id == 'cd54d0d0-23ef-437c-8397-c5d5d754691f') {
+      return ammar; //ujai junior
+    } else {
+      return evergreen; //e6a7c29b-0b2d-4145-9211-a4e9b545102a
+    }
+  }
+
   void getinstance() async {
+    final user = supabase.auth.currentUser!.id;
+    final _userCurrent = getCurrentUser(user);
     listRequest = await ClientServiceRequest(Common().channel)
-        .getResponse('requestor', '291b79a7-c67c-4783-b004-239cb334804d');
+        .getResponse('requestor', _userCurrent);
     setState(() {
       isLoad = false;
     });
@@ -83,7 +97,6 @@ class _RequestPageState extends State<RequestPage> {
           // ],
           title: const Text('Request'),
         ),
-        //Text(listRequest.requests[0].location.toString()), return location
         body: isLoad
             ? Center(child: CircularProgressIndicator())
             : ListView.builder(
@@ -115,9 +128,6 @@ class _RequestPageState extends State<RequestPage> {
         floatingActionButton: FloatingActionButton.extended(
           backgroundColor: Color.fromARGB(255, 127, 17, 224),
           onPressed: () async {
-            //_getRequest();
-            //_getAllRequest();
-            //print(listRequest.toString());
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -125,7 +135,6 @@ class _RequestPageState extends State<RequestPage> {
                 )).then((value) => setState(
                   () {
                     getinstance();
-                    //_getProfile();
                   },
                 ));
           },

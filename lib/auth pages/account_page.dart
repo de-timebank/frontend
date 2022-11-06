@@ -73,6 +73,7 @@ class _AccountPageState extends State<AccountPage> {
     final user = supabase.auth.currentUser;
     final gender = _genderController.text;
     final description = _descriptionController.text;
+    //print(user!.id);
     //final avatar =
     //final skills = _skillsController;
     final updates = {
