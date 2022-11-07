@@ -21,11 +21,11 @@ class _AvailableServicesState extends State<AvailableServices> {
   late final user;
   late String _userCurrent;
   late bool _isEmpty;
+
   //registered user (budi)
   final ammar = 'f53809c5-68e6-480c-902e-a5bc3821a003';
   final evergreen = '06a7a82f-b04f-4111-b0c9-a92d918d3207';
   final ujaiahmad = '291b79a7-c67c-4783-b004-239cb334804d';
-  //final _userCurrent;
 
   @override
   void initState() {

@@ -139,14 +139,14 @@ class _DashBoardState extends State<DashBoard> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'Make a request',
+                                      'Rate',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center,
                                       //Theme.of(context).textTheme.headline1,
                                     ),
                                     Text(
-                                      'Let others help you',
+                                      'Give reviews & feedback',
                                       style: TextStyle(fontSize: 13),
                                       textAlign: TextAlign.center,
                                     )

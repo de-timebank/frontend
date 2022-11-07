@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:testfyp/bin/client_rating.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/extension_string.dart';
 import '../bin/client_service_request.dart';
 import '../bin/common.dart';
-import '../custom widgets/customHeadline.dart';
 import '../custom widgets/heading2.dart';
 
-class ServiceDetails extends StatelessWidget {
+class ServiceDetails extends StatefulWidget {
   //final function;
   final user;
   final id;
@@ -44,6 +46,16 @@ class ServiceDetails extends StatelessWidget {
       this.completed,
       this.media});
 
+  @override
+  State<ServiceDetails> createState() => _ServiceDetailsState();
+}
+
+class _ServiceDetailsState extends State<ServiceDetails> {
+  //controller
+  double _valueController = 0;
+
+  final _commentController = TextEditingController();
+
   applyJob(String reqid, String provider) {
     ClientServiceRequest(Common().channel).applyProvider1(reqid, provider);
   }
@@ -56,12 +68,22 @@ class ServiceDetails extends StatelessWidget {
     }
   }
 
+  isComplete(dynamic state) {
+    if (state == 'COMPLETED') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   void _deleteRequest(String id) async {
     ClientServiceRequest(Common().channel).deleteService(id);
+  }
 
-    // setState(() {
-    //   getinstance();
-    // });
+  void _rateRequestor(
+      String author, int value, String comment, String id) async {
+    ClientRating(Common().channel)
+        .ratingForRequestor(author, value, comment, id);
   }
 
   //final rateServiceController = TextEditingController();
@@ -78,50 +100,109 @@ class ServiceDetails extends StatelessWidget {
           shrinkWrap: true,
           children: [
             Heading2('Id'),
-            Text(id),
+            Text(widget.id),
             Heading2('Title'),
-            Text(title.toString().capitalize()),
+            Text(widget.title.toString().capitalize()),
             Heading2('Description'),
-            Text(description.toString().capitalize()),
+            Text(widget.description.toString().capitalize()),
             Heading2('Applicants'),
-            isNull(applicants)
+            isNull(widget.applicants)
                 ? Text('No Applicants')
-                : Text(applicants.toString()),
+                : Text(widget.applicants.toString()),
             Heading2('Media'),
-            isNull(media) ? Text('No Attachment') : Text(media.toString()),
+            isNull(widget.media)
+                ? Text('No Attachment')
+                : Text(widget.media.toString()),
             Heading2('Location'),
-            Text(locationName.toString().titleCase()),
-            Text('Latitude: ' + latitude),
-            Text('Longitude: ' + longitude),
+            Text(widget.locationName.toString().titleCase()),
+            Text('Latitude: ' + widget.latitude),
+            Text('Longitude: ' + widget.longitude),
             Heading2('Requestor'),
-            Text(requestor.toString().titleCase()),
+            Text(widget.requestor.toString().titleCase()),
             Heading2('State'),
-            Text(state.toString().capitalize()),
+            Text(widget.state.toString().capitalize()),
             Heading2('Created On'),
-            Text(created),
+            Text(widget.created),
             Heading2('Updated On'),
-            Text(updated),
+            Text(widget.updated),
             Heading2('Completed On'),
-            isNull(completed) ? Text('Not Completed') : Text(completed),
+            isNull(widget.completed)
+                ? Text('Not Completed')
+                : Text(widget.completed),
             Heading2('Provider'),
-            isNull(provider)
+            isNull(widget.provider)
                 ? Text('No provider yet')
-                : Text(provider.toString().titleCase()),
-
+                : Text(widget.provider.toString().titleCase()),
             // Heading2('Category'),
             // Text('Programming, Python, uhh'),
-
-            SizedBox(
-              height: 15,
-            ),
+            SizedBox(height: 15),
             ElevatedButton(
                 onPressed: () {
-                  context.showSnackBar(message: 'Job requested!!');
-                  //print(user);
-                  //applyJob(id, user);
-                  Navigator.of(context).pop();
+                  print(widget.id);
+                  print(widget.user);
+                  //applyJob(widget.id, widget.user);
+                  //context.showSnackBar(message: 'Job requested!!');
+                  //Navigator.of(context).pop();
                 },
                 child: Text('Request Job')),
+            isComplete(widget.state.toString())
+                ? Card(
+                    elevation: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Rate The requestor',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          SizedBox(height: 5),
+                          Center(
+                            child: RatingBar.builder(
+                              initialRating: 0,
+                              itemBuilder: (context, index) => Icon(
+                                Icons.star,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              onRatingUpdate: (value) {
+                                _valueController = value;
+                                //print(_valueController);
+                              },
+                            ),
+                          ),
+                          TextFormField(
+                            controller: _commentController,
+                            decoration:
+                                InputDecoration(hintText: 'Enter comment'),
+                          ),
+                          ElevatedButton(
+                              onPressed: () {
+                                //_valueController.toInt();
+                                // int intvalue =
+                                //     int.parse(_valueController.toString());
+                                //print(_valueController.toString());
+                                // context.showSnackBar(
+                                //     message: 'Provider rated!!');
+                                _rateRequestor(
+                                    widget.user,
+                                    _valueController.toInt(),
+                                    _commentController.text,
+                                    widget.id);
+                                //print(user);
+                                //applyJob(id, user);
+                                //Navigator.of(context).pop();
+                              },
+                              child: Text('Rate Provider')),
+                        ],
+                      ),
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: const Center(
+                        child: Text('Complete the job to rate the provider')),
+                  )
           ],
         ),
       ),

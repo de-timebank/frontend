@@ -1,26 +1,21 @@
 import 'package:grpc/grpc.dart';
-import 'package:testfyp/bin/common.dart';
 import '../generated/rating/rating.pbgrpc.dart';
+import 'common.dart';
 
 class ClientRating {
-  final common = Common();
+  //final common = Common();
   late RatingClient stub;
-  void main() async {
-    // final channel = ClientChannel('127.0.0.1',
-    //     port: 8080,
-    //     options:
-    //         const ChannelOptions(credentials: ChannelCredentials.insecure()));
-    final channel = Common().channel;
 
+  ClientRating(ClientChannel channel) {
     stub = RatingClient(channel,
         options: CallOptions(timeout: Duration(seconds: 30)));
-
-    var result =
-        await getResponse('id', '416056b5-e518-4e1b-8770-8d9ac1f58868');
-    print(result);
-
-    await channel.shutdown();
   }
+
+  // void main() {
+  //   ratingForRequestor('291b79a7-c67c-4783-b004-239cb334804d', 3, 'nice',
+  //       '92a76fc8-b000-4023-8056-5d0a962b0872');
+
+  // }
 
   Future<Create_Response> ratingForRequestor(
       String author, int value, String comment, String id) async {
@@ -32,7 +27,7 @@ class ClientRating {
           ..requestId = id));
   }
 
-  Future<Create_Response> ratingForProvidor(
+  Future<Create_Response> ratingForProvider(
       String author, int value, String comment, String id) async {
     return await stub.createForRequestor(Create_Request(
         rating: Create_NewRatingData()
@@ -59,7 +54,7 @@ class ClientRating {
   }
 }
 
-void main() {
-  var client = ClientRating();
-  client.main();
-}
+// void main() {
+//   var client = ClientRating(Common().channel);
+//   client.main();
+// }

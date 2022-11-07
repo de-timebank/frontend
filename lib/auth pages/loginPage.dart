@@ -5,7 +5,6 @@ import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/auth%20pages/forgotPasword.dart';
 import 'package:testfyp/auth%20pages/signUpPage.dart';
 
-import '../bin/client_auth.dart';
 import '../bin/common.dart';
 
 class LoginPage extends StatefulWidget {
@@ -45,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
     } on AuthException catch (error) {
       context.showErrorSnackBar(message: error.message);
     } catch (error) {
-      context.showErrorSnackBar(message: 'User is already registered');
+      context.showErrorSnackBar(message: 'Unable to log in!!');
     }
     setState(() {
       _common = Common();

@@ -4,24 +4,23 @@ import '../bin/client_service_request.dart';
 import '../bin/common.dart';
 import '../components/constants.dart';
 import '../custom widgets/customCardRequest.dart';
-import 'serviceDetails.dart';
+import 'requestDetails.dart';
+import 'requestForm.dart';
 
-class YourServices extends StatefulWidget {
-  YourServices({Key? key}) : super(key: key);
+class CompletedRequest extends StatefulWidget {
+  CompletedRequest({Key? key}) : super(key: key);
 
   @override
-  State<YourServices> createState() => _YourServicesState();
+  State<CompletedRequest> createState() => _CompletedRequestState();
 }
 
-class _YourServicesState extends State<YourServices> {
+class _CompletedRequestState extends State<CompletedRequest> {
   late Common _common;
   late bool isLoad;
   late dynamic listRequest;
   late dynamic listFiltered;
   late final user;
-  late String _userCurrent;
   late bool _isEmpty;
-
   //registered user (budi)
   final ammar = 'f53809c5-68e6-480c-902e-a5bc3821a003';
   final evergreen = '06a7a82f-b04f-4111-b0c9-a92d918d3207';
@@ -49,13 +48,13 @@ class _YourServicesState extends State<YourServices> {
   void getinstance() async {
     listFiltered = [];
     final user = supabase.auth.currentUser!.id;
-    _userCurrent = getCurrentUser(user);
+    final _userCurrent = getCurrentUser(user);
 
-    listRequest =
-        await ClientServiceRequest(Common().channel).getResponse('state', '2');
+    listRequest = await ClientServiceRequest(Common().channel)
+        .getResponse('requestor', _userCurrent);
 
     for (var i = 0; i < listRequest.requests.length; i++) {
-      if (listRequest.requests[i].requestor != _userCurrent) {
+      if (listRequest.requests[i].state == '3') {
         listFiltered.add(listRequest.requests[i]);
       }
     }
@@ -83,11 +82,7 @@ class _YourServicesState extends State<YourServices> {
       body: isLoad
           ? const Center(child: CircularProgressIndicator())
           : _isEmpty
-              ? const Center(
-                  child: Text(
-                  'No ongoing services provided,\nSearch for available job in the next tab...',
-                  textAlign: TextAlign.center,
-                ))
+              ? const Center(child: Text('No completed requests...'))
               : ListView.builder(
                   itemCount: listFiltered.length,
                   itemBuilder: (context, index) {
@@ -95,8 +90,7 @@ class _YourServicesState extends State<YourServices> {
                       onTap: () {
                         Navigator.of(context)
                             .push(MaterialPageRoute(
-                                builder: (context) => ServiceDetails(
-                                      user: _userCurrent,
+                                builder: (context) => RequestDetails(
                                       id: listFiltered[index].id,
                                       requestor: listFiltered[index].requestor,
                                       provider: listFiltered[index].provider,
@@ -133,29 +127,29 @@ class _YourServicesState extends State<YourServices> {
                                 ));
                       },
                       child: CustomCard_ServiceRequest(
+                        //function: getinstance,
+                        //id: listFiltered[index].id,
                         requestor: listFiltered[index].requestor,
+                        //provider: listFiltered[index].provider,
                         title: listFiltered[index].details.title,
+                        // description:
+                        //     listFiltered[index].details.description,
+                        // locationName: listFiltered[index].location.name,
+                        // latitude: listFiltered
+                        //     [index].location.coordinate.latitude,
+                        // longitude: listFiltered
+                        //     [index].location.coordinate.longitude,
+                        // state: listFiltered[index].state,
                         rate: listFiltered[index].rate,
+                        // applicants: listFiltered[index].applicants,
+                        // created: listFiltered[index].createdAt,
+                        // updated: listFiltered[index].updatedAt,
+                        // completed: listFiltered[index].completedAt,
+                        // media: listFiltered[index].mediaAttachments,
                       ),
                     );
                   },
                 ),
-      // floatingActionButton: FloatingActionButton.extended(
-      //   backgroundColor: Color.fromARGB(255, 127, 17, 224),
-      //   onPressed: () async {
-      //     Navigator.push(
-      //         context,
-      //         MaterialPageRoute(
-      //           builder: (context) => RequestForm(),
-      //         )).then((value) => setState(
-      //           () {
-      //             getinstance();
-      //           },
-      //         ));
-      //   },
-      //   icon: Icon(Icons.add),
-      //   label: Text('Add Request'),
-      // )
     );
   }
 }

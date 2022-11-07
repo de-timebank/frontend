@@ -6,14 +6,14 @@ import '../components/constants.dart';
 import '../custom widgets/customCardRequest.dart';
 import 'serviceDetails.dart';
 
-class YourServices extends StatefulWidget {
-  YourServices({Key? key}) : super(key: key);
+class CompletedServices extends StatefulWidget {
+  CompletedServices({Key? key}) : super(key: key);
 
   @override
-  State<YourServices> createState() => _YourServicesState();
+  State<CompletedServices> createState() => _CompletedServicesState();
 }
 
-class _YourServicesState extends State<YourServices> {
+class _CompletedServicesState extends State<CompletedServices> {
   late Common _common;
   late bool isLoad;
   late dynamic listRequest;
@@ -52,7 +52,7 @@ class _YourServicesState extends State<YourServices> {
     _userCurrent = getCurrentUser(user);
 
     listRequest =
-        await ClientServiceRequest(Common().channel).getResponse('state', '2');
+        await ClientServiceRequest(Common().channel).getResponse('state', '3');
 
     for (var i = 0; i < listRequest.requests.length; i++) {
       if (listRequest.requests[i].requestor != _userCurrent) {
@@ -83,11 +83,7 @@ class _YourServicesState extends State<YourServices> {
       body: isLoad
           ? const Center(child: CircularProgressIndicator())
           : _isEmpty
-              ? const Center(
-                  child: Text(
-                  'No ongoing services provided,\nSearch for available job in the next tab...',
-                  textAlign: TextAlign.center,
-                ))
+              ? const Center(child: Text('No Completed Services'))
               : ListView.builder(
                   itemCount: listFiltered.length,
                   itemBuilder: (context, index) {
@@ -140,22 +136,6 @@ class _YourServicesState extends State<YourServices> {
                     );
                   },
                 ),
-      // floatingActionButton: FloatingActionButton.extended(
-      //   backgroundColor: Color.fromARGB(255, 127, 17, 224),
-      //   onPressed: () async {
-      //     Navigator.push(
-      //         context,
-      //         MaterialPageRoute(
-      //           builder: (context) => RequestForm(),
-      //         )).then((value) => setState(
-      //           () {
-      //             getinstance();
-      //           },
-      //         ));
-      //   },
-      //   icon: Icon(Icons.add),
-      //   label: Text('Add Request'),
-      // )
     );
   }
 }
