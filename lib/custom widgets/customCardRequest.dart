@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../service pages/serviceRequestDetails.dart';
+import '../service pages/serviceDetails.dart';
 
 class CustomCard_ServiceRequest extends StatefulWidget {
   final requestor;

@@ -3,10 +3,9 @@ import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/extension_string.dart';
 import '../bin/client_service_request.dart';
 import '../bin/common.dart';
-import '../custom widgets/customHeadline.dart';
 import '../custom widgets/heading2.dart';
 
-class ServiceRequestDetails extends StatelessWidget {
+class RequestDetails extends StatelessWidget {
   //final function;
   final id;
   final requestor;
@@ -24,7 +23,7 @@ class ServiceRequestDetails extends StatelessWidget {
   final completed;
   final media;
 
-  ServiceRequestDetails(
+  RequestDetails(
       { //required this.function,
       required this.id,
       required this.requestor,
@@ -106,10 +105,10 @@ class ServiceRequestDetails extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                  context.showSnackBar(message: 'Job updated!!');
+                  context.showSnackBar(message: 'Job updated!!!s');
                   Navigator.of(context).pop();
                 },
-                child: Text('Update Job (coming soon)')),
+                child: Text('Update Job Details (coming soon)')),
             TextButton(
                 onPressed: () {
                   _deleteRequest(id);

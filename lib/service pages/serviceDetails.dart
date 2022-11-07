@@ -6,8 +6,9 @@ import '../bin/common.dart';
 import '../custom widgets/customHeadline.dart';
 import '../custom widgets/heading2.dart';
 
-class ServiceRequestDetails extends StatelessWidget {
+class ServiceDetails extends StatelessWidget {
   //final function;
+  final user;
   final id;
   final requestor;
   final provider;
@@ -24,8 +25,9 @@ class ServiceRequestDetails extends StatelessWidget {
   final completed;
   final media;
 
-  ServiceRequestDetails(
+  ServiceDetails(
       { //required this.function,
+      required this.user,
       required this.id,
       required this.requestor,
       this.provider,
@@ -41,6 +43,10 @@ class ServiceRequestDetails extends StatelessWidget {
       required this.rate,
       this.completed,
       this.media});
+
+  applyJob(String reqid, String provider) {
+    ClientServiceRequest(Common().channel).applyProvider1(reqid, provider);
+  }
 
   isNull(dynamic stuff) {
     if (stuff == '' || stuff.length == 0) {
@@ -77,6 +83,10 @@ class ServiceRequestDetails extends StatelessWidget {
             Text(title.toString().capitalize()),
             Heading2('Description'),
             Text(description.toString().capitalize()),
+            Heading2('Applicants'),
+            isNull(applicants)
+                ? Text('No Applicants')
+                : Text(applicants.toString()),
             Heading2('Media'),
             isNull(media) ? Text('No Attachment') : Text(media.toString()),
             Heading2('Location'),
@@ -106,19 +116,12 @@ class ServiceRequestDetails extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                  context.showSnackBar(message: 'Job Requested');
+                  context.showSnackBar(message: 'Job requested!!');
+                  //print(user);
+                  //applyJob(id, user);
                   Navigator.of(context).pop();
                 },
                 child: Text('Request Job')),
-            TextButton(
-                onPressed: () {
-                  _deleteRequest(id);
-                  context.showSnackBar(message: 'Job Deleted');
-                  Navigator.of(context).pop();
-                  //Navigator.of(context).popUntil((route) => route.i);
-                  //Navigator.of(context).pushNamed('/navigation');
-                },
-                child: Text('Delete Job'))
           ],
         ),
       ),
