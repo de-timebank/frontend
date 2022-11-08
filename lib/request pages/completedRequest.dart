@@ -20,6 +20,7 @@ class _CompletedRequestState extends State<CompletedRequest> {
   late dynamic listRequest;
   late dynamic listFiltered;
   late final user;
+  late String _userCurrent;
   late bool _isEmpty;
   //registered user (budi)
   final ammar = 'f53809c5-68e6-480c-902e-a5bc3821a003';
@@ -48,13 +49,13 @@ class _CompletedRequestState extends State<CompletedRequest> {
   void getinstance() async {
     listFiltered = [];
     final user = supabase.auth.currentUser!.id;
-    final _userCurrent = getCurrentUser(user);
+    _userCurrent = getCurrentUser(user);
 
-    listRequest = await ClientServiceRequest(Common().channel)
-        .getResponse('requestor', _userCurrent);
+    listRequest =
+        await ClientServiceRequest(Common().channel).getResponse('state', '3');
 
     for (var i = 0; i < listRequest.requests.length; i++) {
-      if (listRequest.requests[i].state == '3') {
+      if (listRequest.requests[i].requestor == _userCurrent) {
         listFiltered.add(listRequest.requests[i]);
       }
     }
@@ -91,6 +92,7 @@ class _CompletedRequestState extends State<CompletedRequest> {
                         Navigator.of(context)
                             .push(MaterialPageRoute(
                                 builder: (context) => RequestDetails(
+                                      user: _userCurrent,
                                       id: listFiltered[index].id,
                                       requestor: listFiltered[index].requestor,
                                       provider: listFiltered[index].provider,

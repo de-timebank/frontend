@@ -5,8 +5,9 @@ import '../bin/client_service_request.dart';
 import '../bin/common.dart';
 import '../custom widgets/heading2.dart';
 
-class RequestDetails extends StatelessWidget {
+class RequestDetails extends StatefulWidget {
   //final function;
+  final user;
   final id;
   final requestor;
   final provider;
@@ -25,6 +26,7 @@ class RequestDetails extends StatelessWidget {
 
   RequestDetails(
       { //required this.function,
+      required this.user,
       required this.id,
       required this.requestor,
       this.provider,
@@ -41,6 +43,13 @@ class RequestDetails extends StatelessWidget {
       this.completed,
       this.media});
 
+  @override
+  State<RequestDetails> createState() => _RequestDetailsState();
+}
+
+class _RequestDetailsState extends State<RequestDetails> {
+  //var _applicants = [];
+  late var counter;
   isNull(dynamic stuff) {
     if (stuff == '' || stuff.length == 0) {
       return true;
@@ -49,15 +58,22 @@ class RequestDetails extends StatelessWidget {
     }
   }
 
-  void _deleteRequest(String id) async {
-    ClientServiceRequest(Common().channel).deleteService(id);
-
-    // setState(() {
-    //   getinstance();
-    // });
+  @override
+  void initState() {
+    counter = 1;
+    // TODO: implement initState
+    super.initState();
   }
 
-  //final rateServiceController = TextEditingController();
+  _selectProvider(String id, String provider, String caller) {
+    ClientServiceRequest(Common().channel)
+        .selectProvider1(id, provider, caller);
+  }
+
+  void _deleteRequest(String id) async {
+    ClientServiceRequest(Common().channel).deleteService(id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,38 +87,79 @@ class RequestDetails extends StatelessWidget {
           shrinkWrap: true,
           children: [
             Heading2('Id'),
-            Text(id),
+            Text(widget.id),
             Heading2('Title'),
-            Text(title.toString().capitalize()),
+            Text(widget.title.toString().capitalize()),
             Heading2('Description'),
-            Text(description.toString().capitalize()),
+            Text(widget.description.toString().capitalize()),
             Heading2('Media'),
-            isNull(media) ? Text('No Attachment') : Text(media.toString()),
+            isNull(widget.media)
+                ? Text('No Attachment')
+                : Text(widget.media.toString()),
             Heading2('Location'),
-            Text(locationName.toString().titleCase()),
-            Text('Latitude: ' + latitude),
-            Text('Longitude: ' + longitude),
+            Text(widget.locationName.toString().titleCase()),
+            Text('Latitude: ' + widget.latitude),
+            Text('Longitude: ' + widget.longitude),
             Heading2('Requestor'),
-            Text(requestor.toString().titleCase()),
+            Text(widget.requestor.toString().titleCase()),
             Heading2('State'),
-            Text(state.toString().capitalize()),
+            Text(widget.state.toString().capitalize()),
             Heading2('Created On'),
-            Text(created),
+            Text(widget.created),
             Heading2('Updated On'),
-            Text(updated),
+            Text(widget.updated),
             Heading2('Completed On'),
-            isNull(completed) ? Text('Not Completed') : Text(completed),
+            isNull(widget.completed)
+                ? Text('Not Completed')
+                : Text(widget.completed),
             Heading2('Provider'),
-            isNull(provider)
+            isNull(widget.provider)
                 ? Text('No provider yet')
-                : Text(provider.toString().titleCase()),
-
-            // Heading2('Category'),
-            // Text('Programming, Python, uhh'),
-
-            SizedBox(
-              height: 15,
-            ),
+                : Text(widget.provider.toString().titleCase()),
+            SizedBox(height: 8),
+            isNull(widget.applicants)
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Heading2('Applicants'),
+                      Text('No Applicants yet...'),
+                      SizedBox(height: 10)
+                    ],
+                  )
+                : //Text(widget.applicants[0].toString()),
+                Card(
+                    margin: EdgeInsets.symmetric(horizontal: 0, vertical: 3),
+                    elevation: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 3),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Heading2('Applicants'),
+                          Text('Select your applicants: '),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: widget.applicants.length,
+                            itemBuilder: (context, index) {
+                              return ElevatedButton(
+                                  onPressed: () {
+                                    _selectProvider(widget.id,
+                                        widget.applicants[index], widget.user);
+                                    context.showSnackBar(
+                                        message: 'Applicant Selected');
+                                    //Navigator.of(context).pop();
+                                  },
+                                  child: Text(
+                                    '${index + 1}) ${widget.applicants[index]}',
+                                    style: TextStyle(fontSize: 12),
+                                  ));
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
             ElevatedButton(
                 onPressed: () {
                   context.showSnackBar(message: 'Job updated!!!s');
@@ -111,9 +168,32 @@ class RequestDetails extends StatelessWidget {
                 child: Text('Update Job Details (coming soon)')),
             TextButton(
                 onPressed: () {
-                  _deleteRequest(id);
-                  context.showSnackBar(message: 'Job Deleted');
-                  Navigator.of(context).pop();
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text(
+                        'Delete job request?',
+                        textAlign: TextAlign.center,
+                      ),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              _deleteRequest(widget.id);
+                              Navigator.of(context).pop();
+                              context.showSnackBar(message: 'Job Deleted');
+                            },
+                            child: const Text('Yes')),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('No'))
+                      ],
+                    ),
+                  );
+                  //_deleteRequest(widget.id);
+                  //
+                  //Navigator.of(context).pop();
                   //Navigator.of(context).popUntil((route) => route.i);
                   //Navigator.of(context).pushNamed('/navigation');
                 },
