@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/bin/client_rating.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/extension_string.dart';
@@ -104,7 +105,10 @@ class _ServiceDetailsState extends State<ServiceDetails> {
             Text(widget.title.toString().capitalize()),
             Heading2('Description'),
             Text(widget.description.toString().capitalize()),
-
+            Heading2('Applicants'),
+            isNull(widget.applicants)
+                ? Text('No Applicants')
+                : Text(widget.applicants.toString()),
             Heading2('Media'),
             isNull(widget.media)
                 ? Text('No Attachment')
@@ -125,17 +129,6 @@ class _ServiceDetailsState extends State<ServiceDetails> {
             isNull(widget.completed)
                 ? Text('Not Completed')
                 : Text(widget.completed),
-            Heading2('Applicants'),
-            isNull(widget.applicants)
-                ? Text('No Applicants')
-                : ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: widget.applicants.length,
-                    itemBuilder: (context, index) {
-                      return Text('${index + 1}) ${widget.applicants[index]}');
-                    },
-                  ),
-            //Text(widget.applicants.toString()),
             Heading2('Provider'),
             isNull(widget.provider)
                 ? Text('No provider yet')
@@ -145,11 +138,11 @@ class _ServiceDetailsState extends State<ServiceDetails> {
             SizedBox(height: 15),
             ElevatedButton(
                 onPressed: () {
-                  // print(widget.id);
-                  // print(widget.user);
-                  applyJob(widget.id, widget.user);
-                  context.showSnackBar(message: 'Job requested!!');
-                  Navigator.of(context).pop();
+                  print(widget.id);
+                  print(widget.user);
+                  //applyJob(widget.id, widget.user);
+                  //context.showSnackBar(message: 'Job requested!!');
+                  //Navigator.of(context).pop();
                 },
                 child: Text('Request Job')),
             isComplete(widget.state.toString())
@@ -189,17 +182,16 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                 // int intvalue =
                                 //     int.parse(_valueController.toString());
                                 //print(_valueController.toString());
-
+                                // context.showSnackBar(
+                                //     message: 'Provider rated!!');
                                 _rateRequestor(
-                                    widget.user.toString(),
+                                    widget.user,
                                     _valueController.toInt(),
                                     _commentController.text,
-                                    widget.id.toString());
-                                context.showSnackBar(
-                                    message: 'Provider rated!!');
+                                    widget.id);
                                 //print(user);
                                 //applyJob(id, user);
-                                Navigator.of(context).pop();
+                                //Navigator.of(context).pop();
                               },
                               child: Text('Rate Provider')),
                         ],

@@ -20,7 +20,6 @@ class _YourRequestState extends State<YourRequest> {
   late dynamic listRequest;
   late dynamic listFiltered;
   late final user;
-  late String _userCurrent;
   late bool _isEmpty;
   //registered user (budi)
   final ammar = 'f53809c5-68e6-480c-902e-a5bc3821a003';
@@ -42,14 +41,14 @@ class _YourRequestState extends State<YourRequest> {
     } else if (id == 'cd54d0d0-23ef-437c-8397-c5d5d754691f') {
       return ammar; //ujai junior
     } else {
-      return evergreen; //e6a7c29b-0b2d-4145-9211-a4e9b545102a ujai3rd
+      return evergreen; //e6a7c29b-0b2d-4145-9211-a4e9b545102a
     }
   }
 
   void getinstance() async {
     listFiltered = [];
     final user = supabase.auth.currentUser!.id;
-    _userCurrent = getCurrentUser(user);
+    final _userCurrent = getCurrentUser(user);
 
     listRequest = await ClientServiceRequest(Common().channel)
         .getResponse('requestor', _userCurrent);
@@ -92,7 +91,6 @@ class _YourRequestState extends State<YourRequest> {
                           Navigator.of(context)
                               .push(MaterialPageRoute(
                                   builder: (context) => RequestDetails(
-                                        user: _userCurrent,
                                         id: listFiltered[index].id,
                                         requestor:
                                             listFiltered[index].requestor,

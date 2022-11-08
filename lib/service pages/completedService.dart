@@ -55,7 +55,7 @@ class _CompletedServicesState extends State<CompletedServices> {
         await ClientServiceRequest(Common().channel).getResponse('state', '3');
 
     for (var i = 0; i < listRequest.requests.length; i++) {
-      if (listRequest.requests[i].provider == _userCurrent) {
+      if (listRequest.requests[i].requestor != _userCurrent) {
         listFiltered.add(listRequest.requests[i]);
       }
     }
