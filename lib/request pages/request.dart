@@ -18,9 +18,9 @@ class _RequestPageState extends State<RequestPage> {
       child: Scaffold(
         appBar: AppBar(
           bottom: const TabBar(tabs: [
-            Tab(text: 'Your Request'),
-            Tab(text: 'Requested Job'),
-            Tab(text: 'Completed Job')
+            Tab(text: 'Your\nRequest'),
+            Tab(text: 'Requested\nJob'),
+            Tab(text: 'Completed\nJob')
           ]),
           title: const Text('Request'),
         ),
