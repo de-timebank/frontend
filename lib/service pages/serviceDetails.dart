@@ -138,11 +138,11 @@ class _ServiceDetailsState extends State<ServiceDetails> {
             SizedBox(height: 15),
             ElevatedButton(
                 onPressed: () {
-                  print(widget.id);
-                  print(widget.user);
-                  //applyJob(widget.id, widget.user);
-                  //context.showSnackBar(message: 'Job requested!!');
-                  //Navigator.of(context).pop();
+                  // print(widget.id);
+                  // print(widget.user);
+                  applyJob(widget.id, widget.user);
+                  context.showSnackBar(message: 'Job requested!!');
+                  Navigator.of(context).pop();
                 },
                 child: Text('Request Job')),
             isComplete(widget.state.toString())

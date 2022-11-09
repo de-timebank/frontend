@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:testfyp/bin/client_rating.dart';
 
-import '../bin/client_service_request.dart';
 import '../bin/common.dart';
 import '../components/constants.dart';
 import '../custom widgets/customCardRequest.dart';
-import 'requestDetails.dart';
-import 'requestForm.dart';
+import 'ratingDetails.dart';
 
-class RequestedJob extends StatefulWidget {
-  RequestedJob({Key? key}) : super(key: key);
+class RateProviderPage extends StatefulWidget {
+  const RateProviderPage({super.key});
 
   @override
-  State<RequestedJob> createState() => _RequestedJobState();
+  State<RateProviderPage> createState() => _RateProviderPageState();
 }
 
-class _RequestedJobState extends State<RequestedJob> {
+class _RateProviderPageState extends State<RateProviderPage> {
   late Common _common;
   late bool isLoad;
   late dynamic listRequest;
@@ -49,20 +48,21 @@ class _RequestedJobState extends State<RequestedJob> {
     listFiltered = [];
     final user = supabase.auth.currentUser!.id;
     final _userCurrent = getCurrentUser(user);
-    listRequest = await ClientServiceRequest(Common().channel)
-        .getResponse('requestor', _userCurrent);
+    //print(_userCurrent);
+    listRequest = await ClientRating(Common().channel)
+        .getResponseRating('author', _userCurrent);
     //print(listRequest);
-    for (var i = 0; i < listRequest.requests.length; i++) {
-      if (listRequest.requests[i].applicants.length != 0) {
-        listFiltered.add(listRequest.requests[i]);
+    for (var i = 0; i < listRequest.ratings.length; i++) {
+      if (listRequest.ratings[i].author == _userCurrent) {
+        listFiltered.add(listRequest.ratings[i]);
       }
-      print(listFiltered);
+      //print(listFiltered);
     }
     setState(() {
       isLoad = false;
       isEmpty();
     });
-    //print(listRequest.requests.length);
+    //print(listRequest.ratings.length);
   }
 
   bool isEmpty() {
@@ -78,10 +78,11 @@ class _RequestedJobState extends State<RequestedJob> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('Given Rating')),
       body: isLoad
           ? const Center(child: CircularProgressIndicator())
           : _isEmpty
-              ? const Center(child: Text('No applicants...'))
+              ? const Center(child: Text('No rate given to other people...'))
               : ListView.builder(
                   itemCount: listFiltered.length,
                   itemBuilder: (context, index) {
@@ -89,34 +90,15 @@ class _RequestedJobState extends State<RequestedJob> {
                       onTap: () {
                         Navigator.of(context)
                             .push(MaterialPageRoute(
-                                builder: (context) => RequestDetails(
+                                builder: (context) => RatingDetails(
                                       id: listFiltered[index].id,
-                                      requestor: listFiltered[index].requestor,
-                                      provider: listFiltered[index].provider,
-                                      title: listFiltered[index].details.title,
-                                      description: listFiltered[index]
-                                          .details
-                                          .description,
-                                      locationName:
-                                          listFiltered[index].location.name,
-                                      latitude: listFiltered[index]
-                                          .location
-                                          .coordinate
-                                          .latitude,
-                                      longitude: listFiltered[index]
-                                          .location
-                                          .coordinate
-                                          .longitude,
-                                      state: listFiltered[index].state,
-                                      rate: listFiltered[index].rate,
-                                      applicants:
-                                          listFiltered[index].applicants,
-                                      created: listFiltered[index].createdAt,
-                                      updated: listFiltered[index].updatedAt,
-                                      completed:
-                                          listFiltered[index].completedAt,
-                                      media:
-                                          listFiltered[index].mediaAttachments,
+                                      author: listFiltered[index].author,
+                                      recipient: listFiltered[index].recipient,
+                                      value: listFiltered[index].value,
+                                      comment: listFiltered[index].comment,
+                                      createdAt: listFiltered[index].createdAt,
+                                      updatedAt: listFiltered[index].updatedAt,
+                                      requestId: listFiltered[index].requestId,
                                     )))
                             .then((value) => setState(
                                   () {
@@ -128,9 +110,9 @@ class _RequestedJobState extends State<RequestedJob> {
                       child: CustomCard_ServiceRequest(
                         //function: getinstance,
                         //id: listFiltered[index].id,
-                        requestor: listFiltered[index].requestor,
+                        requestor: listFiltered[index].author,
                         //provider: listFiltered[index].provider,
-                        title: listFiltered[index].details.title,
+                        title: listFiltered[index].comment,
                         // description:
                         //     listFiltered[index].details.description,
                         // locationName: listFiltered[index].location.name,
@@ -139,7 +121,7 @@ class _RequestedJobState extends State<RequestedJob> {
                         // longitude: listFiltered
                         //     [index].location.coordinate.longitude,
                         // state: listFiltered[index].state,
-                        rate: listFiltered[index].rate,
+                        rate: listFiltered[index].value,
                         // applicants: listFiltered[index].applicants,
                         // created: listFiltered[index].createdAt,
                         // updated: listFiltered[index].updatedAt,
@@ -166,5 +148,6 @@ class _RequestedJobState extends State<RequestedJob> {
       //   label: Text('Add Request'),
       // )
     );
+    ;
   }
 }

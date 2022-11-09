@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:testfyp/rate%20pages/rateProvider.dart';
 import '../custom widgets/customHeadline.dart';
 import '../custom widgets/customOngoingTask.dart';
+import '../rate pages/rateRequestor.dart';
 
 class DashBoard extends StatefulWidget {
   DashBoard({Key? key}) : super(key: key);
@@ -133,7 +135,11 @@ class _DashBoardState extends State<DashBoard> {
                             elevation: 5,
                             color: Color.fromARGB(255, 234, 234, 234),
                             child: InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          RateProviderPage()));
+                                },
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -146,7 +152,7 @@ class _DashBoardState extends State<DashBoard> {
                                       //Theme.of(context).textTheme.headline1,
                                     ),
                                     Text(
-                                      'Give reviews & feedback',
+                                      'Give feedback to other people',
                                       style: TextStyle(fontSize: 13),
                                       textAlign: TextAlign.center,
                                     )
@@ -161,13 +167,17 @@ class _DashBoardState extends State<DashBoard> {
                             elevation: 5,
                             color: Color.fromARGB(255, 234, 234, 234),
                             child: InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          RateRequestorPage()));
+                                },
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'Transaction History',
+                                      'Rate Requestor',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center,
@@ -175,7 +185,7 @@ class _DashBoardState extends State<DashBoard> {
                                       //Theme.of(context).textTheme.headline1,
                                     ),
                                     Text(
-                                      'View previous transactions',
+                                      'See what other thinks about you',
                                       style: TextStyle(fontSize: 12),
                                       textAlign: TextAlign.center,
                                     )

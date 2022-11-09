@@ -1,6 +1,6 @@
 import 'package:grpc/grpc.dart';
 import '../generated/rating/rating.pbgrpc.dart';
-import 'common.dart';
+// import 'common.dart';
 
 class ClientRating {
   //final common = Common();
@@ -37,7 +37,7 @@ class ClientRating {
           ..requestId = id));
   }
 
-  Future<Get_Response> getResponse(String key, String value) async {
+  Future<Get_Response> getResponseRating(String key, String value) async {
     return await stub.get(Get_Request()
       ..key = key
       ..value = value);
