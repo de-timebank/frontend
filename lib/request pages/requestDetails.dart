@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/extension_string.dart';
+import '../bin/client_rating.dart';
 import '../bin/client_service_request.dart';
 import '../bin/common.dart';
 import '../custom widgets/heading2.dart';
 
-class RequestDetails extends StatefulWidget {
+class RequestDetails extends StatelessWidget {
   //final function;
+  final ratinglist;
+  final bool isRequest;
   final user;
   final id;
   final requestor;
@@ -26,6 +30,8 @@ class RequestDetails extends StatefulWidget {
 
   RequestDetails(
       { //required this.function,
+      this.ratinglist,
+      required this.isRequest,
       required this.user,
       required this.id,
       required this.requestor,
@@ -43,11 +49,13 @@ class RequestDetails extends StatefulWidget {
       this.completed,
       this.media});
 
-  @override
-  State<RequestDetails> createState() => _RequestDetailsState();
-}
+  double _valueController = 0;
+  final _commentController = TextEditingController();
 
-class _RequestDetailsState extends State<RequestDetails> {
+  applyJob(String reqid, String provider) {
+    ClientServiceRequest(Common().channel).applyProvider1(reqid, provider);
+  }
+
   isNull(dynamic stuff) {
     if (stuff == '' || stuff.length == 0) {
       return true;
@@ -57,7 +65,7 @@ class _RequestDetailsState extends State<RequestDetails> {
   }
 
   isComplete() {
-    if (widget.state.toString() == 'COMPLETED') {
+    if (state.toString() == 'COMPLETED') {
       return true;
     } else {
       return false;
@@ -65,11 +73,25 @@ class _RequestDetailsState extends State<RequestDetails> {
   }
 
   isPending() {
-    if (widget.state.toString() == 'PENDING') {
+    if (state.toString() == 'PENDING') {
       return true;
     } else {
       return false;
     }
+  }
+
+  isRated() {
+    if (ratinglist.ratings.length == 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  void _rateRequestor(
+      String author, int value, String comment, String id) async {
+    ClientRating(Common().channel)
+        .ratingForRequestor(author, value, comment, id);
   }
 
   void _deleteRequest(String id) async {
@@ -95,153 +117,240 @@ class _RequestDetailsState extends State<RequestDetails> {
           shrinkWrap: true,
           children: [
             Heading2('Id'),
-            Text(widget.id),
+            Text(id),
             Heading2('Requestor'),
-            Text(widget.requestor.toString().titleCase()),
+            Text(requestor.toString().titleCase()),
             Heading2('Title'),
-            Text(widget.title.toString().capitalize()),
-
+            Text(title.toString().capitalize()),
             SizedBox(height: 15),
-            Card(
-              elevation: 5,
-              child: Container(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    isNull(widget.applicants)
-                        ? Column(
-                            children: [
-                              Heading2('Applicants'),
-                              Text('No Applicants'),
-                            ],
-                          )
-                        : isNull(widget.provider)
-                            ? Card(
-                                margin: EdgeInsets.symmetric(
-                                    horizontal: 0, vertical: 3),
-                                elevation: 5,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8, vertical: 3),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Heading2('Applicants'),
-                                      Text('Select your applicants: '),
-                                      ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount: widget.applicants.length,
-                                        itemBuilder: (context, index) {
-                                          return ElevatedButton(
-                                              onPressed: () {
-                                                // print(id);
-                                                // print(applicants[index]);
-                                                // print(user);
-                                                //                             ClientServiceRequest(Common().channel)
-                                                // .selectProvider1('6c2dae2e-2f4b-4768-99e0-d05610278e04', provider, caller);
-                                                _selectProvider(
-                                                    widget.id,
-                                                    widget.applicants[index],
-                                                    widget.user);
-                                                context.showSnackBar(
-                                                    message:
-                                                        'Applicant Selected');
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Text(
-                                                '${index + 1}) ${widget.applicants[index]}',
-                                                style: TextStyle(fontSize: 12),
-                                              ));
-                                        },
+            isRequest
+                ? Card(
+                    elevation: 5,
+                    child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          isNull(applicants)
+                              ? Column(
+                                  children: [
+                                    Heading2('Applicants'),
+                                    Text('No Applicants'),
+                                  ],
+                                )
+                              : isNull(provider)
+                                  ? Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8, vertical: 3),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Heading2('Applicants'),
+                                          Text('Select your applicants: '),
+                                          ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount: applicants.length,
+                                            itemBuilder: (context, index) {
+                                              return ElevatedButton(
+                                                  onPressed: () {
+                                                    // print(id);
+                                                    // print(applicants[index]);
+                                                    // print(user);
+                                                    //                             ClientServiceRequest(Common().channel)
+                                                    // .selectProvider1('6c2dae2e-2f4b-4768-99e0-d05610278e04', provider, caller);
+                                                    _selectProvider(
+                                                        id,
+                                                        applicants[index],
+                                                        user);
+                                                    context.showSnackBar(
+                                                        message:
+                                                            'Applicant Selected');
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text(
+                                                    '${index + 1}) ${applicants[index]}',
+                                                    style:
+                                                        TextStyle(fontSize: 12),
+                                                  ));
+                                            },
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            : Column(
-                                children: [
-                                  Container(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        'Provider Selected',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                            color:
-                                                Theme.of(context).primaryColor),
-                                      )),
-                                  SizedBox(height: 5),
-                                  isNull(widget.provider)
-                                      ? Text('No provider selected')
-                                      : Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              3, 3, 3, 6),
-                                          child: Text(widget.provider),
+                                    )
+                                  : isComplete()
+                                      ? Column(
+                                          children: [
+                                            Heading2('Completed On'),
+                                            Text(completed),
+                                          ],
                                         )
-                                ],
-                              ),
-                    const Divider(thickness: 3),
-                    //SizedBox(height: 8),
-                    isPending()
-                        ? Column(
-                            children: [
-                              ElevatedButton(
+                                      : Column(
+                                          children: [
+                                            Container(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  'Provider Selected',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 16,
+                                                      color: Theme.of(context)
+                                                          .primaryColor),
+                                                )),
+                                            SizedBox(height: 5),
+                                            isNull(provider)
+                                                ? Text('No provider selected')
+                                                : Padding(
+                                                    padding: const EdgeInsets
+                                                        .fromLTRB(3, 3, 3, 6),
+                                                    child: Text(provider),
+                                                  )
+                                          ],
+                                        ),
+                          const Divider(thickness: 3),
+                          //SizedBox(height: 8),
+                          isPending()
+                              ? Column(
+                                  children: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          context.showSnackBar(
+                                              message: 'Job updated!!!');
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text(
+                                            'Update Job Details (coming soon)')),
+                                    ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.grey),
+                                        onPressed: () {},
+                                        child: Text('Job is still pending')),
+                                  ],
+                                )
+                              : isComplete()
+                                  ? Column(
+                                      children: [
+                                        Heading2('Completed On'),
+                                        Text(completed),
+                                      ],
+                                    )
+                                  : ElevatedButton(
+                                      onPressed: () {},
+                                      child: Text('Complete Job')),
+                          // : Container(
+                          //     padding: EdgeInsets.all(5),
+                          //     decoration: BoxDecoration(
+                          //         borderRadius: BorderRadius.circular(5),
+                          //         border: Border.all(
+                          //             width: 2,
+                          //             color: Theme.of(context)
+                          //                 .primaryColor)),
+                          //     child: Text('Job Not Complete')),
+                          isNull(provider)
+                              ? TextButton(
                                   onPressed: () {
+                                    _deleteRequest(id);
                                     context.showSnackBar(
-                                        message: 'Job updated!!!');
+                                        message: 'Job Deleted');
                                     Navigator.of(context).pop();
+                                    //Navigator.of(context).popUntil((route) => route.i);
+                                    //Navigator.of(context).pushNamed('/navigation');
                                   },
-                                  child:
-                                      Text('Update Job Details (coming soon)')),
-                              ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.grey),
-                                  onPressed: () {},
-                                  child: Text('Job is still pending')),
+                                  child: Text('Delete Job'))
+                              : TextButton(
+                                  onPressed: () {
+                                    // _deleteRequest(id);
+                                    // context.showSnackBar(message: 'Job Deleted');
+                                    // Navigator.of(context).pop();
+                                    //Navigator.of(context).popUntil((route) => route.i);
+                                    //Navigator.of(context).pushNamed('/navigation');
+                                  },
+                                  child: Text('Abort Job')),
+                        ],
+                      ),
+                    ),
+                  )
+                : isComplete()
+                    ? Card(
+                        elevation: 5,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Heading2('Completed On'),
+                              Text(completed),
+                              // Text(
+                              //   'Rate The requestor',
+                              //   style: TextStyle(
+                              //       fontWeight: FontWeight.bold, fontSize: 15),
+                              // ),
+                              isRequest
+                                  ? Heading2('Rate The Providor')
+                                  : Heading2('Rate The Requestor'),
+                              SizedBox(height: 5),
+                              isRated()
+                                  ? Text('Requestor Rated')
+                                  : Column(
+                                      children: [
+                                        Center(
+                                          child: RatingBar.builder(
+                                            initialRating: 0,
+                                            itemBuilder: (context, index) =>
+                                                Icon(
+                                              Icons.star,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                            ),
+                                            onRatingUpdate: (value) {
+                                              _valueController = value;
+                                              //print(_valueController);
+                                            },
+                                          ),
+                                        ),
+                                        TextFormField(
+                                          controller: _commentController,
+                                          decoration: InputDecoration(
+                                              hintText: 'Enter comment'),
+                                        ),
+                                        ElevatedButton(
+                                            onPressed: () {
+                                              _rateRequestor(
+                                                  user,
+                                                  _valueController.toInt(),
+                                                  _commentController.text,
+                                                  id);
+                                              context.showSnackBar(
+                                                  message: 'Provider rated!!');
+                                              //print(ratinglist);
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('Rate Provider')),
+                                      ],
+                                    )
                             ],
-                          )
-                        : isComplete()
-                            ? Column(
-                                children: [
-                                  Heading2('Completed On'),
-                                  Text('Job is completed!'),
-                                ],
-                              )
-                            : ElevatedButton(
-                                onPressed: () {}, child: Text('Complete Job')),
-                    // : Container(
-                    //     padding: EdgeInsets.all(5),
-                    //     decoration: BoxDecoration(
-                    //         borderRadius: BorderRadius.circular(5),
-                    //         border: Border.all(
-                    //             width: 2,
-                    //             color: Theme.of(context)
-                    //                 .primaryColor)),
-                    //     child: Text('Job Not Complete')),
-                    isNull(widget.provider)
-                        ? TextButton(
-                            onPressed: () {
-                              _deleteRequest(widget.id);
-                              context.showSnackBar(message: 'Job Deleted');
-                              Navigator.of(context).pop();
-                              //Navigator.of(context).popUntil((route) => route.i);
-                              //Navigator.of(context).pushNamed('/navigation');
-                            },
-                            child: Text('Delete Job'))
-                        : TextButton(
-                            onPressed: () {
-                              // _deleteRequest(id);
-                              // context.showSnackBar(message: 'Job Deleted');
-                              // Navigator.of(context).pop();
-                              //Navigator.of(context).popUntil((route) => route.i);
-                              //Navigator.of(context).pushNamed('/navigation');
-                            },
-                            child: Text('Abort Job')),
-                  ],
-                ),
-              ),
-            ),
+                          ),
+                        ),
+                      )
+                    : Card(
+                        //sini oi the service
+                        elevation: 5,
+                        child: Column(
+                          children: [
+                            Heading2('Interested in the job?'),
+                            ElevatedButton(
+                                onPressed: () {
+                                  // print(widget.id);
+                                  // print(widget.user);
+                                  applyJob(id, user);
+                                  context.showSnackBar(
+                                      message: 'Job requested!!');
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text('Request Job')),
+                          ],
+                        ),
+                      ),
+
             Divider(
               color: Theme.of(context).primaryColor,
               thickness: 1,
@@ -250,25 +359,23 @@ class _RequestDetailsState extends State<RequestDetails> {
                 alignment: Alignment.center,
                 child: Heading2('Other Information')),
             Heading2('Description'),
-            Text(widget.description.toString().capitalize()),
+            Text(description.toString().capitalize()),
             Heading2('State'),
-            Text(widget.state.toString().capitalize()),
+            Text(state.toString().capitalize()),
             Heading2('Created On'),
-            Text(widget.created),
+            Text(created),
             Heading2('Updated On'),
-            Text(widget.updated),
+            Text(updated),
             // Heading2('Completed On'),
             // isNull(completed) ? Text('Not Completed') : Text(completed),
             // Heading2('Provider'),
             // isNull(provider) ? Text('No provider yet') : Text(provider),
             Heading2('Media'),
-            isNull(widget.media)
-                ? Text('No Attachment')
-                : Text(widget.media.toString()),
+            isNull(media) ? Text('No Attachment') : Text(media.toString()),
             Heading2('Location'),
-            Text(widget.locationName.toString().titleCase()),
-            Text('Latitude: ' + widget.latitude),
-            Text('Longitude: ' + widget.longitude),
+            Text(locationName.toString().titleCase()),
+            Text('Latitude: ' + latitude),
+            Text('Longitude: ' + longitude),
           ],
         ),
       ),

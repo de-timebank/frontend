@@ -177,7 +177,7 @@ class _DashBoardState extends State<DashBoard> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'Rate Requestor',
+                                      'Given Rating',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center,

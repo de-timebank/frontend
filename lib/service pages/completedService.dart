@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../bin/client_rating.dart';
 import '../bin/client_service_request.dart';
 import '../bin/common.dart';
 import '../components/constants.dart';
 import '../custom widgets/customCardRequest.dart';
+import '../request pages/requestDetails.dart';
 import 'serviceDetails.dart';
 
 class CompletedServices extends StatefulWidget {
@@ -18,6 +20,7 @@ class _CompletedServicesState extends State<CompletedServices> {
   late bool isLoad;
   late dynamic listRequest;
   late dynamic listFiltered;
+  late dynamic listRating;
   late final user;
   late String _userCurrent;
   late bool _isEmpty;
@@ -50,7 +53,8 @@ class _CompletedServicesState extends State<CompletedServices> {
     listFiltered = [];
     final user = supabase.auth.currentUser!.id;
     _userCurrent = getCurrentUser(user);
-
+    listRating = await ClientRating(Common().channel)
+        .getResponseRating('author', _userCurrent);
     listRequest =
         await ClientServiceRequest(Common().channel).getResponse('state', '3');
 
@@ -91,7 +95,9 @@ class _CompletedServicesState extends State<CompletedServices> {
                       onTap: () {
                         Navigator.of(context)
                             .push(MaterialPageRoute(
-                                builder: (context) => ServiceDetails(
+                                builder: (context) => RequestDetails(
+                                      ratinglist: listRating,
+                                      isRequest: false,
                                       user: _userCurrent,
                                       id: listFiltered[index].id,
                                       requestor: listFiltered[index].requestor,

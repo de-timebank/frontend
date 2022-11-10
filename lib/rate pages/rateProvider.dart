@@ -18,7 +18,7 @@ class _RateProviderPageState extends State<RateProviderPage> {
   late bool isLoad;
   late dynamic listRequest;
   late dynamic listFiltered;
-  late final user;
+  late String user;
   late bool _isEmpty;
   //registered user (budi)
   final ammar = 'f53809c5-68e6-480c-902e-a5bc3821a003';

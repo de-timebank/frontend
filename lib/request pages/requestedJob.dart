@@ -91,6 +91,7 @@ class _RequestedJobState extends State<RequestedJob> {
                         Navigator.of(context)
                             .push(MaterialPageRoute(
                                 builder: (context) => RequestDetails(
+                                      isRequest: true,
                                       user: _userCurrent,
                                       id: listFiltered[index].id,
                                       requestor: listFiltered[index].requestor,

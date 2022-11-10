@@ -4,6 +4,7 @@ import '../bin/client_service_request.dart';
 import '../bin/common.dart';
 import '../components/constants.dart';
 import '../custom widgets/customCardRequest.dart';
+import '../request pages/requestDetails.dart';
 import 'serviceDetails.dart';
 
 class AvailableServices extends StatefulWidget {
@@ -92,7 +93,8 @@ class _AvailableServicesState extends State<AvailableServices> {
                         onTap: () {
                           Navigator.of(context)
                               .push(MaterialPageRoute(
-                                  builder: (context) => ServiceDetails(
+                                  builder: (context) => RequestDetails(
+                                        isRequest: false,
                                         user: _userCurrent,
                                         id: listFiltered[index].id,
                                         requestor:
