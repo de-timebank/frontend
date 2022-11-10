@@ -20,6 +20,7 @@ class _RequestedJobState extends State<RequestedJob> {
   late dynamic listRequest;
   late dynamic listFiltered;
   late final user;
+  late final _userCurrent;
   late bool _isEmpty;
   //registered user (budi)
   final ammar = 'f53809c5-68e6-480c-902e-a5bc3821a003';
@@ -48,15 +49,15 @@ class _RequestedJobState extends State<RequestedJob> {
   void getinstance() async {
     listFiltered = [];
     final user = supabase.auth.currentUser!.id;
-    final _userCurrent = getCurrentUser(user);
+    _userCurrent = getCurrentUser(user);
     listRequest = await ClientServiceRequest(Common().channel)
         .getResponse('requestor', _userCurrent);
-    //print(listRequest);
+    print(listRequest);
     for (var i = 0; i < listRequest.requests.length; i++) {
       if (listRequest.requests[i].applicants.length != 0) {
         listFiltered.add(listRequest.requests[i]);
       }
-      print(listFiltered);
+      //print(listFiltered);
     }
     setState(() {
       isLoad = false;
@@ -90,6 +91,7 @@ class _RequestedJobState extends State<RequestedJob> {
                         Navigator.of(context)
                             .push(MaterialPageRoute(
                                 builder: (context) => RequestDetails(
+                                      user: _userCurrent,
                                       id: listFiltered[index].id,
                                       requestor: listFiltered[index].requestor,
                                       provider: listFiltered[index].provider,

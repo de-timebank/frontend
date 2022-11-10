@@ -58,8 +58,8 @@ class _AvailableServicesState extends State<AvailableServices> {
       if (listRequest.requests[i].requestor != _userCurrent) {
         listFiltered.add(listRequest.requests[i]);
       }
-      //print(listFiltered);
     }
+    print(listFiltered);
     //print(listRequest);
     setState(() {
       isLoad = false;
