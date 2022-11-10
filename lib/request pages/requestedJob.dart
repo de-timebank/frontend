@@ -20,7 +20,7 @@ class _RequestedJobState extends State<RequestedJob> {
   late dynamic listRequest;
   late dynamic listFiltered;
   late final user;
-  late final _userCurrent;
+  late String _userCurrent;
   late bool _isEmpty;
   //registered user (budi)
   final ammar = 'f53809c5-68e6-480c-902e-a5bc3821a003';
@@ -52,7 +52,7 @@ class _RequestedJobState extends State<RequestedJob> {
     _userCurrent = getCurrentUser(user);
     listRequest = await ClientServiceRequest(Common().channel)
         .getResponse('requestor', _userCurrent);
-    print(listRequest);
+    //print(listRequest);
     for (var i = 0; i < listRequest.requests.length; i++) {
       if (listRequest.requests[i].applicants.length != 0) {
         listFiltered.add(listRequest.requests[i]);

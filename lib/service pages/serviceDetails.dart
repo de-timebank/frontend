@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/bin/client_rating.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/extension_string.dart';
@@ -76,9 +75,9 @@ class _ServiceDetailsState extends State<ServiceDetails> {
     }
   }
 
-  void _deleteRequest(String id) async {
-    ClientServiceRequest(Common().channel).deleteService(id);
-  }
+  // void _deleteRequest(String id) async {
+  //   ClientServiceRequest(Common().channel).deleteService(id);
+  // }
 
   void _rateRequestor(
       String author, int value, String comment, String id) async {
@@ -182,16 +181,17 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                 // int intvalue =
                                 //     int.parse(_valueController.toString());
                                 //print(_valueController.toString());
-                                // context.showSnackBar(
-                                //     message: 'Provider rated!!');
+
                                 _rateRequestor(
                                     widget.user,
                                     _valueController.toInt(),
                                     _commentController.text,
                                     widget.id);
+                                context.showSnackBar(
+                                    message: 'Provider rated!!');
                                 //print(user);
                                 //applyJob(id, user);
-                                //Navigator.of(context).pop();
+                                Navigator.of(context).pop();
                               },
                               child: Text('Rate Provider')),
                         ],
