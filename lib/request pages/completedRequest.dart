@@ -98,7 +98,7 @@ class _CompletedRequestState extends State<CompletedRequest> {
                         Navigator.of(context)
                             .push(MaterialPageRoute(
                                 builder: (context) => RequestDetails(
-                                      ratinglist: listRating,
+                                      //ratinglist: listRating,
                                       isRequest: isRequest,
                                       user: _userCurrent,
                                       id: listFiltered[index].id,

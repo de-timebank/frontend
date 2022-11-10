@@ -50,6 +50,7 @@ class _RequestedJobState extends State<RequestedJob> {
     listFiltered = [];
     final user = supabase.auth.currentUser!.id;
     _userCurrent = getCurrentUser(user);
+
     listRequest = await ClientServiceRequest(Common().channel)
         .getResponse('requestor', _userCurrent);
 

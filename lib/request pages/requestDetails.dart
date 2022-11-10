@@ -8,10 +8,10 @@ import '../bin/client_service_request.dart';
 import '../bin/common.dart';
 import '../custom widgets/heading2.dart';
 
-class RequestDetails extends StatelessWidget {
+class RequestDetails extends StatefulWidget {
   //final function;
 
-  final ratinglist;
+  //final ratinglist;
   final bool isRequest;
   final user;
   final id;
@@ -32,7 +32,7 @@ class RequestDetails extends StatelessWidget {
 
   RequestDetails(
       { //required this.function,
-      this.ratinglist,
+      //this.ratinglist,
       required this.isRequest,
       required this.user,
       required this.id,
@@ -51,10 +51,27 @@ class RequestDetails extends StatelessWidget {
       this.completed,
       this.media});
 
+  @override
+  State<RequestDetails> createState() => _RequestDetailsState();
+}
+
+class _RequestDetailsState extends State<RequestDetails> {
   double _valueController = 0;
+
   double _value1Controller = 0;
+
   final _commentController = TextEditingController();
+
   final _comment1Controller = TextEditingController();
+
+  late String ratedUser;
+
+  @override
+  void initState() {
+    getRating();
+    super.initState();
+  }
+
   applyJob(String reqid, String provider) {
     ClientServiceRequest(Common().channel).applyProvider1(reqid, provider);
   }
@@ -68,7 +85,7 @@ class RequestDetails extends StatelessWidget {
   }
 
   isComplete() {
-    if (state.toString() == 'COMPLETED') {
+    if (widget.state.toString() == 'COMPLETED') {
       return true;
     } else {
       return false;
@@ -76,7 +93,7 @@ class RequestDetails extends StatelessWidget {
   }
 
   isOngoing() {
-    if (state.toString() == 'ONGOING') {
+    if (widget.state.toString() == 'ONGOING') {
       return true;
     } else {
       return false;
@@ -84,7 +101,7 @@ class RequestDetails extends StatelessWidget {
   }
 
   isPending() {
-    if (state.toString() == 'PENDING') {
+    if (widget.state.toString() == 'PENDING') {
       return true;
     } else {
       return false;
@@ -92,14 +109,20 @@ class RequestDetails extends StatelessWidget {
   }
 
   isRated() {
-    if (ratinglist.toString() == '') {
-      return false;
-    } else {
+    if (ratedUser.toString() != '') {
       return true;
+    } else {
+      return false;
     }
   }
 
-  void _completeJob(String id, String user) {
+  void getRating() async {
+    ratedUser = ClientRating(Common().channel)
+        .getResponseRating('request_id', widget.id)
+        .toString();
+  }
+
+  void _completeJob(String id, String user) async {
     ClientServiceRequest(Common().channel).completeService1(id, user);
   }
 
@@ -138,27 +161,27 @@ class RequestDetails extends StatelessWidget {
           shrinkWrap: true,
           children: [
             Heading2('Id'),
-            Text(id),
+            Text(widget.id),
             Heading2('Requestor'),
-            Text(requestor.toString().titleCase()),
+            Text(widget.requestor.toString().titleCase()),
             Heading2('Title'),
-            Text(title.toString().capitalize()),
+            Text(widget.title.toString().capitalize()),
             SizedBox(height: 15),
-            isRequest
+            widget.isRequest
                 ? Card(
                     elevation: 5,
                     child: Container(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          isNull(applicants)
+                          isNull(widget.applicants)
                               ? Column(
                                   children: [
                                     Heading2('Applicants'),
                                     Text('No Applicants'),
                                   ],
                                 )
-                              : isNull(provider)
+                              : isNull(widget.provider)
                                   ? Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8, vertical: 3),
@@ -170,7 +193,7 @@ class RequestDetails extends StatelessWidget {
                                           Text('Select your applicants: '),
                                           ListView.builder(
                                             shrinkWrap: true,
-                                            itemCount: applicants.length,
+                                            itemCount: widget.applicants.length,
                                             itemBuilder: (context, index) {
                                               return ElevatedButton(
                                                   onPressed: () {
@@ -180,16 +203,17 @@ class RequestDetails extends StatelessWidget {
                                                     //                             ClientServiceRequest(Common().channel)
                                                     // .selectProvider1('6c2dae2e-2f4b-4768-99e0-d05610278e04', provider, caller);
                                                     _selectProvider(
-                                                        id,
-                                                        applicants[index],
-                                                        user);
+                                                        widget.id,
+                                                        widget
+                                                            .applicants[index],
+                                                        widget.user);
                                                     context.showSnackBar(
                                                         message:
                                                             'Applicant Selected');
                                                     Navigator.of(context).pop();
                                                   },
                                                   child: Text(
-                                                    '${index + 1}) ${applicants[index]}',
+                                                    '${index + 1}) ${widget.applicants[index]}',
                                                     style:
                                                         TextStyle(fontSize: 12),
                                                   ));
@@ -203,7 +227,7 @@ class RequestDetails extends StatelessWidget {
                                           children: [
                                             Heading2(
                                                 'Provider'), //complete on 1
-                                            Text(provider),
+                                            Text(widget.provider),
                                           ],
                                         )
                                       : Column(
@@ -220,12 +244,13 @@ class RequestDetails extends StatelessWidget {
                                                           .primaryColor),
                                                 )),
                                             SizedBox(height: 5),
-                                            isNull(provider)
+                                            isNull(widget.provider)
                                                 ? Text('No provider selected')
                                                 : Padding(
                                                     padding: const EdgeInsets
                                                         .fromLTRB(3, 3, 3, 6),
-                                                    child: Text(provider),
+                                                    child:
+                                                        Text(widget.provider),
                                                   )
                                           ],
                                         ),
@@ -251,14 +276,7 @@ class RequestDetails extends StatelessWidget {
                                 )
                               : isComplete()
                                   ? isRated()
-                                      ? Column(
-                                          children: [
-                                            Heading2(
-                                                'Completed'), //completed on 2
-                                            Text(completed),
-                                          ],
-                                        )
-                                      : Column(children: [
+                                      ? Column(children: [
                                           Center(
                                             child: RatingBar.builder(
                                               initialRating: 0,
@@ -281,16 +299,17 @@ class RequestDetails extends StatelessWidget {
                                           ),
                                           ElevatedButton(
                                               onPressed: () {
-                                                print(user);
-                                                print(
-                                                    _value1Controller.toInt());
-                                                print(_comment1Controller.text);
-                                                print(id);
+                                                print(ratedUser.toString());
+                                                // print(user);
+                                                // print(
+                                                //     _value1Controller.toInt());
+                                                // print(_comment1Controller.text);
+                                                // print(id);
                                                 _rateProvider(
-                                                    user,
+                                                    widget.user,
                                                     _value1Controller.toInt(),
                                                     _comment1Controller.text,
-                                                    id);
+                                                    widget.id);
                                                 context.showSnackBar(
                                                     message:
                                                         'Provider rated!!');
@@ -299,9 +318,16 @@ class RequestDetails extends StatelessWidget {
                                               },
                                               child: Text('Rate Provider'))
                                         ])
+                                      : Column(
+                                          children: [
+                                            Heading2(
+                                                'Completed'), //completed on 2
+                                            Text(widget.completed),
+                                          ],
+                                        )
                                   : ElevatedButton(
                                       onPressed: () {
-                                        _completeJob(id, user);
+                                        _completeJob(widget.id, widget.user);
                                         context.showSnackBar(
                                             message: 'Job Completed');
                                         Navigator.of(context).pop();
@@ -316,10 +342,10 @@ class RequestDetails extends StatelessWidget {
                           //             color: Theme.of(context)
                           //                 .primaryColor)),
                           //     child: Text('Job Not Complete')),
-                          isNull(provider)
+                          isNull(widget.provider)
                               ? TextButton(
                                   onPressed: () {
-                                    _deleteRequest(id);
+                                    _deleteRequest(widget.id);
                                     context.showSnackBar(
                                         message: 'Job Deleted');
                                     Navigator.of(context).pop();
@@ -338,11 +364,11 @@ class RequestDetails extends StatelessWidget {
                                                   RateProviderPage(),
                                             ));
                                           },
-                                          child: Text('View Rating')),
+                                          child: Text('Go to rating page')),
                                     )
                                   : TextButton(
                                       onPressed: () {
-                                        _deleteRequest(id);
+                                        _deleteRequest(widget.id);
                                         context.showSnackBar(
                                             message: 'Job Deleted');
                                         Navigator.of(context).pop();
@@ -362,18 +388,27 @@ class RequestDetails extends StatelessWidget {
                           child: Column(
                             children: [
                               Heading2('Completed On'),
-                              Text(completed),
+                              Text(widget.completed),
                               // Text(
                               //   'Rate The requestor',
                               //   style: TextStyle(
                               //       fontWeight: FontWeight.bold, fontSize: 15),
                               // ),
-                              isRequest
-                                  ? Heading2('Rate The Providor')
-                                  : Heading2('Rate The Requestor'),
-                              SizedBox(height: 5),
+                              Heading2('Rate The Requestor'),
+                              //SizedBox(height: 5),
                               isRated()
-                                  ? Text('Requestor Rated')
+                                  ? Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .push(MaterialPageRoute(
+                                              builder: (context) =>
+                                                  RateProviderPage(),
+                                            ));
+                                          },
+                                          child: Text('Go to rating page')),
+                                    )
                                   : Column(
                                       children: [
                                         Center(
@@ -399,10 +434,10 @@ class RequestDetails extends StatelessWidget {
                                         ElevatedButton(
                                             onPressed: () {
                                               _rateRequestor(
-                                                  user,
+                                                  widget.user,
                                                   _valueController.toInt(),
                                                   _commentController.text,
-                                                  id);
+                                                  widget.id);
                                               context.showSnackBar(
                                                   message: 'Requestor rated!!');
                                               //print(ratinglist);
@@ -428,7 +463,7 @@ class RequestDetails extends StatelessWidget {
                                     onPressed: () {
                                       // print(widget.id);
                                       // print(widget.user);
-                                      applyJob(id, user);
+                                      applyJob(widget.id, widget.user);
                                       context.showSnackBar(
                                           message: 'Job requested!!');
                                       Navigator.of(context).pop();
@@ -446,23 +481,25 @@ class RequestDetails extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Heading2('Other Information')),
             Heading2('Description'),
-            Text(description.toString().capitalize()),
+            Text(widget.description.toString().capitalize()),
             Heading2('State'),
-            Text(state.toString().capitalize()),
+            Text(widget.state.toString().capitalize()),
             Heading2('Created On'),
-            Text(created),
+            Text(widget.created),
             Heading2('Updated On'),
-            Text(updated),
+            Text(widget.updated),
             // Heading2('Completed On'),
             // isNull(completed) ? Text('Not Completed') : Text(completed),
             // Heading2('Provider'),
             // isNull(provider) ? Text('No provider yet') : Text(provider),
             Heading2('Media'),
-            isNull(media) ? Text('No Attachment') : Text(media.toString()),
+            isNull(widget.media)
+                ? Text('No Attachment')
+                : Text(widget.media.toString()),
             Heading2('Location'),
-            Text(locationName.toString().titleCase()),
-            Text('Latitude: ' + latitude),
-            Text('Longitude: ' + longitude),
+            Text(widget.locationName.toString().titleCase()),
+            Text('Latitude: ' + widget.latitude),
+            Text('Longitude: ' + widget.longitude),
           ],
         ),
       ),

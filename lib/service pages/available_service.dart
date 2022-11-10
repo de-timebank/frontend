@@ -60,7 +60,7 @@ class _AvailableServicesState extends State<AvailableServices> {
         listFiltered.add(listRequest.requests[i]);
       }
     }
-    print(listFiltered);
+    //print(listFiltered);
     //print(listRequest);
     setState(() {
       isLoad = false;

@@ -55,8 +55,7 @@ class _CompletedServicesState extends State<CompletedServices> {
     _userCurrent = getCurrentUser(user);
 
     listRating = await ClientRating(Common().channel)
-        .getResponseRating('author', _userCurrent);
-
+        .getResponseRating('request_id', _userCurrent);
     listRequest =
         await ClientServiceRequest(Common().channel).getResponse('state', '3');
 
@@ -72,6 +71,10 @@ class _CompletedServicesState extends State<CompletedServices> {
     });
     //print(listRequest.requests.length);
   }
+
+  // getListRating() {
+  //
+  // }
 
   bool isEmpty() {
     if (listFiltered.length == 0) {
@@ -98,7 +101,7 @@ class _CompletedServicesState extends State<CompletedServices> {
                         Navigator.of(context)
                             .push(MaterialPageRoute(
                                 builder: (context) => RequestDetails(
-                                      ratinglist: listRating,
+                                      //ratinglist: listRating,
                                       isRequest: false,
                                       user: _userCurrent,
                                       id: listFiltered[index].id,
