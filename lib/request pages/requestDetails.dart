@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/extension_string.dart';
+import 'package:testfyp/rate%20pages/rateProvider.dart';
 import '../bin/client_rating.dart';
 import '../bin/client_service_request.dart';
 import '../bin/common.dart';
@@ -201,8 +202,8 @@ class RequestDetails extends StatelessWidget {
                                       ? Column(
                                           children: [
                                             Heading2(
-                                                'Completed On'), //complete on 1
-                                            Text(completed),
+                                                'Provider'), //complete on 1
+                                            Text(provider),
                                           ],
                                         )
                                       : Column(
@@ -253,7 +254,7 @@ class RequestDetails extends StatelessWidget {
                                       ? Column(
                                           children: [
                                             Heading2(
-                                                'Completed On 2'), //completed on 2
+                                                'Completed'), //completed on 2
                                             Text(completed),
                                           ],
                                         )
@@ -329,7 +330,15 @@ class RequestDetails extends StatelessWidget {
                               : isComplete()
                                   ? Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Text('Job Completed'),
+                                      child: TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .push(MaterialPageRoute(
+                                              builder: (context) =>
+                                                  RateProviderPage(),
+                                            ));
+                                          },
+                                          child: Text('View Rating')),
                                     )
                                   : TextButton(
                                       onPressed: () {

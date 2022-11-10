@@ -9,7 +9,7 @@ class Common {
   // IPv4 Address. . . . . . . . . . . : 10.121.182.155
   //  Subnet Mask . . . . . . . . . . . : 255.255.128.0
   //  Default Gateway . . . . . . . . . : 10.121.128.2
-  final String ipv4phone = '192.168.42.148';
+  final String ipv4phone = '169.254.99.179';
   final String ipv4phone2 = '10.121.168.135';
   final String emulator = '10.0.2.2';
   final String server = '127.0.0.1';

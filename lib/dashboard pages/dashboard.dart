@@ -111,15 +111,14 @@ class _DashBoardState extends State<DashBoard> {
                                     //SizedBox(height: 10),
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child:
-                                          Text('Help others with your skills'),
+                                      child: Text('Keep your balance in check'),
                                     ),
                                     //SizedBox(height: 10),
-                                    Ink.image(
-                                      image: AssetImage('asset/folder.png'),
-                                      height: 40,
-                                      width: 40,
-                                    ),
+                                    // Ink.image(
+                                    //   image: AssetImage('asset/folder.png'),
+                                    //   height: 40,
+                                    //   width: 40,
+                                    // ),
                                   ],
                                 )),
                           ),

@@ -50,15 +50,16 @@ class _RequestedJobState extends State<RequestedJob> {
     listFiltered = [];
     final user = supabase.auth.currentUser!.id;
     _userCurrent = getCurrentUser(user);
-    listRequest =
-        await ClientServiceRequest(Common().channel).getResponse('state', '2');
-    //print(listRequest);
+    listRequest = await ClientServiceRequest(Common().channel)
+        .getResponse('requestor', _userCurrent);
+
     for (var i = 0; i < listRequest.requests.length; i++) {
-      if (listRequest.requests[i].requestor == _userCurrent) {
+      if (listRequest.requests[i].applicants.length != 0 &&
+          listRequest.requests[i].state.toString() != 'COMPLETED') {
         listFiltered.add(listRequest.requests[i]);
       }
-      //print(listFiltered);
     }
+
     setState(() {
       isLoad = false;
       isEmpty();
