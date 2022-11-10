@@ -4,6 +4,7 @@ import '../bin/client_service_request.dart';
 import '../bin/common.dart';
 import '../components/constants.dart';
 import '../custom widgets/customCardRequest.dart';
+import '../request pages/requestDetails.dart';
 import 'serviceDetails.dart';
 
 class YourServices extends StatefulWidget {
@@ -24,7 +25,7 @@ class _YourServicesState extends State<YourServices> {
 
   //registered user (budi)
   final ammar = 'f53809c5-68e6-480c-902e-a5bc3821a003';
-  final evergreen = '06a7a82f-b04f-4111-b0c9-a92d918d3207';
+  final evergreen = 'd3f86c06-4d1e-4dfb-84b8-33148244fead';
   final ujaiahmad = '291b79a7-c67c-4783-b004-239cb334804d';
 
   @override
@@ -95,7 +96,8 @@ class _YourServicesState extends State<YourServices> {
                       onTap: () {
                         Navigator.of(context)
                             .push(MaterialPageRoute(
-                                builder: (context) => ServiceDetails(
+                                builder: (context) => RequestDetails(
+                                      isRequest: false,
                                       user: _userCurrent,
                                       id: listFiltered[index].id,
                                       requestor: listFiltered[index].requestor,

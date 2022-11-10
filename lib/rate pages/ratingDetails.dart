@@ -8,6 +8,7 @@ import '../custom widgets/heading2.dart';
 
 class RatingDetails extends StatelessWidget {
   //final function;
+  final bool isProvider;
   final id;
   final author;
   final recipient;
@@ -19,6 +20,7 @@ class RatingDetails extends StatelessWidget {
 
   RatingDetails({
     //required this.function,
+    required this.isProvider,
     required this.id,
     required this.author,
     required this.recipient,
@@ -77,16 +79,18 @@ class RatingDetails extends StatelessWidget {
             SizedBox(
               height: 15,
             ),
-            TextButton(
-                onPressed: () {
-                  //print(id);
-                  _deleteRating(id);
-                  context.showSnackBar(message: 'Rate Deleted');
-                  Navigator.of(context).pop();
-                  //Navigator.of(context).popUntil((route) => route.i);
-                  //Navigator.of(context).pushNamed('/navigation');
-                },
-                child: Text('Delete Rating'))
+            isProvider
+                ? TextButton(
+                    onPressed: () {
+                      //print(id);
+                      _deleteRating(id);
+                      context.showSnackBar(message: 'Rate Deleted');
+                      Navigator.of(context).pop();
+                      //Navigator.of(context).popUntil((route) => route.i);
+                      //Navigator.of(context).pushNamed('/navigation');
+                    },
+                    child: Text('Delete Rating'))
+                : Text('')
           ],
         ),
       ),

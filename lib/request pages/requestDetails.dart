@@ -9,6 +9,7 @@ import '../custom widgets/heading2.dart';
 
 class RequestDetails extends StatelessWidget {
   //final function;
+
   final ratinglist;
   final bool isRequest;
   final user;
@@ -50,8 +51,9 @@ class RequestDetails extends StatelessWidget {
       this.media});
 
   double _valueController = 0;
+  double _value1Controller = 0;
   final _commentController = TextEditingController();
-
+  final _comment1Controller = TextEditingController();
   applyJob(String reqid, String provider) {
     ClientServiceRequest(Common().channel).applyProvider1(reqid, provider);
   }
@@ -72,6 +74,14 @@ class RequestDetails extends StatelessWidget {
     }
   }
 
+  isOngoing() {
+    if (state.toString() == 'ONGOING') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   isPending() {
     if (state.toString() == 'PENDING') {
       return true;
@@ -81,11 +91,15 @@ class RequestDetails extends StatelessWidget {
   }
 
   isRated() {
-    if (ratinglist.ratings.length == 0) {
+    if (ratinglist.toString() == '') {
       return false;
     } else {
       return true;
     }
+  }
+
+  void _completeJob(String id, String user) {
+    ClientServiceRequest(Common().channel).completeService1(id, user);
   }
 
   void _rateRequestor(
@@ -94,11 +108,17 @@ class RequestDetails extends StatelessWidget {
         .ratingForRequestor(author, value, comment, id);
   }
 
+  void _rateProvider(
+      String author, int value, String comment, String id) async {
+    ClientRating(Common().channel)
+        .ratingForProvider(author, value, comment, id);
+  }
+
   void _deleteRequest(String id) async {
     ClientServiceRequest(Common().channel).deleteService(id);
   }
 
-  _selectProvider(String id, String provider, String caller) {
+  void _selectProvider(String id, String provider, String caller) {
     ClientServiceRequest(Common().channel)
         .selectProvider1(id, provider, caller);
   }
@@ -180,7 +200,8 @@ class RequestDetails extends StatelessWidget {
                                   : isComplete()
                                       ? Column(
                                           children: [
-                                            Heading2('Completed On'),
+                                            Heading2(
+                                                'Completed On'), //complete on 1
                                             Text(completed),
                                           ],
                                         )
@@ -228,14 +249,62 @@ class RequestDetails extends StatelessWidget {
                                   ],
                                 )
                               : isComplete()
-                                  ? Column(
-                                      children: [
-                                        Heading2('Completed On'),
-                                        Text(completed),
-                                      ],
-                                    )
+                                  ? isRated()
+                                      ? Column(
+                                          children: [
+                                            Heading2(
+                                                'Completed On 2'), //completed on 2
+                                            Text(completed),
+                                          ],
+                                        )
+                                      : Column(children: [
+                                          Center(
+                                            child: RatingBar.builder(
+                                              initialRating: 0,
+                                              itemBuilder: (context, index) =>
+                                                  Icon(
+                                                Icons.star,
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                              ),
+                                              onRatingUpdate: (value) {
+                                                _value1Controller = value;
+                                                //print(_valueController);
+                                              },
+                                            ),
+                                          ),
+                                          TextFormField(
+                                            controller: _comment1Controller,
+                                            decoration: InputDecoration(
+                                                hintText: 'Enter comment'),
+                                          ),
+                                          ElevatedButton(
+                                              onPressed: () {
+                                                print(user);
+                                                print(
+                                                    _value1Controller.toInt());
+                                                print(_comment1Controller.text);
+                                                print(id);
+                                                _rateProvider(
+                                                    user,
+                                                    _value1Controller.toInt(),
+                                                    _comment1Controller.text,
+                                                    id);
+                                                context.showSnackBar(
+                                                    message:
+                                                        'Provider rated!!');
+                                                //print(ratinglist);
+                                                //Navigator.of(context).pop();
+                                              },
+                                              child: Text('Rate Provider'))
+                                        ])
                                   : ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        _completeJob(id, user);
+                                        context.showSnackBar(
+                                            message: 'Job Completed');
+                                        Navigator.of(context).pop();
+                                      },
                                       child: Text('Complete Job')),
                           // : Container(
                           //     padding: EdgeInsets.all(5),
@@ -257,15 +326,21 @@ class RequestDetails extends StatelessWidget {
                                     //Navigator.of(context).pushNamed('/navigation');
                                   },
                                   child: Text('Delete Job'))
-                              : TextButton(
-                                  onPressed: () {
-                                    // _deleteRequest(id);
-                                    // context.showSnackBar(message: 'Job Deleted');
-                                    // Navigator.of(context).pop();
-                                    //Navigator.of(context).popUntil((route) => route.i);
-                                    //Navigator.of(context).pushNamed('/navigation');
-                                  },
-                                  child: Text('Abort Job')),
+                              : isComplete()
+                                  ? Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text('Job Completed'),
+                                    )
+                                  : TextButton(
+                                      onPressed: () {
+                                        _deleteRequest(id);
+                                        context.showSnackBar(
+                                            message: 'Job Deleted');
+                                        Navigator.of(context).pop();
+                                        //Navigator.of(context).popUntil((route) => route.i);
+                                        //Navigator.of(context).pushNamed('/navigation');
+                                      },
+                                      child: Text('Abort Job')),
                         ],
                       ),
                     ),
@@ -320,36 +395,39 @@ class RequestDetails extends StatelessWidget {
                                                   _commentController.text,
                                                   id);
                                               context.showSnackBar(
-                                                  message: 'Provider rated!!');
+                                                  message: 'Requestor rated!!');
                                               //print(ratinglist);
                                               Navigator.of(context).pop();
                                             },
-                                            child: Text('Rate Provider')),
+                                            child: Text('Rate Requestor')),
                                       ],
                                     )
                             ],
                           ),
                         ),
                       )
-                    : Card(
-                        //sini oi the service
-                        elevation: 5,
-                        child: Column(
-                          children: [
-                            Heading2('Interested in the job?'),
-                            ElevatedButton(
-                                onPressed: () {
-                                  // print(widget.id);
-                                  // print(widget.user);
-                                  applyJob(id, user);
-                                  context.showSnackBar(
-                                      message: 'Job requested!!');
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text('Request Job')),
-                          ],
-                        ),
-                      ),
+                    : isOngoing()
+                        ? Center(
+                            child: Text('You are currently taking this Job...'))
+                        : Card(
+                            //sini oi the service
+                            elevation: 5,
+                            child: Column(
+                              children: [
+                                Heading2('Interested in the job?'),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      // print(widget.id);
+                                      // print(widget.user);
+                                      applyJob(id, user);
+                                      context.showSnackBar(
+                                          message: 'Job requested!!');
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('Request Job')),
+                              ],
+                            ),
+                          ),
 
             Divider(
               color: Theme.of(context).primaryColor,

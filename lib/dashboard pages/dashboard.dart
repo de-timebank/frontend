@@ -66,7 +66,7 @@ class _DashBoardState extends State<DashBoard> {
                     ),
                     Padding(
                       padding: EdgeInsets.all(10.0),
-                      child: Text('\$time/hour: 15.50',
+                      child: Text('\$time/hour: 10.00',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Color.fromARGB(255, 24, 54, 66))),
@@ -100,7 +100,7 @@ class _DashBoardState extends State<DashBoard> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.all(5.0),
-                                      child: Text('Find a service request',
+                                      child: Text('View Transaction History',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold)
                                           // style: Theme.of(context)
@@ -145,7 +145,7 @@ class _DashBoardState extends State<DashBoard> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'Rate',
+                                      'Rate Given',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center,
@@ -177,7 +177,7 @@ class _DashBoardState extends State<DashBoard> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'Given Rating',
+                                      'Received Rating',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center,

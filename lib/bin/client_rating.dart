@@ -29,13 +29,23 @@ class ClientRating {
 
   Future<Create_Response> ratingForProvider(
       String author, int value, String comment, String id) async {
-    return await stub.createForRequestor(Create_Request(
+    return await stub.createForProvider(Create_Request(
         rating: Create_NewRatingData()
           ..author = author
           ..value = value
           ..comment = comment
           ..requestId = id));
   }
+
+  // Future<Create_Response> ratingForProvider(
+  //     String author, int value, String comment, String id) async {
+  //   return await stub.createForProvider(Create_Request(
+  //       rating: Create_NewRatingData()
+  //         ..author = author
+  //         ..value = value
+  //         ..comment = comment
+  //         ..requestId = id));
+  // }
 
   Future<Get_Response> getResponseRating(String key, String value) async {
     return await stub.get(Get_Request()

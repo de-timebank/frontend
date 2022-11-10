@@ -24,7 +24,7 @@ class _RequestedJobState extends State<RequestedJob> {
   late bool _isEmpty;
   //registered user (budi)
   final ammar = 'f53809c5-68e6-480c-902e-a5bc3821a003';
-  final evergreen = '06a7a82f-b04f-4111-b0c9-a92d918d3207';
+  final evergreen = 'd3f86c06-4d1e-4dfb-84b8-33148244fead';
   final ujaiahmad = '291b79a7-c67c-4783-b004-239cb334804d';
 
   @override
@@ -50,11 +50,11 @@ class _RequestedJobState extends State<RequestedJob> {
     listFiltered = [];
     final user = supabase.auth.currentUser!.id;
     _userCurrent = getCurrentUser(user);
-    listRequest = await ClientServiceRequest(Common().channel)
-        .getResponse('requestor', _userCurrent);
+    listRequest =
+        await ClientServiceRequest(Common().channel).getResponse('state', '2');
     //print(listRequest);
     for (var i = 0; i < listRequest.requests.length; i++) {
-      if (listRequest.requests[i].applicants.length != 0) {
+      if (listRequest.requests[i].requestor == _userCurrent) {
         listFiltered.add(listRequest.requests[i]);
       }
       //print(listFiltered);

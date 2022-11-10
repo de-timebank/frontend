@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../bin/client_rating.dart';
 import '../bin/client_service_request.dart';
 import '../bin/common.dart';
 import '../components/constants.dart';
 import '../custom widgets/customCardRequest.dart';
 import 'requestDetails.dart';
-import 'requestForm.dart';
 
 class CompletedRequest extends StatefulWidget {
   CompletedRequest({Key? key}) : super(key: key);
@@ -19,13 +19,14 @@ class _CompletedRequestState extends State<CompletedRequest> {
   late bool isLoad;
   late dynamic listRequest;
   late dynamic listFiltered;
+  late dynamic listRating;
   late final user;
   late String _userCurrent;
   late bool _isEmpty;
   bool isRequest = true;
   //registered user (budi)
   final ammar = 'f53809c5-68e6-480c-902e-a5bc3821a003';
-  final evergreen = '06a7a82f-b04f-4111-b0c9-a92d918d3207';
+  final evergreen = 'd3f86c06-4d1e-4dfb-84b8-33148244fead';
   final ujaiahmad = '291b79a7-c67c-4783-b004-239cb334804d';
 
   @override
@@ -52,14 +53,18 @@ class _CompletedRequestState extends State<CompletedRequest> {
     final user = supabase.auth.currentUser!.id;
     _userCurrent = getCurrentUser(user);
 
-    listRequest = await ClientServiceRequest(Common().channel)
-        .getResponse('requestor', _userCurrent);
+    listRating = await ClientRating(Common().channel)
+        .getResponseRating('author', _userCurrent);
+
+    listRequest =
+        await ClientServiceRequest(Common().channel).getResponse('state', '3');
 
     for (var i = 0; i < listRequest.requests.length; i++) {
-      if (listRequest.requests[i].state == '3') {
+      if (listRequest.requests[i].provider != _userCurrent) {
         listFiltered.add(listRequest.requests[i]);
       }
     }
+    //print(listFiltered);
     //print(listRequest);
     setState(() {
       isLoad = false;
@@ -93,6 +98,7 @@ class _CompletedRequestState extends State<CompletedRequest> {
                         Navigator.of(context)
                             .push(MaterialPageRoute(
                                 builder: (context) => RequestDetails(
+                                      ratinglist: listRating,
                                       isRequest: isRequest,
                                       user: _userCurrent,
                                       id: listFiltered[index].id,
