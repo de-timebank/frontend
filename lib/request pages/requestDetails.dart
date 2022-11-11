@@ -126,8 +126,8 @@ class _RequestDetailsState extends State<RequestDetails> {
     //_getRatingId();
     // ratedUserId = await ClientRating(Common().channel)
     //     .getResponseRating('author', widget.user);
-    print(widget.user);
-    print(ratedUser.ratings.length);
+    // print(widget.user);
+    // print(ratedUser.ratings.length);
     // print(ratedUser.ratings.author.toString());
     setState(() {
       isLoad = false;
@@ -231,16 +231,19 @@ class _RequestDetailsState extends State<RequestDetails> {
                                                       (context, index) {
                                                     return ElevatedButton(
                                                         onPressed: () {
-                                                          // print(id);
-                                                          // print(applicants[index]);
-                                                          // print(user);
-                                                          //                             ClientServiceRequest(Common().channel)
-                                                          // .selectProvider1('6c2dae2e-2f4b-4768-99e0-d05610278e04', provider, caller);
+                                                          // print(widget.id);
+                                                          // print(
+                                                          //     widget.applicants[
+                                                          //         index]);
+                                                          // print(widget.user);
                                                           _selectProvider(
-                                                              widget.id,
+                                                              widget.id
+                                                                  .toString(),
                                                               widget.applicants[
-                                                                  index],
-                                                              widget.user);
+                                                                      index]
+                                                                  .toString(),
+                                                              widget.user
+                                                                  .toString());
                                                           context.showSnackBar(
                                                               message:
                                                                   'Applicant Selected');
