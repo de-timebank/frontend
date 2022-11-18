@@ -36,6 +36,12 @@ class UserClient extends $grpc.Client {
           ($1.GetRating_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $1.GetRating_Response.fromBuffer(value));
+  static final _$getCreditBalance = $grpc.ClientMethod<
+          $1.GetCreditBalance_Request, $1.GetCreditBalance_Response>(
+      '/timebank.user.User/getCreditBalance',
+      ($1.GetCreditBalance_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $1.GetCreditBalance_Response.fromBuffer(value));
 
   UserClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -61,6 +67,12 @@ class UserClient extends $grpc.Client {
       $1.GetRating_Request request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getRating, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.GetCreditBalance_Response> getCreditBalance(
+      $1.GetCreditBalance_Request request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getCreditBalance, request, options: options);
   }
 }
 
@@ -96,6 +108,15 @@ abstract class UserServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $1.GetRating_Request.fromBuffer(value),
         ($1.GetRating_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.GetCreditBalance_Request,
+            $1.GetCreditBalance_Response>(
+        'getCreditBalance',
+        getCreditBalance_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $1.GetCreditBalance_Request.fromBuffer(value),
+        ($1.GetCreditBalance_Response value) => value.writeToBuffer()));
   }
 
   $async.Future<$1.Get_Response> get_Pre(
@@ -118,6 +139,12 @@ abstract class UserServiceBase extends $grpc.Service {
     return getRating(call, await request);
   }
 
+  $async.Future<$1.GetCreditBalance_Response> getCreditBalance_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$1.GetCreditBalance_Request> request) async {
+    return getCreditBalance(call, await request);
+  }
+
   $async.Future<$1.Get_Response> get(
       $grpc.ServiceCall call, $1.Get_Request request);
   $async.Future<$1.GetById_Response> getById(
@@ -126,4 +153,6 @@ abstract class UserServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $1.Update_Request request);
   $async.Future<$1.GetRating_Response> getRating(
       $grpc.ServiceCall call, $1.GetRating_Request request);
+  $async.Future<$1.GetCreditBalance_Response> getCreditBalance(
+      $grpc.ServiceCall call, $1.GetCreditBalance_Request request);
 }

@@ -1,12 +1,9 @@
-//import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:testfyp/components/avatar.dart';
+// import 'package:testfyp/components/avatar.dart';
 import 'package:testfyp/components/constants.dart';
-//import 'package:testfyp/dashboard.dart';
-import 'package:testfyp/navigation.dart';
+import 'package:testfyp/extension_string.dart';
 import 'package:testfyp/splash_page.dart';
-//import '../profile pages/profile.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -17,18 +14,36 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
   final _usernameController = TextEditingController();
-  final _websiteController = TextEditingController();
+  final _contactController = TextEditingController();
   final _matricController = TextEditingController();
   final _genderController = TextEditingController();
-  final _descriptionController = TextEditingController();
-  //final _skillsController = TextEditingController(); //array?
-  late String _avatarUrl = '';
-  // late List<String> skill;
-  // late List<dynamic> contact;
+  final _skillController = TextEditingController();
+  // late String _avatarUrl = '';
+
+  late List<dynamic> skills;
+  late List<dynamic> contacts;
   var _loading = true;
 
-  /// Called once a user id is received within `onAuthenticated()`
+  @override
+  void initState() {
+    super.initState();
+
+    //_getProfile();
+    Future.delayed(Duration.zero, _getProfile);
+  }
+
+  _addskills(String skill) {
+    skills.add(skill);
+    //print(skills);
+  }
+
+  _addcontact(String contact) {
+    contacts.add(contact);
+  }
+
   Future<void> _getProfile() async {
+    skills = [];
+    contacts = [];
     setState(() {
       _loading = true;
     });
@@ -36,17 +51,24 @@ class _AccountPageState extends State<AccountPage> {
     try {
       final userId = supabase.auth.currentUser!.id; //map the user ID
       final data = await supabase
-          .from('profiles')
+          .from('user_profile')
           .select()
-          .eq('id', userId)
+          .eq('user_id', userId)
           .single() as Map;
-      _usernameController.text = (data['username'] ?? '') as String;
-      _websiteController.text = (data['website'] ?? '') as String;
-      _matricController.text = (data['matricNum'] ?? '') as String;
+      _usernameController.text = (data['name'] ?? '') as String;
+      // _contactController.text = (data['website'] ?? '') as String;
+      _matricController.text = (data['matric_number'] ?? '') as String;
       _genderController.text = (data['gender'] ?? '') as String;
-      _descriptionController.text = (data['description'] ?? '') as String;
-      _avatarUrl = (data['avatar_url'] ?? '') as String;
-      //_skillsController.text = (data['skills'] ?? '') as Array;
+      for (int i = 0; i < data['skills'].length; i++) {
+        if (data['skills'][i] != '') {
+          skills.add(data['skills'][i]);
+        }
+      }
+      for (int i = 0; i < data['contacts'].length; i++) {
+        if (data['contacts'][i] != '') {
+          contacts.add(data['contacts'][i]);
+        }
+      }
     } on PostgrestException catch (error) {
       if (_usernameController.text == '') {
         context.showSnackBar(message: 'Welcome to BUDI!');
@@ -68,29 +90,26 @@ class _AccountPageState extends State<AccountPage> {
       _loading = true;
     });
     final userName = _usernameController.text;
-    final website = _websiteController.text;
+    // final website = _contactController.text;
     final matricNum = _matricController.text;
     final user = supabase.auth.currentUser;
     final gender = _genderController.text;
-    final description = _descriptionController.text;
+    // final description = _skillController.text;
     //print(user!.id);
     //final avatar =
     //final skills = _skillsController;
     final updates = {
-      'id': user!.id,
-      'username': userName,
-      //'skills': skill,
-      //'contacts': contact,
-      'website': website,
+      'user_id': user!.id,
+      'name': userName,
+      'skills': skills,
+      'contacts': contacts,
       'updated_at': DateTime.now().toIso8601String(),
-      'matricNum': matricNum,
+      'matric_number': matricNum,
       'gender': gender,
-      'description': description,
-      'avatar_url': _avatarUrl,
-      //'skills': skills,
+      // 'avatar_url': _avatarUrl,
     };
     try {
-      await supabase.from('profiles').upsert(updates);
+      await supabase.from('user_profile').upsert(updates);
       if (mounted) {
         context.showSnackBar(message: 'Successfully updated profile!');
         Navigator.of(context).pop();
@@ -128,45 +147,13 @@ class _AccountPageState extends State<AccountPage> {
     }
   }
 
-  // Called when image has been uploaded to Supabase storage from within Avatar widget
-  Future<void> _onUpload(String imageUrl) async {
-    try {
-      final userId = supabase.auth.currentUser!.id;
-      await supabase.from('profiles').upsert({
-        'id': userId,
-        'avatar_url': imageUrl,
-      });
-      if (mounted) {
-        context.showSnackBar(message: 'Updated your profile image!');
-      }
-    } on PostgrestException catch (error) {
-      context.showErrorSnackBar(message: error.message);
-    } catch (error) {
-      context.showErrorSnackBar(message: 'Unable to change picture');
-    }
-    if (!mounted) {
-      return;
-    }
-
-    setState(() {
-      _avatarUrl = imageUrl;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    //_getProfile();
-    Future.delayed(Duration.zero, _getProfile);
-  }
-
   @override
   void dispose() {
     _usernameController.dispose();
-    _websiteController.dispose();
+    _contactController.dispose();
     _matricController.dispose();
     _genderController.dispose();
-    _descriptionController.dispose();
+    _skillController.dispose();
     super.dispose();
   }
 
@@ -180,12 +167,13 @@ class _AccountPageState extends State<AccountPage> {
       body: _loading
           ? Center(child: CircularProgressIndicator())
           : ListView(
+              shrinkWrap: true,
               padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
               children: [
-                Avatar(
-                  imageUrl: _avatarUrl,
-                  onUpload: _onUpload,
-                ),
+                // Avatar(
+                //   imageUrl: _avatarUrl,
+                //   onUpload: _onUpload,
+                // ),
                 const SizedBox(height: 18),
                 TextFormField(
                   controller: _usernameController,
@@ -197,23 +185,105 @@ class _AccountPageState extends State<AccountPage> {
                 ),
                 TextFormField(
                   controller: _matricController,
+                  keyboardType: TextInputType.number,
                   decoration: const InputDecoration(labelText: 'Matric Number'),
                 ),
+
                 TextFormField(
-                  controller: _descriptionController,
-                  decoration: const InputDecoration(labelText: 'Description'),
+                  controller: _skillController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      hintText: 'Add Skills',
+                      labelText: 'Skill',
+                      suffixIcon: ElevatedButton(
+                        onPressed: () {
+                          try {
+                            _addskills(_skillController.text);
+                            _skillController.clear();
+                            context.showSnackBar(message: 'skill Added!');
+                          } catch (e) {
+                            context.showErrorSnackBar(
+                                message: 'Unable to add skill');
+                          }
+                        },
+                        child: Text('Add Skill'),
+                      )),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter skill';
+                    }
+                    return null;
+                  },
                 ),
-                const SizedBox(height: 18),
+                Text('Your Skills: '),
+                SizedBox(
+                    height: 50,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: skills.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                                child: Text(
+                                    skills[index].toString().capitalize())),
+                          ),
+                        );
+                      },
+                    )),
                 TextFormField(
-                  controller: _websiteController,
-                  decoration: const InputDecoration(labelText: 'Website'),
+                  controller: _contactController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      hintText: 'Add Contacts',
+                      labelText: 'Contact',
+                      suffixIcon: ElevatedButton(
+                        onPressed: () {
+                          try {
+                            _addcontact(_contactController.text);
+                            _contactController.clear();
+                            context.showSnackBar(message: 'Contact Added!');
+                          } catch (e) {
+                            context.showErrorSnackBar(
+                                message: 'Unable to add contact');
+                          }
+                        },
+                        child: Text('Add Contact'),
+                      )),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter contacts';
+                    }
+                    return null;
+                  },
                 ),
-                const SizedBox(height: 18),
+                Text('Your Contacts: '),
+                SizedBox(
+                    height: 50,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: contacts.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                                child: Text(
+                                    contacts[index].toString().capitalize())),
+                          ),
+                        );
+                      },
+                    )),
+                SizedBox(height: 10),
                 ElevatedButton(
-                  onPressed: _updateProfile,
+                  onPressed: () {
+                    _updateProfile();
+                  },
                   child: Text(_loading ? 'Loading...' : 'Update'),
                 ),
-                //const SizedBox(height: 18),
                 ElevatedButton(
                   onPressed: (() {
                     Navigator.of(context).popUntil((route) => route.isFirst);

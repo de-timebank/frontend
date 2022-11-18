@@ -8,11 +8,27 @@ service User {
     rpc getById (GetById.Request) returns (GetById.Response);
     rpc update (Update.Request) returns (Update.Response);
     rpc getRating (GetRating.Request) returns (GetRating.Response);
+    rpc getCreditBalance (GetCreditBalance.Request) returns (GetCreditBalance.Response);
+}
+
+message ProfileImage {
+    string url = 1;
+    string mime_type = 2;
 }
 
 message Contact {
+    // eg whatsapp, email, phone, twitter
     string type = 1;
+    // eg. +6012-xxxx, test@email.com, @twitterhandle
     string address = 2;
+}
+
+message NewUserProfile {
+    string name = 1;
+    repeated string skills = 2;
+    repeated Contact contacts = 3;   
+    string gender = 4;
+    string matric_number = 5;
 }
 
 message UserProfile {
@@ -22,6 +38,8 @@ message UserProfile {
     repeated Contact contacts = 4;
     string created_at = 5;
     string updated_at = 6;
+    string gender = 7;
+    string matric_number = 8;
 }
 
 message Get {
@@ -64,5 +82,15 @@ message GetRating {
     message Response {
         int32 average = 1;
         repeated timebank.rating.RatingData ratings = 2;
+    }
+}
+
+message GetCreditBalance {
+    message Request {
+        string user_id = 1;
+    }
+
+    message Response {
+        uint64 balance = 1;
     }
 }

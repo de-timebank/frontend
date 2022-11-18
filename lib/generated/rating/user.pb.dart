@@ -7,11 +7,98 @@
 
 import 'dart:core' as $core;
 
+import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-//import 'rating.pb.dart' as $0;
+import 'rating.pb.dart' as $0;
 
-import 'package:testfyp/generated/rating/rating.pb.dart' as $0;
+class ProfileImage extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'ProfileImage',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'timebank.user'),
+      createEmptyInstance: create)
+    ..aOS(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'url')
+    ..aOS(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'mimeType')
+    ..hasRequiredFields = false;
+
+  ProfileImage._() : super();
+  factory ProfileImage({
+    $core.String? url,
+    $core.String? mimeType,
+  }) {
+    final _result = create();
+    if (url != null) {
+      _result.url = url;
+    }
+    if (mimeType != null) {
+      _result.mimeType = mimeType;
+    }
+    return _result;
+  }
+  factory ProfileImage.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory ProfileImage.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  ProfileImage clone() => ProfileImage()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  ProfileImage copyWith(void Function(ProfileImage) updates) =>
+      super.copyWith((message) => updates(message as ProfileImage))
+          as ProfileImage; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ProfileImage create() => ProfileImage._();
+  ProfileImage createEmptyInstance() => create();
+  static $pb.PbList<ProfileImage> createRepeated() =>
+      $pb.PbList<ProfileImage>();
+  @$core.pragma('dart2js:noInline')
+  static ProfileImage getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ProfileImage>(create);
+  static ProfileImage? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get url => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set url($core.String v) {
+    $_setString(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasUrl() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUrl() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get mimeType => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set mimeType($core.String v) {
+    $_setString(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasMimeType() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearMimeType() => clearField(2);
+}
 
 class Contact extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
@@ -100,6 +187,141 @@ class Contact extends $pb.GeneratedMessage {
   void clearAddress() => clearField(2);
 }
 
+class NewUserProfile extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'NewUserProfile',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'timebank.user'),
+      createEmptyInstance: create)
+    ..aOS(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'name')
+    ..pPS(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'skills')
+    ..pc<Contact>(
+        3,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'contacts',
+        $pb.PbFieldType.PM,
+        subBuilder: Contact.create)
+    ..aOS(
+        4,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'gender')
+    ..aOS(
+        5,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'matricNumber')
+    ..hasRequiredFields = false;
+
+  NewUserProfile._() : super();
+  factory NewUserProfile({
+    $core.String? name,
+    $core.Iterable<$core.String>? skills,
+    $core.Iterable<Contact>? contacts,
+    $core.String? gender,
+    $core.String? matricNumber,
+  }) {
+    final _result = create();
+    if (name != null) {
+      _result.name = name;
+    }
+    if (skills != null) {
+      _result.skills.addAll(skills);
+    }
+    if (contacts != null) {
+      _result.contacts.addAll(contacts);
+    }
+    if (gender != null) {
+      _result.gender = gender;
+    }
+    if (matricNumber != null) {
+      _result.matricNumber = matricNumber;
+    }
+    return _result;
+  }
+  factory NewUserProfile.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory NewUserProfile.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  NewUserProfile clone() => NewUserProfile()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  NewUserProfile copyWith(void Function(NewUserProfile) updates) =>
+      super.copyWith((message) => updates(message as NewUserProfile))
+          as NewUserProfile; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static NewUserProfile create() => NewUserProfile._();
+  NewUserProfile createEmptyInstance() => create();
+  static $pb.PbList<NewUserProfile> createRepeated() =>
+      $pb.PbList<NewUserProfile>();
+  @$core.pragma('dart2js:noInline')
+  static NewUserProfile getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<NewUserProfile>(create);
+  static NewUserProfile? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get name => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set name($core.String v) {
+    $_setString(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasName() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearName() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.String> get skills => $_getList(1);
+
+  @$pb.TagNumber(3)
+  $core.List<Contact> get contacts => $_getList(2);
+
+  @$pb.TagNumber(4)
+  $core.String get gender => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set gender($core.String v) {
+    $_setString(3, v);
+  }
+
+  @$pb.TagNumber(4)
+  $core.bool hasGender() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearGender() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get matricNumber => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set matricNumber($core.String v) {
+    $_setString(4, v);
+  }
+
+  @$pb.TagNumber(5)
+  $core.bool hasMatricNumber() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearMatricNumber() => clearField(5);
+}
+
 class UserProfile extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       const $core.bool.fromEnvironment('protobuf.omit_message_names')
@@ -142,6 +364,16 @@ class UserProfile extends $pb.GeneratedMessage {
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'updatedAt')
+    ..aOS(
+        7,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'gender')
+    ..aOS(
+        8,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'matricNumber')
     ..hasRequiredFields = false;
 
   UserProfile._() : super();
@@ -152,6 +384,8 @@ class UserProfile extends $pb.GeneratedMessage {
     $core.Iterable<Contact>? contacts,
     $core.String? createdAt,
     $core.String? updatedAt,
+    $core.String? gender,
+    $core.String? matricNumber,
   }) {
     final _result = create();
     if (userId != null) {
@@ -171,6 +405,12 @@ class UserProfile extends $pb.GeneratedMessage {
     }
     if (updatedAt != null) {
       _result.updatedAt = updatedAt;
+    }
+    if (gender != null) {
+      _result.gender = gender;
+    }
+    if (matricNumber != null) {
+      _result.matricNumber = matricNumber;
     }
     return _result;
   }
@@ -253,6 +493,30 @@ class UserProfile extends $pb.GeneratedMessage {
   $core.bool hasUpdatedAt() => $_has(5);
   @$pb.TagNumber(6)
   void clearUpdatedAt() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get gender => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set gender($core.String v) {
+    $_setString(6, v);
+  }
+
+  @$pb.TagNumber(7)
+  $core.bool hasGender() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearGender() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get matricNumber => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set matricNumber($core.String v) {
+    $_setString(7, v);
+  }
+
+  @$pb.TagNumber(8)
+  $core.bool hasMatricNumber() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearMatricNumber() => clearField(8);
 }
 
 class Get_Request extends $pb.GeneratedMessage {
@@ -1008,4 +1272,186 @@ class GetRating extends $pb.GeneratedMessage {
   static GetRating getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetRating>(create);
   static GetRating? _defaultInstance;
+}
+
+class GetCreditBalance_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'GetCreditBalance.Request',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'timebank.user'),
+      createEmptyInstance: create)
+    ..aOS(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'userId')
+    ..hasRequiredFields = false;
+
+  GetCreditBalance_Request._() : super();
+  factory GetCreditBalance_Request({
+    $core.String? userId,
+  }) {
+    final _result = create();
+    if (userId != null) {
+      _result.userId = userId;
+    }
+    return _result;
+  }
+  factory GetCreditBalance_Request.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory GetCreditBalance_Request.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  GetCreditBalance_Request clone() =>
+      GetCreditBalance_Request()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  GetCreditBalance_Request copyWith(
+          void Function(GetCreditBalance_Request) updates) =>
+      super.copyWith((message) => updates(message as GetCreditBalance_Request))
+          as GetCreditBalance_Request; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetCreditBalance_Request create() => GetCreditBalance_Request._();
+  GetCreditBalance_Request createEmptyInstance() => create();
+  static $pb.PbList<GetCreditBalance_Request> createRepeated() =>
+      $pb.PbList<GetCreditBalance_Request>();
+  @$core.pragma('dart2js:noInline')
+  static GetCreditBalance_Request getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<GetCreditBalance_Request>(create);
+  static GetCreditBalance_Request? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get userId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set userId($core.String v) {
+    $_setString(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasUserId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUserId() => clearField(1);
+}
+
+class GetCreditBalance_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'GetCreditBalance.Response',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'timebank.user'),
+      createEmptyInstance: create)
+    ..a<$fixnum.Int64>(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'balance',
+        $pb.PbFieldType.OU6,
+        defaultOrMaker: $fixnum.Int64.ZERO)
+    ..hasRequiredFields = false;
+
+  GetCreditBalance_Response._() : super();
+  factory GetCreditBalance_Response({
+    $fixnum.Int64? balance,
+  }) {
+    final _result = create();
+    if (balance != null) {
+      _result.balance = balance;
+    }
+    return _result;
+  }
+  factory GetCreditBalance_Response.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory GetCreditBalance_Response.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  GetCreditBalance_Response clone() =>
+      GetCreditBalance_Response()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  GetCreditBalance_Response copyWith(
+          void Function(GetCreditBalance_Response) updates) =>
+      super.copyWith((message) => updates(message as GetCreditBalance_Response))
+          as GetCreditBalance_Response; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetCreditBalance_Response create() => GetCreditBalance_Response._();
+  GetCreditBalance_Response createEmptyInstance() => create();
+  static $pb.PbList<GetCreditBalance_Response> createRepeated() =>
+      $pb.PbList<GetCreditBalance_Response>();
+  @$core.pragma('dart2js:noInline')
+  static GetCreditBalance_Response getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<GetCreditBalance_Response>(create);
+  static GetCreditBalance_Response? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $fixnum.Int64 get balance => $_getI64(0);
+  @$pb.TagNumber(1)
+  set balance($fixnum.Int64 v) {
+    $_setInt64(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasBalance() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearBalance() => clearField(1);
+}
+
+class GetCreditBalance extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'GetCreditBalance',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'timebank.user'),
+      createEmptyInstance: create)
+    ..hasRequiredFields = false;
+
+  GetCreditBalance._() : super();
+  factory GetCreditBalance() => create();
+  factory GetCreditBalance.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory GetCreditBalance.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  GetCreditBalance clone() => GetCreditBalance()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  GetCreditBalance copyWith(void Function(GetCreditBalance) updates) =>
+      super.copyWith((message) => updates(message as GetCreditBalance))
+          as GetCreditBalance; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetCreditBalance create() => GetCreditBalance._();
+  GetCreditBalance createEmptyInstance() => create();
+  static $pb.PbList<GetCreditBalance> createRepeated() =>
+      $pb.PbList<GetCreditBalance>();
+  @$core.pragma('dart2js:noInline')
+  static GetCreditBalance getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<GetCreditBalance>(create);
+  static GetCreditBalance? _defaultInstance;
 }

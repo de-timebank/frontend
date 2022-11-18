@@ -1,3 +1,68 @@
+Flexible(
+                    //description
+                    flex: 3,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 219, 216, 233),
+                          //border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(20)),
+                      width: double.infinity,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+                            child: Text(
+                              'Description',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 15),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            child: Text(_desc),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+ListView(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          Card(
+                            elevation: 5,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text('Cooking'),
+                            ),
+                            margin: EdgeInsets.all(5),
+                          ),
+                          Card(
+                            elevation: 5,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text('Programming with fast typing'),
+                            ),
+                          ),
+                          Card(
+                            elevation: 5,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child:
+                                  Text('This is another skill that you should'),
+                            ),
+                          ),
+                          Card(
+                            elevation: 5,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text('Kill me senpai'),
+                            ),
+                          ),
+                        ],
+                      ),
 Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 2),

@@ -8,6 +8,17 @@
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
 import 'dart:typed_data' as $typed_data;
+@$core.Deprecated('Use profileImageDescriptor instead')
+const ProfileImage$json = const {
+  '1': 'ProfileImage',
+  '2': const [
+    const {'1': 'url', '3': 1, '4': 1, '5': 9, '10': 'url'},
+    const {'1': 'mime_type', '3': 2, '4': 1, '5': 9, '10': 'mimeType'},
+  ],
+};
+
+/// Descriptor for `ProfileImage`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List profileImageDescriptor = $convert.base64Decode('CgxQcm9maWxlSW1hZ2USEAoDdXJsGAEgASgJUgN1cmwSGwoJbWltZV90eXBlGAIgASgJUghtaW1lVHlwZQ==');
 @$core.Deprecated('Use contactDescriptor instead')
 const Contact$json = const {
   '1': 'Contact',
@@ -19,6 +30,20 @@ const Contact$json = const {
 
 /// Descriptor for `Contact`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List contactDescriptor = $convert.base64Decode('CgdDb250YWN0EhIKBHR5cGUYASABKAlSBHR5cGUSGAoHYWRkcmVzcxgCIAEoCVIHYWRkcmVzcw==');
+@$core.Deprecated('Use newUserProfileDescriptor instead')
+const NewUserProfile$json = const {
+  '1': 'NewUserProfile',
+  '2': const [
+    const {'1': 'name', '3': 1, '4': 1, '5': 9, '10': 'name'},
+    const {'1': 'skills', '3': 2, '4': 3, '5': 9, '10': 'skills'},
+    const {'1': 'contacts', '3': 3, '4': 3, '5': 11, '6': '.timebank.user.Contact', '10': 'contacts'},
+    const {'1': 'gender', '3': 4, '4': 1, '5': 9, '10': 'gender'},
+    const {'1': 'matric_number', '3': 5, '4': 1, '5': 9, '10': 'matricNumber'},
+  ],
+};
+
+/// Descriptor for `NewUserProfile`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List newUserProfileDescriptor = $convert.base64Decode('Cg5OZXdVc2VyUHJvZmlsZRISCgRuYW1lGAEgASgJUgRuYW1lEhYKBnNraWxscxgCIAMoCVIGc2tpbGxzEjIKCGNvbnRhY3RzGAMgAygLMhYudGltZWJhbmsudXNlci5Db250YWN0Ughjb250YWN0cxIWCgZnZW5kZXIYBCABKAlSBmdlbmRlchIjCg1tYXRyaWNfbnVtYmVyGAUgASgJUgxtYXRyaWNOdW1iZXI=');
 @$core.Deprecated('Use userProfileDescriptor instead')
 const UserProfile$json = const {
   '1': 'UserProfile',
@@ -29,11 +54,13 @@ const UserProfile$json = const {
     const {'1': 'contacts', '3': 4, '4': 3, '5': 11, '6': '.timebank.user.Contact', '10': 'contacts'},
     const {'1': 'created_at', '3': 5, '4': 1, '5': 9, '10': 'createdAt'},
     const {'1': 'updated_at', '3': 6, '4': 1, '5': 9, '10': 'updatedAt'},
+    const {'1': 'gender', '3': 7, '4': 1, '5': 9, '10': 'gender'},
+    const {'1': 'matric_number', '3': 8, '4': 1, '5': 9, '10': 'matricNumber'},
   ],
 };
 
 /// Descriptor for `UserProfile`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List userProfileDescriptor = $convert.base64Decode('CgtVc2VyUHJvZmlsZRIXCgd1c2VyX2lkGAEgASgJUgZ1c2VySWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIWCgZza2lsbHMYAyADKAlSBnNraWxscxIyCghjb250YWN0cxgEIAMoCzIWLnRpbWViYW5rLnVzZXIuQ29udGFjdFIIY29udGFjdHMSHQoKY3JlYXRlZF9hdBgFIAEoCVIJY3JlYXRlZEF0Eh0KCnVwZGF0ZWRfYXQYBiABKAlSCXVwZGF0ZWRBdA==');
+final $typed_data.Uint8List userProfileDescriptor = $convert.base64Decode('CgtVc2VyUHJvZmlsZRIXCgd1c2VyX2lkGAEgASgJUgZ1c2VySWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIWCgZza2lsbHMYAyADKAlSBnNraWxscxIyCghjb250YWN0cxgEIAMoCzIWLnRpbWViYW5rLnVzZXIuQ29udGFjdFIIY29udGFjdHMSHQoKY3JlYXRlZF9hdBgFIAEoCVIJY3JlYXRlZEF0Eh0KCnVwZGF0ZWRfYXQYBiABKAlSCXVwZGF0ZWRBdBIWCgZnZW5kZXIYByABKAlSBmdlbmRlchIjCg1tYXRyaWNfbnVtYmVyGAggASgJUgxtYXRyaWNOdW1iZXI=');
 @$core.Deprecated('Use getDescriptor instead')
 const Get$json = const {
   '1': 'Get',
@@ -133,3 +160,27 @@ const GetRating_Response$json = const {
 
 /// Descriptor for `GetRating`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getRatingDescriptor = $convert.base64Decode('CglHZXRSYXRpbmcaIgoHUmVxdWVzdBIXCgd1c2VyX2lkGAEgASgJUgZ1c2VySWQaWwoIUmVzcG9uc2USGAoHYXZlcmFnZRgBIAEoBVIHYXZlcmFnZRI1CgdyYXRpbmdzGAIgAygLMhsudGltZWJhbmsucmF0aW5nLlJhdGluZ0RhdGFSB3JhdGluZ3M=');
+@$core.Deprecated('Use getCreditBalanceDescriptor instead')
+const GetCreditBalance$json = const {
+  '1': 'GetCreditBalance',
+  '3': const [GetCreditBalance_Request$json, GetCreditBalance_Response$json],
+};
+
+@$core.Deprecated('Use getCreditBalanceDescriptor instead')
+const GetCreditBalance_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'user_id', '3': 1, '4': 1, '5': 9, '10': 'userId'},
+  ],
+};
+
+@$core.Deprecated('Use getCreditBalanceDescriptor instead')
+const GetCreditBalance_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'balance', '3': 1, '4': 1, '5': 4, '10': 'balance'},
+  ],
+};
+
+/// Descriptor for `GetCreditBalance`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getCreditBalanceDescriptor = $convert.base64Decode('ChBHZXRDcmVkaXRCYWxhbmNlGiIKB1JlcXVlc3QSFwoHdXNlcl9pZBgBIAEoCVIGdXNlcklkGiQKCFJlc3BvbnNlEhgKB2JhbGFuY2UYASABKARSB2JhbGFuY2U=');

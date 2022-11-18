@@ -1,5 +1,5 @@
 import 'package:grpc/grpc.dart';
-import '../generated/user/user.pbgrpc.dart';
+import '../generated/rating/user.pbgrpc.dart';
 
 class ClientUser {
   late UserClient stub;
@@ -27,5 +27,9 @@ class ClientUser {
 
   Future<GetRating_Response> getUserRating(String id) async {
     return await stub.getRating(GetRating_Request()..userId = id);
+  }
+
+  Future<GetCreditBalance_Response> getUserCreditBalance(String id) async {
+    return await stub.getCreditBalance(GetCreditBalance_Request()..userId = id);
   }
 }

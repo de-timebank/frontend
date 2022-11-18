@@ -1,18 +1,18 @@
 syntax = "proto3";
 package timebank.servicerequest;
 
-//import "collection/rating.proto";
+import "collection/rating.proto";
 
 service ServiceRequest {
-    rpc create (Create.Request) returns (Create.Response); //done
-    rpc get (Get.Request) returns (Get.Response); //done
-    rpc getById (GetById.Request) returns (GetById.Response); //done
-    rpc update (Update.Request) returns (Update.Response); //done
-    rpc delete (Delete.Request) returns (Delete.Response); //done
-    rpc applyProvider (ApplyProvider.Request) returns (ApplyProvider.Response);//done request job
-    rpc selectProvider (SelectProvider.Request) returns (SelectProvider.Response);//done select the person who request the job
-    rpc completeService (CompleteService.Request) returns (CompleteService.Response); //done
-    rpc getCommitment (GetCommitment.Request) returns (GetCommitment.Response); // apply job
+    rpc create (Create.Request) returns (Create.Response);
+    rpc get (Get.Request) returns (Get.Response);
+    rpc getById (GetById.Request) returns (GetById.Response);
+    rpc update (Update.Request) returns (Update.Response);
+    rpc delete (Delete.Request) returns (Delete.Response);
+    rpc applyProvider (ApplyProvider.Request) returns (ApplyProvider.Response);
+    rpc selectProvider (SelectProvider.Request) returns (SelectProvider.Response);
+    rpc completeService (CompleteService.Request) returns (CompleteService.Response);
+    rpc getCommitment (GetCommitment.Request) returns (GetCommitment.Response);
 }
 
 message ServiceRequestData {    
@@ -55,15 +55,15 @@ message ServiceRequestData {
 
 message Create {
     message NewServiceRequestData {
-        ServiceRequestData.Details details = 1; //2
-        ServiceRequestData.Location location = 2; //3
-        float rate = 3; //1
-        repeated string media_attachments = 4; //1
+        ServiceRequestData.Details details = 1;
+        ServiceRequestData.Location location = 2;
+        float rate = 3;
+        repeated string media_attachments = 4;
     }
 
     message Request {
-        NewServiceRequestData request_data = 1; //0
-        string requestor = 2; //1
+        NewServiceRequestData request_data = 1;
+        string requestor = 2;
     }
 
     message Response {
@@ -139,7 +139,7 @@ message GetCommitment {
     }
 }
 
-message ApplyProvider { 
+message ApplyProvider {
     message Request {
         string request_id = 1;
         string provider = 2;

@@ -5,6 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 //import 'package:testfyp/components/avatar.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/auth%20pages/account_page.dart';
+import 'package:testfyp/extension_string.dart';
 //import 'package:testfyp/splash_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -16,17 +17,19 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   late String _username = '';
-  late String _website = '';
   late String _matric = '';
   late String _gender = '';
-  late String _desc = '';
   bool _redirecting = false;
   late final StreamSubscription<AuthState> _authStateSubscription;
 
   String _avatarUrl = 'asset/girl.png';
+  late List<dynamic> skills;
+  late List<dynamic> contacts;
   var _loading = true;
 
   Future<void> _getProfile() async {
+    skills = [];
+    contacts = [];
     setState(() {
       _loading = true;
     });
@@ -34,16 +37,28 @@ class _ProfilePageState extends State<ProfilePage> {
     try {
       final userId = supabase.auth.currentUser!.id;
       final data = await supabase
-          .from('profiles')
+          .from('user_profile')
           .select()
-          .eq('id', userId)
+          .eq('user_id', userId)
           .single() as Map;
-      _username = (data['username'] ?? '') as String;
-      _website = (data['website'] ?? '') as String;
-      _avatarUrl = (data['avatar_url'] ?? '') as String;
-      _matric = (data['matricNum'] ?? '') as String;
+      _username = (data['name'] ?? '') as String;
+      // _website = (data['website'] ?? '') as String;
+      // _avatarUrl = (data['avatar_url'] ?? '') as String;
+      _matric = (data['matric_number'] ?? '') as String;
       _gender = (data['gender'] ?? '') as String;
-      _desc = (data['description'] ?? '') as String;
+      for (int i = 0; i < data['skills'].length; i++) {
+        if (data['skills'][i] != '') {
+          skills.add(data['skills'][i]);
+        }
+      }
+      for (int i = 0; i < data['contacts'].length; i++) {
+        if (data['contacts'][i] != '') {
+          contacts.add(data['contacts'][i]);
+        }
+      }
+      // print(skills[0][2]);
+      // print(contacts);
+      // _desc = (data['description'] ?? '') as String;
     } on PostgrestException catch (error) {
       context.showErrorSnackBar(message: error.message);
     } catch (error) {
@@ -58,21 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    //_getProfile();
-    supabase.auth.onAuthStateChange.listen((data) {
-      // final AuthChangeEvent event = data.event;
-
-      // if (_redirecting) return;
-      // final session = data.session;
-      // if (event == AuthChangeEvent.passwordRecovery) {
-      //   // handle signIn
-      //   Navigator.of(context).pushReplacementNamed('/passwordReset');
-      // }
-      // if (session != null) {
-      //   _redirecting = true;
-      //   Navigator.of(context).pushReplacementNamed('/dashboard');
-      // }
-    });
+    supabase.auth.onAuthStateChange.listen((data) {});
     Future.delayed(Duration.zero, _getProfile);
   }
 
@@ -118,38 +119,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Row(
                       //crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Container(
-                            decoration: BoxDecoration(
-                                //color: Colors.green,
-                                //border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(20)),
-                            height: 150,
-                            width: 150,
-                            padding: EdgeInsets.all(5),
-                            child: isAvatarEqual()
-                                ? Container(
-                                    padding: EdgeInsets.all(7),
-                                    decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 127, 17, 224),
-                                        shape: BoxShape.circle),
-                                    child: CircleAvatar(
-                                      backgroundColor: Colors.grey,
-                                    ),
-                                  )
-                                : Container(
-                                    padding: EdgeInsets.all(7),
-                                    decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 127, 17, 224),
-                                        shape: BoxShape.circle),
-                                    child: CircleAvatar(
-                                      backgroundImage: NetworkImage(_avatarUrl),
-                                    ),
-                                  )),
-                        SizedBox(
-                          width: 8,
-                        ),
                         Expanded(
                           child: Container(
                             padding: const EdgeInsets.all(20.0),
@@ -159,7 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 borderRadius: BorderRadius.circular(20)),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
                                   _username,
@@ -174,7 +143,26 @@ class _ProfilePageState extends State<ProfilePage> {
                                 SizedBox(
                                   height: 8,
                                 ),
-                                Text('Gender: $_gender')
+                                Text('Gender: $_gender'),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Text(
+                                  'Contact:',
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                SizedBox(
+                                  height: 50,
+                                  child: ListView.builder(
+                                    itemCount: contacts.length,
+                                    itemBuilder: (context, index) {
+                                      return Text(
+                                          '${index + 1}) ${contacts[index].toString()}');
+                                    },
+                                  ),
+                                )
                               ],
                             ),
                           ),
@@ -184,34 +172,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   SizedBox(
                     height: 15,
-                  ),
-                  Flexible(
-                    //description
-                    flex: 3,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 219, 216, 233),
-                          //border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(20)),
-                      width: double.infinity,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
-                            child: Text(
-                              'Description',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                            child: Text(_desc),
-                          ),
-                        ],
-                      ),
-                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -224,44 +184,22 @@ class _ProfilePageState extends State<ProfilePage> {
                   Flexible(
                     flex: 1,
                     child: SizedBox(
-                      height: 50,
-                      child: ListView(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          Card(
-                            elevation: 5,
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text('Cooking'),
-                            ),
-                            margin: EdgeInsets.all(5),
-                          ),
-                          Card(
-                            elevation: 5,
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text('Programming with fast typing'),
-                            ),
-                          ),
-                          Card(
-                            elevation: 5,
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child:
-                                  Text('This is another skill that you should'),
-                            ),
-                          ),
-                          Card(
-                            elevation: 5,
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text('Kill me senpai'),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                        height: 50,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemCount: skills.length,
+                          itemBuilder: (context, index) {
+                            return Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                    child: Text(
+                                        skills[index].toString().capitalize())),
+                              ),
+                            );
+                          },
+                        )),
                   ),
                   const Divider(
                       //horizontal line
@@ -287,24 +225,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                           fontWeight: FontWeight.bold)),
                                 ),
                                 Text('4.5')
-                              ],
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          flex: 1,
-                          child: Card(
-                            elevation: 5,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: Text(_website,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                ),
-                                Text('2')
                               ],
                             ),
                           ),
