@@ -233,13 +233,13 @@ class _AccountPageState extends State<AccountPage> {
                           try {
                             _addskills(_skillController.text);
                             _skillController.clear();
-                            context.showSnackBar(message: 'skill Added!');
+                            context.showSnackBar(message: 'Skill added!');
                           } catch (e) {
                             context.showErrorSnackBar(
                                 message: 'Unable to add skill');
                           }
                         },
-                        child: Icon(Icons.add),
+                        child: const Icon(Icons.add),
                       )),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -253,6 +253,7 @@ class _AccountPageState extends State<AccountPage> {
                 SizedBox(
                     height: 60,
                     child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemCount: skills.length,
@@ -310,6 +311,7 @@ class _AccountPageState extends State<AccountPage> {
                 SizedBox(
                     height: 60,
                     child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemCount: contacts.length,

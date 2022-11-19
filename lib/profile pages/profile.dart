@@ -180,6 +180,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 SizedBox(
                                   height: 50,
                                   child: ListView.builder(
+                                    physics: const BouncingScrollPhysics(),
                                     itemCount: contacts.length,
                                     itemBuilder: (context, index) {
                                       return Text(
@@ -210,6 +211,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: SizedBox(
                         height: 50,
                         child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
                           itemCount: skills.length,
