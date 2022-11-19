@@ -20,7 +20,7 @@ class _CompletedServicesState extends State<CompletedServices> {
   late dynamic listRequest;
   late dynamic listFiltered;
   late dynamic listRating;
-  late final user;
+  late String user;
   late bool _isEmpty;
 
   @override
@@ -34,7 +34,7 @@ class _CompletedServicesState extends State<CompletedServices> {
 
   void getinstance() async {
     listFiltered = [];
-    final user = supabase.auth.currentUser!.id;
+    user = supabase.auth.currentUser!.id;
 
     listRating = await ClientRating(Common().channel)
         .getResponseRating('request_id', user);

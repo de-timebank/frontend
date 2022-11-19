@@ -19,7 +19,7 @@ class _RequestedJobState extends State<RequestedJob> {
   late bool isLoad;
   late dynamic listRequest;
   late dynamic listFiltered;
-  late final user;
+  late String user;
   late bool _isEmpty;
 
   @override
@@ -33,7 +33,7 @@ class _RequestedJobState extends State<RequestedJob> {
 
   void getinstance() async {
     listFiltered = [];
-    final user = supabase.auth.currentUser!.id;
+    user = supabase.auth.currentUser!.id;
 
     listRequest = await ClientServiceRequest(Common().channel)
         .getResponse('requestor', user);

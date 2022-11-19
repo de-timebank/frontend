@@ -18,7 +18,7 @@ class _YourServicesState extends State<YourServices> {
   late bool isLoad;
   late dynamic listRequest;
   late dynamic listFiltered;
-  late final user;
+  late String user;
   late bool _isEmpty;
 
   @override
@@ -32,7 +32,7 @@ class _YourServicesState extends State<YourServices> {
 
   void getinstance() async {
     listFiltered = [];
-    final user = supabase.auth.currentUser!.id;
+    user = supabase.auth.currentUser!.id;
 
     listRequest =
         await ClientServiceRequest(Common().channel).getResponse('state', '2');
