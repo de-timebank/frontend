@@ -217,6 +217,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           itemCount: skills.length,
                           itemBuilder: (context, index) {
                             return Card(
+                              elevation: 5,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Center(

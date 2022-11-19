@@ -6,7 +6,7 @@ import 'package:testfyp/components/constants.dart';
 //import 'package:testfyp/pages/password.dart';
 import 'package:testfyp/auth%20pages/signUpPage.dart';
 
-import '../splash_page.dart';
+// import '../splash_page.dart';
 
 class PasswordRecoveryPage extends StatefulWidget {
   const PasswordRecoveryPage({super.key});
@@ -32,26 +32,9 @@ class PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
         _emailController.text,
         redirectTo: kIsWeb ? null : 'io.supabase.flutter://reset-callback/',
       );
-      // final data = await supabase
-      //     .from('profiles')
-      //     .select()
-      //     .eq('Email', _emailController.text);
-      // print(data);
-      //final session = supabase.auth.currentSession;
-      //print(session!.user.id.length);
-      //print(object)
-      // if (response.user!.identities!.length == 0) {
-      //   context.showSnackBar(message: 'User Already Registered!!');
-      //   // _emailController.clear();
-      //   // _passwordController.clear();
-      // } else
       if (mounted) {
         context.showSnackBar(
             message: 'Check your email for password recovery!');
-        // _emailController.clear();
-        // Navigator.of(context).popUntil((route) => route.isFirst);
-        // Navigator.pushReplacement(context,
-        //     MaterialPageRoute(builder: (BuildContext context) => SplashPage()));
       }
     } on AuthException catch (error) {
       context.showErrorSnackBar(message: error.message);
