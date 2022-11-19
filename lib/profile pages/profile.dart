@@ -1,14 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-// import 'package:flutter/rendering.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:testfyp/bin/client_user.dart';
-//import 'package:testfyp/components/avatar.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/auth%20pages/account_page.dart';
 import 'package:testfyp/extension_string.dart';
 
+import '../bin/client_rating.dart';
 import '../bin/common.dart';
+
 //import 'package:testfyp/splash_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -22,7 +21,11 @@ class _ProfilePageState extends State<ProfilePage> {
   late String _username = '';
   late String _matric = '';
   late String _gender = '';
-  late dynamic user;
+  late final userId;
+  late dynamic _userCalculatedRating = 0;
+  late dynamic _userRating;
+  // late dynamic user;
+  late Common _common;
 
   String _avatarUrl = 'asset/girl.png';
   late List<dynamic> skills;
@@ -32,8 +35,26 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
+    _common = Common();
+    userId = supabase.auth.currentUser!.id;
     supabase.auth.onAuthStateChange.listen((data) {});
     Future.delayed(Duration.zero, _getProfile);
+    _getRating();
+  }
+
+  _getRating() async {
+    _userRating = await ClientRating(Common().channel)
+        .getResponseRating('author', userId);
+    //calculate rating
+    //map((m) => m.ratings['value']!).average;
+    for (int i = 0; i < _userRating.ratings.length; i++) {
+      _userCalculatedRating =
+          _userCalculatedRating + _userRating.ratings[i].value;
+      //print(_userCalculatedRating);
+    }
+    //print(_userCalculatedRating / _userRating.ratings.length);
+    //_userCalculatedRating = _userRating.print(_userCalculatedRating.toString());
+    //print(_userRating.ratings[2].value);
   }
 
   Future<void> _getProfile() async {
@@ -44,7 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
     });
 
     try {
-      final userId = supabase.auth.currentUser!.id;
+      // final userId = supabase.auth.currentUser!.id;
       final data = await supabase
           .from('user_profile')
           .select()
@@ -65,6 +86,7 @@ class _ProfilePageState extends State<ProfilePage> {
           contacts.add(data['contacts'][i]);
         }
       }
+      // _getRating(user);
       // print(skills[0][2]);
       // print(contacts);
       // _desc = (data['description'] ?? '') as String;
@@ -226,7 +248,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold)),
                                 ),
-                                Text('4.5')
+                                Text(
+                                    '${(_userCalculatedRating / _userRating.ratings.length).toStringAsFixed(2)}')
                               ],
                             ),
                           ),

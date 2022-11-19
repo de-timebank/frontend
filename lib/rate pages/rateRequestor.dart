@@ -18,12 +18,8 @@ class _RateRequestorPageState extends State<RateRequestorPage> {
   late bool isLoad;
   late dynamic listRequest;
   late dynamic listFiltered;
-  late final user;
+  late String user;
   late bool _isEmpty;
-  //registered user (budi)
-  final ammar = 'f53809c5-68e6-480c-902e-a5bc3821a003';
-  final evergreen = 'd3f86c06-4d1e-4dfb-84b8-33148244fead';
-  final ujaiahmad = '291b79a7-c67c-4783-b004-239cb334804d';
 
   @override
   void initState() {
@@ -34,26 +30,16 @@ class _RateRequestorPageState extends State<RateRequestorPage> {
     super.initState();
   }
 
-  getCurrentUser(String id) {
-    if (id == '94dba464-863e-4551-affd-4258724ae351') {
-      return ujaiahmad;
-    } else if (id == 'cd54d0d0-23ef-437c-8397-c5d5d754691f') {
-      return ammar; //ujai junior
-    } else {
-      return evergreen; //e6a7c29b-0b2d-4145-9211-a4e9b545102a
-    }
-  }
-
   void getinstance() async {
     listFiltered = [];
-    final user = supabase.auth.currentUser!.id;
-    final _userCurrent = getCurrentUser(user);
+    user = supabase.auth.currentUser!.id;
+
     //print(_userCurrent);
     listRequest = await ClientRating(Common().channel)
-        .getResponseRating('recipient', _userCurrent);
+        .getResponseRating('recipient', user);
     //print(listRequest);
     for (var i = 0; i < listRequest.ratings.length; i++) {
-      if (listRequest.ratings[i].recipient == _userCurrent) {
+      if (listRequest.ratings[i].recipient == user) {
         listFiltered.add(listRequest.ratings[i]);
       }
       //print(listFiltered);
