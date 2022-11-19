@@ -33,12 +33,27 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   _addskills(String skill) {
-    skills.add(skill);
-    //print(skills);
+    setState(() {
+      skills.add(skill);
+    });
+  }
+
+  _deleteSkill(String skill) {
+    setState(() {
+      skills.removeWhere((element) => element == skill);
+    });
+  }
+
+  _deleteContact(String skill) {
+    setState(() {
+      contacts.removeWhere((element) => element == skill);
+    });
   }
 
   _addcontact(String contact) {
-    contacts.add(contact);
+    setState(() {
+      contacts.add(contact);
+    });
   }
 
   Future<void> _getProfile() async {
@@ -83,6 +98,24 @@ class _AccountPageState extends State<AccountPage> {
       _loading = false;
     });
   }
+
+  // _updateContact() async{
+  //   final user = supabase.auth.currentUser;
+  //   final updates = {
+  //     'user_id': user!.id,
+  //     'skills': skills,
+  //     'contacts': contacts,
+  //     'updated_at': DateTime.now().toIso8601String(),
+  //     // 'avatar_url': _avatarUrl,
+  //   };
+  //   try {
+  //     await supabase.from('user_profile').upsert(updates);
+  //   } on PostgrestException catch (error) {
+  //     context.showErrorSnackBar(message: error.message);
+  //   } catch (error) {
+  //     context.showErrorSnackBar(message: 'Unable to Update Profile');
+  //   }
+  // }
 
   /// Called when user taps `Update` button
   Future<void> _updateProfile() async {
@@ -206,7 +239,7 @@ class _AccountPageState extends State<AccountPage> {
                                 message: 'Unable to add skill');
                           }
                         },
-                        child: Text('Add Skill'),
+                        child: Icon(Icons.add),
                       )),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -215,9 +248,10 @@ class _AccountPageState extends State<AccountPage> {
                     return null;
                   },
                 ),
+                SizedBox(height: 8),
                 Text('Your Skills: '),
                 SizedBox(
-                    height: 50,
+                    height: 60,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
@@ -226,9 +260,22 @@ class _AccountPageState extends State<AccountPage> {
                         return Card(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                                child: Text(
-                                    skills[index].toString().capitalize())),
+                            child: Row(
+                              children: [
+                                Text(skills[index].toString().capitalize()),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      _deleteSkill(skills[index].toString());
+                                    },
+                                    icon: Icon(
+                                      Icons.remove_circle_outline,
+                                      color: Colors.red,
+                                    ))
+                              ],
+                            ),
                           ),
                         );
                       },
@@ -250,7 +297,7 @@ class _AccountPageState extends State<AccountPage> {
                                 message: 'Unable to add contact');
                           }
                         },
-                        child: Text('Add Contact'),
+                        child: Icon(Icons.add),
                       )),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -261,7 +308,7 @@ class _AccountPageState extends State<AccountPage> {
                 ),
                 Text('Your Contacts: '),
                 SizedBox(
-                    height: 50,
+                    height: 60,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
@@ -270,9 +317,24 @@ class _AccountPageState extends State<AccountPage> {
                         return Card(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                                child: Text(
-                                    contacts[index].toString().capitalize())),
+                            child: Row(
+                              //mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(contacts[index].toString().capitalize()),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      _deleteContact(
+                                          contacts[index].toString());
+                                    },
+                                    icon: Icon(
+                                      Icons.remove_circle_outline,
+                                      color: Colors.red,
+                                    ))
+                              ],
+                            ),
                           ),
                         );
                       },
