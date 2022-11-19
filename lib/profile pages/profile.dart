@@ -2,10 +2,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 // import 'package:flutter/rendering.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:testfyp/bin/client_user.dart';
 //import 'package:testfyp/components/avatar.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/auth%20pages/account_page.dart';
 import 'package:testfyp/extension_string.dart';
+
+import '../bin/common.dart';
 //import 'package:testfyp/splash_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -19,13 +22,19 @@ class _ProfilePageState extends State<ProfilePage> {
   late String _username = '';
   late String _matric = '';
   late String _gender = '';
-  bool _redirecting = false;
-  late final StreamSubscription<AuthState> _authStateSubscription;
+  late dynamic user;
 
   String _avatarUrl = 'asset/girl.png';
   late List<dynamic> skills;
   late List<dynamic> contacts;
   var _loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    supabase.auth.onAuthStateChange.listen((data) {});
+    Future.delayed(Duration.zero, _getProfile);
+  }
 
   Future<void> _getProfile() async {
     skills = [];
@@ -68,13 +77,6 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(() {
       _loading = false;
     });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    supabase.auth.onAuthStateChange.listen((data) {});
-    Future.delayed(Duration.zero, _getProfile);
   }
 
   bool isAvatarEqual() {

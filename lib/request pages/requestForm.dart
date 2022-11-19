@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-//import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/bin/client_service_request.dart';
 import 'package:testfyp/components/constants.dart';
-//import 'package:textfield_tags/textfield_tags.dart';
-
-//import 'package:http/http.dart' as http;
 
 import '../bin/common.dart';
 
@@ -36,9 +32,9 @@ class _RequestFormState extends State<RequestForm> {
   final _rateController = TextEditingController();
   final _mediaController = TextEditingController();
   //registered user (budi)
-  final ammar = 'f53809c5-68e6-480c-902e-a5bc3821a003';
-  final evergreen = '06a7a82f-b04f-4111-b0c9-a92d918d3207';
-  final ujaiahmad = '291b79a7-c67c-4783-b004-239cb334804d';
+  // final ammar = 'f53809c5-68e6-480c-902e-a5bc3821a003';
+  // final evergreen = '06a7a82f-b04f-4111-b0c9-a92d918d3207';
+  // final ujaiahmad = '291b79a7-c67c-4783-b004-239cb334804d';
   List<String> media = ['Test media'];
   final _formKey = GlobalKey<FormState>();
 
@@ -55,15 +51,15 @@ class _RequestFormState extends State<RequestForm> {
     super.dispose();
   }
 
-  getCurrentUser(String id) {
-    if (id == '94dba464-863e-4551-affd-4258724ae351') {
-      return ujaiahmad;
-    } else if (id == 'cd54d0d0-23ef-437c-8397-c5d5d754691f') {
-      return ammar; //ujai junior
-    } else {
-      return evergreen; //e6a7c29b-0b2d-4145-9211-a4e9b545102a
-    }
-  }
+  // getCurrentUser(String id) {
+  //   if (id == '94dba464-863e-4551-affd-4258724ae351') {
+  //     return ujaiahmad;
+  //   } else if (id == 'cd54d0d0-23ef-437c-8397-c5d5d754691f') {
+  //     return ammar; //ujai junior
+  //   } else {
+  //     return evergreen; //e6a7c29b-0b2d-4145-9211-a4e9b545102a
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -208,7 +204,7 @@ class _RequestFormState extends State<RequestForm> {
                 ElevatedButton(
                     onPressed: () async {
                       final user = supabase.auth.currentUser!.id;
-                      final _userCurrent = getCurrentUser(user);
+                      //final _userCurrent = getCurrentUser(user);
                       //print(_userCurrent);
                       if (_formKey.currentState!.validate()) {
                         var rate = double.parse(
@@ -222,7 +218,7 @@ class _RequestFormState extends State<RequestForm> {
                           _locationController.text,
                           rate,
                           media,
-                          _userCurrent,
+                          user,
                           //_user!.id.toString()
                         );
 
