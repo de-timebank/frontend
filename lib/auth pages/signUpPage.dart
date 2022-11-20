@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/bin/client_auth.dart';
@@ -24,14 +23,16 @@ class _SignUpPageState extends State<SignUpPage> {
   final _passwordController = TextEditingController();
   final _usernameController = TextEditingController();
   final _contactController = TextEditingController();
+  final _contactControllerType = TextEditingController();
   final _matricController = TextEditingController();
   var _genderController = TextEditingController();
   final _skillController = TextEditingController();
 
-  List<String> listGender = <String>['Male', 'Female'];
+  List<String> listGender = ['Male', 'Female'];
+  List<String> listContactType = ['Email', 'Phone', 'WhatsApp', 'Twitter'];
   late List<dynamic> skills;
   late List<dynamic> contacts;
-  late Contact contact2 = Contact();
+  // late Contact contact2 = Contact();
   late NewUserProfile _userProfile1 = NewUserProfile();
   //late Common _common;
   late final StreamSubscription<AuthState> _authStateSubscription;
@@ -39,6 +40,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   void initState() {
     _genderController.text = listGender[0];
+    _contactControllerType.text = listContactType[1];
     //_common = Common();
     skills = [];
     contacts = [];
@@ -108,6 +110,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   _addcontactgrpc(String type, String address) {
+    late Contact contact2 = Contact();
     contact2.type = type;
     contact2.address = address;
     setState(() {
@@ -243,7 +246,7 @@ class _SignUpPageState extends State<SignUpPage> {
             decoration: InputDecoration(
                 hintText: 'Add Skills',
                 labelText: 'Skill',
-                suffixIcon: ElevatedButton(
+                suffixIcon: TextButton(
                   onPressed: () {
                     try {
                       _addskills(_skillController.text);
@@ -302,33 +305,34 @@ class _SignUpPageState extends State<SignUpPage> {
                   )),
           TextFormField(
             controller: _contactController,
-            keyboardType: TextInputType.number,
             decoration: InputDecoration(
                 hintText: 'Add Contacts',
                 labelText: 'Contact',
                 suffixIcon: SizedBox(
-                  width: 180,
+                  width: 190,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ElevatedButton(
+                      TextButton(
                         onPressed: () {
                           try {
-                            _addcontact(_contactController.text);
+                            //_addcontact(_contactController.text);
+                            _addcontactgrpc(_contactControllerType.text,
+                                _contactController.text);
                             _contactController.clear();
                             context.showSnackBar(message: 'Contact Added!');
                             setState(() {
                               _isContactsEmpty(contacts);
                             });
                           } catch (e) {
-                            context.showErrorSnackBar(
-                                message: 'Unable to add contact');
+                            context.showErrorSnackBar(message: e.toString());
                           }
                         },
                         child: Icon(Icons.add),
                       ),
                       Container(
                         //padding: EdgeInsets.all(8),
+                        //width: 100,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(
@@ -340,25 +344,27 @@ class _SignUpPageState extends State<SignUpPage> {
                             height: 0,
                           ),
                           iconEnabledColor: Theme.of(context).primaryColor,
-                          value: _genderController.text,
-                          items: listGender.map<DropdownMenuItem<String>>((e) {
+                          value: _contactControllerType.text,
+                          items: listContactType
+                              .map<DropdownMenuItem<String>>((e) {
                             return DropdownMenuItem<String>(
                                 value: e,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
+                                      horizontal: 10, vertical: 0),
                                   child: Text(
                                     e,
                                     style: TextStyle(
-                                        color: Theme.of(context).primaryColor,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15),
+                                      color: Theme.of(context).primaryColor,
+                                      fontWeight: FontWeight.bold,
+                                      // fontSize: 15
+                                    ),
                                   ),
                                 ));
                           }).toList(),
                           onChanged: (value) {
                             setState(() {
-                              _genderController.text = value.toString();
+                              _contactControllerType.text = value.toString();
                               //print(_genderController.text);
                             });
                           },
@@ -391,7 +397,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: Row(
                             //mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(contacts[index].toString().capitalize()),
+                              Text(contacts[index].toString()),
                               SizedBox(
                                 height: 5,
                               ),
