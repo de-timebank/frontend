@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 //import 'package:testfyp/auth%20pages/account_page.dart';
 import 'package:testfyp/components/constants.dart';
+import 'package:testfyp/extension_string.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -16,55 +17,25 @@ class _SignUpPageState extends State<SignUpPage> {
   bool _isLoading = false;
   bool _redirecting = false;
   bool _passwordVisible = false;
-  late final TextEditingController _emailController;
-  late final TextEditingController _passwordController;
+  bool _isMale = true;
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _usernameController = TextEditingController();
+  final _contactController = TextEditingController();
+  final _matricController = TextEditingController();
+  var _genderController = TextEditingController();
+  final _skillController = TextEditingController();
+
+  List<String> listGender = <String>['Male', 'Female'];
+  late List<dynamic> skills;
+  late List<dynamic> contacts;
   late final StreamSubscription<AuthState> _authStateSubscription;
-
-  Future<void> _signIn() async {
-    //final session = supabase.auth.currentSession;
-    // final userId = supabase.auth.currentUser!.id; //map the user ID
-    // final data = await supabase.from('profiles').select().eq('id', userId);
-    // print('The data is' + data['username']);
-    setState(() {
-      _isLoading = true;
-    });
-    try {
-      final response = await supabase.auth.signUp(
-        email: _emailController.text,
-        password: _passwordController.text,
-        emailRedirectTo:
-            kIsWeb ? null : 'io.supabase.fluttercallback://SignUp-callback/',
-      );
-
-      // ERROR: Prompt the user to try again!
-      // print(response.user!.identities!.length);
-      // if (session != null) {!
-      //   context.showSnackBar(message: 'User Already Registered!!');
-      // }
-      if (response.user!.identities!.length == 0) {
-        context.showSnackBar(message: 'User Already Registered!!');
-        // _emailController.clear();
-        // _passwordController.clear();
-      } else if (mounted) {
-        context.showSnackBar(message: 'Check your email for sign up link!');
-        // _emailController.clear();
-        // _passwordController.clear();
-      }
-    } on AuthException catch (error) {
-      context.showErrorSnackBar(message: error.message);
-    } catch (error) {
-      context.showErrorSnackBar(message: 'Unexpected error occured');
-    }
-
-    setState(() {
-      _isLoading = false;
-    });
-  }
 
   @override
   void initState() {
-    _emailController = TextEditingController();
-    _passwordController = TextEditingController();
+    _genderController.text = listGender[0];
+    skills = [];
+    contacts = [];
     _authStateSubscription = supabase.auth.onAuthStateChange.listen((data) {
       if (_redirecting) return;
       final session = data.session;
@@ -80,6 +51,47 @@ class _SignUpPageState extends State<SignUpPage> {
     });
 
     super.initState();
+  }
+
+  _addskills(String skill) {
+    setState(() {
+      skills.add(skill);
+    });
+  }
+
+  _deleteSkill(String skill) {
+    setState(() {
+      skills.removeWhere((element) => element == skill);
+    });
+  }
+
+  _deleteContact(String skill) {
+    setState(() {
+      contacts.removeWhere((element) => element == skill);
+    });
+  }
+
+  _addcontact(String contact) {
+    setState(() {
+      contacts.add(contact);
+      //_isEmpty(contacts);
+    });
+  }
+
+  _isSkillsEmpty(dynamic stuff) {
+    if (stuff.length == 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  _isContactsEmpty(dynamic stuff) {
+    if (stuff.length == 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
@@ -130,9 +142,193 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
           ),
+          TextFormField(
+            controller: _usernameController,
+            decoration: const InputDecoration(labelText: 'User Name'),
+          ),
+
+          // TextFormField(
+          //   controller: _genderController,
+          //   decoration: const InputDecoration(labelText: 'Gender'),
+          // ),
+          SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Gender'),
+              Container(
+                //padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(
+                      color: Theme.of(context).primaryColor,
+                      width: 2,
+                    )),
+                child: DropdownButton<String>(
+                  underline: Container(
+                    height: 0,
+                  ),
+                  iconEnabledColor: Theme.of(context).primaryColor,
+                  value: _genderController.text,
+                  items: listGender.map<DropdownMenuItem<String>>((e) {
+                    return DropdownMenuItem<String>(
+                        value: e,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(
+                            e,
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          ),
+                        ));
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _genderController.text = value.toString();
+                      //print(_genderController.text);
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+          TextFormField(
+            controller: _matricController,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(labelText: 'Matric Number'),
+          ),
+          TextFormField(
+            controller: _skillController,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+                hintText: 'Add Skills',
+                labelText: 'Skill',
+                suffixIcon: ElevatedButton(
+                  onPressed: () {
+                    try {
+                      _addskills(_skillController.text);
+                      _skillController.clear();
+                      context.showSnackBar(message: 'Skill added!');
+                      setState(() {
+                        _isSkillsEmpty(skills);
+                      });
+                    } catch (e) {
+                      context.showErrorSnackBar(message: 'Unable to add skill');
+                    }
+                  },
+                  child: const Icon(Icons.add),
+                )),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter skill';
+              }
+              return null;
+            },
+          ),
+          SizedBox(height: 8),
+          Text('Your Skills: '),
+          _isSkillsEmpty(skills)
+              ? Text('You have not entered any skills...')
+              : SizedBox(
+                  height: 60,
+                  child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount: skills.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Text(skills[index].toString().capitalize()),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              IconButton(
+                                  onPressed: () {
+                                    _deleteSkill(skills[index].toString());
+                                  },
+                                  icon: Icon(
+                                    Icons.remove_circle_outline,
+                                    color: Colors.red,
+                                  ))
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  )),
+          TextFormField(
+            controller: _contactController,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+                hintText: 'Add Contacts',
+                labelText: 'Contact',
+                suffixIcon: ElevatedButton(
+                  onPressed: () {
+                    try {
+                      _addcontact(_contactController.text);
+                      _contactController.clear();
+                      context.showSnackBar(message: 'Contact Added!');
+                      setState(() {
+                        _isContactsEmpty(contacts);
+                      });
+                    } catch (e) {
+                      context.showErrorSnackBar(
+                          message: 'Unable to add contact');
+                    }
+                  },
+                  child: Icon(Icons.add),
+                )),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter contacts';
+              }
+              return null;
+            },
+          ),
+          Text('Your Contacts: '),
+          _isContactsEmpty(contacts)
+              ? Text('You have not entered any contacts...')
+              : SizedBox(
+                  height: 60,
+                  child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount: contacts.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            //mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(contacts[index].toString().capitalize()),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              IconButton(
+                                  onPressed: () {
+                                    _deleteContact(contacts[index].toString());
+                                  },
+                                  icon: Icon(
+                                    Icons.remove_circle_outline,
+                                    color: Colors.red,
+                                  ))
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  )),
           const SizedBox(height: 18),
           ElevatedButton(
-            onPressed: _isLoading ? null : _signIn,
+            onPressed: () {},
             child: Text(_isLoading ? 'Loading' : 'Sign Up'),
           ),
           // ElevatedButton(
