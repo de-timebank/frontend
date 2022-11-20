@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/bin/client_auth.dart';
@@ -36,8 +35,8 @@ class _SignUpPageState extends State<SignUpPage> {
     'Phone',
     'Twitter'
   ];
-  late List<dynamic> skills;
-  late List<dynamic> contacts;
+  late dynamic skills;
+  late dynamic contacts;
   late NewUserProfile _userProfile1 = NewUserProfile();
   //late Common _common;
   late final StreamSubscription<AuthState> _authStateSubscription;
@@ -303,7 +302,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   )),
           TextFormField(
             controller: _contactController,
-            keyboardType: TextInputType.number,
             decoration: InputDecoration(
                 hintText: 'Add Contacts',
                 labelText: 'Contact',
@@ -427,7 +425,22 @@ class _SignUpPageState extends State<SignUpPage> {
                   )),
           const SizedBox(height: 18),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              // Iterable<String> newSkills;
+              // skills.map((e) => return )
+              try {
+                _signUpGrpc(
+                    _emailController.text,
+                    _passwordController.text,
+                    _usernameController.text,
+                    skills,
+                    contacts,
+                    _genderController.text,
+                    _matricController.text);
+              } catch (e) {
+                context.showErrorSnackBar(message: e.toString());
+              }
+            },
             child: Text(_isLoading ? 'Loading' : 'Sign Up'),
           ),
           // ElevatedButton(
