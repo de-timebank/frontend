@@ -2,9 +2,12 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:testfyp/bin/client_auth.dart';
+import 'package:testfyp/bin/common.dart';
 //import 'package:testfyp/auth%20pages/account_page.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/extension_string.dart';
+import 'package:testfyp/generated/rating/user.pbgrpc.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -17,7 +20,6 @@ class _SignUpPageState extends State<SignUpPage> {
   bool _isLoading = false;
   bool _redirecting = false;
   bool _passwordVisible = false;
-  bool _isMale = true;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _usernameController = TextEditingController();
@@ -29,11 +31,15 @@ class _SignUpPageState extends State<SignUpPage> {
   List<String> listGender = <String>['Male', 'Female'];
   late List<dynamic> skills;
   late List<dynamic> contacts;
+  late Contact contact2 = Contact();
+  late NewUserProfile _userProfile1 = NewUserProfile();
+  //late Common _common;
   late final StreamSubscription<AuthState> _authStateSubscription;
 
   @override
   void initState() {
     _genderController.text = listGender[0];
+    //_common = Common();
     skills = [];
     contacts = [];
     _authStateSubscription = supabase.auth.onAuthStateChange.listen((data) {
@@ -53,6 +59,29 @@ class _SignUpPageState extends State<SignUpPage> {
     super.initState();
   }
 
+  // _userProfile(String name, dynamic skills, String type, String address,
+  //     String gender, String matric_number) {
+  //   final userProfile = NewUserProfile(
+  //       skills: skills,
+  //       contacts: Contact()
+  //         ..type = type
+  //         ..address = address)
+  //     ..name = name
+  //     ..gender = gender
+  //     ..matricNumber = matric_number;
+  // }
+
+  _signUpGrpc(String email, String password, String name, dynamic skills,
+      dynamic contacts, String gender, String matricnumber) {
+    dynamic profile = NewUserProfile(skills: skills, contacts: contacts)
+      ..name = name
+      // ..skills = skills
+      // ..contacts = contacts
+      ..gender = gender
+      ..matricNumber = matricnumber;
+    ClientAuth(Common().channel).signUpUser(email, password, profile);
+  }
+
   _addskills(String skill) {
     setState(() {
       skills.add(skill);
@@ -65,9 +94,9 @@ class _SignUpPageState extends State<SignUpPage> {
     });
   }
 
-  _deleteContact(String skill) {
+  _deleteContact(String contact) {
     setState(() {
-      contacts.removeWhere((element) => element == skill);
+      contacts.removeWhere((element) => element == contact);
     });
   }
 
@@ -75,6 +104,15 @@ class _SignUpPageState extends State<SignUpPage> {
     setState(() {
       contacts.add(contact);
       //_isEmpty(contacts);
+    });
+  }
+
+  _addcontactgrpc(String type, String address) {
+    contact2.type = type;
+    contact2.address = address;
+    setState(() {
+      contacts.add(contact2);
+      print(contacts);
     });
   }
 
@@ -268,21 +306,66 @@ class _SignUpPageState extends State<SignUpPage> {
             decoration: InputDecoration(
                 hintText: 'Add Contacts',
                 labelText: 'Contact',
-                suffixIcon: ElevatedButton(
-                  onPressed: () {
-                    try {
-                      _addcontact(_contactController.text);
-                      _contactController.clear();
-                      context.showSnackBar(message: 'Contact Added!');
-                      setState(() {
-                        _isContactsEmpty(contacts);
-                      });
-                    } catch (e) {
-                      context.showErrorSnackBar(
-                          message: 'Unable to add contact');
-                    }
-                  },
-                  child: Icon(Icons.add),
+                suffixIcon: SizedBox(
+                  width: 180,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          try {
+                            _addcontact(_contactController.text);
+                            _contactController.clear();
+                            context.showSnackBar(message: 'Contact Added!');
+                            setState(() {
+                              _isContactsEmpty(contacts);
+                            });
+                          } catch (e) {
+                            context.showErrorSnackBar(
+                                message: 'Unable to add contact');
+                          }
+                        },
+                        child: Icon(Icons.add),
+                      ),
+                      Container(
+                        //padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                              color: Theme.of(context).primaryColor,
+                              width: 2,
+                            )),
+                        child: DropdownButton<String>(
+                          underline: Container(
+                            height: 0,
+                          ),
+                          iconEnabledColor: Theme.of(context).primaryColor,
+                          value: _genderController.text,
+                          items: listGender.map<DropdownMenuItem<String>>((e) {
+                            return DropdownMenuItem<String>(
+                                value: e,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Text(
+                                    e,
+                                    style: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                ));
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              _genderController.text = value.toString();
+                              //print(_genderController.text);
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 )),
             validator: (value) {
               if (value == null || value.isEmpty) {
