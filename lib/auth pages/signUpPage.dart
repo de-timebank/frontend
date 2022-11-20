@@ -24,14 +24,20 @@ class _SignUpPageState extends State<SignUpPage> {
   final _passwordController = TextEditingController();
   final _usernameController = TextEditingController();
   final _contactController = TextEditingController();
+  final _contactControllerType = TextEditingController();
   final _matricController = TextEditingController();
   var _genderController = TextEditingController();
   final _skillController = TextEditingController();
 
   List<String> listGender = <String>['Male', 'Female'];
+  List<String> listContactType = <String>[
+    'WhatsApp',
+    'Email',
+    'Phone',
+    'Twitter'
+  ];
   late List<dynamic> skills;
   late List<dynamic> contacts;
-  late Contact contact2 = Contact();
   late NewUserProfile _userProfile1 = NewUserProfile();
   //late Common _common;
   late final StreamSubscription<AuthState> _authStateSubscription;
@@ -39,6 +45,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   void initState() {
     _genderController.text = listGender[0];
+    _contactControllerType.text = listContactType[2];
     //_common = Common();
     skills = [];
     contacts = [];
@@ -84,7 +91,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   _addskills(String skill) {
     setState(() {
-      skills.add(skill);
+      skills.insert(0, skill);
     });
   }
 
@@ -96,22 +103,16 @@ class _SignUpPageState extends State<SignUpPage> {
 
   _deleteContact(String contact) {
     setState(() {
-      contacts.removeWhere((element) => element == contact);
-    });
-  }
-
-  _addcontact(String contact) {
-    setState(() {
-      contacts.add(contact);
-      //_isEmpty(contacts);
+      contacts.removeWhere((element) => element.address == contact);
     });
   }
 
   _addcontactgrpc(String type, String address) {
+    Contact contact2 = Contact();
     contact2.type = type;
     contact2.address = address;
     setState(() {
-      contacts.add(contact2);
+      contacts.insert(0, contact2);
       print(contacts);
     });
   }
@@ -243,7 +244,7 @@ class _SignUpPageState extends State<SignUpPage> {
             decoration: InputDecoration(
                 hintText: 'Add Skills',
                 labelText: 'Skill',
-                suffixIcon: ElevatedButton(
+                suffixIcon: TextButton(
                   onPressed: () {
                     try {
                       _addskills(_skillController.text);
@@ -307,14 +308,16 @@ class _SignUpPageState extends State<SignUpPage> {
                 hintText: 'Add Contacts',
                 labelText: 'Contact',
                 suffixIcon: SizedBox(
-                  width: 180,
+                  width: 190,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ElevatedButton(
+                      TextButton(
                         onPressed: () {
                           try {
-                            _addcontact(_contactController.text);
+                            //_addcontact(_contactController.text);
+                            _addcontactgrpc(_contactControllerType.text,
+                                _contactController.text);
                             _contactController.clear();
                             context.showSnackBar(message: 'Contact Added!');
                             setState(() {
@@ -340,8 +343,9 @@ class _SignUpPageState extends State<SignUpPage> {
                             height: 0,
                           ),
                           iconEnabledColor: Theme.of(context).primaryColor,
-                          value: _genderController.text,
-                          items: listGender.map<DropdownMenuItem<String>>((e) {
+                          value: _contactControllerType.text,
+                          items: listContactType
+                              .map<DropdownMenuItem<String>>((e) {
                             return DropdownMenuItem<String>(
                                 value: e,
                                 child: Padding(
@@ -358,7 +362,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           }).toList(),
                           onChanged: (value) {
                             setState(() {
-                              _genderController.text = value.toString();
+                              _contactControllerType.text = value.toString();
                               //print(_genderController.text);
                             });
                           },
@@ -391,13 +395,25 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: Row(
                             //mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(contacts[index].toString().capitalize()),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(contacts[index]
+                                      .type
+                                      .toString()
+                                      .capitalize()),
+                                  Text(contacts[index].address.toString()),
+                                ],
+                              ),
                               SizedBox(
                                 height: 5,
                               ),
                               IconButton(
                                   onPressed: () {
-                                    _deleteContact(contacts[index].toString());
+                                    _deleteContact(
+                                        contacts[index].address.toString());
+                                    //print(contacts[index].address.toString());
                                   },
                                   icon: Icon(
                                     Icons.remove_circle_outline,
