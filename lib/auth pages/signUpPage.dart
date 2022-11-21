@@ -75,7 +75,9 @@ class _SignUpPageState extends State<SignUpPage> {
       ..name = name
       ..gender = gender
       ..matricNumber = matricnumber;
-    print(profile);
+    // print(profile.skills);
+    // print(profile.contacts);
+    print(profile.toProto3Json());
     // profile = NewUserProfile()
     //   ..name = name
     //   // ..skills.add(skills.toString())
