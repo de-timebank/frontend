@@ -25,7 +25,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final _contactController = TextEditingController();
   final _contactControllerType = TextEditingController();
   final _matricController = TextEditingController();
-  var _genderController = TextEditingController();
+  final _genderController = TextEditingController();
   final _skillController = TextEditingController();
 
   List<String> listGender = <String>['Male', 'Female'];
@@ -35,19 +35,20 @@ class _SignUpPageState extends State<SignUpPage> {
     'Phone',
     'Twitter'
   ];
-  late dynamic skills;
-  late dynamic contacts;
-  late NewUserProfile _userProfile1 = NewUserProfile();
+  late NewUserProfile profile;
+  // late dynamic skills;
+  // late dynamic contacts;
+  // late NewUserProfile _userProfile1 = NewUserProfile();
   //late Common _common;
   late final StreamSubscription<AuthState> _authStateSubscription;
 
   @override
   void initState() {
+    profile = NewUserProfile();
     _genderController.text = listGender[0];
     _contactControllerType.text = listContactType[2];
-    //_common = Common();
-    skills = [];
-    contacts = [];
+    // skills = [];
+    // contacts = [];
     _authStateSubscription = supabase.auth.onAuthStateChange.listen((data) {
       if (_redirecting) return;
       final session = data.session;
@@ -65,44 +66,39 @@ class _SignUpPageState extends State<SignUpPage> {
     super.initState();
   }
 
-  // _userProfile(String name, dynamic skills, String type, String address,
-  //     String gender, String matric_number) {
-  //   final userProfile = NewUserProfile(
-  //       skills: skills,
-  //       contacts: Contact()
-  //         ..type = type
-  //         ..address = address)
-  //     ..name = name
-  //     ..gender = gender
-  //     ..matricNumber = matric_number;
-  // }
-
-  _signUpGrpc(String email, String password, String name, dynamic skills,
-      dynamic contacts, String gender, String matricnumber) {
-    dynamic profile = NewUserProfile(skills: skills, contacts: contacts)
+  _signUpGrpc(String email, String password, String name, String gender,
+      String matricnumber) {
+    profile
       ..name = name
-      // ..skills = skills
-      // ..contacts = contacts
       ..gender = gender
       ..matricNumber = matricnumber;
+    print(profile);
+    // profile = NewUserProfile()
+    //   ..name = name
+    //   // ..skills.add(skills.toString())
+    //   // ..contacts.add(contacts)
+    //   ..gender = gender
+    //   ..matricNumber = matricnumber;
     ClientAuth(Common().channel).signUpUser(email, password, profile);
   }
 
   _addskills(String skill) {
     setState(() {
-      skills.insert(0, skill);
+      profile.skills.insert(0, skill);
+      print(profile.skills);
+      //skills.insert(0, skill);
     });
   }
 
   _deleteSkill(String skill) {
     setState(() {
-      skills.removeWhere((element) => element == skill);
+      profile.skills.removeWhere((element) => element == skill);
     });
   }
 
   _deleteContact(String contact) {
     setState(() {
-      contacts.removeWhere((element) => element.address == contact);
+      profile.contacts.removeWhere((element) => element.address == contact);
     });
   }
 
@@ -111,8 +107,10 @@ class _SignUpPageState extends State<SignUpPage> {
     contact2.type = type;
     contact2.address = address;
     setState(() {
-      contacts.insert(0, contact2);
-      print(contacts);
+      profile.contacts.add(contact2);
+      print(profile.contacts);
+      //contacts.insert(0, contact2);
+      //print(contacts);
     });
   }
 
@@ -250,7 +248,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       _skillController.clear();
                       context.showSnackBar(message: 'Skill added!');
                       setState(() {
-                        _isSkillsEmpty(skills);
+                        _isSkillsEmpty(profile.skills);
                       });
                     } catch (e) {
                       context.showErrorSnackBar(message: 'Unable to add skill');
@@ -267,7 +265,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
           SizedBox(height: 8),
           Text('Your Skills: '),
-          _isSkillsEmpty(skills)
+          _isSkillsEmpty(profile.skills)
               ? Text('You have not entered any skills...')
               : SizedBox(
                   height: 60,
@@ -275,20 +273,23 @@ class _SignUpPageState extends State<SignUpPage> {
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
-                    itemCount: skills.length,
+                    itemCount: profile.skills.length,
                     itemBuilder: (context, index) {
                       return Card(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
                             children: [
-                              Text(skills[index].toString().capitalize()),
+                              Text(profile.skills[index]
+                                  .toString()
+                                  .capitalize()),
                               SizedBox(
                                 height: 5,
                               ),
                               IconButton(
                                   onPressed: () {
-                                    _deleteSkill(skills[index].toString());
+                                    _deleteSkill(
+                                        profile.skills[index].toString());
                                   },
                                   icon: Icon(
                                     Icons.remove_circle_outline,
@@ -319,7 +320,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             _contactController.clear();
                             context.showSnackBar(message: 'Contact Added!');
                             setState(() {
-                              _isContactsEmpty(contacts);
+                              _isContactsEmpty(profile.contacts);
                             });
                           } catch (e) {
                             context.showErrorSnackBar(
@@ -377,7 +378,7 @@ class _SignUpPageState extends State<SignUpPage> {
             },
           ),
           Text('Your Contacts: '),
-          _isContactsEmpty(contacts)
+          _isContactsEmpty(profile.contacts)
               ? Text('You have not entered any contacts...')
               : SizedBox(
                   height: 60,
@@ -385,7 +386,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
-                    itemCount: contacts.length,
+                    itemCount: profile.contacts.length,
                     itemBuilder: (context, index) {
                       return Card(
                         child: Padding(
@@ -397,11 +398,11 @@ class _SignUpPageState extends State<SignUpPage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(contacts[index]
-                                      .type
+                                  Text(profile.contacts[index].type
                                       .toString()
                                       .capitalize()),
-                                  Text(contacts[index].address.toString()),
+                                  Text(profile.contacts[index].address
+                                      .toString()),
                                 ],
                               ),
                               SizedBox(
@@ -409,8 +410,9 @@ class _SignUpPageState extends State<SignUpPage> {
                               ),
                               IconButton(
                                   onPressed: () {
-                                    _deleteContact(
-                                        contacts[index].address.toString());
+                                    _deleteContact(profile
+                                        .contacts[index].address
+                                        .toString());
                                     //print(contacts[index].address.toString());
                                   },
                                   icon: Icon(
@@ -433,10 +435,11 @@ class _SignUpPageState extends State<SignUpPage> {
                     _emailController.text,
                     _passwordController.text,
                     _usernameController.text,
-                    skills,
-                    contacts,
+                    // skills,
+                    // contacts,
                     _genderController.text,
                     _matricController.text);
+                context.showSnackBar(message: 'Signing up...');
               } catch (e) {
                 context.showErrorSnackBar(message: e.toString());
               }

@@ -1,11 +1,7 @@
-//import 'package:flutter/foundation.dart';
 import 'package:grpc/grpc.dart';
 import '../generated/services/service-request.pbgrpc.dart';
-//import 'common.dart';
 
 class ClientServiceRequest {
-  //final common = Common();
-  //final channel = Common().channel;
   late ServiceRequestClient stub;
 
   ClientServiceRequest(ClientChannel channel) {
