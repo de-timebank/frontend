@@ -68,6 +68,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
   _signUpGrpc(String email, String password, String name, String gender,
       String matricnumber) {
+    profile.contacts.toList();
+    profile.skills.toList();
     profile
       ..name = name
       ..gender = gender
@@ -84,8 +86,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
   _addskills(String skill) {
     setState(() {
-      profile.skills.insert(0, skill);
-      print(profile.skills);
+      profile..skills.insert(0, skill);
+      //print(profile.skills);
       //skills.insert(0, skill);
     });
   }
@@ -107,8 +109,10 @@ class _SignUpPageState extends State<SignUpPage> {
     contact2.type = type;
     contact2.address = address;
     setState(() {
-      profile.contacts.add(contact2);
-      print(profile.contacts);
+      profile..contacts.add(contact2);
+      // profile.
+      print(profile);
+      //print(profile);
       //contacts.insert(0, contact2);
       //print(contacts);
     });
