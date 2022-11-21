@@ -36,8 +36,8 @@ class _SignUpPageState extends State<SignUpPage> {
     'Twitter'
   ];
   late NewUserProfile profile;
-  late List<String> skills;
-  late List<Contact> contacts;
+  // late List<String> skills;
+  // late List<Contact> contacts;
   // late NewUserProfile _userProfile1 = NewUserProfile();
   //late Common _common;
   late final StreamSubscription<AuthState> _authStateSubscription;
@@ -47,8 +47,8 @@ class _SignUpPageState extends State<SignUpPage> {
     profile = NewUserProfile();
     _genderController.text = listGender[0];
     _contactControllerType.text = listContactType[2];
-    skills = [];
-    contacts = [];
+    // skills = [];
+    // contacts = [];
     _authStateSubscription = supabase.auth.onAuthStateChange.listen((data) {
       if (_redirecting) return;
       final session = data.session;
@@ -68,8 +68,9 @@ class _SignUpPageState extends State<SignUpPage> {
 
   _signUpGrpc(String email, String password, String name, String gender,
       String matricnumber) {
-    //profile..contacts.addAll(contacts);
+    // profile..contacts.addAll(contacts);
     // profile.skills.toList();
+    // var profile1 = NewUserProfile(contacts: Contact()..address = address..type = type);
     profile
       ..name = name
       ..gender = gender
@@ -105,9 +106,12 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   _addcontactgrpc(String type, String address) {
-    Contact contact2 = Contact();
-    contact2.type = type;
-    contact2.address = address;
+    // Contact contact2 = Contact();
+    // contact2.type = type;
+    // contact2.address = address;
+    var contact2 = Contact()
+      ..address = address
+      ..type = type;
 
     setState(() {
       profile..contacts.insert(0, contact2);
