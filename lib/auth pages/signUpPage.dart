@@ -27,6 +27,8 @@ class _SignUpPageState extends State<SignUpPage> {
   final _genderController = TextEditingController();
   final _skillController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   List<String> listGender = <String>['male', 'female'];
   List<String> listContactType = <String>[
     'WhatsApp',
@@ -154,379 +156,403 @@ class _SignUpPageState extends State<SignUpPage> {
         title: const Text('Sign Up'),
         // backgroundColor: Color.fromARGB(255, 127, 17, 224),
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: const Text(
-              'Sign in via the magic link with your email below',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: const Text('Do not close this page when signing up'),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('Email'),
-          ),
-          TextFormField(
-            controller: _emailController,
-            decoration: const InputDecoration(
-                border: OutlineInputBorder(), hintText: 'Enter your email'
-                //labelText: 'Email',
-                ),
-          ),
-
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('Password'),
-          ),
-          TextFormField(
-            controller: _passwordController,
-            obscureText: !_passwordVisible,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Enter your password',
-              //helperText: 'Do not close this page when signing up',
-              suffixIcon: IconButton(
-                icon: Icon(
-                  // Based on passwordVisible state choose the icon
-                  _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                  color: Theme.of(context).primaryColor,
-                ),
-                onPressed: () {
-                  // Update the state i.e. toogle the state of passwordVisible variable
-                  setState(() {
-                    _passwordVisible = !_passwordVisible;
-                  });
-                },
+      body: Form(
+        key: _formKey,
+        child: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: const Text(
+                'Sign in via the magic link with your email below',
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
-          ),
-          Divider(
-              //horizontal line
-              color: Theme.of(context).primaryColor,
-              height: 30,
-              thickness: 2,
-              indent: 15,
-              endIndent: 15),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('Name'),
-          ),
-          TextFormField(
-            controller: _usernameController,
-            decoration: const InputDecoration(
-                border: OutlineInputBorder(), labelText: 'Enter name'),
-          ),
-
-          // TextFormField(
-          //   controller: _genderController,
-          //   decoration: const InputDecoration(labelText: 'Gender'),
-          // ),
-          SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('Gender'),
-              ),
-              Container(
-                //padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    border: Border.all(
-                      color: Theme.of(context).primaryColor,
-                      width: 2,
-                    )),
-                child: DropdownButton<String>(
-                  underline: Container(
-                    height: 0,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: const Text('Do not close this page when signing up'),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Email'),
+            ),
+            TextFormField(
+              controller: _emailController,
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(), hintText: 'Enter your email'
+                  //labelText: 'Email',
                   ),
-                  iconEnabledColor: Theme.of(context).primaryColor,
-                  value: _genderController.text,
-                  items: listGender.map<DropdownMenuItem<String>>((e) {
-                    return DropdownMenuItem<String>(
-                        value: e,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
-                            e,
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
-                          ),
-                        ));
-                  }).toList(),
-                  onChanged: (value) {
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter email...';
+                }
+                return null;
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Password'),
+            ),
+            TextFormField(
+              controller: _passwordController,
+              obscureText: !_passwordVisible,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Enter your password',
+                //helperText: 'Do not close this page when signing up',
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    // Based on passwordVisible state choose the icon
+                    _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  onPressed: () {
+                    // Update the state i.e. toogle the state of passwordVisible variable
                     setState(() {
-                      _genderController.text = value.toString();
-                      //print(_genderController.text);
+                      _passwordVisible = !_passwordVisible;
                     });
                   },
                 ),
               ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('Matric Number'),
-          ),
-          TextFormField(
-            controller: _matricController,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Enter your matric number'),
-          ),
-          Divider(
-              //horizontal line
-              color: Theme.of(context).primaryColor,
-              height: 30,
-              thickness: 2,
-              indent: 15,
-              endIndent: 15),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('Skill'),
-          ),
-          TextFormField(
-            controller: _skillController,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Add Skills',
-                //labelText: 'Skill',
-                suffixIcon: TextButton(
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter password...';
+                } else if (value.length < 6) {
+                  return 'Password must have more than 6 characters...';
+                }
+                return null;
+              },
+            ),
+            Divider(
+                //horizontal line
+                color: Theme.of(context).primaryColor,
+                height: 30,
+                thickness: 2,
+                indent: 15,
+                endIndent: 15),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Name'),
+            ),
+            TextFormField(
+              controller: _usernameController,
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(), labelText: 'Enter name'),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter name...';
+                }
+                return null;
+              },
+            ),
+
+            // TextFormField(
+            //   controller: _genderController,
+            //   decoration: const InputDecoration(labelText: 'Gender'),
+            // ),
+            SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Gender'),
+                ),
+                Container(
+                  //padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(
+                        color: Theme.of(context).primaryColor,
+                        width: 2,
+                      )),
+                  child: DropdownButton<String>(
+                    underline: Container(
+                      height: 0,
+                    ),
+                    iconEnabledColor: Theme.of(context).primaryColor,
+                    value: _genderController.text,
+                    items: listGender.map<DropdownMenuItem<String>>((e) {
+                      return DropdownMenuItem<String>(
+                          value: e,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              e,
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
+                            ),
+                          ));
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _genderController.text = value.toString();
+                        //print(_genderController.text);
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Matric Number'),
+            ),
+            TextFormField(
+              controller: _matricController,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Enter your matric number'),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter matric number...';
+                }
+                return null;
+              },
+            ),
+            Divider(
+                //horizontal line
+                color: Theme.of(context).primaryColor,
+                height: 30,
+                thickness: 2,
+                indent: 15,
+                endIndent: 15),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Skill'),
+            ),
+            TextFormField(
+              controller: _skillController,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Add Skills',
+                  //labelText: 'Skill',
+                  suffixIcon: TextButton(
+                    onPressed: () {
+                      try {
+                        _addskills(_skillController.text);
+                        _skillController.clear();
+                        context.showSnackBar(message: 'Skill added!');
+                        setState(() {
+                          _isSkillsEmpty(profile.skills);
+                        });
+                      } catch (e) {
+                        context.showErrorSnackBar(
+                            message: 'Unable to add skill');
+                      }
+                    },
+                    child: const Icon(Icons.add),
+                  )),
+            ),
+            //SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Your Skills: '),
+            ),
+            _isSkillsEmpty(profile.skills)
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('You have not entered any skills...'),
+                  )
+                : SizedBox(
+                    height: 60,
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: profile.skills.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text(profile.skills[index]
+                                    .toString()
+                                    .capitalize()),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      _deleteSkill(
+                                          profile.skills[index].toString());
+                                    },
+                                    icon: Icon(
+                                      Icons.remove_circle_outline,
+                                      color: Colors.red,
+                                    ))
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    )),
+            Divider(
+                //horizontal line
+                color: Theme.of(context).primaryColor,
+                height: 30,
+                thickness: 2,
+                indent: 15,
+                endIndent: 15),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Contact '),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    controller: _contactController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Add your contacts',
+                      //labelText: 'Contact',
+                    ),
+                    // validator: (value) {
+                    //   if (value == null || value.isEmpty) {
+                    //     return 'Please enter contacts';
+                    //   }
+                    //   return null;
+                    // },
+                  ),
+                ),
+                TextButton(
                   onPressed: () {
                     try {
-                      _addskills(_skillController.text);
-                      _skillController.clear();
-                      context.showSnackBar(message: 'Skill added!');
-                      setState(() {
-                        _isSkillsEmpty(profile.skills);
-                      });
+                      _addcontactgrpc(
+                          _contactControllerType.text, _contactController.text);
+                      _contactController.clear();
+                      context.showSnackBar(message: 'Contact Added!');
                     } catch (e) {
-                      context.showErrorSnackBar(message: 'Unable to add skill');
+                      context.showErrorSnackBar(
+                          message: 'Unable to add contact');
                     }
                   },
-                  child: const Icon(Icons.add),
-                )),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter skill';
-              }
-              return null;
-            },
-          ),
-          //SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('Your Skills: '),
-          ),
-          _isSkillsEmpty(profile.skills)
-              ? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text('You have not entered any skills...'),
-                )
-              : SizedBox(
-                  height: 60,
-                  child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: profile.skills.length,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Text(profile.skills[index]
-                                  .toString()
-                                  .capitalize()),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              IconButton(
-                                  onPressed: () {
-                                    _deleteSkill(
-                                        profile.skills[index].toString());
-                                  },
-                                  icon: Icon(
-                                    Icons.remove_circle_outline,
-                                    color: Colors.red,
-                                  ))
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  )),
-          Divider(
-              //horizontal line
-              color: Theme.of(context).primaryColor,
-              height: 30,
-              thickness: 2,
-              indent: 15,
-              endIndent: 15),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('Contact '),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  controller: _contactController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Add your contacts',
-                    //labelText: 'Contact',
-                  ),
-                  // validator: (value) {
-                  //   if (value == null || value.isEmpty) {
-                  //     return 'Please enter contacts';
-                  //   }
-                  //   return null;
-                  // },
+                  child: Icon(Icons.add),
                 ),
-              ),
-              TextButton(
-                onPressed: () {
-                  try {
-                    _addcontactgrpc(
-                        _contactControllerType.text, _contactController.text);
-                    _contactController.clear();
-                    context.showSnackBar(message: 'Contact Added!');
-                  } catch (e) {
-                    context.showErrorSnackBar(message: 'Unable to add contact');
-                  }
-                },
-                child: Icon(Icons.add),
-              ),
-              Container(
-                //padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    border: Border.all(
-                      color: Theme.of(context).primaryColor,
-                      width: 2,
+                Container(
+                  //padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(
+                        color: Theme.of(context).primaryColor,
+                        width: 2,
+                      )),
+                  child: DropdownButton<String>(
+                    underline: Container(
+                      height: 0,
+                    ),
+                    iconEnabledColor: Theme.of(context).primaryColor,
+                    value: _contactControllerType.text,
+                    items: listContactType.map<DropdownMenuItem<String>>((e) {
+                      return DropdownMenuItem<String>(
+                          value: e,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              e,
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
+                            ),
+                          ));
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _contactControllerType.text = value.toString();
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Your Contacts: '),
+            ),
+            _isContactsEmpty(profile.contacts)
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('You have not entered any contacts...'),
+                  )
+                : SizedBox(
+                    height: 60,
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: profile.contacts.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              //mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(profile.contacts[index].type
+                                        .toString()
+                                        .capitalize()),
+                                    Text(profile.contacts[index].address
+                                        .toString()),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      _deleteContact(profile
+                                          .contacts[index].address
+                                          .toString());
+                                      //print(contacts[index].address.toString());
+                                    },
+                                    icon: Icon(
+                                      Icons.remove_circle_outline,
+                                      color: Colors.red,
+                                    ))
+                              ],
+                            ),
+                          ),
+                        );
+                      },
                     )),
-                child: DropdownButton<String>(
-                  underline: Container(
-                    height: 0,
-                  ),
-                  iconEnabledColor: Theme.of(context).primaryColor,
-                  value: _contactControllerType.text,
-                  items: listContactType.map<DropdownMenuItem<String>>((e) {
-                    return DropdownMenuItem<String>(
-                        value: e,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
-                            e,
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
-                          ),
-                        ));
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      _contactControllerType.text = value.toString();
-                    });
-                  },
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('Your Contacts: '),
-          ),
-          _isContactsEmpty(profile.contacts)
-              ? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text('You have not entered any contacts...'),
-                )
-              : SizedBox(
-                  height: 60,
-                  child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: profile.contacts.length,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            //mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(profile.contacts[index].type
-                                      .toString()
-                                      .capitalize()),
-                                  Text(profile.contacts[index].address
-                                      .toString()),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              IconButton(
-                                  onPressed: () {
-                                    _deleteContact(profile
-                                        .contacts[index].address
-                                        .toString());
-                                    //print(contacts[index].address.toString());
-                                  },
-                                  icon: Icon(
-                                    Icons.remove_circle_outline,
-                                    color: Colors.red,
-                                  ))
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  )),
-          const SizedBox(height: 18),
-          ElevatedButton(
-            onPressed: () {
-              // Iterable<String> newSkills;
-              // skills.map((e) => return )
-              try {
-                _signUpGrpc(
-                    _emailController.text,
-                    _passwordController.text,
-                    _usernameController.text,
-                    // skills,
-                    // contacts,
-                    _genderController.text,
-                    _matricController.text);
-                context.showSnackBar(message: 'Signing up...');
-              } catch (e) {
-                context.showErrorSnackBar(message: e.toString());
-              }
-            },
-            child: Text(_isLoading ? 'Loading' : 'Sign Up'),
-          ),
-          // ElevatedButton(
-          //     onPressed: (() {
-          //       Navigator.of(context).pushReplacementNamed('/navigation');
-          //     }),
-          //     child: Text('Skip (for developers)'))
-        ],
+            const SizedBox(height: 18),
+            ElevatedButton(
+              onPressed: () {
+                // Iterable<String> newSkills;
+                // skills.map((e) => return )
+                if (_formKey.currentState!.validate()) {
+                  try {
+                    _signUpGrpc(
+                        _emailController.text,
+                        _passwordController.text,
+                        _usernameController.text,
+                        _genderController.text,
+                        _matricController.text);
+                    context.showSnackBar(message: 'Signing up...');
+                  } catch (e) {
+                    context.showErrorSnackBar(message: e.toString());
+                  }
+                }
+              },
+              child: Text(_isLoading ? 'Loading' : 'Sign Up'),
+            ),
+            // ElevatedButton(
+            //     onPressed: (() {
+            //       Navigator.of(context).pushReplacementNamed('/navigation');
+            //     }),
+            //     child: Text('Skip (for developers)'))
+          ],
+        ),
       ),
     );
   }

@@ -184,25 +184,29 @@ class _ProfilePageState extends State<ProfilePage> {
                                 SizedBox(
                                   height: 8,
                                 ),
-                                Expanded(
-                                  child: SizedBox(
-                                    //height: 50,
-                                    child: ListView.builder(
-                                      physics: const BouncingScrollPhysics(),
-                                      itemCount: contacts.length,
-                                      itemBuilder: (context, index) {
-                                        return Row(
-                                          children: [
-                                            Text(
-                                                '${index + 1}) ${contacts[index]['type'].toString()}'),
-                                            Text(
-                                                ', ${contacts[index]['address'].toString()}'),
-                                          ],
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                )
+                                isEmpty(contacts)
+                                    ? Text(
+                                        'You have not entered any contacts..')
+                                    : Expanded(
+                                        child: SizedBox(
+                                          //height: 50,
+                                          child: ListView.builder(
+                                            physics:
+                                                const BouncingScrollPhysics(),
+                                            itemCount: contacts.length,
+                                            itemBuilder: (context, index) {
+                                              return Row(
+                                                children: [
+                                                  Text(
+                                                      '${index + 1}) ${contacts[index]['type'].toString()}'),
+                                                  Text(
+                                                      ', ${contacts[index]['address'].toString()}'),
+                                                ],
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      )
                               ],
                             ),
                           ),
@@ -221,25 +225,28 @@ class _ProfilePageState extends State<ProfilePage> {
                         //style: Theme.of(context).textTheme.headline1,
                         ),
                   ),
-                  SizedBox(
-                      height: 50,
-                      child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: skills.length,
-                        itemBuilder: (context, index) {
-                          return Card(
-                            elevation: 5,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                  child: Text(
-                                      skills[index].toString().capitalize())),
-                            ),
-                          );
-                        },
-                      )),
+                  isEmpty(skills)
+                      ? Text('You have not entered any skills')
+                      : SizedBox(
+                          height: 50,
+                          child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: skills.length,
+                            itemBuilder: (context, index) {
+                              return Card(
+                                elevation: 5,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                      child: Text(skills[index]
+                                          .toString()
+                                          .capitalize())),
+                                ),
+                              );
+                            },
+                          )),
                   const Divider(
                       //horizontal line
                       height: 10,

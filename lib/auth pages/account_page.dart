@@ -74,6 +74,22 @@ class _AccountPageState extends State<AccountPage> {
     });
   }
 
+  _isSkillsEmpty(dynamic stuff) {
+    if (stuff.length == 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  _isContactsEmpty(dynamic stuff) {
+    if (stuff.length == 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future<void> _getProfile() async {
     skills = [];
     contacts = [];
@@ -339,37 +355,45 @@ class _AccountPageState extends State<AccountPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text('Your Skills: '),
                   ),
-                  SizedBox(
-                      height: 60,
-                      child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: skills.length,
-                        itemBuilder: (context, index) {
-                          return Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Text(skills[index].toString().capitalize()),
-                                  SizedBox(
-                                    height: 5,
+                  _isSkillsEmpty(skills)
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('You have not entered any skill'),
+                        )
+                      : SizedBox(
+                          height: 60,
+                          child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: skills.length,
+                            itemBuilder: (context, index) {
+                              return Card(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Text(skills[index]
+                                          .toString()
+                                          .capitalize()),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      IconButton(
+                                          onPressed: () {
+                                            _deleteSkill(
+                                                skills[index].toString());
+                                          },
+                                          icon: Icon(
+                                            Icons.remove_circle_outline,
+                                            color: Colors.red,
+                                          ))
+                                    ],
                                   ),
-                                  IconButton(
-                                      onPressed: () {
-                                        _deleteSkill(skills[index].toString());
-                                      },
-                                      icon: Icon(
-                                        Icons.remove_circle_outline,
-                                        color: Colors.red,
-                                      ))
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      )),
+                                ),
+                              );
+                            },
+                          )),
                   Divider(
                       //horizontal line
                       color: Theme.of(context).primaryColor,
@@ -456,51 +480,54 @@ class _AccountPageState extends State<AccountPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text('Your Contacts: '),
                   ),
-                  SizedBox(
-                      height: 60,
-                      child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: contacts.length,
-                        itemBuilder: (context, index) {
-                          return Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                //mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                  _isContactsEmpty(contacts)
+                      ? Text('You have not entered any contacts...')
+                      : SizedBox(
+                          height: 60,
+                          child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: contacts.length,
+                            itemBuilder: (context, index) {
+                              return Card(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    //mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(contacts[index]['type']
-                                          .toString()
-                                          .capitalize()),
-                                      Text(contacts[index]['address']
-                                          .toString()),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(contacts[index]['type']
+                                              .toString()
+                                              .capitalize()),
+                                          Text(contacts[index]['address']
+                                              .toString()),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      IconButton(
+                                          onPressed: () {
+                                            _deleteContact(contacts[index]
+                                                    ['address']
+                                                .toString());
+                                          },
+                                          icon: Icon(
+                                            Icons.remove_circle_outline,
+                                            color: Colors.red,
+                                          ))
                                     ],
                                   ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  IconButton(
-                                      onPressed: () {
-                                        _deleteContact(contacts[index]
-                                                ['address']
-                                            .toString());
-                                      },
-                                      icon: Icon(
-                                        Icons.remove_circle_outline,
-                                        color: Colors.red,
-                                      ))
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      )),
+                                ),
+                              );
+                            },
+                          )),
                   SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
