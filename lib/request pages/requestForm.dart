@@ -15,28 +15,36 @@ class RequestForm extends StatefulWidget {
 }
 
 class _RequestFormState extends State<RequestForm> {
-  late Common _common;
-  @override
-  void initState() {
-    // TODO: implement initState
-    _common = Common(); //get server
-    super.initState();
-  }
-
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
-  //final _categoryController = TextEditingController();
+  final _categoryController = TextEditingController();
   final _latitudeController = TextEditingController();
   final _longitudeController = TextEditingController();
   final _locationController = TextEditingController();
   final _rateController = TextEditingController();
   final _mediaController = TextEditingController();
-  //registered user (budi)
-  // final ammar = 'f53809c5-68e6-480c-902e-a5bc3821a003';
-  // final evergreen = '06a7a82f-b04f-4111-b0c9-a92d918d3207';
-  // final ujaiahmad = '291b79a7-c67c-4783-b004-239cb334804d';
+
   List<String> media = ['Test media'];
+  List<String> listCategories = <String>[
+    'Arts, Crafts & Music',
+    'Business Services',
+    'Community Activities',
+    'Companionship',
+    'Education',
+    'Help at Home',
+    'Recreation',
+    'Transportation',
+    'Wellness',
+  ];
+
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    _categoryController.text = listCategories[2];
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -50,16 +58,6 @@ class _RequestFormState extends State<RequestForm> {
 
     super.dispose();
   }
-
-  // getCurrentUser(String id) {
-  //   if (id == '94dba464-863e-4551-affd-4258724ae351') {
-  //     return ujaiahmad;
-  //   } else if (id == 'cd54d0d0-23ef-437c-8397-c5d5d754691f') {
-  //     return ammar; //ujai junior
-  //   } else {
-  //     return evergreen; //e6a7c29b-0b2d-4145-9211-a4e9b545102a
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +113,47 @@ class _RequestFormState extends State<RequestForm> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
+                  child: Text('Categories'),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  //padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(
+                        color: Theme.of(context).primaryColor,
+                        width: 2,
+                      )),
+                  child: DropdownButton<String>(
+                    underline: Container(
+                      height: 0,
+                    ),
+                    iconEnabledColor: Theme.of(context).primaryColor,
+                    value: _categoryController.text,
+                    items: listCategories.map<DropdownMenuItem<String>>((e) {
+                      return DropdownMenuItem<String>(
+                          value: e,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              e,
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
+                            ),
+                          ));
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _categoryController.text = value.toString();
+                        //print(_genderController.text);
+                      });
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Text('Location'),
                 ),
                 TextFormField(
@@ -160,17 +199,28 @@ class _RequestFormState extends State<RequestForm> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text('Attachment'),
                 ),
-                TextFormField(
-                  controller: _mediaController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter attachment'),
-                  // validator: (value) {
-                  //   if (value == null || value.isEmpty) {
-                  //     return 'Please enter some text';
-                  //   }
-                  //   return null;
-                  // },
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: _mediaController,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter attachment'),
+                        // validator: (value) {
+                        //   if (value == null || value.isEmpty) {
+                        //     return 'Please enter some text';
+                        //   }
+                        //   return null;
+                        // },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                          onPressed: () {}, child: Icon(Icons.add)),
+                    )
+                  ],
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),

@@ -157,21 +157,40 @@ class _SignUpPageState extends State<SignUpPage> {
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
         children: [
-          const Text('Sign in via the magic link with your email below'),
-          const SizedBox(height: 18),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: const Text(
+              'Sign in via the magic link with your email below',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: const Text('Do not close this page when signing up'),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('Email'),
+          ),
           TextFormField(
             controller: _emailController,
             decoration: const InputDecoration(
-              labelText: 'Email',
-            ),
+                border: OutlineInputBorder(), hintText: 'Enter your email'
+                //labelText: 'Email',
+                ),
           ),
-          const SizedBox(height: 18),
+
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('Password'),
+          ),
           TextFormField(
             controller: _passwordController,
             obscureText: !_passwordVisible,
             decoration: InputDecoration(
-              labelText: 'Password',
-              helperText: 'Do not close this page when signing up',
+              border: OutlineInputBorder(),
+              labelText: 'Enter your password',
+              //helperText: 'Do not close this page when signing up',
               suffixIcon: IconButton(
                 icon: Icon(
                   // Based on passwordVisible state choose the icon
@@ -187,9 +206,21 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
           ),
+          Divider(
+              //horizontal line
+              color: Theme.of(context).primaryColor,
+              height: 30,
+              thickness: 2,
+              indent: 15,
+              endIndent: 15),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('Name'),
+          ),
           TextFormField(
             controller: _usernameController,
-            decoration: const InputDecoration(labelText: 'User Name'),
+            decoration: const InputDecoration(
+                border: OutlineInputBorder(), labelText: 'Enter name'),
           ),
 
           // TextFormField(
@@ -200,7 +231,10 @@ class _SignUpPageState extends State<SignUpPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Gender'),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Gender'),
+              ),
               Container(
                 //padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
@@ -239,16 +273,34 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ],
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('Matric Number'),
+          ),
           TextFormField(
             controller: _matricController,
             keyboardType: TextInputType.number,
-            decoration: const InputDecoration(labelText: 'Matric Number'),
+            decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Enter your matric number'),
+          ),
+          Divider(
+              //horizontal line
+              color: Theme.of(context).primaryColor,
+              height: 30,
+              thickness: 2,
+              indent: 15,
+              endIndent: 15),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('Skill'),
           ),
           TextFormField(
             controller: _skillController,
             decoration: InputDecoration(
+                border: OutlineInputBorder(),
                 hintText: 'Add Skills',
-                labelText: 'Skill',
+                //labelText: 'Skill',
                 suffixIcon: TextButton(
                   onPressed: () {
                     try {
@@ -271,10 +323,16 @@ class _SignUpPageState extends State<SignUpPage> {
               return null;
             },
           ),
-          SizedBox(height: 8),
-          Text('Your Skills: '),
+          //SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('Your Skills: '),
+          ),
           _isSkillsEmpty(profile.skills)
-              ? Text('You have not entered any skills...')
+              ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('You have not entered any skills...'),
+                )
               : SizedBox(
                   height: 60,
                   child: ListView.builder(
@@ -309,85 +367,94 @@ class _SignUpPageState extends State<SignUpPage> {
                       );
                     },
                   )),
-          TextFormField(
-            controller: _contactController,
-            decoration: InputDecoration(
-                hintText: 'Add Contacts',
-                labelText: 'Contact',
-                suffixIcon: SizedBox(
-                  width: 190,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          try {
-                            //_addcontact(_contactController.text);
-                            _addcontactgrpc(_contactControllerType.text,
-                                _contactController.text);
-                            _contactController.clear();
-                            context.showSnackBar(message: 'Contact Added!');
-                            setState(() {
-                              _isContactsEmpty(profile.contacts);
-                            });
-                          } catch (e) {
-                            context.showErrorSnackBar(
-                                message: 'Unable to add contact');
-                          }
-                        },
-                        child: Icon(Icons.add),
-                      ),
-                      Container(
-                        //padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                              color: Theme.of(context).primaryColor,
-                              width: 2,
-                            )),
-                        child: DropdownButton<String>(
-                          underline: Container(
-                            height: 0,
-                          ),
-                          iconEnabledColor: Theme.of(context).primaryColor,
-                          value: _contactControllerType.text,
-                          items: listContactType
-                              .map<DropdownMenuItem<String>>((e) {
-                            return DropdownMenuItem<String>(
-                                value: e,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: Text(
-                                    e,
-                                    style: TextStyle(
-                                        color: Theme.of(context).primaryColor,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15),
-                                  ),
-                                ));
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              _contactControllerType.text = value.toString();
-                              //print(_genderController.text);
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                )),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter contacts';
-              }
-              return null;
-            },
+          Divider(
+              //horizontal line
+              color: Theme.of(context).primaryColor,
+              height: 30,
+              thickness: 2,
+              indent: 15,
+              endIndent: 15),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('Contact '),
           ),
-          Text('Your Contacts: '),
+          Row(
+            children: [
+              Expanded(
+                child: TextFormField(
+                  controller: _contactController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Add your contacts',
+                    //labelText: 'Contact',
+                  ),
+                  // validator: (value) {
+                  //   if (value == null || value.isEmpty) {
+                  //     return 'Please enter contacts';
+                  //   }
+                  //   return null;
+                  // },
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  try {
+                    _addcontactgrpc(
+                        _contactControllerType.text, _contactController.text);
+                    _contactController.clear();
+                    context.showSnackBar(message: 'Contact Added!');
+                  } catch (e) {
+                    context.showErrorSnackBar(message: 'Unable to add contact');
+                  }
+                },
+                child: Icon(Icons.add),
+              ),
+              Container(
+                //padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(
+                      color: Theme.of(context).primaryColor,
+                      width: 2,
+                    )),
+                child: DropdownButton<String>(
+                  underline: Container(
+                    height: 0,
+                  ),
+                  iconEnabledColor: Theme.of(context).primaryColor,
+                  value: _contactControllerType.text,
+                  items: listContactType.map<DropdownMenuItem<String>>((e) {
+                    return DropdownMenuItem<String>(
+                        value: e,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(
+                            e,
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          ),
+                        ));
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _contactControllerType.text = value.toString();
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('Your Contacts: '),
+          ),
           _isContactsEmpty(profile.contacts)
-              ? Text('You have not entered any contacts...')
+              ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('You have not entered any contacts...'),
+                )
               : SizedBox(
                   height: 60,
                   child: ListView.builder(

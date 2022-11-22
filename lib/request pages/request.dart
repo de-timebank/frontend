@@ -17,11 +17,13 @@ class _RequestPageState extends State<RequestPage> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          bottom: const TabBar(tabs: [
-            Tab(text: 'Your\nRequest'),
-            Tab(text: 'Requested\nJob'),
-            Tab(text: 'Completed\nJob')
-          ]),
+          bottom: const TabBar(
+              // indicatorColor: Colors.cyan,
+              tabs: [
+                Tab(text: 'Your\nRequest'),
+                Tab(text: 'Requested\nJob'),
+                Tab(text: 'Completed\nJob')
+              ]),
           title: const Text('Request'),
         ),
         body: TabBarView(

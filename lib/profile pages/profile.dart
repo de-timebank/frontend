@@ -25,7 +25,6 @@ class _ProfilePageState extends State<ProfilePage> {
   late dynamic _userCalculatedRating = 0;
   late dynamic _userRating;
   // late dynamic user;
-  late Common _common;
 
   String _avatarUrl = 'asset/girl.png';
   late List<dynamic> skills;
@@ -35,7 +34,6 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    _common = Common();
     userId = supabase.auth.currentUser!.id;
     supabase.auth.onAuthStateChange.listen((data) {});
     Future.delayed(Duration.zero, _getProfile);
@@ -223,61 +221,55 @@ class _ProfilePageState extends State<ProfilePage> {
                         //style: Theme.of(context).textTheme.headline1,
                         ),
                   ),
-                  Flexible(
-                    flex: 1,
-                    child: SizedBox(
-                        height: 50,
-                        child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemCount: skills.length,
-                          itemBuilder: (context, index) {
-                            return Card(
-                              elevation: 5,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Center(
-                                    child: Text(
-                                        skills[index].toString().capitalize())),
-                              ),
-                            );
-                          },
-                        )),
-                  ),
+                  SizedBox(
+                      height: 50,
+                      child: ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemCount: skills.length,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            elevation: 5,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                  child: Text(
+                                      skills[index].toString().capitalize())),
+                            ),
+                          );
+                        },
+                      )),
                   const Divider(
                       //horizontal line
                       height: 10,
                       thickness: 2,
                       indent: 30,
                       endIndent: 30),
-                  Flexible(
-                    flex: 1,
-                    child: Row(
-                      children: [
-                        Flexible(
-                          flex: 1,
-                          child: Card(
-                            elevation: 5,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: Text('Rating',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                ),
-                                isEmpty(_userRating.ratings)
-                                    ? Text('No Rating')
-                                    : Text(
-                                        '${(_userCalculatedRating / _userRating.ratings.length).toStringAsFixed(2)}')
-                              ],
-                            ),
+                  Row(
+                    children: [
+                      Flexible(
+                        flex: 1,
+                        child: Card(
+                          elevation: 5,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Text('Rating',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                              ),
+                              isEmpty(_userRating.ratings)
+                                  ? Text('No Rating')
+                                  : Text(
+                                      '${(_userCalculatedRating / _userRating.ratings.length).toStringAsFixed(2)}')
+                            ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   )
                 ],
               ),
