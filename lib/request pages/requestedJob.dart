@@ -5,7 +5,6 @@ import '../bin/common.dart';
 import '../components/constants.dart';
 import '../custom widgets/customCardRequest.dart';
 import 'requestDetails.dart';
-import 'requestForm.dart';
 
 class RequestedJob extends StatefulWidget {
   RequestedJob({Key? key}) : super(key: key);
@@ -15,7 +14,6 @@ class RequestedJob extends StatefulWidget {
 }
 
 class _RequestedJobState extends State<RequestedJob> {
-  late Common _common;
   late bool isLoad;
   late dynamic listRequest;
   late dynamic listFiltered;
@@ -24,7 +22,6 @@ class _RequestedJobState extends State<RequestedJob> {
 
   @override
   void initState() {
-    _common = Common();
     isLoad = true;
     _isEmpty = true;
     getinstance();

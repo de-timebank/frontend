@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:testfyp/bin/client_user.dart';
+import 'package:testfyp/bin/common.dart';
 import 'package:testfyp/rate%20pages/rateProvider.dart';
+import '../components/constants.dart';
 import '../custom widgets/customHeadline.dart';
 import '../custom widgets/customOngoingTask.dart';
 import '../rate pages/rateRequestor.dart';
@@ -12,6 +15,9 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
+  late final credit;
+  late final data;
+
   List listService = [
     'Service 1',
     'Service 2',
@@ -30,6 +36,23 @@ class _DashBoardState extends State<DashBoard> {
     'Request 6',
     'Request 8',
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, getCredit);
+  }
+
+  getCredit() async {
+    final user = supabase.auth.currentUser!.id;
+    data = await supabase
+        .from('user_credits')
+        .select()
+        .eq('user_id', user)
+        .single() as Map;
+    //print(data!['total']);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +77,7 @@ class _DashBoardState extends State<DashBoard> {
                 color: Color.fromARGB(255, 219, 216, 233),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Text(
@@ -66,15 +89,16 @@ class _DashBoardState extends State<DashBoard> {
                     ),
                     Padding(
                       padding: EdgeInsets.all(10.0),
-                      child: Text('\$time/hour: 10.00',
+                      child: Text('\$time/hour: ${data!["total"].toString()}',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Color.fromARGB(255, 24, 54, 66))),
                     )
                   ],
                 )),
-            const Divider(
+            Divider(
                 //horizontal line
+                color: Theme.of(context).primaryColor,
                 height: 30,
                 thickness: 2,
                 indent: 20,

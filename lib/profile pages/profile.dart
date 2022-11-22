@@ -167,23 +167,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
                                 ),
-                                SizedBox(
-                                  height: 10,
-                                ),
+                                SizedBox(height: 10),
                                 Text('Matric Id: $_matric'),
-                                SizedBox(
-                                  height: 8,
-                                ),
-                                Text('Gender: $_gender'),
-                                SizedBox(
-                                  height: 8,
-                                ),
-                                Text(
-                                  'Contact:',
-                                ),
-                                SizedBox(
-                                  height: 8,
-                                ),
+                                SizedBox(height: 8),
+                                Text('Gender: ${_gender.capitalize()}'),
+                                SizedBox(height: 8),
+                                Text('Contact:'),
+                                SizedBox(height: 8),
                                 isEmpty(contacts)
                                     ? Text(
                                         'You have not entered any contacts..')
