@@ -5,6 +5,8 @@ import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/extension_string.dart';
 import 'package:testfyp/splash_page.dart';
 
+import '../generated/rating/user.pb.dart';
+
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
 
@@ -15,6 +17,7 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   final _usernameController = TextEditingController();
   final _contactController = TextEditingController();
+  final _contactControllerType = TextEditingController();
   final _matricController = TextEditingController();
   final _genderController = TextEditingController();
   final _skillController = TextEditingController();
@@ -22,19 +25,27 @@ class _AccountPageState extends State<AccountPage> {
 
   late List<dynamic> skills;
   late List<dynamic> contacts;
+  List<String> listGender = <String>['male', 'female'];
+  List<String> listContactType = <String>[
+    'WhatsApp',
+    'Email',
+    'Phone',
+    'Twitter'
+  ];
   var _loading = true;
 
   @override
   void initState() {
     super.initState();
-
+    _genderController.text = listGender[0];
+    _contactControllerType.text = listContactType[2];
     //_getProfile();
     Future.delayed(Duration.zero, _getProfile);
   }
 
   _addskills(String skill) {
     setState(() {
-      skills.add(skill);
+      skills.insert(0, skill);
     });
   }
 
@@ -46,13 +57,18 @@ class _AccountPageState extends State<AccountPage> {
 
   _deleteContact(String skill) {
     setState(() {
-      contacts.removeWhere((element) => element == skill);
+      contacts.removeWhere((element) => element['address'] == skill);
     });
   }
 
-  _addcontact(String contact) {
+  _addcontact(String type, String address) {
+    var contact2 = Contact()
+      ..address = address
+      ..type = type;
+    //print(contact2);
     setState(() {
-      contacts.add(contact);
+      contacts.insert(0, contact2.toProto3Json());
+      //print(contacts);
     });
   }
 
@@ -66,7 +82,7 @@ class _AccountPageState extends State<AccountPage> {
     try {
       final userId = supabase.auth.currentUser!.id; //map the user ID
       final data = await supabase
-          .from('user_profile')
+          .from('profiles')
           .select()
           .eq('user_id', userId)
           .single() as Map;
@@ -109,7 +125,7 @@ class _AccountPageState extends State<AccountPage> {
   //     // 'avatar_url': _avatarUrl,
   //   };
   //   try {
-  //     await supabase.from('user_profile').upsert(updates);
+  //     await supabase.from('profiles').upsert(updates);
   //   } on PostgrestException catch (error) {
   //     context.showErrorSnackBar(message: error.message);
   //   } catch (error) {
@@ -131,6 +147,8 @@ class _AccountPageState extends State<AccountPage> {
     //print(user!.id);
     //final avatar =
     //final skills = _skillsController;
+    // print(contacts);
+    // print(skills);
     final updates = {
       'user_id': user!.id,
       'name': userName,
@@ -142,7 +160,7 @@ class _AccountPageState extends State<AccountPage> {
       // 'avatar_url': _avatarUrl,
     };
     try {
-      await supabase.from('user_profile').upsert(updates);
+      await supabase.from('profiles').upsert(updates);
       if (mounted) {
         context.showSnackBar(message: 'Successfully updated profile!');
         Navigator.of(context).pop();
@@ -212,23 +230,62 @@ class _AccountPageState extends State<AccountPage> {
                   controller: _usernameController,
                   decoration: const InputDecoration(labelText: 'User Name'),
                 ),
-                TextFormField(
-                  controller: _genderController,
-                  decoration: const InputDecoration(labelText: 'Gender'),
+                SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Gender'),
+                    Container(
+                      //padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(
+                            color: Theme.of(context).primaryColor,
+                            width: 2,
+                          )),
+                      child: DropdownButton<String>(
+                        underline: Container(
+                          height: 0,
+                        ),
+                        iconEnabledColor: Theme.of(context).primaryColor,
+                        value: _genderController.text,
+                        items: listGender.map<DropdownMenuItem<String>>((e) {
+                          return DropdownMenuItem<String>(
+                              value: e,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: Text(
+                                  e,
+                                  style: TextStyle(
+                                      color: Theme.of(context).primaryColor,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ));
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            _genderController.text = value.toString();
+                            //print(_genderController.text);
+                          });
+                        },
+                      ),
+                    ),
+                  ],
                 ),
                 TextFormField(
                   controller: _matricController,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(labelText: 'Matric Number'),
                 ),
-
                 TextFormField(
                   controller: _skillController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       hintText: 'Add Skills',
                       labelText: 'Skill',
-                      suffixIcon: ElevatedButton(
+                      suffixIcon: TextButton(
                         onPressed: () {
                           try {
                             _addskills(_skillController.text);
@@ -283,29 +340,77 @@ class _AccountPageState extends State<AccountPage> {
                     )),
                 TextFormField(
                   controller: _contactController,
-                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       hintText: 'Add Contacts',
                       labelText: 'Contact',
-                      suffixIcon: ElevatedButton(
-                        onPressed: () {
-                          try {
-                            _addcontact(_contactController.text);
-                            _contactController.clear();
-                            context.showSnackBar(message: 'Contact Added!');
-                          } catch (e) {
-                            context.showErrorSnackBar(
-                                message: 'Unable to add contact');
-                          }
-                        },
-                        child: Icon(Icons.add),
+                      suffixIcon: SizedBox(
+                        width: 190,
+                        child: Row(
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                try {
+                                  _addcontact(_contactControllerType.text,
+                                      _contactController.text);
+                                  _contactController.clear();
+                                  context.showSnackBar(
+                                      message: 'Contact Added!');
+                                } catch (e) {
+                                  context.showErrorSnackBar(
+                                      message: 'Unable to add contact');
+                                }
+                              },
+                              child: Icon(Icons.add),
+                            ),
+                            Container(
+                              //padding: EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  border: Border.all(
+                                    color: Theme.of(context).primaryColor,
+                                    width: 2,
+                                  )),
+                              child: DropdownButton<String>(
+                                underline: Container(
+                                  height: 0,
+                                ),
+                                iconEnabledColor:
+                                    Theme.of(context).primaryColor,
+                                value: _contactControllerType.text,
+                                items: listContactType
+                                    .map<DropdownMenuItem<String>>((e) {
+                                  return DropdownMenuItem<String>(
+                                      value: e,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: Text(
+                                          e,
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15),
+                                        ),
+                                      ));
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    _contactControllerType.text =
+                                        value.toString();
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                       )),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter contacts';
-                    }
-                    return null;
-                  },
+                  // validator: (value) {
+                  //   if (value == null || value.isEmpty) {
+                  //     return 'Please enter contacts';
+                  //   }
+                  //   return null;
+                  // },
                 ),
                 Text('Your Contacts: '),
                 SizedBox(
@@ -322,14 +427,25 @@ class _AccountPageState extends State<AccountPage> {
                             child: Row(
                               //mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(contacts[index].toString().capitalize()),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(contacts[index]['type']
+                                        .toString()
+                                        .capitalize()),
+                                    Text(contacts[index]['address']
+                                        .toString()
+                                        .capitalize()),
+                                  ],
+                                ),
                                 SizedBox(
                                   height: 5,
                                 ),
                                 IconButton(
                                     onPressed: () {
-                                      _deleteContact(
-                                          contacts[index].toString());
+                                      _deleteContact(contacts[index]['address']
+                                          .toString());
                                     },
                                     icon: Icon(
                                       Icons.remove_circle_outline,

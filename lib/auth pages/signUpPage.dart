@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/bin/client_auth.dart';
 import 'package:testfyp/bin/common.dart';
-//import 'package:testfyp/auth%20pages/account_page.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/extension_string.dart';
 import 'package:testfyp/generated/rating/user.pbgrpc.dart';
@@ -36,8 +35,8 @@ class _SignUpPageState extends State<SignUpPage> {
     'Twitter'
   ];
   late NewUserProfile profile;
-  late List<String> skills;
-  late List<Contact> contacts;
+  // late List<String> skills;
+  // late List<Contact> contacts;
   // late NewUserProfile _userProfile1 = NewUserProfile();
   //late Common _common;
   late final StreamSubscription<AuthState> _authStateSubscription;
@@ -47,8 +46,8 @@ class _SignUpPageState extends State<SignUpPage> {
     profile = NewUserProfile();
     _genderController.text = listGender[0];
     _contactControllerType.text = listContactType[2];
-    skills = [];
-    contacts = [];
+    // skills = [];
+    // contacts = [];
     _authStateSubscription = supabase.auth.onAuthStateChange.listen((data) {
       if (_redirecting) return;
       final session = data.session;
@@ -247,7 +246,6 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
           TextFormField(
             controller: _skillController,
-            keyboardType: TextInputType.number,
             decoration: InputDecoration(
                 hintText: 'Add Skills',
                 labelText: 'Skill',

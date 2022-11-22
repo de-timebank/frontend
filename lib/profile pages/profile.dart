@@ -42,9 +42,18 @@ class _ProfilePageState extends State<ProfilePage> {
     _getRating();
   }
 
+  bool isEmpty(stuff) {
+    if (stuff.length == 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   _getRating() async {
     _userRating = await ClientRating(Common().channel)
         .getResponseRating('recipient', userId);
+    print(_userRating.toString());
     //calculate rating
     //map((m) => m.ratings['value']!).average;
     for (int i = 0; i < _userRating.ratings.length; i++) {
@@ -67,7 +76,7 @@ class _ProfilePageState extends State<ProfilePage> {
     try {
       // final userId = supabase.auth.currentUser!.id;
       final data = await supabase
-          .from('user_profile')
+          .from('profiles')
           .select()
           .eq('user_id', userId)
           .single() as Map;
@@ -136,7 +145,7 @@ class _ProfilePageState extends State<ProfilePage> {
           : Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
-                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Flexible(
                     flex: 3,
@@ -177,15 +186,23 @@ class _ProfilePageState extends State<ProfilePage> {
                                 SizedBox(
                                   height: 8,
                                 ),
-                                SizedBox(
-                                  height: 50,
-                                  child: ListView.builder(
-                                    physics: const BouncingScrollPhysics(),
-                                    itemCount: contacts.length,
-                                    itemBuilder: (context, index) {
-                                      return Text(
-                                          '${index + 1}) ${contacts[index].toString()}');
-                                    },
+                                Expanded(
+                                  child: SizedBox(
+                                    //height: 50,
+                                    child: ListView.builder(
+                                      physics: const BouncingScrollPhysics(),
+                                      itemCount: contacts.length,
+                                      itemBuilder: (context, index) {
+                                        return Row(
+                                          children: [
+                                            Text(
+                                                '${index + 1}) ${contacts[index]['type'].toString()}'),
+                                            Text(
+                                                ', ${contacts[index]['address'].toString()}'),
+                                          ],
+                                        );
+                                      },
+                                    ),
                                   ),
                                 )
                               ],
@@ -251,8 +268,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold)),
                                 ),
-                                Text(
-                                    '${(_userCalculatedRating / _userRating.ratings.length).toStringAsFixed(2)}')
+                                isEmpty(_userRating.ratings)
+                                    ? Text('No Rating')
+                                    : Text(
+                                        '${(_userCalculatedRating / _userRating.ratings.length).toStringAsFixed(2)}')
                               ],
                             ),
                           ),
