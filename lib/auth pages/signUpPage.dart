@@ -28,7 +28,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final _genderController = TextEditingController();
   final _skillController = TextEditingController();
 
-  List<String> listGender = <String>['Male', 'Female'];
+  List<String> listGender = <String>['male', 'female'];
   List<String> listContactType = <String>[
     'WhatsApp',
     'Email',
@@ -117,7 +117,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
     setState(() {
       profile..contacts.insert(0, contact2);
-      print(profile);
+      //print(profile);
       //print(profile);
       //contacts.insert(0, contact2);
       //print(contacts);
