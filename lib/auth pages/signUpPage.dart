@@ -332,16 +332,21 @@ class _SignUpPageState extends State<SignUpPage> {
                   //hintText: 'Skill',
                   suffixIcon: TextButton(
                     onPressed: () {
-                      try {
-                        _addskills(_skillController.text);
-                        _skillController.clear();
-                        context.showSnackBar(message: 'Skill added!');
-                        setState(() {
-                          _isSkillsEmpty(profile.skills);
-                        });
-                      } catch (e) {
+                      if (_skillController.text.length == 0) {
                         context.showErrorSnackBar(
-                            message: 'Unable to add skill');
+                            message: 'You have not entered any skills..');
+                      } else {
+                        try {
+                          _addskills(_skillController.text);
+                          _skillController.clear();
+                          context.showSnackBar(message: 'Skill added!');
+                          setState(() {
+                            _isSkillsEmpty(profile.skills);
+                          });
+                        } catch (e) {
+                          context.showErrorSnackBar(
+                              message: 'Unable to add skill');
+                        }
                       }
                     },
                     child: const Icon(Icons.add),
@@ -422,14 +427,19 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 TextButton(
                   onPressed: () {
-                    try {
-                      _addcontactgrpc(
-                          _contactControllerType.text, _contactController.text);
-                      _contactController.clear();
-                      context.showSnackBar(message: 'Contact Added!');
-                    } catch (e) {
+                    if (_contactController.text.length == 0) {
                       context.showErrorSnackBar(
-                          message: 'Unable to add contact');
+                          message: 'You have not entered any contact');
+                    } else {
+                      try {
+                        _addcontactgrpc(_contactControllerType.text,
+                            _contactController.text);
+                        _contactController.clear();
+                        context.showSnackBar(message: 'Contact Added!');
+                      } catch (e) {
+                        context.showErrorSnackBar(
+                            message: 'Unable to add contact');
+                      }
                     }
                   },
                   child: Icon(Icons.add),

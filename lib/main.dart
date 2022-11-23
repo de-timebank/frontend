@@ -31,6 +31,20 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Supabase Flutter',
       theme: ThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(),
+          // contentPadding: EdgeInsets.symmetric(
+          //   vertical: 22,
+          //   horizontal: 26,
+          // ),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Color.fromARGB(255, 127, 17, 224))),
+          labelStyle: TextStyle(
+            //fontSize: 35,
+
+            color: Color.fromARGB(255, 127, 17, 224),
+          ),
+        ),
         appBarTheme:
             const AppBarTheme(color: Color.fromARGB(255, 127, 17, 224)),
         primaryColor: const Color.fromARGB(255, 127, 17, 224),
