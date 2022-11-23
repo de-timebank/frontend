@@ -180,7 +180,7 @@ class _SignUpPageState extends State<SignUpPage> {
               controller: _emailController,
               decoration: const InputDecoration(
                   border: OutlineInputBorder(), hintText: 'Enter your email'
-                  //labelText: 'Email',
+                  //hintText: 'Email',
                   ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -198,7 +198,7 @@ class _SignUpPageState extends State<SignUpPage> {
               obscureText: !_passwordVisible,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Enter your password',
+                hintText: 'Enter your password',
                 //helperText: 'Do not close this page when signing up',
                 suffixIcon: IconButton(
                   icon: Icon(
@@ -237,7 +237,7 @@ class _SignUpPageState extends State<SignUpPage> {
             TextFormField(
               controller: _usernameController,
               decoration: const InputDecoration(
-                  border: OutlineInputBorder(), labelText: 'Enter name'),
+                  border: OutlineInputBorder(), hintText: 'Enter name'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter name...';
@@ -248,7 +248,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
             // TextFormField(
             //   controller: _genderController,
-            //   decoration: const InputDecoration(labelText: 'Gender'),
+            //   decoration: const InputDecoration(hintText: 'Gender'),
             // ),
             SizedBox(height: 8),
             Row(
@@ -305,7 +305,7 @@ class _SignUpPageState extends State<SignUpPage> {
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Enter your matric number'),
+                  hintText: 'Enter your matric number'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter matric number...';
@@ -329,7 +329,7 @@ class _SignUpPageState extends State<SignUpPage> {
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Add Skills',
-                  //labelText: 'Skill',
+                  //hintText: 'Skill',
                   suffixIcon: TextButton(
                     onPressed: () {
                       try {
@@ -410,7 +410,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Add your contacts',
-                      //labelText: 'Contact',
+                      //hintText: 'Contact',
                     ),
                     // validator: (value) {
                     //   if (value == null || value.isEmpty) {
@@ -538,7 +538,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         _usernameController.text,
                         _genderController.text,
                         _matricController.text);
-                    context.showSnackBar(message: 'Signing up...');
+                    context.showSnackBar(
+                        message: 'Check your email for confirmation...');
                   } catch (e) {
                     context.showErrorSnackBar(message: e.toString());
                   }
