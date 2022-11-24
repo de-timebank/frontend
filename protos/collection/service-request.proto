@@ -60,6 +60,7 @@ message Create {
         ServiceRequestData.Location location = 2;
         float rate = 3;
         repeated string media_attachments = 4;
+        string category = 5;
     }
 
     message Request {

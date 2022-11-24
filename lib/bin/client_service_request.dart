@@ -45,7 +45,8 @@ class ClientServiceRequest {
       String locName,
       double rate,
       List<String> media,
-      String requestor) async {
+      String requestor,
+      String category) async {
     return await stub.create(Create_Request(
         requestData: Create_NewServiceRequestData(
             details: ServiceRequestData_Details()
@@ -57,7 +58,8 @@ class ClientServiceRequest {
                   ..longitude = longitude)
               ..name = locName)
           ..rate = rate
-          ..media_attachments = media)
+          ..mediaAttachments.addAll(media)
+          ..category = category)
       ..requestor = requestor);
   }
 

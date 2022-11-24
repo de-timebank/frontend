@@ -370,6 +370,11 @@ class ServiceRequestData extends $pb.GeneratedMessage {
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'completedAt')
+    ..aOS(
+        13,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'category')
     ..hasRequiredFields = false;
 
   ServiceRequestData._() : super();
@@ -386,6 +391,7 @@ class ServiceRequestData extends $pb.GeneratedMessage {
     $core.String? createdAt,
     $core.String? updatedAt,
     $core.String? completedAt,
+    $core.String? category,
   }) {
     final _result = create();
     if (id != null) {
@@ -423,6 +429,9 @@ class ServiceRequestData extends $pb.GeneratedMessage {
     }
     if (completedAt != null) {
       _result.completedAt = completedAt;
+    }
+    if (category != null) {
+      _result.category = category;
     }
     return _result;
   }
@@ -582,6 +591,18 @@ class ServiceRequestData extends $pb.GeneratedMessage {
   $core.bool hasCompletedAt() => $_has(11);
   @$pb.TagNumber(12)
   void clearCompletedAt() => clearField(12);
+
+  @$pb.TagNumber(13)
+  $core.String get category => $_getSZ(12);
+  @$pb.TagNumber(13)
+  set category($core.String v) {
+    $_setString(12, v);
+  }
+
+  @$pb.TagNumber(13)
+  $core.bool hasCategory() => $_has(12);
+  @$pb.TagNumber(13)
+  void clearCategory() => clearField(13);
 }
 
 class Create_NewServiceRequestData extends $pb.GeneratedMessage {
@@ -617,6 +638,11 @@ class Create_NewServiceRequestData extends $pb.GeneratedMessage {
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'mediaAttachments')
+    ..aOS(
+        5,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'category')
     ..hasRequiredFields = false;
 
   Create_NewServiceRequestData._() : super();
@@ -625,6 +651,7 @@ class Create_NewServiceRequestData extends $pb.GeneratedMessage {
     ServiceRequestData_Location? location,
     $core.double? rate,
     $core.Iterable<$core.String>? mediaAttachments,
+    $core.String? category,
   }) {
     final _result = create();
     if (details != null) {
@@ -639,6 +666,9 @@ class Create_NewServiceRequestData extends $pb.GeneratedMessage {
     if (mediaAttachments != null) {
       _result.mediaAttachments.addAll(mediaAttachments);
     }
+    if (category != null) {
+      _result.category = category;
+    }
     return _result;
   }
   factory Create_NewServiceRequestData.fromBuffer($core.List<$core.int> i,
@@ -647,8 +677,6 @@ class Create_NewServiceRequestData extends $pb.GeneratedMessage {
   factory Create_NewServiceRequestData.fromJson($core.String i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
-
-  set media_attachments($core.List<$core.String> media_attachments) {}
   @$core.Deprecated('Using this can add significant overhead to your binary. '
       'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
       'Will be removed in next major version')
@@ -716,6 +744,18 @@ class Create_NewServiceRequestData extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(4)
   $core.List<$core.String> get mediaAttachments => $_getList(3);
+
+  @$pb.TagNumber(5)
+  $core.String get category => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set category($core.String v) {
+    $_setString(4, v);
+  }
+
+  @$pb.TagNumber(5)
+  $core.bool hasCategory() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearCategory() => clearField(5);
 }
 
 class Create_Request extends $pb.GeneratedMessage {

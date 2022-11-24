@@ -93,6 +93,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                           Navigator.of(context)
                               .push(MaterialPageRoute(
                                   builder: (context) => RequestDetails(
+                                        category: listFiltered[index].category,
                                         isRequest: false,
                                         user: user,
                                         id: listFiltered[index].id,

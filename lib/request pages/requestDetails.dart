@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:grpc/grpc.dart';
 import 'package:testfyp/components/constants.dart';
+import 'package:testfyp/custom%20widgets/customDivider.dart';
 import 'package:testfyp/extension_string.dart';
 import 'package:testfyp/rate%20pages/rateProvider.dart';
 import '../bin/client_rating.dart';
@@ -16,9 +17,9 @@ class RequestDetails extends StatefulWidget {
   //final function;
 
   //final ratinglist;
-  var counter;
+  // var counter;
   final bool isRequest;
-  var hasProviderRated;
+  //var hasProviderRated;
   final user; //requestor
   final id;
   final requestor;
@@ -30,6 +31,7 @@ class RequestDetails extends StatefulWidget {
   final longitude;
   final state;
   final rate;
+  final category;
   final applicants;
   final created;
   final updated;
@@ -39,9 +41,9 @@ class RequestDetails extends StatefulWidget {
   RequestDetails(
       { //required this.function,
       //this.ratinglist,
-      this.counter,
+      // this.counter,
       required this.isRequest,
-      this.hasProviderRated,
+      // this.hasProviderRated,
       required this.user,
       required this.id,
       required this.requestor,
@@ -56,6 +58,7 @@ class RequestDetails extends StatefulWidget {
       required this.created,
       required this.updated,
       required this.rate,
+      required this.category,
       this.completed,
       this.media});
 
@@ -132,7 +135,7 @@ class _RequestDetailsState extends State<RequestDetails> {
   }
 
   isRated() {
-    if (ratedUser.ratings.length == 1 && widget.counter != 0) {
+    if (ratedUser.ratings.length == 1) {
       // setState(() {
 
       // });
@@ -185,8 +188,8 @@ class _RequestDetailsState extends State<RequestDetails> {
     ratedUser = await ClientRating(Common().channel)
         .getResponseRating('request_id', widget.id);
 
-    print(ratedUser);
-    print(widget.requestor);
+    // print(ratedUser);
+    // print(widget.requestor);
     for (int i = 0; i < widget.applicants.length; i++) {
       //print(widget.applicants[i]);
       var name =
@@ -206,7 +209,7 @@ class _RequestDetailsState extends State<RequestDetails> {
       Navigator.of(context).pop();
     } on GrpcError catch (e) {
       context.showErrorSnackBar(message: '${e.message}');
-      print(e);
+      //print(e);
     } catch (e) {
       context.showErrorSnackBar(message: e.toString());
     }
@@ -226,7 +229,7 @@ class _RequestDetailsState extends State<RequestDetails> {
 
   void _rateRequestor(
       String author, int value, String comment, String id) async {
-    widget.counter++;
+    //widget.counter++;
     try {
       await ClientRating(Common().channel)
           .ratingForRequestor(author, value, comment, id);
@@ -245,7 +248,7 @@ class _RequestDetailsState extends State<RequestDetails> {
 
   void _rateProvider(
       String author, int value, String comment, String id) async {
-    widget.counter++;
+    // widget.counter++;
     try {
       await ClientRating(Common().channel)
           .ratingForProvider(author, value, comment, id);
@@ -256,11 +259,11 @@ class _RequestDetailsState extends State<RequestDetails> {
     } catch (e) {
       context.showErrorSnackBar(message: e.toString());
     }
-    setState(() {
-      widget.hasProviderRated = true;
-      //hasRequestorRated = true;
-      //print(hasRequestorRated);
-    });
+    // setState(() {
+    //   //widget.hasProviderRated = true;
+    //   //hasRequestorRated = true;
+    //   //print(hasRequestorRated);
+    // });
   }
 
   void _deleteRequest(String id) async {
@@ -417,7 +420,7 @@ class _RequestDetailsState extends State<RequestDetails> {
                                                         )
                                                 ],
                                               ),
-                                const Divider(thickness: 3),
+                                CustomDivider(),
                                 //SizedBox(height: 8),
                                 isPending()
                                     ? Column(
@@ -577,8 +580,9 @@ class _RequestDetailsState extends State<RequestDetails> {
                                     //   style: TextStyle(
                                     //       fontWeight: FontWeight.bold, fontSize: 15),
                                     // ),
-                                    Heading2('Requestor'),
-                                    Text(_userProvidor.user.name
+                                    CustomDivider(),
+                                    Heading2('Rate the requestor'),
+                                    Text(_userRequestor.user.name
                                         .toString()
                                         .titleCase()),
                                     //SizedBox(height: 5),
@@ -676,6 +680,8 @@ class _RequestDetailsState extends State<RequestDetails> {
                   Container(
                       alignment: Alignment.center,
                       child: Heading2('Other Information')),
+                  Heading2('Category'),
+                  Text(widget.category),
                   Heading2('Description'),
                   Text(widget.description.toString().capitalize()),
                   Heading2('State'),
@@ -693,7 +699,24 @@ class _RequestDetailsState extends State<RequestDetails> {
                   Heading2('Media'),
                   isNull(widget.media)
                       ? Text('No Attachment')
-                      : Text(widget.media.toString()),
+                      : Expanded(
+                          child: SizedBox(
+                            //height: 50,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: widget.media.length,
+                              itemBuilder: (context, index) {
+                                return Row(
+                                  children: [
+                                    Text(
+                                        '${index + 1}) ${widget.media[index].toString()}'),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                        ),
                   Heading2('Location'),
                   Text(widget.locationName.toString().titleCase()),
                   Text('Latitude: ' + widget.latitude),

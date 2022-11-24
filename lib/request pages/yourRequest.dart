@@ -74,6 +74,7 @@ class _YourRequestState extends State<YourRequest> {
                           Navigator.of(context)
                               .push(MaterialPageRoute(
                                   builder: (context) => RequestDetails(
+                                        category: listFiltered[index].category,
                                         isRequest: isRequest,
                                         user: user,
                                         id: listFiltered[index].id,

@@ -71,7 +71,7 @@ class _CustomCard_ServiceRequestState extends State<CustomCard_ServiceRequest> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(widget.title,
+                          Text(widget.title.toString().capitalize(),
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 14)
                               //     Theme.of(context).textTheme.headline1,

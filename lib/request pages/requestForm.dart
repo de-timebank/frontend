@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:grpc/grpc.dart';
 import 'package:testfyp/bin/client_service_request.dart';
 import 'package:testfyp/components/constants.dart';
+import 'package:testfyp/custom%20widgets/customDivider.dart';
+import 'package:testfyp/extension_string.dart';
 
 import '../bin/common.dart';
 
@@ -24,7 +27,7 @@ class _RequestFormState extends State<RequestForm> {
   final _rateController = TextEditingController();
   final _mediaController = TextEditingController();
 
-  List<String> media = ['Test media'];
+  List<String> mediaList = [];
   List<String> listCategories = <String>[
     'Arts, Crafts & Music',
     'Business Services',
@@ -57,6 +60,26 @@ class _RequestFormState extends State<RequestForm> {
     _mediaController.dispose();
 
     super.dispose();
+  }
+
+  _addmedia(String media) {
+    setState(() {
+      mediaList.insert(0, media);
+    });
+  }
+
+  _deleteMedia(String media) {
+    setState(() {
+      mediaList.removeWhere((element) => element == media);
+    });
+  }
+
+  _isMediaEmpty(dynamic media) {
+    if (media.length == 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
@@ -114,7 +137,7 @@ class _RequestFormState extends State<RequestForm> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Categories'),
+                  child: Text('Category'),
                 ),
                 Container(
                   alignment: Alignment.center,
@@ -153,6 +176,7 @@ class _RequestFormState extends State<RequestForm> {
                     },
                   ),
                 ),
+                CustomDivider(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text('Location'),
@@ -196,6 +220,7 @@ class _RequestFormState extends State<RequestForm> {
                     return null;
                   },
                 ),
+                CustomDivider(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text('Attachment'),
@@ -218,11 +243,55 @@ class _RequestFormState extends State<RequestForm> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                          onPressed: () {}, child: Icon(Icons.add)),
+                      child: TextButton(
+                          onPressed: () {
+                            _addmedia(_mediaController.text);
+                            _mediaController.clear();
+                          },
+                          child: Icon(Icons.add)),
                     )
                   ],
                 ),
+                _isMediaEmpty(mediaList)
+                    ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('You have not entered any attachment'),
+                      )
+                    : SizedBox(
+                        height: 60,
+                        child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemCount: mediaList.length,
+                          itemBuilder: (context, index) {
+                            return Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Text(mediaList[index]
+                                        .toString()
+                                        .titleCase()),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          _deleteMedia(
+                                              mediaList[index].toString());
+                                        },
+                                        icon: Icon(
+                                          Icons.remove_circle_outline,
+                                          color: Colors.red,
+                                        ))
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        )),
+                CustomDivider(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text('Rate'),
@@ -260,22 +329,30 @@ class _RequestFormState extends State<RequestForm> {
                       if (_formKey.currentState!.validate()) {
                         var rate = double.parse(
                             _rateController.text); //convert to double
-                        media.add(_mediaController.text); //add to array
+                        //media.add(_mediaController.text); //add to array
                         _submitJobForm(
-                          _titleController.text,
-                          _descriptionController.text,
-                          _latitudeController.text,
-                          _longitudeController.text,
-                          _locationController.text,
-                          rate,
-                          media,
-                          user,
-                          //_user!.id.toString()
-                        );
+                            _titleController.text,
+                            _descriptionController.text,
+                            _latitudeController.text,
+                            _longitudeController.text,
+                            _locationController.text,
+                            rate,
+                            mediaList,
+                            user,
+                            _categoryController.text);
+                        // _submitJobForm(
+                        //     _titleController.text,
+                        //     _descriptionController.text,
+                        //     _latitudeController.text,
+                        //     _longitudeController.text,
+                        //     _locationController.text,
+                        //     rate,
+                        //     media,
+                        //     user,
+                        //     _categoryController.text);
 
                         //'291b79a7-c67c-4783-b004-239cb334804d'
-                        context.showSnackBar(message: 'Job Created');
-                        Navigator.of(context).pop();
+
                       }
                     },
                     child: const Text('Create Request')),
@@ -293,10 +370,30 @@ class _RequestFormState extends State<RequestForm> {
       String locName,
       double rate,
       List<String> media,
-      String requestor) async {
+      String requestor,
+      String category) async {
     // final _user = await supabase.auth.currentUser;
-    // print(_user!.id);
-    await ClientServiceRequest(Common().channel).createServiceRequest(title,
-        description, latitude, longitude, locName, rate, media, requestor);
+    // print(_user!.id);\
+    //print(category);
+    //print(media);
+    try {
+      await ClientServiceRequest(Common().channel).createServiceRequest(
+          title,
+          description,
+          latitude,
+          longitude,
+          locName,
+          rate,
+          media,
+          requestor,
+          category);
+      //dprint(test.toProto3Json());
+      context.showSnackBar(message: 'Job Created');
+      Navigator.of(context).pop();
+    } on GrpcError catch (e) {
+      context.showErrorSnackBar(message: '${e.message}');
+    } catch (e) {
+      context.showErrorSnackBar(message: e.toString());
+    }
   }
 }

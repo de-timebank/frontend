@@ -80,8 +80,9 @@ class _CompletedRequestState extends State<CompletedRequest> {
                             .push(MaterialPageRoute(
                                 builder: (context) => RequestDetails(
                                       //ratinglist: listRating,
-                                      hasProviderRated: false,
-                                      counter: 0,
+                                      // hasProviderRated: false,
+                                      // counter: 0,
+                                      category: listFiltered[index].category,
                                       isRequest: true,
                                       user: user,
                                       id: listFiltered[index].id,

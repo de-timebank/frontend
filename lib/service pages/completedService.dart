@@ -84,7 +84,8 @@ class _CompletedServicesState extends State<CompletedServices> {
                             .push(MaterialPageRoute(
                                 builder: (context) => RequestDetails(
                                       //ratinglist: listRating,
-                                      counter: 0,
+                                      //counter: 0,
+                                      category: listFiltered[index].category,
                                       isRequest: false,
                                       user: user,
                                       id: listFiltered[index].id,
