@@ -51,7 +51,7 @@ class _ProfilePageState extends State<ProfilePage> {
   _getRating() async {
     _userRating = await ClientRating(Common().channel)
         .getResponseRating('recipient', userId);
-    print(_userRating.toString());
+    //print(_userRating.toString());
     //calculate rating
     //map((m) => m.ratings['value']!).average;
     for (int i = 0; i < _userRating.ratings.length; i++) {

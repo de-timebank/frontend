@@ -14,25 +14,41 @@ class AvailableServices extends StatefulWidget {
 }
 
 class _AvailableServicesState extends State<AvailableServices> {
-  late Common _common;
   late bool isLoad;
   late dynamic listRequest;
   late dynamic listFiltered;
+  late dynamic _userCurrent;
   late String user;
   late bool _isEmpty;
 
+  List<String> _listuserCurrent = [];
+
   @override
   void initState() {
-    _common = Common();
     isLoad = true;
     _isEmpty = true;
     getinstance();
     super.initState();
   }
 
+  getRequestorName(requestor) async {
+    _userCurrent = await supabase
+        .from('profiles')
+        .select()
+        .eq('user_id', requestor)
+        .single() as Map;
+    return _userCurrent['name'];
+  }
+
   void getinstance() async {
     listFiltered = [];
     user = supabase.auth.currentUser!.id;
+
+    // _userCurrent = await supabase
+    //     .from('profiles')
+    //     .select()
+    //     .eq('user_id', user)
+    //     .single() as Map;
 
     listRequest =
         await ClientServiceRequest(Common().channel).getResponse('state', '0');
@@ -40,6 +56,7 @@ class _AvailableServicesState extends State<AvailableServices> {
     for (var i = 0; i < listRequest.requests.length; i++) {
       if (listRequest.requests[i].requestor != user) {
         listFiltered.add(listRequest.requests[i]);
+        //_listuserCurrent.add(listRequest.request[i].requestor)
       }
     }
     //print(listFiltered);

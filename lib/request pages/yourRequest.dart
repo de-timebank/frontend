@@ -19,7 +19,6 @@ class _YourRequestState extends State<YourRequest> {
   late dynamic listRequest;
   late dynamic listFiltered;
   late String user;
-  late dynamic _userCurrent;
   late bool _isEmpty;
   bool isRequest = true;
 
@@ -34,13 +33,6 @@ class _YourRequestState extends State<YourRequest> {
   void getinstance() async {
     listFiltered = [];
     user = supabase.auth.currentUser!.id;
-
-    _userCurrent = await supabase
-        .from('profiles')
-        .select()
-        .eq('user_id', user)
-        .single() as Map;
-
     listRequest = await ClientServiceRequest(Common().channel)
         .getResponse('requestor', user);
     //print(listRequest);
@@ -85,7 +77,8 @@ class _YourRequestState extends State<YourRequest> {
                                         isRequest: isRequest,
                                         user: user,
                                         id: listFiltered[index].id,
-                                        requestor: _userCurrent['name'],
+                                        requestor:
+                                            listFiltered[index].requestor,
                                         provider: listFiltered[index].provider,
                                         title:
                                             listFiltered[index].details.title,
@@ -122,7 +115,7 @@ class _YourRequestState extends State<YourRequest> {
                         child: CustomCard_ServiceRequest(
                           //function: getinstance,
                           //id: listFiltered[index].id,
-                          requestor: _userCurrent['name'],
+                          requestor: listFiltered[index].requestor,
                           //provider: listFiltered[index].provider,
                           title: listFiltered[index].details.title,
                           // description:

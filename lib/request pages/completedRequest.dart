@@ -15,7 +15,6 @@ class CompletedRequest extends StatefulWidget {
 }
 
 class _CompletedRequestState extends State<CompletedRequest> {
-  late Common _common;
   late bool isLoad;
   late dynamic listRequest;
   late dynamic listFiltered;
@@ -26,7 +25,6 @@ class _CompletedRequestState extends State<CompletedRequest> {
 
   @override
   void initState() {
-    _common = Common();
     isLoad = true;
     _isEmpty = true;
     getinstance();
@@ -82,6 +80,7 @@ class _CompletedRequestState extends State<CompletedRequest> {
                             .push(MaterialPageRoute(
                                 builder: (context) => RequestDetails(
                                       //ratinglist: listRating,
+                                      hasProviderRated: false,
                                       counter: 0,
                                       isRequest: true,
                                       user: user,

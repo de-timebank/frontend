@@ -2,11 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:grpc/grpc.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/extension_string.dart';
 import 'package:testfyp/rate%20pages/rateProvider.dart';
 import '../bin/client_rating.dart';
 import '../bin/client_service_request.dart';
+import '../bin/client_user.dart';
 import '../bin/common.dart';
 import '../custom widgets/heading2.dart';
 
@@ -16,6 +18,7 @@ class RequestDetails extends StatefulWidget {
   //final ratinglist;
   var counter;
   final bool isRequest;
+  var hasProviderRated;
   final user; //requestor
   final id;
   final requestor;
@@ -38,6 +41,7 @@ class RequestDetails extends StatefulWidget {
       //this.ratinglist,
       this.counter,
       required this.isRequest,
+      this.hasProviderRated,
       required this.user,
       required this.id,
       required this.requestor,
@@ -61,7 +65,6 @@ class RequestDetails extends StatefulWidget {
 
 class _RequestDetailsState extends State<RequestDetails> {
   double _valueController = 0;
-
   double _value1Controller = 0;
 
   final _commentController = TextEditingController();
@@ -74,23 +77,26 @@ class _RequestDetailsState extends State<RequestDetails> {
 
   late dynamic ratedUser;
   late dynamic ratedUserId;
-  late bool isLoad;
-  bool hasRateProvider = false;
-  bool hasRateRequestor = false;
+  late dynamic _userRequestor;
+  late dynamic _userProvidor;
+  final dynamic _listApplicants = [];
+
+  late bool isLoad = false;
+  // bool hasRequestorRated = false;
+  // bool hasRateRequestor = false;
 
   @override
   void initState() {
     isLoad = true;
+    // hasRequestorRated = false;
+    // hasRateRequestor = false;
     dateCreatedOn = DateTime.parse(widget.created);
     dateUpdatedOn = DateTime.parse(widget.updated);
-    //
-    _getRatingResponse();
+    _getAllinstance();
+    // _getRatingResponse();
+    // _getApplicants();
     //_getRatingId();
     super.initState();
-  }
-
-  applyJob(String reqid, String provider) {
-    ClientServiceRequest(Common().channel).applyProvider1(reqid, provider);
   }
 
   isNull(dynamic stuff) {
@@ -101,26 +107,8 @@ class _RequestDetailsState extends State<RequestDetails> {
     }
   }
 
-  isApplied() {
-    setState(() {
-      isLoad = true;
-    });
-    for (int i = 0; i < widget.applicants.length; i++) {
-      if (widget.applicants[i].toString() == widget.requestor.toString()) {
-        return true;
-      }
-    }
-    setState(() {
-      isLoad = false;
-    });
-    return false;
-
-    // if(widget.)
-  }
-
   isComplete() {
     if (widget.state.toString() == 'COMPLETED') {
-      dateCompletedOn = DateTime.parse(widget.completed);
       return true;
     } else {
       return false;
@@ -143,24 +131,11 @@ class _RequestDetailsState extends State<RequestDetails> {
     }
   }
 
-  void _getRatingResponse() async {
-    ratedUser = await ClientRating(Common().channel)
-        .getResponseRating('request_id', widget.id);
-
-    //print(data['name']);
-    //_getRatingId();
-    // ratedUserId = await ClientRating(Common().channel)
-    //     .getResponseRating('author', widget.user);
-    // print(widget.user);
-    // print(ratedUser.ratings.length);
-    // print(ratedUser.ratings.author.toString());
-    setState(() {
-      isLoad = false;
-    });
-  }
-
   isRated() {
     if (ratedUser.ratings.length == 1 && widget.counter != 0) {
+      // setState(() {
+
+      // });
       return true;
     } else if (ratedUser.ratings.length == 2) {
       return false;
@@ -169,31 +144,148 @@ class _RequestDetailsState extends State<RequestDetails> {
     }
   }
 
+  isProviderRated() {
+    if (ratedUser.ratings.length == 1 &&
+        ratedUser.ratings[0].recipient == widget.provider) {
+      return true;
+    } else if (ratedUser.ratings.length == 2 &&
+        (ratedUser.ratings[0].recipient == widget.provider ||
+            ratedUser.ratings[1].recipient == widget.provider)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isRequestorRated() {
+    if (ratedUser.ratings.length == 1 &&
+        ratedUser.ratings[0].recipient == widget.requestor) {
+      return true;
+    } else if (ratedUser.ratings.length == 2 &&
+        (ratedUser.ratings[0].recipient == widget.requestor ||
+            ratedUser.ratings[1].recipient == widget.requestor)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void _getAllinstance() async {
+    _userRequestor =
+        await ClientUser(Common().channel).getUserById(widget.requestor);
+    isNull(widget.provider)
+        ? _userProvidor = 'No Providor'
+        : _userProvidor =
+            await ClientUser(Common().channel).getUserById(widget.provider);
+
+    isComplete()
+        ? dateCompletedOn = DateTime.parse(widget.completed)
+        : dateCompletedOn = '';
+
+    ratedUser = await ClientRating(Common().channel)
+        .getResponseRating('request_id', widget.id);
+
+    print(ratedUser);
+    print(widget.requestor);
+    for (int i = 0; i < widget.applicants.length; i++) {
+      //print(widget.applicants[i]);
+      var name =
+          await ClientUser(Common().channel).getUserById(widget.applicants[i]);
+      _listApplicants.add(name);
+    }
+    setState(() {
+      isLoad = false;
+    });
+  }
+
+  void applyJob(String reqid, String provider) async {
+    try {
+      await ClientServiceRequest(Common().channel)
+          .applyProvider1(reqid, provider);
+      context.showSnackBar(message: 'Job requested!!');
+      Navigator.of(context).pop();
+    } on GrpcError catch (e) {
+      context.showErrorSnackBar(message: '${e.message}');
+      print(e);
+    } catch (e) {
+      context.showErrorSnackBar(message: e.toString());
+    }
+  }
+
   void _completeJob(String id, String user) async {
-    ClientServiceRequest(Common().channel).completeService1(id, user);
+    try {
+      await ClientServiceRequest(Common().channel).completeService1(id, user);
+      context.showSnackBar(message: 'Job Completed');
+      Navigator.of(context).pop();
+    } on GrpcError catch (e) {
+      context.showErrorSnackBar(message: 'Caught error: ${e.message}');
+    } catch (e) {
+      context.showErrorSnackBar(message: e.toString());
+    }
   }
 
   void _rateRequestor(
       String author, int value, String comment, String id) async {
     widget.counter++;
-    ClientRating(Common().channel)
-        .ratingForRequestor(author, value, comment, id);
+    try {
+      await ClientRating(Common().channel)
+          .ratingForRequestor(author, value, comment, id);
+      setState(() {
+        //ddwidget.hasRequestorRated = true;
+        //print
+      });
+      context.showSnackBar(message: 'Requestor rated!!');
+      Navigator.of(context).pop();
+    } on GrpcError catch (e) {
+      context.showErrorSnackBar(message: 'Caught error: ${e.message}');
+    } catch (e) {
+      context.showErrorSnackBar(message: e.toString());
+    }
   }
 
   void _rateProvider(
       String author, int value, String comment, String id) async {
     widget.counter++;
-    ClientRating(Common().channel)
-        .ratingForProvider(author, value, comment, id);
+    try {
+      await ClientRating(Common().channel)
+          .ratingForProvider(author, value, comment, id);
+      context.showSnackBar(message: 'Provider rated!!');
+      Navigator.of(context).pop();
+    } on GrpcError catch (e) {
+      context.showErrorSnackBar(message: 'Caught error: ${e.message}');
+    } catch (e) {
+      context.showErrorSnackBar(message: e.toString());
+    }
+    setState(() {
+      widget.hasProviderRated = true;
+      //hasRequestorRated = true;
+      //print(hasRequestorRated);
+    });
   }
 
   void _deleteRequest(String id) async {
-    ClientServiceRequest(Common().channel).deleteService(id);
+    try {
+      await ClientServiceRequest(Common().channel).deleteService(id);
+      context.showSnackBar(message: 'Job Deleted');
+      Navigator.of(context).pop();
+    } on GrpcError catch (e) {
+      context.showErrorSnackBar(message: 'Caught error: ${e.message}');
+    } catch (e) {
+      context.showErrorSnackBar(message: e.toString());
+    }
   }
 
-  void _selectProvider(String id, String provider, String caller) {
-    ClientServiceRequest(Common().channel)
-        .selectProvider1(id, provider, caller);
+  void _selectProvider(String id, String provider, String caller) async {
+    try {
+      await ClientServiceRequest(Common().channel)
+          .selectProvider1(id, provider, caller);
+      context.showSnackBar(message: 'Applicant Selected');
+      Navigator.of(context).pop();
+    } on GrpcError catch (e) {
+      context.showErrorSnackBar(message: 'Caught error: ${e.message}');
+    } catch (e) {
+      context.showErrorSnackBar(message: e.toString());
+    }
   }
 
   //final rateServiceController = TextEditingController();
@@ -214,7 +306,7 @@ class _RequestDetailsState extends State<RequestDetails> {
                   Heading2('Job Id'),
                   Text(widget.id),
                   Heading2('Requestor'),
-                  Text(widget.requestor.toString().titleCase()),
+                  Text(_userRequestor.user.name.toString().titleCase()),
                   Heading2('Title'),
                   Text(widget.title.toString().capitalize()),
                   SizedBox(height: 15),
@@ -264,14 +356,9 @@ class _RequestDetailsState extends State<RequestDetails> {
                                                                   .toString(),
                                                               widget.user
                                                                   .toString());
-                                                          context.showSnackBar(
-                                                              message:
-                                                                  'Applicant Selected');
-                                                          Navigator.of(context)
-                                                              .pop();
                                                         },
                                                         child: Text(
-                                                          '${index + 1}) ${widget.applicants[index]}',
+                                                          '${index + 1}) ${_listApplicants[index].user.name.toString().titleCase()}',
                                                           style: TextStyle(
                                                               fontSize: 12),
                                                         ));
@@ -282,10 +369,20 @@ class _RequestDetailsState extends State<RequestDetails> {
                                           )
                                         : isComplete()
                                             ? Column(
+                                                // mainAxisAlignment:
+                                                //     MainAxisAlignment.center,
+                                                // crossAxisAlignment:
+                                                //     CrossAxisAlignment.center,
                                                 children: [
                                                   Heading2(
                                                       'Provider'), //complete on 1
-                                                  Text(widget.provider),
+                                                  Text(_userProvidor.user.name
+                                                      .toString()
+                                                      .titleCase()),
+                                                  Text(
+                                                      'Completed On: ${dateCompletedOn.day}-${dateCompletedOn.month}-${dateCompletedOn.year}'),
+                                                  Text(
+                                                      'Time: ${dateCompletedOn.hour}:${dateCompletedOn.minute}:${dateCompletedOn.second}')
                                                 ],
                                               )
                                             : Column(
@@ -313,7 +410,10 @@ class _RequestDetailsState extends State<RequestDetails> {
                                                                       .fromLTRB(
                                                                   3, 3, 3, 6),
                                                           child: Text(
-                                                              widget.provider),
+                                                              _userProvidor
+                                                                  .user.name
+                                                                  .toString()
+                                                                  .titleCase()),
                                                         )
                                                 ],
                                               ),
@@ -340,69 +440,78 @@ class _RequestDetailsState extends State<RequestDetails> {
                                       )
                                     : isComplete()
                                         ? isRated() //still for request
-                                            ? Column(children: [
-                                                Center(
-                                                  child: RatingBar.builder(
-                                                    initialRating: 0,
-                                                    itemBuilder:
-                                                        (context, index) =>
-                                                            Icon(
-                                                      Icons.star,
-                                                      color: Theme.of(context)
-                                                          .primaryColor,
+                                            ? isProviderRated()
+                                                ? Text(
+                                                    'You have rated the provider.')
+                                                : Column(children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Text(
+                                                        'Rate the provider',
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
                                                     ),
-                                                    onRatingUpdate: (value) {
-                                                      _value1Controller = value;
-                                                      //print(_valueController);
-                                                    },
-                                                  ),
-                                                ),
-                                                TextFormField(
-                                                  controller:
-                                                      _comment1Controller,
-                                                  decoration: InputDecoration(
-                                                      hintText:
-                                                          'Enter comment'),
-                                                ),
-                                                ElevatedButton(
-                                                    onPressed: () {
-                                                      //print(ratedUser);
-                                                      // print(user);
-                                                      // print(
-                                                      //     _value1Controller.toInt());
-                                                      // print(_comment1Controller.text);
-                                                      // print(id);
-                                                      _rateProvider(
-                                                          widget.user,
-                                                          _value1Controller
-                                                              .toInt(),
-                                                          _comment1Controller
-                                                              .text,
-                                                          widget.id);
-                                                      context.showSnackBar(
-                                                          message:
-                                                              'Provider rated!!');
-                                                      //print(ratinglist);
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                    child:
-                                                        Text('Rate Provider'))
-                                              ])
+                                                    Center(
+                                                      child: RatingBar.builder(
+                                                        initialRating: 0,
+                                                        itemBuilder:
+                                                            (context, index) =>
+                                                                Icon(
+                                                          Icons.star,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .primaryColor,
+                                                        ),
+                                                        onRatingUpdate:
+                                                            (value) {
+                                                          _value1Controller =
+                                                              value;
+                                                          //print(_valueController);
+                                                        },
+                                                      ),
+                                                    ),
+                                                    TextFormField(
+                                                      controller:
+                                                          _comment1Controller,
+                                                      decoration: InputDecoration(
+                                                          hintText:
+                                                              'Enter comment'),
+                                                    ),
+                                                    ElevatedButton(
+                                                        onPressed: () {
+                                                          //print(ratedUser);
+                                                          // print(user);
+                                                          // print(
+                                                          //     _value1Controller.toInt());
+                                                          // print(_comment1Controller.text);
+                                                          // print(id);
+                                                          _rateProvider(
+                                                              widget.user,
+                                                              _value1Controller
+                                                                  .toInt(),
+                                                              _comment1Controller
+                                                                  .text,
+                                                              widget.id);
+                                                        },
+                                                        child: Text(
+                                                            'Rate Provider'))
+                                                  ])
                                             : Column(
                                                 children: [
                                                   Heading2(
-                                                      'Completed'), //completed on 2
-                                                  Text(widget.completed),
+                                                      'The task is completed'), //completed on 2
+                                                  //Text(widget.completed),
                                                 ],
                                               )
                                         : ElevatedButton(
                                             onPressed: () {
                                               _completeJob(
                                                   widget.id, widget.user);
-                                              context.showSnackBar(
-                                                  message: 'Job Completed');
-                                              Navigator.of(context).pop();
                                             },
                                             child: Text('Complete Job')),
                                 // : Container(
@@ -418,9 +527,7 @@ class _RequestDetailsState extends State<RequestDetails> {
                                     ? TextButton(
                                         onPressed: () {
                                           _deleteRequest(widget.id);
-                                          context.showSnackBar(
-                                              message: 'Job Deleted');
-                                          Navigator.of(context).pop();
+
                                           //Navigator.of(context).popUntil((route) => route.i);
                                           //Navigator.of(context).pushNamed('/navigation');
                                         },
@@ -461,65 +568,78 @@ class _RequestDetailsState extends State<RequestDetails> {
                                 child: Column(
                                   children: [
                                     Heading2('Completed On'),
-                                    Text(widget.completed),
+                                    Text(
+                                        'Completed On: ${dateCompletedOn.day}-${dateCompletedOn.month}-${dateCompletedOn.year}'),
+                                    Text(
+                                        'Time: ${dateCompletedOn.hour}:${dateCompletedOn.minute}:${dateCompletedOn.second}'),
                                     // Text(
                                     //   'Rate The requestor',
                                     //   style: TextStyle(
                                     //       fontWeight: FontWeight.bold, fontSize: 15),
                                     // ),
-                                    Heading2('Providor'),
-                                    Text(widget.provider),
+                                    Heading2('Requestor'),
+                                    Text(_userProvidor.user.name
+                                        .toString()
+                                        .titleCase()),
                                     //SizedBox(height: 5),
                                     isRated() //for providor
-                                        ? Column(
-                                            children: [
-                                              Center(
-                                                child: RatingBar.builder(
-                                                  initialRating: 0,
-                                                  itemBuilder:
-                                                      (context, index) => Icon(
-                                                    Icons.star,
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
+                                        ? isRequestorRated()
+                                            ? Text('Requestor has been rated')
+                                            : Column(
+                                                children: [
+                                                  Center(
+                                                    child: RatingBar.builder(
+                                                      initialRating: 0,
+                                                      itemBuilder:
+                                                          (context, index) =>
+                                                              Icon(
+                                                        Icons.star,
+                                                        color: Theme.of(context)
+                                                            .primaryColor,
+                                                      ),
+                                                      onRatingUpdate: (value) {
+                                                        _valueController =
+                                                            value;
+                                                        //print(_valueController);
+                                                      },
+                                                    ),
                                                   ),
-                                                  onRatingUpdate: (value) {
-                                                    _valueController = value;
-                                                    //print(_valueController);
-                                                  },
-                                                ),
-                                              ),
-                                              TextFormField(
-                                                controller: _commentController,
-                                                decoration: InputDecoration(
-                                                    hintText: 'Enter comment'),
-                                              ),
-                                              ElevatedButton(
-                                                  onPressed: () {
-                                                    _rateRequestor(
-                                                        widget.user,
-                                                        _valueController
-                                                            .toInt(),
-                                                        _commentController.text,
-                                                        widget.id);
-                                                    context.showSnackBar(
-                                                        message:
-                                                            'Requestor rated!!');
-                                                    //print(ratinglist);
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child:
-                                                      Text('Rate Requestor')),
-                                            ],
-                                          )
+                                                  TextFormField(
+                                                    controller:
+                                                        _commentController,
+                                                    decoration: InputDecoration(
+                                                        hintText:
+                                                            'Enter comment'),
+                                                  ),
+                                                  ElevatedButton(
+                                                      onPressed: () {
+                                                        _rateRequestor(
+                                                            widget.user,
+                                                            _valueController
+                                                                .toInt(),
+                                                            _commentController
+                                                                .text,
+                                                            widget.id);
+                                                      },
+                                                      child: Text(
+                                                          'Rate Requestor')),
+                                                ],
+                                              )
                                         : Padding(
                                             padding: const EdgeInsets.all(5.0),
                                             child: TextButton(
                                                 onPressed: () {
                                                   Navigator.of(context)
                                                       .push(MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        RateProviderPage(),
-                                                  ));
+                                                        builder: (context) =>
+                                                            RateProviderPage(),
+                                                      ))
+                                                      .then((value) => setState(
+                                                            () {
+                                                              //_isEmpty = true;
+                                                              _getAllinstance();
+                                                            },
+                                                          ));
                                                 },
                                                 child:
                                                     Text('Go to rating page')),
@@ -532,47 +652,22 @@ class _RequestDetailsState extends State<RequestDetails> {
                               ? Center(
                                   child: Text(
                                       'You are currently taking this Job...'))
-                              : isApplied()
-                                  ? Card(
-                                      //sini oi the service
-                                      elevation: 5,
-                                      child: Column(
-                                        children: [
-                                          Heading2(
-                                              'You already request the job'),
-                                          ElevatedButton(
-                                              onPressed: () {
-                                                // print(widget.id);
-                                                // print(widget.user);
-                                                //applyJob(widget.id, widget.user);
-                                                // context.showSnackBar(
-                                                //     message: 'Job requested!!');
-                                                //Navigator.of(context).pop();
-                                              },
-                                              child: Text('Cancel Request?')),
-                                        ],
-                                      ),
-                                    )
-                                  : Card(
-                                      //sini oi the service
-                                      elevation: 5,
-                                      child: Column(
-                                        children: [
-                                          Heading2('Interested in the job?'),
-                                          ElevatedButton(
-                                              onPressed: () {
-                                                // print(widget.id);
-                                                // print(widget.user);
-                                                applyJob(
-                                                    widget.id, widget.user);
-                                                context.showSnackBar(
-                                                    message: 'Job requested!!');
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Text('Request Job')),
-                                        ],
-                                      ),
-                                    ),
+                              : Card(
+                                  //sini oi the service
+                                  elevation: 5,
+                                  child: Column(
+                                    children: [
+                                      Heading2('Interested in the job?'),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            // print(widget.id);
+                                            // print(widget.user);
+                                            applyJob(widget.id, widget.user);
+                                          },
+                                          child: Text('Request Job')),
+                                    ],
+                                  ),
+                                ),
 
                   Divider(
                     color: Theme.of(context).primaryColor,

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:grpc/grpc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/bin/client_auth.dart';
 import 'package:testfyp/bin/common.dart';
@@ -69,7 +70,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   _signUpGrpc(String email, String password, String name, String gender,
-      String matricnumber) {
+      String matricnumber) async {
     // profile..contacts.addAll(contacts);
     // profile.skills.toList();
     // var profile1 = NewUserProfile(contacts: Contact()..address = address..type = type);
@@ -77,6 +78,15 @@ class _SignUpPageState extends State<SignUpPage> {
       ..name = name
       ..gender = gender
       ..matricNumber = matricnumber;
+
+    try {
+      await ClientAuth(Common().channel).signUpUser(email, password, profile);
+      context.showSnackBar(message: 'Check your email for confirmation...');
+    } on GrpcError catch (e) {
+      context.showErrorSnackBar(message: 'Caught error: ${e.message}');
+    } catch (e) {
+      context.showErrorSnackBar(message: e.toString());
+    }
     // print(profile.skills);
     // print(profile.contacts);
     //print(profile.toProto3Json());
@@ -86,7 +96,6 @@ class _SignUpPageState extends State<SignUpPage> {
     //   // ..contacts.add(contacts)
     //   ..gender = gender
     //   ..matricNumber = matricnumber;
-    ClientAuth(Common().channel).signUpUser(email, password, profile);
   }
 
   _addskills(String skill) {
@@ -542,18 +551,12 @@ class _SignUpPageState extends State<SignUpPage> {
                 // Iterable<String> newSkills;
                 // skills.map((e) => return )
                 if (_formKey.currentState!.validate()) {
-                  try {
-                    _signUpGrpc(
-                        _emailController.text,
-                        _passwordController.text,
-                        _usernameController.text,
-                        _genderController.text,
-                        _matricController.text);
-                    context.showSnackBar(
-                        message: 'Check your email for confirmation...');
-                  } catch (e) {
-                    context.showErrorSnackBar(message: e.toString());
-                  }
+                  _signUpGrpc(
+                      _emailController.text,
+                      _passwordController.text,
+                      _usernameController.text,
+                      _genderController.text,
+                      _matricController.text);
                 }
               },
               child: Text(_isLoading ? 'Loading' : 'Sign Up'),
