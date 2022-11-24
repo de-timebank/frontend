@@ -15,18 +15,16 @@ class YourRequest extends StatefulWidget {
 }
 
 class _YourRequestState extends State<YourRequest> {
-  late Common _common;
   late bool isLoad;
   late dynamic listRequest;
   late dynamic listFiltered;
   late String user;
-  //late String _userCurrent;
+  late dynamic _userCurrent;
   late bool _isEmpty;
   bool isRequest = true;
 
   @override
   void initState() {
-    _common = Common();
     isLoad = true;
     _isEmpty = true;
     getinstance();
@@ -36,6 +34,12 @@ class _YourRequestState extends State<YourRequest> {
   void getinstance() async {
     listFiltered = [];
     user = supabase.auth.currentUser!.id;
+
+    _userCurrent = await supabase
+        .from('profiles')
+        .select()
+        .eq('user_id', user)
+        .single() as Map;
 
     listRequest = await ClientServiceRequest(Common().channel)
         .getResponse('requestor', user);
@@ -81,8 +85,7 @@ class _YourRequestState extends State<YourRequest> {
                                         isRequest: isRequest,
                                         user: user,
                                         id: listFiltered[index].id,
-                                        requestor:
-                                            listFiltered[index].requestor,
+                                        requestor: _userCurrent['name'],
                                         provider: listFiltered[index].provider,
                                         title:
                                             listFiltered[index].details.title,
@@ -119,7 +122,7 @@ class _YourRequestState extends State<YourRequest> {
                         child: CustomCard_ServiceRequest(
                           //function: getinstance,
                           //id: listFiltered[index].id,
-                          requestor: listFiltered[index].requestor,
+                          requestor: _userCurrent['name'],
                           //provider: listFiltered[index].provider,
                           title: listFiltered[index].details.title,
                           // description:

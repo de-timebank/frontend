@@ -101,9 +101,10 @@ class _RequestFormState extends State<RequestForm> {
                 TextFormField(
                   controller: _descriptionController,
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter description of the job',
-                      prefixIcon: Icon(Icons.map)),
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter description of the job',
+                    //prefixIcon: Icon(Icons.map)
+                  ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some text';

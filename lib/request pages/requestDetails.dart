@@ -16,7 +16,7 @@ class RequestDetails extends StatefulWidget {
   //final ratinglist;
   var counter;
   final bool isRequest;
-  final user;
+  final user; //requestor
   final id;
   final requestor;
   final provider;
@@ -65,20 +65,25 @@ class _RequestDetailsState extends State<RequestDetails> {
   double _value1Controller = 0;
 
   final _commentController = TextEditingController();
-
   final _comment1Controller = TextEditingController();
+
+  late final data;
+  late final dateCreatedOn;
+  late final dateUpdatedOn;
+  late final dateCompletedOn;
 
   late dynamic ratedUser;
   late dynamic ratedUserId;
-  late Common _common;
   late bool isLoad;
   bool hasRateProvider = false;
   bool hasRateRequestor = false;
 
   @override
   void initState() {
-    _common = Common();
     isLoad = true;
+    dateCreatedOn = DateTime.parse(widget.created);
+    dateUpdatedOn = DateTime.parse(widget.updated);
+    //
     _getRatingResponse();
     //_getRatingId();
     super.initState();
@@ -96,8 +101,26 @@ class _RequestDetailsState extends State<RequestDetails> {
     }
   }
 
+  isApplied() {
+    setState(() {
+      isLoad = true;
+    });
+    for (int i = 0; i < widget.applicants.length; i++) {
+      if (widget.applicants[i].toString() == widget.requestor.toString()) {
+        return true;
+      }
+    }
+    setState(() {
+      isLoad = false;
+    });
+    return false;
+
+    // if(widget.)
+  }
+
   isComplete() {
     if (widget.state.toString() == 'COMPLETED') {
+      dateCompletedOn = DateTime.parse(widget.completed);
       return true;
     } else {
       return false;
@@ -123,6 +146,8 @@ class _RequestDetailsState extends State<RequestDetails> {
   void _getRatingResponse() async {
     ratedUser = await ClientRating(Common().channel)
         .getResponseRating('request_id', widget.id);
+
+    //print(data['name']);
     //_getRatingId();
     // ratedUserId = await ClientRating(Common().channel)
     //     .getResponseRating('author', widget.user);
@@ -143,11 +168,6 @@ class _RequestDetailsState extends State<RequestDetails> {
       return true;
     }
   }
-
-  // void _getRatingId() async {
-  //   ratedUserId = await ClientRating(Common().channel)
-  //       .getResponseRating('author', widget.user);
-  // }
 
   void _completeJob(String id, String user) async {
     ClientServiceRequest(Common().channel).completeService1(id, user);
@@ -191,7 +211,7 @@ class _RequestDetailsState extends State<RequestDetails> {
               child: ListView(
                 shrinkWrap: true,
                 children: [
-                  Heading2('Id'),
+                  Heading2('Job Id'),
                   Text(widget.id),
                   Heading2('Requestor'),
                   Text(widget.requestor.toString().titleCase()),
@@ -512,25 +532,47 @@ class _RequestDetailsState extends State<RequestDetails> {
                               ? Center(
                                   child: Text(
                                       'You are currently taking this Job...'))
-                              : Card(
-                                  //sini oi the service
-                                  elevation: 5,
-                                  child: Column(
-                                    children: [
-                                      Heading2('Interested in the job?'),
-                                      ElevatedButton(
-                                          onPressed: () {
-                                            // print(widget.id);
-                                            // print(widget.user);
-                                            applyJob(widget.id, widget.user);
-                                            context.showSnackBar(
-                                                message: 'Job requested!!');
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: Text('Request Job')),
-                                    ],
-                                  ),
-                                ),
+                              : isApplied()
+                                  ? Card(
+                                      //sini oi the service
+                                      elevation: 5,
+                                      child: Column(
+                                        children: [
+                                          Heading2(
+                                              'You already request the job'),
+                                          ElevatedButton(
+                                              onPressed: () {
+                                                // print(widget.id);
+                                                // print(widget.user);
+                                                //applyJob(widget.id, widget.user);
+                                                // context.showSnackBar(
+                                                //     message: 'Job requested!!');
+                                                //Navigator.of(context).pop();
+                                              },
+                                              child: Text('Cancel Request?')),
+                                        ],
+                                      ),
+                                    )
+                                  : Card(
+                                      //sini oi the service
+                                      elevation: 5,
+                                      child: Column(
+                                        children: [
+                                          Heading2('Interested in the job?'),
+                                          ElevatedButton(
+                                              onPressed: () {
+                                                // print(widget.id);
+                                                // print(widget.user);
+                                                applyJob(
+                                                    widget.id, widget.user);
+                                                context.showSnackBar(
+                                                    message: 'Job requested!!');
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text('Request Job')),
+                                        ],
+                                      ),
+                                    ),
 
                   Divider(
                     color: Theme.of(context).primaryColor,
@@ -544,9 +586,11 @@ class _RequestDetailsState extends State<RequestDetails> {
                   Heading2('State'),
                   Text(widget.state.toString().capitalize()),
                   Heading2('Created On'),
-                  Text(widget.created),
+                  Text(
+                      'Date: ${dateCreatedOn.day}-${dateCreatedOn.month}-${dateCreatedOn.year}\nTime: ${dateCreatedOn.hour}:${dateCreatedOn.minute}'),
                   Heading2('Updated On'),
-                  Text(widget.updated),
+                  Text(
+                      'Date: ${dateUpdatedOn.day}-${dateUpdatedOn.month}-${dateUpdatedOn.year}\nTime: ${dateUpdatedOn.hour}:${dateUpdatedOn.minute}'),
                   // Heading2('Completed On'),
                   // isNull(completed) ? Text('Not Completed') : Text(completed),
                   // Heading2('Provider'),

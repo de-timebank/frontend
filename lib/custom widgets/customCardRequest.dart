@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:testfyp/extension_string.dart';
 
 import '../service pages/serviceDetails.dart';
 
@@ -47,7 +48,8 @@ class _CustomCard_ServiceRequestState extends State<CustomCard_ServiceRequest> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text(widget.requestor, style: TextStyle(fontSize: 12)),
+                    Text(widget.requestor.toString().titleCase(),
+                        style: TextStyle(fontSize: 12)),
                   ],
                 ),
               ),

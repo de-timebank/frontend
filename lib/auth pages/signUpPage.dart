@@ -59,8 +59,9 @@ class _SignUpPageState extends State<SignUpPage> {
         //     context,
         //     MaterialPageRoute(
         //         builder: (BuildContext context) => AccountPage()));
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil('/account', (route) => false);
+        // Navigator.of(context)
+        //     .pushNamedAndRemoveUntil('/account', (route) => false);
+        Navigator.of(context).pushNamed('/navigation');
       }
     });
 
@@ -78,7 +79,7 @@ class _SignUpPageState extends State<SignUpPage> {
       ..matricNumber = matricnumber;
     // print(profile.skills);
     // print(profile.contacts);
-    print(profile.toProto3Json());
+    //print(profile.toProto3Json());
     // profile = NewUserProfile()
     //   ..name = name
     //   // ..skills.add(skills.toString())
