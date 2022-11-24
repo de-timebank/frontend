@@ -51,6 +51,7 @@ message ServiceRequestData {
     string created_at = 10;
     string updated_at = 11;
     optional string completed_at = 12;
+    string category = 13;
 } 
 
 message Create {
