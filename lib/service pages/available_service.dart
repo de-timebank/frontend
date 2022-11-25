@@ -21,7 +21,7 @@ class _AvailableServicesState extends State<AvailableServices> {
   late String user;
   late bool _isEmpty;
 
-  List<String> _listuserCurrent = [];
+  //List<String> _listuserCurrent = [];
 
   @override
   void initState() {

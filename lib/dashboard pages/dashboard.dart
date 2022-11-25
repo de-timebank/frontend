@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:testfyp/bin/client_user.dart';
 import 'package:testfyp/bin/common.dart';
+import 'package:testfyp/custom%20widgets/serviceDashboardCard.dart';
 import 'package:testfyp/rate%20pages/rateGiven.dart';
 import '../components/constants.dart';
 import '../custom widgets/customHeadline.dart';
@@ -74,12 +75,25 @@ class _DashBoardState extends State<DashBoard> {
         child: isLoading
             ? Center(child: CircularProgressIndicator())
             : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                //crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomHeadline('Your Service'),
-                  CustomOngoingTask(listService),
-                  CustomHeadline('Your Request'),
-                  CustomOngoingTask(listRequest),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        children: [
+                          CustomHeadline('Your Service'),
+                          ServiceDashboardCard()
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          CustomHeadline('Your Request'),
+                          ServiceDashboardCard()
+                        ],
+                      ),
+                    ],
+                  ),
                   SizedBox(
                     height: 10,
                   ),

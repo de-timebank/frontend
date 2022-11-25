@@ -109,7 +109,7 @@ class _RequestFormState extends State<RequestForm> {
                       border: OutlineInputBorder(), hintText: 'Enter Title'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter some text';
+                      return 'Please enter title...';
                     }
                     return null;
                   },
@@ -130,7 +130,7 @@ class _RequestFormState extends State<RequestForm> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter some text';
+                      return 'Please enter description...';
                     }
                     return null;
                   },
@@ -190,7 +190,7 @@ class _RequestFormState extends State<RequestForm> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter some text';
+                      return 'Please enter latitude...';
                     }
                     return null;
                   },
@@ -203,7 +203,7 @@ class _RequestFormState extends State<RequestForm> {
                       hintText: 'Enter Longitude'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter some text';
+                      return 'Please enter longitude';
                     }
                     return null;
                   },
@@ -215,7 +215,7 @@ class _RequestFormState extends State<RequestForm> {
                       border: OutlineInputBorder(), hintText: 'Enter Location'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter some text';
+                      return 'Please enter location...';
                     }
                     return null;
                   },

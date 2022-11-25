@@ -81,7 +81,7 @@ class _CustomCardRatingState extends State<CustomCardRating> {
                             height: 10,
                           ),
                           Text(
-                              "Requestor: ${_userRequestor.user.name.toString().titleCase()}",
+                              "Author: ${_userRequestor.user.name.toString().titleCase()}",
                               style: TextStyle(fontSize: 12)),
                         ],
                       ),
@@ -98,7 +98,7 @@ class _CustomCardRatingState extends State<CustomCardRating> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                'Provider\n${_userProvider.user.name.toString().titleCase()}',
+                                'Recipient\n${_userProvider.user.name.toString().titleCase()}',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(fontSize: 14),
                               ),
