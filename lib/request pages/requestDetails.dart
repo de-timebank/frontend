@@ -6,7 +6,7 @@ import 'package:grpc/grpc.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/custom%20widgets/customDivider.dart';
 import 'package:testfyp/extension_string.dart';
-import 'package:testfyp/rate%20pages/rateProvider.dart';
+import 'package:testfyp/rate%20pages/rateGiven.dart';
 import '../bin/client_rating.dart';
 import '../bin/client_service_request.dart';
 import '../bin/client_user.dart';
@@ -176,6 +176,7 @@ class _RequestDetailsState extends State<RequestDetails> {
   void _getAllinstance() async {
     _userRequestor =
         await ClientUser(Common().channel).getUserById(widget.requestor);
+
     isNull(widget.provider)
         ? _userProvidor = 'No Providor'
         : _userProvidor =
@@ -543,7 +544,7 @@ class _RequestDetailsState extends State<RequestDetails> {
                                                   Navigator.of(context)
                                                       .push(MaterialPageRoute(
                                                     builder: (context) =>
-                                                        RateProviderPage(),
+                                                        RateGivenPage(),
                                                   ));
                                                 },
                                                 child:
@@ -636,7 +637,7 @@ class _RequestDetailsState extends State<RequestDetails> {
                                                   Navigator.of(context)
                                                       .push(MaterialPageRoute(
                                                         builder: (context) =>
-                                                            RateProviderPage(),
+                                                            RateGivenPage(),
                                                       ))
                                                       .then((value) => setState(
                                                             () {

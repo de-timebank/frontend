@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:testfyp/bin/client_user.dart';
 import 'package:testfyp/bin/common.dart';
-import 'package:testfyp/rate%20pages/rateProvider.dart';
+import 'package:testfyp/rate%20pages/rateGiven.dart';
 import '../components/constants.dart';
 import '../custom widgets/customHeadline.dart';
 import '../custom widgets/customOngoingTask.dart';
-import '../rate pages/rateRequestor.dart';
+import '../rate pages/rateReceived.dart';
 
 class DashBoard extends StatefulWidget {
   DashBoard({Key? key}) : super(key: key);
@@ -178,7 +178,7 @@ class _DashBoardState extends State<DashBoard> {
                                         Navigator.of(context).push(
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    RateProviderPage()));
+                                                    RateGivenPage()));
                                       },
                                       child: Column(
                                         mainAxisAlignment:
@@ -213,7 +213,7 @@ class _DashBoardState extends State<DashBoard> {
                                         Navigator.of(context).push(
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    RateRequestorPage()));
+                                                    RateReceivedPage()));
                                       },
                                       child: Column(
                                         mainAxisAlignment:

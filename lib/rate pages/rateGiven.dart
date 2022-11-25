@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:testfyp/bin/client_rating.dart';
+import 'package:testfyp/custom%20widgets/customCardRating.dart';
 
 import '../bin/common.dart';
 import '../components/constants.dart';
 import '../custom widgets/customCardRequest.dart';
 import 'ratingDetails.dart';
 
-class RateRequestorPage extends StatefulWidget {
-  const RateRequestorPage({super.key});
+class RateGivenPage extends StatefulWidget {
+  const RateGivenPage({super.key});
 
   @override
-  State<RateRequestorPage> createState() => _RateRequestorPageState();
+  State<RateGivenPage> createState() => _RateGivenPageState();
 }
 
-class _RateRequestorPageState extends State<RateRequestorPage> {
-  late Common _common;
+class _RateGivenPageState extends State<RateGivenPage> {
   late bool isLoad;
   late dynamic listRequest;
   late dynamic listFiltered;
@@ -23,7 +23,6 @@ class _RateRequestorPageState extends State<RateRequestorPage> {
 
   @override
   void initState() {
-    _common = Common();
     isLoad = true;
     _isEmpty = true;
     getinstance();
@@ -33,13 +32,12 @@ class _RateRequestorPageState extends State<RateRequestorPage> {
   void getinstance() async {
     listFiltered = [];
     user = supabase.auth.currentUser!.id;
-
     //print(_userCurrent);
-    listRequest = await ClientRating(Common().channel)
-        .getResponseRating('recipient', user);
+    listRequest =
+        await ClientRating(Common().channel).getResponseRating('author', user);
     //print(listRequest);
     for (var i = 0; i < listRequest.ratings.length; i++) {
-      if (listRequest.ratings[i].recipient == user) {
+      if (listRequest.ratings[i].author == user) {
         listFiltered.add(listRequest.ratings[i]);
       }
       //print(listFiltered);
@@ -64,11 +62,11 @@ class _RateRequestorPageState extends State<RateRequestorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Received Rating')),
+      appBar: AppBar(title: Text('Given Rating')),
       body: isLoad
           ? const Center(child: CircularProgressIndicator())
           : _isEmpty
-              ? const Center(child: Text('No comment...'))
+              ? const Center(child: Text('No rate given to other people...'))
               : ListView.builder(
                   itemCount: listFiltered.length,
                   itemBuilder: (context, index) {
@@ -77,7 +75,7 @@ class _RateRequestorPageState extends State<RateRequestorPage> {
                         Navigator.of(context)
                             .push(MaterialPageRoute(
                                 builder: (context) => RatingDetails(
-                                      isProvider: false,
+                                      isProvider: true,
                                       id: listFiltered[index].id,
                                       author: listFiltered[index].author,
                                       recipient: listFiltered[index].recipient,
@@ -94,7 +92,9 @@ class _RateRequestorPageState extends State<RateRequestorPage> {
                                   },
                                 ));
                       },
-                      child: CustomCard_ServiceRequest(
+                      child: CustomCardRating(
+                        provider: listFiltered[index].recipient,
+                        value: listFiltered[index].value,
                         //function: getinstance,
                         //id: listFiltered[index].id,
                         requestor: listFiltered[index].author,

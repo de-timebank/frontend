@@ -3,27 +3,33 @@ import 'package:testfyp/bin/client_user.dart';
 import 'package:testfyp/bin/common.dart';
 import 'package:testfyp/extension_string.dart';
 
-class CustomCard_ServiceRequest extends StatefulWidget {
+import '../components/constants.dart';
+import '../service pages/serviceDetails.dart';
+
+class CustomCardRating extends StatefulWidget {
   final requestor;
-  // final provider;
+  final value;
+  final provider;
   final title; //details
   final rate;
 
-  const CustomCard_ServiceRequest({
+  const CustomCardRating({
     super.key,
     required this.requestor,
+    required this.value,
+    required this.provider,
     required this.title, //details /
     required this.rate,
   });
 
   @override
-  State<CustomCard_ServiceRequest> createState() =>
-      _CustomCard_ServiceRequestState();
+  State<CustomCardRating> createState() => _CustomCardRatingState();
 }
 
 // ignore: camel_case_types
-class _CustomCard_ServiceRequestState extends State<CustomCard_ServiceRequest> {
-  late dynamic _userCurrent;
+class _CustomCardRatingState extends State<CustomCardRating> {
+  late dynamic _userRequestor;
+  late dynamic _userProvider;
   bool isLoading = false;
 
   @override
@@ -36,14 +42,12 @@ class _CustomCard_ServiceRequestState extends State<CustomCard_ServiceRequest> {
   }
 
   getRequestorName() async {
-    _userCurrent =
+    _userRequestor =
         await ClientUser(Common().channel).getUserById(widget.requestor);
-    //print(_userCurrent);
-    // _userCurrent = await supabase
-    //     .from('profiles')
-    //     .select()
-    //     .eq('user_id', widget.requestor)
-    //     .single() as Map;
+
+    _userProvider =
+        await ClientUser(Common().channel).getUserById(widget.provider);
+
     setState(() {
       isLoading = false;
     });
@@ -68,7 +72,7 @@ class _CustomCard_ServiceRequestState extends State<CustomCard_ServiceRequest> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(widget.title.toString().capitalize(),
+                          Text('${widget.title.toString().capitalize()}',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 14)
                               //     Theme.of(context).textTheme.headline1,
@@ -76,16 +80,17 @@ class _CustomCard_ServiceRequestState extends State<CustomCard_ServiceRequest> {
                           SizedBox(
                             height: 10,
                           ),
-                          Text(_userCurrent.user.name.toString().titleCase(),
+                          Text(
+                              "Requestor: ${_userRequestor.user.name.toString().titleCase()}",
                               style: TextStyle(fontSize: 12)),
                         ],
                       ),
                     ),
                   ),
                   Flexible(
-                      flex: 3,
+                      flex: 4,
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Container(
                             decoration: BoxDecoration(
                                 color: Color.fromARGB(255, 219, 216, 233),
@@ -93,10 +98,31 @@ class _CustomCard_ServiceRequestState extends State<CustomCard_ServiceRequest> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                '${widget.rate} \$Time/hour',
+                                'Provider\n${_userProvider.user.name.toString().titleCase()}',
+                                textAlign: TextAlign.center,
                                 style: TextStyle(fontSize: 14),
                               ),
                             )),
+                      )),
+                  Flexible(
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              '${widget.value}',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ),
+                        ),
                       )),
                   // Flexible(
                   //   flex: 1,
