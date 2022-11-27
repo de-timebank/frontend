@@ -18,7 +18,8 @@ class _AccountPageState extends State<AccountPage> {
   final _usernameController = TextEditingController();
   final _contactController = TextEditingController();
   final _contactControllerType = TextEditingController();
-  final _matricController = TextEditingController();
+  final _idController = TextEditingController();
+  final _idTypeController = TextEditingController();
   final _genderController = TextEditingController();
   final _skillController = TextEditingController();
   // late String _avatarUrl = '';
@@ -34,13 +35,15 @@ class _AccountPageState extends State<AccountPage> {
     'Phone',
     'Twitter'
   ];
-  var _loading = true;
+  List<String> idUser = <String>['Ic', 'Passport'];
+  bool _loading = true;
 
   @override
   void initState() {
     super.initState();
     _genderController.text = listGender[0];
     _contactControllerType.text = listContactType[2];
+    _idTypeController.text = idUser[0];
     //_getProfile();
     Future.delayed(Duration.zero, _getProfile);
   }
@@ -106,7 +109,7 @@ class _AccountPageState extends State<AccountPage> {
           .single() as Map;
       _usernameController.text = (data['name'] ?? '') as String;
       // _contactController.text = (data['website'] ?? '') as String;
-      _matricController.text = (data['matric_number'] ?? '') as String;
+      _idController.text = (data['matric_number'] ?? '') as String;
       _genderController.text = (data['gender'] ?? '') as String;
       for (int i = 0; i < data['skills'].length; i++) {
         if (data['skills'][i] != '') {
@@ -157,7 +160,7 @@ class _AccountPageState extends State<AccountPage> {
       _loading = true;
     });
     final userName = _usernameController.text;
-    final matricNum = _matricController.text;
+    final matricNum = _idController.text;
     final user = supabase.auth.currentUser;
     final gender = _genderController.text;
 
@@ -214,7 +217,7 @@ class _AccountPageState extends State<AccountPage> {
   void dispose() {
     _usernameController.dispose();
     _contactController.dispose();
-    _matricController.dispose();
+    _idController.dispose();
     _genderController.dispose();
     _skillController.dispose();
     super.dispose();
@@ -303,21 +306,64 @@ class _AccountPageState extends State<AccountPage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 8),
-                    child: Text('Matric Number'),
+                    child: Text('Identification'),
                   ),
-                  TextFormField(
-                    controller: _matricController,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      //labelText: 'Matric Number',
-                      border: OutlineInputBorder(),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter matric number...';
-                      }
-                      return null;
-                    },
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          controller: _idController,
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Enter identification number'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter matric number...';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Container(
+                        //padding: EdgeInsets.all(8),
+                        margin: EdgeInsets.fromLTRB(8, 0, 0, 0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                              color: Theme.of(context).primaryColor,
+                              width: 2,
+                            )),
+                        child: DropdownButton<String>(
+                          underline: Container(
+                            height: 0,
+                          ),
+                          iconEnabledColor: Theme.of(context).primaryColor,
+                          value: _idTypeController.text,
+                          items: idUser.map<DropdownMenuItem<String>>((e) {
+                            return DropdownMenuItem<String>(
+                                value: e,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Text(
+                                    e,
+                                    style: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                ));
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              _idTypeController.text = value.toString();
+                              //print(_genderController.text);
+                            });
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                   Divider(
                       //horizontal line
