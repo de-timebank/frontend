@@ -278,7 +278,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Text(
-                              e,
+                              e.titleCase(),
                               style: TextStyle(
                                   color: Theme.of(context).primaryColor,
                                   fontWeight: FontWeight.bold,

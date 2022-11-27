@@ -40,21 +40,18 @@ class _ServiceDashboardCardState extends State<ServiceDashboardCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          //mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Total Service: '),
-            Text('Pending: '),
-            Text('Accepted: '),
-            Text('Ongoing: '),
-            Text('Completed: '),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Total Service: '),
+          Text('Pending: '),
+          Text('Accepted: '),
+          Text('Ongoing: '),
+          Text('Completed: '),
+        ],
       ),
     );
   }

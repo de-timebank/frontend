@@ -283,7 +283,7 @@ class _AccountPageState extends State<AccountPage> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10),
                                   child: Text(
-                                    e,
+                                    e.titleCase(),
                                     style: TextStyle(
                                         color: Theme.of(context).primaryColor,
                                         fontWeight: FontWeight.bold,

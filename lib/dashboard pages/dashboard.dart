@@ -17,25 +17,6 @@ class _DashBoardState extends State<DashBoard> {
   late final data;
   bool isLoading = false;
 
-  List listService = [
-    'Service 1',
-    'Service 2',
-    'Service 3',
-    'Service 4',
-    'Service 5',
-    'Service 6',
-    'Service 8',
-  ];
-  List listRequest = [
-    'Request 1',
-    'Request 2',
-    'Request 3',
-    'Request 4',
-    'Request 5',
-    'Request 6',
-    'Request 8',
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -75,19 +56,29 @@ class _DashBoardState extends State<DashBoard> {
                 //crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Column(
-                        children: [
-                          CustomHeadline('Your Service'),
-                          ServiceDashboardCard()
-                        ],
+                      Expanded(
+                        child: Card(
+                          elevation: 5,
+                          child: Column(
+                            children: [
+                              CustomHeadline('Your Service'),
+                              ServiceDashboardCard()
+                            ],
+                          ),
+                        ),
                       ),
-                      Column(
-                        children: [
-                          CustomHeadline('Your Request'),
-                          ServiceDashboardCard()
-                        ],
+                      Expanded(
+                        child: Card(
+                          elevation: 5,
+                          child: Column(
+                            children: [
+                              CustomHeadline('Your Request'),
+                              ServiceDashboardCard()
+                            ],
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -146,9 +137,9 @@ class _DashBoardState extends State<DashBoard> {
                                             CrossAxisAlignment.center,
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
-                                        children: [
+                                        children: const [
                                           Padding(
-                                            padding: const EdgeInsets.all(5.0),
+                                            padding: EdgeInsets.all(5.0),
                                             child: Text(
                                                 'View Transaction History',
                                                 style: TextStyle(
@@ -160,7 +151,7 @@ class _DashBoardState extends State<DashBoard> {
                                           ),
                                           //SizedBox(height: 10),
                                           Padding(
-                                            padding: const EdgeInsets.all(8.0),
+                                            padding: EdgeInsets.all(8.0),
                                             child: Text(
                                                 'Keep your balance in check'),
                                           ),
@@ -196,7 +187,7 @@ class _DashBoardState extends State<DashBoard> {
                                             MainAxisAlignment.center,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
-                                        children: [
+                                        children: const [
                                           Text(
                                             'Rate Given',
                                             style: TextStyle(
@@ -231,7 +222,7 @@ class _DashBoardState extends State<DashBoard> {
                                             MainAxisAlignment.center,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
-                                        children: [
+                                        children: const [
                                           Text(
                                             'Received Rating',
                                             style: TextStyle(
@@ -255,9 +246,7 @@ class _DashBoardState extends State<DashBoard> {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  )
+                  const SizedBox(height: 10)
                 ],
               ),
       ),
