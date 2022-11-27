@@ -307,12 +307,38 @@ class _RequestDetailsState extends State<RequestDetails> {
               child: ListView(
                 shrinkWrap: true,
                 children: [
-                  Heading2('Job Id'),
-                  Text(widget.id),
-                  Heading2('Requestor'),
-                  Text(_userRequestor.user.name.toString().titleCase()),
+                  // Heading2('Job Id'),
+                  // Text(widget.id),
                   Heading2('Title'),
                   Text(widget.title.toString().capitalize()),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            Heading2('Requestor'),
+                            Text(_userRequestor.user.name
+                                .toString()
+                                .titleCase()),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Heading2('State'),
+                            Text(widget.state.toString().capitalize()),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Heading2('Rate'),
+                            Text('\$time/hour ' +
+                                widget.rate.toString().capitalize()),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                   SizedBox(height: 15),
                   widget.isRequest
                       ? Card(
@@ -685,18 +711,11 @@ class _RequestDetailsState extends State<RequestDetails> {
                   Text(widget.category),
                   Heading2('Description'),
                   Text(widget.description.toString().capitalize()),
-                  Heading2('State'),
-                  Text(widget.state.toString().capitalize()),
-                  Heading2('Created On'),
+                  Heading2('Location'),
                   Text(
-                      'Date: ${dateCreatedOn.day}-${dateCreatedOn.month}-${dateCreatedOn.year}\nTime: ${dateCreatedOn.hour}:${dateCreatedOn.minute}'),
-                  Heading2('Updated On'),
-                  Text(
-                      'Date: ${dateUpdatedOn.day}-${dateUpdatedOn.month}-${dateUpdatedOn.year}\nTime: ${dateUpdatedOn.hour}:${dateUpdatedOn.minute}'),
-                  // Heading2('Completed On'),
-                  // isNull(completed) ? Text('Not Completed') : Text(completed),
-                  // Heading2('Provider'),
-                  // isNull(provider) ? Text('No provider yet') : Text(provider),
+                      'Address: ${widget.locationName.toString().titleCase()}'),
+                  // Text('Latitude: ' + widget.latitude),
+                  // Text('Longitude: ' + widget.longitude),
                   Heading2('Media'),
                   isNull(widget.media)
                       ? Text('No Attachment')
@@ -718,10 +737,29 @@ class _RequestDetailsState extends State<RequestDetails> {
                             ),
                           ),
                         ),
-                  Heading2('Location'),
-                  Text(widget.locationName.toString().titleCase()),
-                  Text('Latitude: ' + widget.latitude),
-                  Text('Longitude: ' + widget.longitude),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Heading2('Created On'),
+                            Text(
+                                'Date: ${dateCreatedOn.day}-${dateCreatedOn.month}-${dateCreatedOn.year}\nTime: ${dateCreatedOn.hour}:${dateCreatedOn.minute}'),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Heading2('Updated On'),
+                            Text(
+                                'Date: ${dateUpdatedOn.day}-${dateUpdatedOn.month}-${dateUpdatedOn.year}\nTime: ${dateUpdatedOn.hour}:${dateUpdatedOn.minute}'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

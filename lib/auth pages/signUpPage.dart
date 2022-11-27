@@ -24,7 +24,8 @@ class _SignUpPageState extends State<SignUpPage> {
   final _usernameController = TextEditingController();
   final _contactController = TextEditingController();
   final _contactControllerType = TextEditingController();
-  final _matricController = TextEditingController();
+  final _idController = TextEditingController();
+  final _idTypeController = TextEditingController();
   final _genderController = TextEditingController();
   final _skillController = TextEditingController();
 
@@ -37,11 +38,9 @@ class _SignUpPageState extends State<SignUpPage> {
     'Phone',
     'Twitter'
   ];
+  List<String> idUser = <String>['Ic', 'Passport'];
+
   late NewUserProfile profile;
-  // late List<String> skills;
-  // late List<Contact> contacts;
-  // late NewUserProfile _userProfile1 = NewUserProfile();
-  //late Common _common;
   late final StreamSubscription<AuthState> _authStateSubscription;
 
   @override
@@ -49,8 +48,8 @@ class _SignUpPageState extends State<SignUpPage> {
     profile = NewUserProfile();
     _genderController.text = listGender[0];
     _contactControllerType.text = listContactType[2];
-    // skills = [];
-    // contacts = [];
+    _idTypeController.text = idUser[0];
+
     _authStateSubscription = supabase.auth.onAuthStateChange.listen((data) {
       if (_redirecting) return;
       final session = data.session;
@@ -87,15 +86,6 @@ class _SignUpPageState extends State<SignUpPage> {
     } catch (e) {
       context.showErrorSnackBar(message: e.toString());
     }
-    // print(profile.skills);
-    // print(profile.contacts);
-    //print(profile.toProto3Json());
-    // profile = NewUserProfile()
-    //   ..name = name
-    //   // ..skills.add(skills.toString())
-    //   // ..contacts.add(contacts)
-    //   ..gender = gender
-    //   ..matricNumber = matricnumber;
   }
 
   _addskills(String skill) {
@@ -174,7 +164,7 @@ class _SignUpPageState extends State<SignUpPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: const Text(
-                'Sign in via the magic link with your email below',
+                'We will send you an email for confirmation',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
@@ -308,20 +298,63 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Matric Number'),
+              child: Text('Identification'),
             ),
-            TextFormField(
-              controller: _matricController,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter your matric number'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter matric number...';
-                }
-                return null;
-              },
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    controller: _idController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Enter identification number'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter matric number...';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Container(
+                  //padding: EdgeInsets.all(8),
+                  margin: EdgeInsets.fromLTRB(8, 0, 0, 0),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(
+                        color: Theme.of(context).primaryColor,
+                        width: 2,
+                      )),
+                  child: DropdownButton<String>(
+                    underline: Container(
+                      height: 0,
+                    ),
+                    iconEnabledColor: Theme.of(context).primaryColor,
+                    value: _idTypeController.text,
+                    items: idUser.map<DropdownMenuItem<String>>((e) {
+                      return DropdownMenuItem<String>(
+                          value: e,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              e,
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
+                            ),
+                          ));
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _idTypeController.text = value.toString();
+                        //print(_genderController.text);
+                      });
+                    },
+                  ),
+                ),
+              ],
             ),
             Divider(
                 //horizontal line
@@ -556,7 +589,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       _passwordController.text,
                       _usernameController.text,
                       _genderController.text,
-                      _matricController.text);
+                      _idController.text);
                 }
               },
               child: Text(_isLoading ? 'Loading' : 'Sign Up'),

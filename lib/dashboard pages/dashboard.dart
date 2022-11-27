@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:testfyp/bin/client_user.dart';
-import 'package:testfyp/bin/common.dart';
 import 'package:testfyp/custom%20widgets/serviceDashboardCard.dart';
 import 'package:testfyp/rate%20pages/rateGiven.dart';
 import '../components/constants.dart';
 import '../custom widgets/customHeadline.dart';
-import '../custom widgets/customOngoingTask.dart';
 import '../rate pages/rateReceived.dart';
 
 class DashBoard extends StatefulWidget {
