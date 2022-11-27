@@ -210,7 +210,7 @@ class CustomSearchDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
                 builder: (context) => RequestDetails(
                       category: matchQuery[index].category,
                       isRequest: false,
@@ -273,7 +273,7 @@ class CustomSearchDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
                 builder: (context) => RequestDetails(
                       category: matchQuery[index].category,
                       isRequest: false,

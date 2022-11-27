@@ -311,33 +311,29 @@ class _RequestDetailsState extends State<RequestDetails> {
                   // Text(widget.id),
                   Heading2('Title'),
                   Text(widget.title.toString().capitalize()),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            Heading2('Requestor'),
-                            Text(_userRequestor.user.name
-                                .toString()
-                                .titleCase()),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Heading2('State'),
-                            Text(widget.state.toString().capitalize()),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Heading2('Rate'),
-                            Text('\$time/hour ' +
-                                widget.rate.toString().capitalize()),
-                          ],
-                        ),
-                      ],
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Heading2('Requestor'),
+                          Text(_userRequestor.user.name.toString().titleCase()),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Heading2('State'),
+                          Text(widget.state.toString().capitalize()),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Heading2('Rate'),
+                          Text('\$time/hour ' +
+                              widget.rate.toString().capitalize()),
+                        ],
+                      ),
+                    ],
                   ),
                   SizedBox(height: 15),
                   widget.isRequest
@@ -719,46 +715,42 @@ class _RequestDetailsState extends State<RequestDetails> {
                   Heading2('Media'),
                   isNull(widget.media)
                       ? Text('No Attachment')
-                      : Expanded(
-                          child: SizedBox(
-                            //height: 50,
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              physics: const BouncingScrollPhysics(),
-                              itemCount: widget.media.length,
-                              itemBuilder: (context, index) {
-                                return Row(
-                                  children: [
-                                    Text(
-                                        '${index + 1}) ${widget.media[index].toString()}'),
-                                  ],
-                                );
-                              },
-                            ),
+                      : SizedBox(
+                          //height: 50,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: widget.media.length,
+                            itemBuilder: (context, index) {
+                              return Row(
+                                children: [
+                                  Text(
+                                      '${index + 1}) ${widget.media[index].toString()}'),
+                                ],
+                              );
+                            },
                           ),
                         ),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Heading2('Created On'),
-                            Text(
-                                'Date: ${dateCreatedOn.day}-${dateCreatedOn.month}-${dateCreatedOn.year}\nTime: ${dateCreatedOn.hour}:${dateCreatedOn.minute}'),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Heading2('Updated On'),
-                            Text(
-                                'Date: ${dateUpdatedOn.day}-${dateUpdatedOn.month}-${dateUpdatedOn.year}\nTime: ${dateUpdatedOn.hour}:${dateUpdatedOn.minute}'),
-                          ],
-                        ),
-                      ],
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Heading2('Created On'),
+                          Text(
+                              'Date: ${dateCreatedOn.day}-${dateCreatedOn.month}-${dateCreatedOn.year}\nTime: ${dateCreatedOn.hour}:${dateCreatedOn.minute}'),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Heading2('Updated On'),
+                          Text(
+                              'Date: ${dateUpdatedOn.day}-${dateUpdatedOn.month}-${dateUpdatedOn.year}\nTime: ${dateUpdatedOn.hour}:${dateUpdatedOn.minute}'),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),
