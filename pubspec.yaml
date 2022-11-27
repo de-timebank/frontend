@@ -43,6 +43,8 @@ dependencies:
   uni_links: ^0.5.1
   grpc: ^3.1.0
   flutter_rating_bar: ^4.0.1
+  geolocator: ^9.0.2
+  geocoding: ^2.0.5
 
 dev_dependencies:
   flutter_test:

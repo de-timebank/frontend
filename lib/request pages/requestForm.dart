@@ -4,6 +4,8 @@ import 'package:testfyp/bin/client_service_request.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/custom%20widgets/customDivider.dart';
 import 'package:testfyp/extension_string.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../bin/common.dart';
 
@@ -18,6 +20,7 @@ class RequestForm extends StatefulWidget {
 }
 
 class _RequestFormState extends State<RequestForm> {
+  //store user input
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _categoryController = TextEditingController();
@@ -42,11 +45,92 @@ class _RequestFormState extends State<RequestForm> {
 
   final _formKey = GlobalKey<FormState>();
 
+  late String address;
+  late String location1;
+
   @override
   void initState() {
     _categoryController.text = listCategories[2];
     // TODO: implement initState
     super.initState();
+  }
+
+  //get geo location
+  //Flutter method to get current user latitude & longitude location
+  Future<Position> _getGeoLocationPosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      await Geolocator.openLocationSettings();
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+  }
+
+  //Method to get full address from latitude & longitude co-ordinates (lat long to address)
+  Future<void> GetAddressFromLatLong(Position position) async {
+    try {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+      Placemark place = placemarks[0];
+      address =
+          '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+
+      setState(() {
+        _latitudeController.text = position.latitude.toString();
+        _longitudeController.text = position.longitude.toString();
+        _locationController.text = address;
+      });
+      context.showSnackBar(message: 'Location details added!!');
+    } catch (e) {
+      context.showErrorSnackBar(message: e.toString());
+    }
+
+    //print(Address);
+  }
+
+  Future<void> GetLatLongfromAddress(String location) async {
+    try {
+      List<Location> locations = await locationFromAddress(location);
+      setState(() {
+        _latitudeController.text = locations[0].latitude.toString();
+        _longitudeController.text = locations[0].longitude.toString();
+        //_locationController.text = Address;
+      });
+    } catch (e) {
+      context.showErrorSnackBar(message: e.toString());
+    }
+
+    //sprint(locations[0].latitude);
+    //print(placemarks);
+    // Placemark place = locations[0];
+    // Address =
+    //     '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+    //print(Address);
   }
 
   @override
@@ -181,11 +265,13 @@ class _RequestFormState extends State<RequestForm> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text('Location'),
                 ),
+                SizedBox(height: 8),
                 TextFormField(
                   controller: _latitudeController,
+                  enabled: false,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: 'Enter Latitude',
+                    labelText: 'Latitude',
                     //prefixIcon: Icon(Icons.map)
                   ),
                   validator: (value) {
@@ -198,9 +284,9 @@ class _RequestFormState extends State<RequestForm> {
                 SizedBox(height: 8),
                 TextFormField(
                   controller: _longitudeController,
+                  enabled: false,
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter Longitude'),
+                      border: OutlineInputBorder(), labelText: 'Longitude'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter longitude';
@@ -209,6 +295,37 @@ class _RequestFormState extends State<RequestForm> {
                   },
                 ),
                 SizedBox(height: 8),
+                TextFormField(
+                  controller: _locationController,
+                  enabled: false,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(), labelText: 'Address'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter location...';
+                    }
+                    return null;
+                  },
+                ),
+                ElevatedButton(
+                    onPressed: () async {
+                      Position position = await _getGeoLocationPosition();
+                      GetAddressFromLatLong(position);
+
+                      // GetLatLongfromAddress(
+                      //     '1600 Amphitheatre Pkwy, , Mountain View, 94043, United States');
+                      //1600 Amphitheatre Pkwy, , Mountain View, 94043, United States
+                      // location1 =
+                      //     'Lat: ${position.latitude} , Long: ${position.longitude}';
+
+                      //print('The location is : ' + location1);
+                    },
+                    child: Text('Get current location')),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                      'Need request somewhere else?.. Enter address below'),
+                ),
                 TextFormField(
                   controller: _locationController,
                   decoration: InputDecoration(
@@ -220,6 +337,11 @@ class _RequestFormState extends State<RequestForm> {
                     return null;
                   },
                 ),
+                ElevatedButton(
+                    onPressed: () async {
+                      GetLatLongfromAddress(_locationController.text);
+                    },
+                    child: Text('Enter Address')),
                 CustomDivider(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
