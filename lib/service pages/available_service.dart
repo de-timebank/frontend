@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:testfyp/custom%20widgets/customHeadline.dart';
+import 'package:testfyp/custom%20widgets/heading2.dart';
 
 import '../bin/client_service_request.dart';
 import '../bin/common.dart';
@@ -22,12 +24,25 @@ class _AvailableServicesState extends State<AvailableServices> {
   late String user;
   late bool _isEmpty;
 
+  final _categoryController = TextEditingController();
+  List<String> listCategories = <String>[
+    'All Categories',
+    'Arts, Crafts & Music',
+    'Business Services',
+    'Community Activities',
+    'Companionship',
+    'Education',
+    'Help at Home',
+    'Recreation',
+    'Transportation',
+    'Wellness',
+  ];
   //List<String> _listuserCurrent = [];
 
   @override
   void initState() {
-    isLoad = true;
     _isEmpty = true;
+    _categoryController.text = listCategories[0];
     getinstance();
     super.initState();
   }
@@ -42,20 +57,24 @@ class _AvailableServicesState extends State<AvailableServices> {
   }
 
   void getinstance() async {
+    setState(() {
+      isLoad = true;
+    });
     listFiltered = [];
     user = supabase.auth.currentUser!.id;
-
-    // _userCurrent = await supabase
-    //     .from('profiles')
-    //     .select()
-    //     .eq('user_id', user)
-    //     .single() as Map;
 
     listRequest =
         await ClientServiceRequest(Common().channel).getResponse('state', '0');
 
     for (var i = 0; i < listRequest.requests.length; i++) {
-      if (listRequest.requests[i].requestor != user) {
+      if (listRequest.requests[i].requestor != user &&
+          _categoryController.text == 'All Categories') {
+        listFiltered.add(listRequest.requests[i]);
+        //print(listFiltered);
+        //_listuserCurrent.add(listRequest.request[i].requestor)
+      } else if (listRequest.requests[i].requestor != user &&
+          listRequest.request[i].category.contains(_categoryController.text)) {
+        print(_categoryController.text);
         listFiltered.add(listRequest.requests[i]);
         //_listuserCurrent.add(listRequest.request[i].requestor)
       }
@@ -87,9 +106,60 @@ class _AvailableServicesState extends State<AvailableServices> {
             : _isEmpty
                 ? const Center(child: Text('No avaible services...'))
                 : ListView(
-                    shrinkWrap: true,
+                    //shrinkWrap: true,
                     children: [
-                      Text('uii'),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            CustomHeadline('Filter by: '),
+                            Container(
+                              alignment: Alignment.center,
+                              //margin: EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  border: Border.all(
+                                    color: Theme.of(context).primaryColor,
+                                    width: 2,
+                                  )),
+                              child: DropdownButton<String>(
+                                underline: Container(
+                                  height: 0,
+                                ),
+                                iconEnabledColor:
+                                    Theme.of(context).primaryColor,
+                                value: _categoryController.text,
+                                items: listCategories
+                                    .map<DropdownMenuItem<String>>((e) {
+                                  return DropdownMenuItem<String>(
+                                      value: e,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: Text(
+                                          e,
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15),
+                                        ),
+                                      ));
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    _categoryController.text = value.toString();
+                                    //print(_categoryController.text);
+                                    getinstance();
+                                    //print(_genderController.text);
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height,
                         child: ListView.builder(

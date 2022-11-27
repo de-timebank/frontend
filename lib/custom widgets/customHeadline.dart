@@ -11,7 +11,7 @@ class CustomHeadline extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
       child: Text(
         heading,
-        style: TextStyle(fontWeight: FontWeight.bold),
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         //style: Theme.of(context).textTheme.headline1,
       ),
     );
