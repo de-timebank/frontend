@@ -228,7 +228,7 @@ class _AccountPageState extends State<AccountPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile Settings'),
-        // backgroundColor: Color.fromARGB(255, 127, 17, 224),
+        backgroundColor: Color.fromARGB(255, 245, 167, 44),
       ),
       body: _loading
           ? Center(child: CircularProgressIndicator())

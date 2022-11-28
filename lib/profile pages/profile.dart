@@ -119,7 +119,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: Color.fromARGB(255, 127, 17, 224),
+        backgroundColor: Color.fromARGB(255, 245, 167, 44),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),

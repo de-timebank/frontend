@@ -18,6 +18,7 @@ class _ServicePageState extends State<ServicePage> {
         length: 3,
         child: Scaffold(
             appBar: AppBar(
+              backgroundColor: Color.fromARGB(255, 245, 167, 44),
               bottom: TabBar(tabs: [
                 Tab(text: 'Your\nServices'),
                 Badge(

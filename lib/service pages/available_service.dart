@@ -123,8 +123,8 @@ class _AvailableServicesState extends State<AvailableServices> {
                                 underline: Container(
                                   height: 0,
                                 ),
-                                iconEnabledColor:
-                                    Theme.of(context).primaryColor,
+                                // iconEnabledColor:
+                                //     Theme.of(context).primaryColor,
                                 value: _categoryController.text,
                                 items: listCategories
                                     .map<DropdownMenuItem<String>>((e) {
