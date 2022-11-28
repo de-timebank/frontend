@@ -274,6 +274,7 @@ class _RequestDetailsState extends State<RequestDetails> {
       Navigator.of(context).pop();
     } on GrpcError catch (e) {
       context.showErrorSnackBar(message: 'Caught error: ${e.message}');
+      print(e);
     } catch (e) {
       context.showErrorSnackBar(message: e.toString());
     }

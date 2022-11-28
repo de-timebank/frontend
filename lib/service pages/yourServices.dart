@@ -66,11 +66,18 @@ class _YourServicesState extends State<YourServices> {
       body: isLoad
           ? const Center(child: CircularProgressIndicator())
           : _isEmpty
-              ? const Center(
-                  child: Text(
-                  'No ongoing services provided,\nSearch for available job in the next tab...',
-                  textAlign: TextAlign.center,
-                ))
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'No ongoing services provided,\nHelp other people by applying job in the next tab...',
+                      textAlign: TextAlign.center,
+                    ),
+                    Container(
+                        margin: EdgeInsets.only(bottom: 0),
+                        child: Image.asset('asset/help.png')),
+                  ],
+                )
               : ListView.builder(
                   itemCount: listFiltered.length,
                   itemBuilder: (context, index) {

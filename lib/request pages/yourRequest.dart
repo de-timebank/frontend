@@ -65,7 +65,22 @@ class _YourRequestState extends State<YourRequest> {
         body: isLoad
             ? const Center(child: CircularProgressIndicator())
             : _isEmpty
-                ? const Center(child: Text('No request have been made...'))
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'Need help from other people?\nAdd request to let people know',
+                        textAlign: TextAlign.center,
+                      ),
+                      Container(
+                          margin: EdgeInsets.only(bottom: 0),
+                          alignment: Alignment.center,
+                          child: Image.asset(
+                            'asset/need_help.png',
+                            height: MediaQuery.of(context).size.height / 2.3,
+                          )),
+                    ],
+                  )
                 : ListView.builder(
                     itemCount: listFiltered.length,
                     itemBuilder: (context, index) {

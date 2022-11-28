@@ -18,19 +18,19 @@ class _ServicePageState extends State<ServicePage> {
         length: 3,
         child: Scaffold(
             appBar: AppBar(
-              backgroundColor: Color.fromARGB(255, 245, 167, 44),
+              backgroundColor: Theme.of(context).secondaryHeaderColor,
               bottom: TabBar(tabs: [
-                Tab(text: 'Your\nServices'),
+                Tab(text: '\t\t\tYour\nServices'),
                 Badge(
                     showBadge: false,
                     badgeContent: Text('!'),
                     animationType: BadgeAnimationType.scale,
                     animationDuration: Duration(milliseconds: 100),
-                    child: Tab(text: 'Available\nServices')),
-                Tab(text: 'Completed\nServices')
+                    child: Tab(text: 'Available\n\t\t\t\tJob')),
+                Tab(text: 'Completed\n\t\t\t\t\tJob')
               ]),
               // backgroundColor: Color.fromARGB(255, 127, 17, 224),
-              title: const Text('Service'),
+              title: const Text('Help people with your service'),
             ),
             body: TabBarView(
               children: [

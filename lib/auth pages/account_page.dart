@@ -228,7 +228,7 @@ class _AccountPageState extends State<AccountPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile Settings'),
-        backgroundColor: Color.fromARGB(255, 245, 167, 44),
+        backgroundColor: Theme.of(context).secondaryHeaderColor,
       ),
       body: _loading
           ? Center(child: CircularProgressIndicator())
@@ -270,14 +270,15 @@ class _AccountPageState extends State<AccountPage> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(
-                              color: Theme.of(context).primaryColor,
+                              color: Theme.of(context).secondaryHeaderColor,
                               width: 2,
                             )),
                         child: DropdownButton<String>(
                           underline: Container(
                             height: 0,
                           ),
-                          iconEnabledColor: Theme.of(context).primaryColor,
+                          iconEnabledColor:
+                              Theme.of(context).secondaryHeaderColor,
                           value: _genderController.text,
                           items: listGender.map<DropdownMenuItem<String>>((e) {
                             return DropdownMenuItem<String>(
@@ -288,7 +289,8 @@ class _AccountPageState extends State<AccountPage> {
                                   child: Text(
                                     e.titleCase(),
                                     style: TextStyle(
-                                        color: Theme.of(context).primaryColor,
+                                        color: Theme.of(context)
+                                            .secondaryHeaderColor,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15),
                                   ),
@@ -331,14 +333,15 @@ class _AccountPageState extends State<AccountPage> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(
-                              color: Theme.of(context).primaryColor,
+                              color: Theme.of(context).secondaryHeaderColor,
                               width: 2,
                             )),
                         child: DropdownButton<String>(
                           underline: Container(
                             height: 0,
                           ),
-                          iconEnabledColor: Theme.of(context).primaryColor,
+                          iconEnabledColor:
+                              Theme.of(context).secondaryHeaderColor,
                           value: _idTypeController.text,
                           items: idUser.map<DropdownMenuItem<String>>((e) {
                             return DropdownMenuItem<String>(
@@ -349,7 +352,8 @@ class _AccountPageState extends State<AccountPage> {
                                   child: Text(
                                     e,
                                     style: TextStyle(
-                                        color: Theme.of(context).primaryColor,
+                                        color: Theme.of(context)
+                                            .secondaryHeaderColor,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15),
                                   ),
@@ -367,7 +371,7 @@ class _AccountPageState extends State<AccountPage> {
                   ),
                   Divider(
                       //horizontal line
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).secondaryHeaderColor,
                       height: 30,
                       thickness: 2,
                       indent: 15,
@@ -382,7 +386,12 @@ class _AccountPageState extends State<AccountPage> {
                         border: OutlineInputBorder(),
                         hintText: 'Add Skills',
                         //labelText: 'Skill',
+                        //suffixIconColor: Theme.of(context).secondaryHeaderColor,
                         suffixIcon: TextButton(
+                          style: TextButton.styleFrom(
+                            foregroundColor:
+                                Theme.of(context).secondaryHeaderColor,
+                          ),
                           onPressed: () {
                             try {
                               _addskills(_skillController.text);
@@ -442,7 +451,7 @@ class _AccountPageState extends State<AccountPage> {
                           )),
                   Divider(
                       //horizontal line
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).secondaryHeaderColor,
                       height: 30,
                       thickness: 2,
                       indent: 15,
@@ -459,7 +468,7 @@ class _AccountPageState extends State<AccountPage> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Add Contacts',
-                            labelText: 'Contact',
+                            //labelText: 'Contact',
                           ),
                           // validator: (value) {
                           //   if (value == null || value.isEmpty) {
@@ -470,6 +479,10 @@ class _AccountPageState extends State<AccountPage> {
                         ),
                       ),
                       TextButton(
+                        style: TextButton.styleFrom(
+                          foregroundColor:
+                              Theme.of(context).secondaryHeaderColor,
+                        ),
                         onPressed: () {
                           try {
                             _addcontact(_contactControllerType.text,
@@ -488,14 +501,15 @@ class _AccountPageState extends State<AccountPage> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(
-                              color: Theme.of(context).primaryColor,
+                              color: Theme.of(context).secondaryHeaderColor,
                               width: 2,
                             )),
                         child: DropdownButton<String>(
                           underline: Container(
                             height: 0,
                           ),
-                          iconEnabledColor: Theme.of(context).primaryColor,
+                          // iconEnabledColor:
+                          //     Theme.of(context).secondaryHeaderColor,
                           value: _contactControllerType.text,
                           items: listContactType
                               .map<DropdownMenuItem<String>>((e) {
@@ -507,7 +521,8 @@ class _AccountPageState extends State<AccountPage> {
                                   child: Text(
                                     e,
                                     style: TextStyle(
-                                        color: Theme.of(context).primaryColor,
+                                        color: Theme.of(context)
+                                            .secondaryHeaderColor,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15),
                                   ),
@@ -576,6 +591,10 @@ class _AccountPageState extends State<AccountPage> {
                           )),
                   SizedBox(height: 10),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Theme.of(context).secondaryHeaderColor,
+                    ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _updateProfile();
@@ -595,7 +614,11 @@ class _AccountPageState extends State<AccountPage> {
                   //   child: Text('Go to DashBoard'),
                   // ),
                   TextButton(
-                      onPressed: _signOut, child: const Text('Sign Out')),
+                      style: TextButton.styleFrom(
+                        foregroundColor: Theme.of(context).secondaryHeaderColor,
+                      ),
+                      onPressed: _signOut,
+                      child: const Text('Sign Out')),
                 ],
               ),
             ),

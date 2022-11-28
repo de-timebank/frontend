@@ -116,7 +116,8 @@ class _AvailableServicesState extends State<AvailableServices> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
                                   border: Border.all(
-                                    color: Theme.of(context).primaryColor,
+                                    color:
+                                        Theme.of(context).secondaryHeaderColor,
                                     width: 2,
                                   )),
                               child: DropdownButton<String>(
@@ -124,7 +125,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                                   height: 0,
                                 ),
                                 // iconEnabledColor:
-                                //     Theme.of(context).primaryColor,
+                                //     Theme.of(context).secondaryHeaderColor,
                                 value: _categoryController.text,
                                 items: listCategories
                                     .map<DropdownMenuItem<String>>((e) {
@@ -137,7 +138,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                                           e,
                                           style: TextStyle(
                                               color: Theme.of(context)
-                                                  .primaryColor,
+                                                  .secondaryHeaderColor,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 15),
                                         ),
@@ -178,7 +179,8 @@ class _AvailableServicesState extends State<AvailableServices> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
                                   border: Border.all(
-                                    color: Theme.of(context).primaryColor,
+                                    color:
+                                        Theme.of(context).secondaryHeaderColor,
                                     width: 2,
                                   )),
                               child: DropdownButton<String>(
@@ -186,7 +188,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                                   height: 0,
                                 ),
                                 iconEnabledColor:
-                                    Theme.of(context).primaryColor,
+                                    Theme.of(context).secondaryHeaderColor,
                                 value: _categoryController.text,
                                 items: listCategories
                                     .map<DropdownMenuItem<String>>((e) {
@@ -198,8 +200,8 @@ class _AvailableServicesState extends State<AvailableServices> {
                                         child: Text(
                                           e,
                                           style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .primaryColor,
+                                              color: Color.fromARGB(
+                                                  255, 245, 167, 44),
                                               fontWeight: FontWeight.bold,
                                               fontSize: 15),
                                         ),
@@ -302,7 +304,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                     ],
                   ),
         floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: Color.fromARGB(255, 127, 17, 224),
+          backgroundColor: Theme.of(context).secondaryHeaderColor,
           onPressed: () {
             showSearch(
                 context: context,

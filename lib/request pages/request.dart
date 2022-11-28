@@ -21,11 +21,11 @@ class _RequestPageState extends State<RequestPage> {
           bottom: const TabBar(
               // indicatorColor: Colors.cyan,
               tabs: [
-                Tab(text: 'Your\nRequest'),
-                Tab(text: 'Requested\nJob'),
-                Tab(text: 'Completed\nJob')
+                Tab(text: '\t\t\tYour\nRequest'),
+                Tab(text: 'Requested\n\t\t\t\tJob'),
+                Tab(text: 'Completed\n\t\t\t\t\t\tJob')
               ]),
-          title: const Text('Request'),
+          title: const Text('Need Help / Favour ?'),
         ),
         body: TabBarView(
             children: [YourRequest(), RequestedJob(), CompletedRequest()]),

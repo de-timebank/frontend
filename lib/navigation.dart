@@ -58,11 +58,13 @@ class _BottomBarNavigationState extends State<BottomBarNavigation> {
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
-          unselectedItemColor: Color.fromARGB(255, 27, 15, 15),
-          selectedItemColor: Color.fromARGB(255, 203, 197, 234),
+          //selectedItemColor: Color.fromARGB(255, 91, 71, 189),
+          unselectedItemColor: Colors.white,
+          //Color.fromARGB(255, 203, 197, 234)
           selectedFontSize: 16,
-          // unselectedFontSize: 12,
-          selectedLabelStyle: TextStyle(color: Color.fromARGB(255, 27, 15, 15)),
+
+          unselectedFontSize: 10,
+          //selectedLabelStyle: TextStyle(color: Color.fromARGB(255, 27, 15, 15)),
           showUnselectedLabels: true,
           //type: BottomNavigationBarType.fixed,
           backgroundColor: Theme.of(context).primaryColor,
@@ -72,12 +74,12 @@ class _BottomBarNavigationState extends State<BottomBarNavigation> {
                 label: 'Home',
                 backgroundColor: Color.fromARGB(255, 127, 17, 224)),
             BottomNavigationBarItem(
-                icon: Icon(Icons.request_page),
-                label: 'Request',
+                icon: Icon(Icons.handshake),
+                label: 'Need Help?',
                 backgroundColor: Color.fromARGB(255, 127, 17, 224)),
             BottomNavigationBarItem(
-                icon: Icon(Icons.assignment),
-                label: 'Services',
+                icon: Icon(Icons.emoji_people),
+                label: 'Offer Help',
                 backgroundColor: Color.fromARGB(255, 245, 167, 44)),
             BottomNavigationBarItem(
                 icon: Icon(Icons.account_box),
