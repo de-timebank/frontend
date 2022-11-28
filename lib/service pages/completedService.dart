@@ -15,7 +15,6 @@ class CompletedServices extends StatefulWidget {
 }
 
 class _CompletedServicesState extends State<CompletedServices> {
-  late Common _common;
   late bool isLoad;
   late dynamic listRequest;
   late dynamic listFiltered;
@@ -25,7 +24,6 @@ class _CompletedServicesState extends State<CompletedServices> {
 
   @override
   void initState() {
-    _common = Common();
     isLoad = true;
     _isEmpty = true;
     getinstance();
@@ -74,7 +72,22 @@ class _CompletedServicesState extends State<CompletedServices> {
       body: isLoad
           ? const Center(child: CircularProgressIndicator())
           : _isEmpty
-              ? const Center(child: Text('No Completed Services'))
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'When you service/help is completed, the job will be listed here. No completed job yet...',
+                      textAlign: TextAlign.center,
+                    ),
+                    Container(
+                        margin: EdgeInsets.only(bottom: 0),
+                        alignment: Alignment.center,
+                        child: Image.asset(
+                          'asset/completed_job.png',
+                          height: MediaQuery.of(context).size.height / 2.3,
+                        )),
+                  ],
+                )
               : ListView.builder(
                   itemCount: listFiltered.length,
                   itemBuilder: (context, index) {

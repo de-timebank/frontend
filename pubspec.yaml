@@ -76,6 +76,11 @@ flutter:
     - asset/girl.png
     - asset/help.png
     - asset/need_help.png
+    - asset/applicants.png
+    - asset/available_job.png
+    - asset/complete_request.png
+    - asset/completed_job.png
+    - asset/Rate given.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -51,6 +51,7 @@ class _ServiceDashboardCardState extends State<ServiceDashboardCard> {
           Text('Accepted: '),
           Text('Ongoing: '),
           Text('Completed: '),
+          SizedBox(height: 15),
         ],
       ),
     );

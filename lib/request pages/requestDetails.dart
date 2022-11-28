@@ -5,6 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:grpc/grpc.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/custom%20widgets/customDivider.dart';
+import 'package:testfyp/custom%20widgets/theme.dart';
 import 'package:testfyp/extension_string.dart';
 import 'package:testfyp/rate%20pages/rateGiven.dart';
 import '../bin/client_rating.dart';
@@ -297,10 +298,15 @@ class _RequestDetailsState extends State<RequestDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // backgroundColor: Color.fromARGB(255, 127, 17, 224),
-        title: Text('Job Details'),
-      ),
+      appBar: widget.isRequest
+          ? AppBar(
+              backgroundColor: Theme.of(context).primaryColor,
+              title: Text('Rating Details'),
+            )
+          : AppBar(
+              backgroundColor: Theme.of(context).secondaryHeaderColor,
+              title: Text('Rating Details'),
+            ),
       body: isLoad
           ? Center(child: CircularProgressIndicator())
           : Padding(
@@ -450,6 +456,9 @@ class _RequestDetailsState extends State<RequestDetails> {
                                     ? Column(
                                         children: [
                                           ElevatedButton(
+                                              style: themeData2()
+                                                  .elevatedButtonTheme
+                                                  .style,
                                               onPressed: () {
                                                 context.showSnackBar(
                                                     message: 'Job updated!!!');

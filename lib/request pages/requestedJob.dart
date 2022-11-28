@@ -65,7 +65,22 @@ class _RequestedJobState extends State<RequestedJob> {
       body: isLoad
           ? const Center(child: CircularProgressIndicator())
           : _isEmpty
-              ? const Center(child: Text('No applicants...'))
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'When people offer their service to you, the job will be listed here. You can choose the applicants..',
+                      textAlign: TextAlign.center,
+                    ),
+                    Container(
+                        margin: EdgeInsets.only(bottom: 0),
+                        alignment: Alignment.center,
+                        child: Image.asset(
+                          'asset/applicants.png',
+                          height: MediaQuery.of(context).size.height / 2.3,
+                        )),
+                  ],
+                )
               : ListView.builder(
                   itemCount: listFiltered.length,
                   itemBuilder: (context, index) {

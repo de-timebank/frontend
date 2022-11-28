@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:testfyp/custom%20widgets/customDivider.dart';
 import 'package:testfyp/custom%20widgets/serviceDashboardCard.dart';
+import 'package:testfyp/custom%20widgets/theme.dart';
 import 'package:testfyp/rate%20pages/rateGiven.dart';
 import '../components/constants.dart';
 import '../custom widgets/customHeadline.dart';
 import '../rate pages/rateReceived.dart';
 
 class DashBoard extends StatefulWidget {
-  DashBoard({Key? key}) : super(key: key);
+  //final onTapped;
+  const DashBoard({Key? key}) : super(key: key);
 
   @override
   State<DashBoard> createState() => _DashBoardState();
@@ -49,32 +52,103 @@ class _DashBoardState extends State<DashBoard> {
         // backgroundColor: Color.fromARGB(255, 127, 17, 224),
       ),
       body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 15),
+        margin: const EdgeInsets.symmetric(horizontal: 15),
         child: isLoading
             ? Center(child: CircularProgressIndicator())
             : Column(
-                //crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  //SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12)),
+                        ),
+                        //elevation: 5,
+                        color: themeData1().primaryColor,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(16),
+                                        color: Colors.white),
+                                    child: Icon(
+                                      Icons.wallet,
+                                      color: themeData1().primaryColor,
+                                    ),
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    'Time Balance',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child: Text(
+                                  '\$ Time/hour: ${data!["total"].toString()}',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white)),
+                            )
+                          ],
+                        )),
+                  ),
                   Row(
                     //mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Expanded(
                         child: Card(
-                          elevation: 5,
-                          child: Column(
-                            children: [
-                              CustomHeadline('Your Service'),
-                              ServiceDashboardCard()
-                            ],
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              color: themeData1().primaryColor,
+                              width: 3,
+                            ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(12)),
+                          ),
+                          //elevation: 5,
+                          child: InkWell(
+                            onTap: () {
+                              //d_onItemTapped
+                              // Navigator.of(context)
+                              //     .pushReplacementNamed('/navigation');
+                            },
+                            child: Column(
+                              children: [
+                                CustomHeadline(heading: 'Your Request'),
+                                ServiceDashboardCard()
+                              ],
+                            ),
                           ),
                         ),
                       ),
                       Expanded(
                         child: Card(
-                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              color: themeData1().secondaryHeaderColor,
+                              width: 3,
+                            ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(12)),
+                          ),
+                          //elevation: 5,
                           child: Column(
                             children: [
-                              CustomHeadline('Your Request'),
+                              CustomHeadline(heading: 'Your Service'),
                               ServiceDashboardCard()
                             ],
                           ),
@@ -85,87 +159,74 @@ class _DashBoardState extends State<DashBoard> {
                   SizedBox(
                     height: 10,
                   ),
-                  Card(
-                      elevation: 5,
-                      color: Color.fromARGB(255, 219, 216, 233),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: Text(
-                              'Time Balance',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 24, 54, 66)),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: Text(
-                                '\$time/hour: ${data!["total"].toString()}',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 24, 54, 66))),
-                          )
-                        ],
-                      )),
-                  Divider(
-                      //horizontal line
-                      color: Theme.of(context).primaryColor,
-                      height: 30,
-                      thickness: 2,
-                      indent: 20,
-                      endIndent: 20),
+                  //CustomDivider(),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: CustomHeadline(
+                        heading: 'Services', color: themeData1().primaryColor),
+                  ),
                   Expanded(
                     child: Row(
                       // crossAxisAlignment: CrossAxisAlignment.stretch,
                       //mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Column(
-                            //crossAxisAlignment: CrossAxisAlignment.center,
-                            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Card(
-                                  elevation: 5,
-                                  color: Color.fromARGB(255, 234, 234, 234),
-                                  child: InkWell(
-                                      onTap: () {},
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: const [
-                                          Padding(
-                                            padding: EdgeInsets.all(5.0),
-                                            child: Text(
-                                                'View Transaction History',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold)
-                                                // style: Theme.of(context)
-                                                //     .textTheme
-                                                //     .headline1,
-                                                ),
-                                          ),
-                                          //SizedBox(height: 10),
-                                          Padding(
-                                            padding: EdgeInsets.all(8.0),
-                                            child: Text(
-                                                'Keep your balance in check'),
-                                          ),
-                                          //SizedBox(height: 10),
-                                          // Ink.image(
-                                          //   image: AssetImage('asset/folder.png'),
-                                          //   height: 40,
-                                          //   width: 40,
-                                          // ),
-                                        ],
-                                      )),
+                        Flexible(
+                          flex: 1,
+                          child: Column(
+                              //crossAxisAlignment: CrossAxisAlignment.center,
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Card(
+                                    //elevation: 5,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(12)),
+                                    ),
+                                    color: themeData1().secondaryHeaderColor,
+                                    child: InkWell(
+                                        onTap: () {},
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: const [
+                                            Icon(Icons.receipt_long),
+                                            Padding(
+                                              padding: EdgeInsets.all(5.0),
+                                              child: Text(
+                                                  'View Transaction History',
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold)
+                                                  // style: Theme.of(context)
+                                                  //     .textTheme
+                                                  //     .headline1,
+                                                  ),
+                                            ),
+                                            //SizedBox(height: 10),
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 8.0),
+                                              child: Text(
+                                                'Keep your balance in check',
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                            //SizedBox(height: 10),
+                                            // Ink.image(
+                                            //   image: AssetImage('asset/folder.png'),
+                                            //   height: 40,
+                                            //   width: 40,
+                                            // ),
+                                          ],
+                                        )),
+                                  ),
                                 ),
-                              ),
-                            ]),
+                              ]),
+                        ),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -173,8 +234,16 @@ class _DashBoardState extends State<DashBoard> {
                               Flexible(
                                 flex: 1,
                                 child: Card(
-                                  elevation: 5,
-                                  color: Color.fromARGB(255, 234, 234, 234),
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                      color: themeData1().primaryColor,
+                                      width: 3,
+                                    ),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(12)),
+                                  ),
+                                  //elevation: 5,
+                                  //color: Color.fromARGB(255, 234, 234, 234),
                                   child: InkWell(
                                       onTap: () {
                                         Navigator.of(context).push(
@@ -187,19 +256,34 @@ class _DashBoardState extends State<DashBoard> {
                                             MainAxisAlignment.center,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
-                                        children: const [
-                                          Text(
-                                            'Rate Given',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
-                                            //Theme.of(context).textTheme.headline1,
+                                        children: [
+                                          Icon(Icons.rate_review,
+                                              color: themeData1().primaryColor),
+                                          Padding(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: Text(
+                                              'Rate Given',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: themeData1()
+                                                      .primaryColor),
+                                              textAlign: TextAlign.center,
+                                              //Theme.of(context).textTheme.headline1,
+                                            ),
                                           ),
-                                          Text(
-                                            'Give feedback to other people',
-                                            style: TextStyle(fontSize: 13),
-                                            textAlign: TextAlign.center,
-                                          )
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 6.0),
+                                            child: Text(
+                                              'Give feedback to other people',
+                                              style: TextStyle(
+                                                  fontSize: 13,
+                                                  color: themeData1()
+                                                      .primaryColor),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          // Image.asset('asset/Rate given.png')
                                         ],
                                       )),
                                 ),
@@ -208,8 +292,12 @@ class _DashBoardState extends State<DashBoard> {
                               Flexible(
                                 flex: 1,
                                 child: Card(
-                                  elevation: 5,
-                                  color: Color.fromARGB(255, 234, 234, 234),
+                                  //elevatio n: 5,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(12)),
+                                  ),
+                                  color: themeData1().primaryColor,
                                   child: InkWell(
                                       onTap: () {
                                         Navigator.of(context).push(
@@ -223,18 +311,33 @@ class _DashBoardState extends State<DashBoard> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: const [
-                                          Text(
-                                            'Received Rating',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
-                                            // style:
-                                            //Theme.of(context).textTheme.headline1,
+                                          Icon(
+                                            Icons.thumbs_up_down,
+                                            color: Colors.white,
                                           ),
-                                          Text(
-                                            'See what other thinks about you',
-                                            style: TextStyle(fontSize: 12),
-                                            textAlign: TextAlign.center,
+                                          SizedBox(height: 5),
+                                          Padding(
+                                            padding: EdgeInsets.all(5.0),
+                                            child: Text(
+                                              'Received Rating',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
+                                              textAlign: TextAlign.center,
+                                              // style:
+                                              //Theme.of(context).textTheme.headline1,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 7.0),
+                                            child: Text(
+                                              'See what other thinks about you',
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.white),
+                                              textAlign: TextAlign.center,
+                                            ),
                                           )
                                         ],
                                       )),

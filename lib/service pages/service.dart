@@ -21,7 +21,7 @@ class _ServicePageState extends State<ServicePage> {
               backgroundColor: Theme.of(context).secondaryHeaderColor,
               bottom:
                   TabBar(indicatorColor: Theme.of(context).primaryColor, tabs: [
-                Tab(text: '\t\t\tYour\nServices'),
+                Tab(text: 'Ongoing\nServices'),
                 Badge(
                     showBadge: false,
                     badgeContent: Text('!'),

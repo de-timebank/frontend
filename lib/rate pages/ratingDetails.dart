@@ -89,7 +89,7 @@ class _RatingDetailsState extends State<RatingDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: Color.fromARGB(255, 127, 17, 224),
+        //backgroundColor: Theme.of(context).primaryColor,
         title: Text('Rating Details'),
       ),
       body: Padding(

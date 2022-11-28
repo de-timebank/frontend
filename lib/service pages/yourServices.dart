@@ -14,7 +14,6 @@ class YourServices extends StatefulWidget {
 }
 
 class _YourServicesState extends State<YourServices> {
-  late Common _common;
   late bool isLoad;
   late dynamic listRequest;
   late dynamic listFiltered;
@@ -23,7 +22,6 @@ class _YourServicesState extends State<YourServices> {
 
   @override
   void initState() {
-    _common = Common();
     isLoad = true;
     _isEmpty = true;
     getinstance();
@@ -70,12 +68,16 @@ class _YourServicesState extends State<YourServices> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      'No ongoing services provided,\nHelp other people by applying job in the next tab...',
+                      'What to help other people? try to apply job in the next tab. At the moment, you have no ongoing services... ',
                       textAlign: TextAlign.center,
                     ),
                     Container(
                         margin: EdgeInsets.only(bottom: 0),
-                        child: Image.asset('asset/help.png')),
+                        alignment: Alignment.center,
+                        child: Image.asset(
+                          'asset/help.png',
+                          height: MediaQuery.of(context).size.height / 2.3,
+                        )),
                   ],
                 )
               : ListView.builder(

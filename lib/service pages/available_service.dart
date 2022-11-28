@@ -103,13 +103,14 @@ class _AvailableServicesState extends State<AvailableServices> {
             ? const Center(child: CircularProgressIndicator())
             : _isEmpty
                 ? Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            CustomHeadline('Filter by: '),
+                            CustomHeadline(heading: 'Filter by: '),
                             Container(
                               alignment: Alignment.center,
                               //margin: EdgeInsets.all(8),
@@ -157,11 +158,29 @@ class _AvailableServicesState extends State<AvailableServices> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height / 3.5),
-                        child: Text('No available job...'),
+                      Text(
+                        'All available jobs based on category will be listed here...\nSo far there are no available job...',
+                        textAlign: TextAlign.center,
                       ),
+                      Container(
+                          //padding: EdgeInsets.only(top: 5),
+                          height: MediaQuery.of(context).size.height / 4.6,
+                          width: MediaQuery.of(context).size.width,
+                          // decoration: BoxDecoration(
+                          //   image: DecorationImage(
+                          //       image: AssetImage('asset/available_job.png'),
+                          //       fit: BoxFit.fitWidth),
+                          // ),
+                          margin: EdgeInsets.only(bottom: 0),
+                          child: FittedBox(
+                            child: Image.asset(
+                              'asset/available_job.png',
+                              height: MediaQuery.of(context).size.height / 3,
+                              // width: double.infinity,
+                              // repeat: ImageRepeat.repeatX,
+                            ),
+                            fit: BoxFit.fitWidth,
+                          )),
                     ],
                   )
                 : ListView(
@@ -172,7 +191,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            CustomHeadline('Filter by: '),
+                            CustomHeadline(heading: 'Filter by: '),
                             Container(
                               alignment: Alignment.center,
                               //margin: EdgeInsets.all(8),
@@ -312,7 +331,7 @@ class _AvailableServicesState extends State<AvailableServices> {
             //print(listFiltered);
           },
           icon: Icon(Icons.search),
-          label: Text('Find Service'),
+          label: Text('Find Job'),
         ));
   }
 }

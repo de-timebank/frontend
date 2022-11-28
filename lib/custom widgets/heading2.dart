@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:testfyp/custom%20widgets/theme.dart';
 
 class Heading2 extends StatelessWidget {
   String heading2;
 
-  Heading2(this.heading2);
+  Heading2(this.heading2, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,11 +13,11 @@ class Heading2 extends StatelessWidget {
       child: Text(
         heading2,
         style: TextStyle(
-          color: Theme.of(context).primaryColor,
+          color: themeData2().primaryColor,
           fontSize: 18,
           fontWeight: FontWeight.bold,
           // decoration: TextDecoration.underline,
-          // decorationThickness: 1.5
+          //decorationThickness: 1.5
         ),
       ),
     );

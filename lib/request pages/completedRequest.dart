@@ -70,7 +70,22 @@ class _CompletedRequestState extends State<CompletedRequest> {
       body: isLoad
           ? const Center(child: CircularProgressIndicator())
           : _isEmpty
-              ? const Center(child: Text('No completed requests...'))
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'All completed request will be listed here, remember to declare the job to "Completed". No completed requests...',
+                      textAlign: TextAlign.center,
+                    ),
+                    Container(
+                        margin: EdgeInsets.only(bottom: 0),
+                        alignment: Alignment.center,
+                        child: Image.asset(
+                          'asset/complete_request.png',
+                          height: MediaQuery.of(context).size.height / 2.3,
+                        )),
+                  ],
+                )
               : ListView.builder(
                   itemCount: listFiltered.length,
                   itemBuilder: (context, index) {

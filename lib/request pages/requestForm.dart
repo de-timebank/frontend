@@ -121,6 +121,7 @@ class _RequestFormState extends State<RequestForm> {
         _longitudeController.text = locations[0].longitude.toString();
         //_locationController.text = Address;
       });
+      context.showSnackBar(message: 'Location details added!!');
     } catch (e) {
       context.showErrorSnackBar(message: e.toString());
     }

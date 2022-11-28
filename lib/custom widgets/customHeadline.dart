@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class CustomHeadline extends StatelessWidget {
   //const CustomHeadline({Key? key}) : super(key: key);
-  String heading;
-  CustomHeadline(this.heading);
+  final heading;
+  final color;
+
+  CustomHeadline({required this.heading, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +13,9 @@ class CustomHeadline extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
       child: Text(
         heading,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        style:
+            TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: color),
+
         //style: Theme.of(context).textTheme.headline1,
       ),
     );

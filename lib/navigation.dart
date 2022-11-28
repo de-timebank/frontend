@@ -48,7 +48,7 @@ class _BottomBarNavigationState extends State<BottomBarNavigation> {
     super.initState();
   }
 
-  void _onItemTapped(int index) {
+  void onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -79,7 +79,7 @@ class _BottomBarNavigationState extends State<BottomBarNavigation> {
                 backgroundColor: Color.fromARGB(255, 127, 17, 224)),
             BottomNavigationBarItem(
                 icon: Icon(Icons.emoji_people),
-                label: 'Offer Help',
+                label: 'Offer Help?',
                 backgroundColor: Color.fromARGB(255, 245, 167, 44)),
             BottomNavigationBarItem(
                 icon: Icon(Icons.account_box),
@@ -87,7 +87,7 @@ class _BottomBarNavigationState extends State<BottomBarNavigation> {
                 backgroundColor: Color.fromARGB(255, 245, 167, 44))
           ],
           currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
+          onTap: onItemTapped,
         ),
         body: Container(
           child: _widgetOptions.elementAt(_selectedIndex),
