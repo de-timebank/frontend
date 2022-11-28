@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:testfyp/custom%20widgets/customHeadline.dart';
-import 'package:testfyp/custom%20widgets/heading2.dart';
-
 import '../bin/client_service_request.dart';
 import '../bin/common.dart';
 import '../bin/searchfunction.dart';
@@ -73,7 +71,7 @@ class _AvailableServicesState extends State<AvailableServices> {
         //print(listFiltered);
         //_listuserCurrent.add(listRequest.request[i].requestor)
       } else if (listRequest.requests[i].requestor != user &&
-          listRequest.request[i].category.contains(_categoryController.text)) {
+          listRequest.requests[i].category.contains(_categoryController.text)) {
         print(_categoryController.text);
         listFiltered.add(listRequest.requests[i]);
         //_listuserCurrent.add(listRequest.request[i].requestor)
@@ -104,7 +102,67 @@ class _AvailableServicesState extends State<AvailableServices> {
         body: isLoad
             ? const Center(child: CircularProgressIndicator())
             : _isEmpty
-                ? const Center(child: Text('No avaible services...'))
+                ? Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            CustomHeadline('Filter by: '),
+                            Container(
+                              alignment: Alignment.center,
+                              //margin: EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  border: Border.all(
+                                    color: Theme.of(context).primaryColor,
+                                    width: 2,
+                                  )),
+                              child: DropdownButton<String>(
+                                underline: Container(
+                                  height: 0,
+                                ),
+                                iconEnabledColor:
+                                    Theme.of(context).primaryColor,
+                                value: _categoryController.text,
+                                items: listCategories
+                                    .map<DropdownMenuItem<String>>((e) {
+                                  return DropdownMenuItem<String>(
+                                      value: e,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: Text(
+                                          e,
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15),
+                                        ),
+                                      ));
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    _categoryController.text = value.toString();
+                                    //print(_categoryController.text);
+                                    getinstance();
+                                    //print(_genderController.text);
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height / 3.5),
+                        child: Text('No available services...'),
+                      ),
+                    ],
+                  )
                 : ListView(
                     //shrinkWrap: true,
                     children: [
