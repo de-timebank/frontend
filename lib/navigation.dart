@@ -61,7 +61,7 @@ class _BottomBarNavigationState extends State<BottomBarNavigation> {
           //selectedItemColor: Color.fromARGB(255, 91, 71, 189),
           unselectedItemColor: Colors.white,
           //Color.fromARGB(255, 203, 197, 234)
-          selectedFontSize: 16,
+          selectedFontSize: 18,
 
           unselectedFontSize: 10,
           //selectedLabelStyle: TextStyle(color: Color.fromARGB(255, 27, 15, 15)),

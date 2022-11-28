@@ -160,7 +160,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                       Padding(
                         padding: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height / 3.5),
-                        child: Text('No available services...'),
+                        child: Text('No available job...'),
                       ),
                     ],
                   )

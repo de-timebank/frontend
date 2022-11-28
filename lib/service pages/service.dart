@@ -19,7 +19,8 @@ class _ServicePageState extends State<ServicePage> {
         child: Scaffold(
             appBar: AppBar(
               backgroundColor: Theme.of(context).secondaryHeaderColor,
-              bottom: TabBar(tabs: [
+              bottom:
+                  TabBar(indicatorColor: Theme.of(context).primaryColor, tabs: [
                 Tab(text: '\t\t\tYour\nServices'),
                 Badge(
                     showBadge: false,

@@ -18,8 +18,8 @@ class _RequestPageState extends State<RequestPage> {
       child: Scaffold(
         appBar: AppBar(
           //backgroundColor: Color.fromARGB(255, 245, 167, 44),
-          bottom: const TabBar(
-              // indicatorColor: Colors.cyan,
+          bottom: TabBar(
+              indicatorColor: Theme.of(context).secondaryHeaderColor,
               tabs: [
                 Tab(text: '\t\t\tYour\nRequest'),
                 Tab(text: 'Requested\n\t\t\t\tJob'),
