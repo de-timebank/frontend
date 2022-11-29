@@ -5,6 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/bin/client_auth.dart';
 import 'package:testfyp/bin/common.dart';
 import 'package:testfyp/components/constants.dart';
+import 'package:testfyp/custom%20widgets/customHeadline.dart';
 import 'package:testfyp/extension_string.dart';
 
 import '../generated/user.pb.dart';
@@ -60,9 +61,9 @@ class _SignUpPageState extends State<SignUpPage> {
         //     context,
         //     MaterialPageRoute(
         //         builder: (BuildContext context) => AccountPage()));
-        // Navigator.of(context)
-        //     .pushNamedAndRemoveUntil('/account', (route) => false);
-        Navigator.of(context).pushNamed('/navigation');
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('/navigation', (route) => false);
+        //Navigator.of(context).pushReplacementNamed('/navigation');
       }
     });
 
@@ -71,6 +72,9 @@ class _SignUpPageState extends State<SignUpPage> {
 
   _signUpGrpc(String email, String password, String name, String gender,
       String matricnumber) async {
+    setState(() {
+      _isLoading = true;
+    });
     // profile..contacts.addAll(contacts);
     // profile.skills.toList();
     // var profile1 = NewUserProfile(contacts: Contact()..address = address..type = type);
@@ -170,12 +174,12 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: const Text('Do not close this page when signing up'),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Email'),
+              child: CustomHeadline(heading: 'Email'),
             ),
             TextFormField(
               controller: _emailController,
@@ -192,7 +196,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Password'),
+              child: CustomHeadline(heading: 'Password'),
             ),
             TextFormField(
               controller: _passwordController,
@@ -233,7 +237,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 endIndent: 15),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Name'),
+              child: CustomHeadline(heading: 'Name'),
             ),
             TextFormField(
               controller: _usernameController,
@@ -257,7 +261,7 @@ class _SignUpPageState extends State<SignUpPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Gender'),
+                  child: CustomHeadline(heading: 'Gender'),
                 ),
                 Container(
                   //padding: EdgeInsets.all(8),
@@ -299,7 +303,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Identification'),
+              child: CustomHeadline(heading: 'Identification'),
             ),
             Row(
               children: [
@@ -366,7 +370,11 @@ class _SignUpPageState extends State<SignUpPage> {
                 endIndent: 15),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Skill'),
+              child: CustomHeadline(heading: 'Skill'),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('(Optional)'),
             ),
             TextFormField(
               controller: _skillController,
@@ -449,7 +457,11 @@ class _SignUpPageState extends State<SignUpPage> {
                 endIndent: 15),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Contact '),
+              child: CustomHeadline(heading: 'Contact'),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('(Optional)'),
             ),
             Row(
               children: [

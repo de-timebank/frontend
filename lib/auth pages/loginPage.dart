@@ -44,6 +44,7 @@ class _LoginPageState extends State<LoginPage> {
       // }
     } on AuthException catch (error) {
       context.showErrorSnackBar(message: error.message);
+      //print(error);
     } catch (error) {
       context.showErrorSnackBar(message: 'Unable to log in!!');
     }

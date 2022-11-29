@@ -9,7 +9,8 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../misc.pb.dart' as $2;
+import '../user.pb.dart' as $1;
+import '../misc.pb.dart' as $3;
 
 import 'service-request.pbenum.dart';
 
@@ -991,16 +992,26 @@ class GetById_Request extends $pb.GeneratedMessage {
 class GetById_Response extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetById.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
     ..aOM<ServiceRequestData>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'request', subBuilder: ServiceRequestData.create)
+    ..aOM<$1.UserProfile>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requestor', subBuilder: $1.UserProfile.create)
+    ..aOM<$1.UserProfile>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'provider', subBuilder: $1.UserProfile.create)
     ..hasRequiredFields = false
   ;
 
   GetById_Response._() : super();
   factory GetById_Response({
     ServiceRequestData? request,
+    $1.UserProfile? requestor,
+    $1.UserProfile? provider,
   }) {
     final _result = create();
     if (request != null) {
       _result.request = request;
+    }
+    if (requestor != null) {
+      _result.requestor = requestor;
+    }
+    if (provider != null) {
+      _result.provider = provider;
     }
     return _result;
   }
@@ -1035,6 +1046,28 @@ class GetById_Response extends $pb.GeneratedMessage {
   void clearRequest() => clearField(1);
   @$pb.TagNumber(1)
   ServiceRequestData ensureRequest() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $1.UserProfile get requestor => $_getN(1);
+  @$pb.TagNumber(2)
+  set requestor($1.UserProfile v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasRequestor() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearRequestor() => clearField(2);
+  @$pb.TagNumber(2)
+  $1.UserProfile ensureRequestor() => $_ensure(1);
+
+  @$pb.TagNumber(3)
+  $1.UserProfile get provider => $_getN(2);
+  @$pb.TagNumber(3)
+  set provider($1.UserProfile v) { setField(3, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasProvider() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearProvider() => clearField(3);
+  @$pb.TagNumber(3)
+  $1.UserProfile ensureProvider() => $_ensure(2);
 }
 
 class GetById extends $pb.GeneratedMessage {
@@ -1792,13 +1825,13 @@ class SelectProvider extends $pb.GeneratedMessage {
 
 class GetAvailable_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetAvailable.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
-    ..aOM<$2.Filter>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filter', subBuilder: $2.Filter.create)
+    ..aOM<$3.Filter>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filter', subBuilder: $3.Filter.create)
     ..hasRequiredFields = false
   ;
 
   GetAvailable_Request._() : super();
   factory GetAvailable_Request({
-    $2.Filter? filter,
+    $3.Filter? filter,
   }) {
     final _result = create();
     if (filter != null) {
@@ -1828,15 +1861,15 @@ class GetAvailable_Request extends $pb.GeneratedMessage {
   static GetAvailable_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $2.Filter get filter => $_getN(0);
+  $3.Filter get filter => $_getN(0);
   @$pb.TagNumber(1)
-  set filter($2.Filter v) { setField(1, v); }
+  set filter($3.Filter v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasFilter() => $_has(0);
   @$pb.TagNumber(1)
   void clearFilter() => clearField(1);
   @$pb.TagNumber(1)
-  $2.Filter ensureFilter() => $_ensure(0);
+  $3.Filter ensureFilter() => $_ensure(0);
 }
 
 class GetAvailable_Response extends $pb.GeneratedMessage {

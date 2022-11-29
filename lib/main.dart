@@ -14,11 +14,11 @@ import 'custom widgets/theme.dart';
 import 'request pages/request.dart';
 
 //adb shell am start -W -a android.intent.action.VIEW -d "io.supabase.flutterquickstart://login-callback/"
-//-Iprotos protos/collection/service-request.proto --dart_out=grpc:lib/generated
-//-Iprotos protos/collection/rating.proto --dart_out=grpc:lib/generated
-//-Iprotos protos/auth.proto --dart_out=grpc:lib/generated
-//-Iprotos protos/misc.proto --dart_out=grpc:lib/generated
-//-Iprotos protos/user.proto --dart_out=grpc:lib/generated
+//protoc -Iprotos protos/collection/service-request.proto --dart_out=grpc:lib/generated
+//protoc -Iprotos protos/collection/rating.proto --dart_out=grpc:lib/generated
+//protoc -Iprotos protos/auth.proto --dart_out=grpc:lib/generated
+//protoc -Iprotos protos/misc.proto --dart_out=grpc:lib/generated
+//protoc -Iprotos protos/user.proto --dart_out=grpc:lib/generated
 Future<void> main() async {
   // const ujaiUrl = 'https://qcoqbidwruiakpykidlf.supabase.co';
   // const ujaiKey =

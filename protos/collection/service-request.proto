@@ -3,6 +3,7 @@ package timebank.servicerequest;
 
 import "misc.proto";
 import "collection/rating.proto";
+import "user.proto";
 
 service ServiceRequest {
     rpc create (Create.Request) returns (Create.Response);
@@ -112,6 +113,8 @@ message GetById {
 
     message Response {
         ServiceRequestData request = 1;
+        timebank.user.UserProfile requestor = 2;
+        timebank.user.UserProfile provider = 3;
     }
 }
 

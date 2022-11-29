@@ -182,11 +182,13 @@ const GetById_Response$json = const {
   '1': 'Response',
   '2': const [
     const {'1': 'request', '3': 1, '4': 1, '5': 11, '6': '.timebank.servicerequest.ServiceRequestData', '10': 'request'},
+    const {'1': 'requestor', '3': 2, '4': 1, '5': 11, '6': '.timebank.user.UserProfile', '10': 'requestor'},
+    const {'1': 'provider', '3': 3, '4': 1, '5': 11, '6': '.timebank.user.UserProfile', '10': 'provider'},
   ],
 };
 
 /// Descriptor for `GetById`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getByIdDescriptor = $convert.base64Decode('CgdHZXRCeUlkGigKB1JlcXVlc3QSHQoKcmVxdWVzdF9pZBgBIAEoCVIJcmVxdWVzdElkGlEKCFJlc3BvbnNlEkUKB3JlcXVlc3QYASABKAsyKy50aW1lYmFuay5zZXJ2aWNlcmVxdWVzdC5TZXJ2aWNlUmVxdWVzdERhdGFSB3JlcXVlc3Q=');
+final $typed_data.Uint8List getByIdDescriptor = $convert.base64Decode('CgdHZXRCeUlkGigKB1JlcXVlc3QSHQoKcmVxdWVzdF9pZBgBIAEoCVIJcmVxdWVzdElkGsMBCghSZXNwb25zZRJFCgdyZXF1ZXN0GAEgASgLMisudGltZWJhbmsuc2VydmljZXJlcXVlc3QuU2VydmljZVJlcXVlc3REYXRhUgdyZXF1ZXN0EjgKCXJlcXVlc3RvchgCIAEoCzIaLnRpbWViYW5rLnVzZXIuVXNlclByb2ZpbGVSCXJlcXVlc3RvchI2Cghwcm92aWRlchgDIAEoCzIaLnRpbWViYW5rLnVzZXIuVXNlclByb2ZpbGVSCHByb3ZpZGVy');
 @$core.Deprecated('Use updateDescriptor instead')
 const Update$json = const {
   '1': 'Update',
