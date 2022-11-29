@@ -1,5 +1,5 @@
 import 'package:grpc/grpc.dart';
-import '../generated/services/service-request.pbgrpc.dart';
+import '../generated/collection/service-request.pbgrpc.dart';
 
 class ClientServiceRequest {
   late ServiceRequestClient stub;

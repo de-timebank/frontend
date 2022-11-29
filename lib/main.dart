@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:testfyp/dashboard%20pages/dashboard.dart';
 import 'package:testfyp/navigation.dart';
 import 'package:testfyp/auth%20pages/account_page.dart';
 import 'package:testfyp/auth%20pages/loginPage.dart';
 import 'package:testfyp/auth%20pages/password.dart';
 import 'package:testfyp/auth%20pages/signUpPage.dart';
+import 'package:testfyp/navigationPersistent.dart';
+import 'package:testfyp/service%20pages/service.dart';
 import 'package:testfyp/splash_page.dart';
 import 'package:testfyp/profile%20pages/profile.dart';
 import 'custom widgets/theme.dart';
 import 'request pages/request.dart';
 
 //adb shell am start -W -a android.intent.action.VIEW -d "io.supabase.flutterquickstart://login-callback/"
-//protoc -Iprotos protos/auth.proto --dart_out=grpc:lib/generated/rating
-
+//-Iprotos protos/collection/service-request.proto --dart_out=grpc:lib/generated
+//-Iprotos protos/collection/rating.proto --dart_out=grpc:lib/generated
+//-Iprotos protos/auth.proto --dart_out=grpc:lib/generated
+//-Iprotos protos/misc.proto --dart_out=grpc:lib/generated
+//-Iprotos protos/user.proto --dart_out=grpc:lib/generated
 Future<void> main() async {
   // const ujaiUrl = 'https://qcoqbidwruiakpykidlf.supabase.co';
   // const ujaiKey =
@@ -38,9 +44,12 @@ class MyApp extends StatelessWidget {
         '/login': (_) => const LoginPage(),
         '/account': (_) => const AccountPage(),
         '/navigation': (_) => const BottomBarNavigation(),
+        '/navigationP': (_) => const PersistentBottomNavigationBar(),
         '/profile': (_) => ProfilePage(),
         '/passwordReset': (_) => const PasswordPage(),
         '/request': (_) => RequestPage(),
+        '/service': (_) => ServicePage(),
+        '/dashboard': (_) => DashBoard(),
       },
     );
   }

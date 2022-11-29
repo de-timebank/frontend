@@ -6,7 +6,8 @@ import 'package:testfyp/bin/client_auth.dart';
 import 'package:testfyp/bin/common.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/extension_string.dart';
-import 'package:testfyp/generated/rating/user.pbgrpc.dart';
+
+import '../generated/user.pb.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});

@@ -5,7 +5,7 @@ import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/extension_string.dart';
 import 'package:testfyp/splash_page.dart';
 
-import '../generated/rating/user.pb.dart';
+import '../generated/user.pb.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -22,7 +22,6 @@ class _AccountPageState extends State<AccountPage> {
   final _idTypeController = TextEditingController();
   final _genderController = TextEditingController();
   final _skillController = TextEditingController();
-  // late String _avatarUrl = '';
 
   final _formKey = GlobalKey<FormState>();
 
@@ -44,7 +43,6 @@ class _AccountPageState extends State<AccountPage> {
     _genderController.text = listGender[0];
     _contactControllerType.text = listContactType[2];
     _idTypeController.text = idUser[0];
-    //_getProfile();
     Future.delayed(Duration.zero, _getProfile);
   }
 

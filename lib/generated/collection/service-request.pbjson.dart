@@ -25,6 +25,10 @@ const ServiceRequestData$json = const {
     const {'1': 'updated_at', '3': 11, '4': 1, '5': 9, '10': 'updatedAt'},
     const {'1': 'completed_at', '3': 12, '4': 1, '5': 9, '9': 1, '10': 'completedAt', '17': true},
     const {'1': 'category', '3': 13, '4': 1, '5': 9, '10': 'category'},
+    const {'1': 'started_at', '3': 14, '4': 1, '5': 9, '10': 'startedAt'},
+    const {'1': 'time_limit', '3': 15, '4': 1, '5': 2, '10': 'timeLimit'},
+    const {'1': 'actual_payment', '3': 16, '4': 1, '5': 2, '10': 'actualPayment'},
+    const {'1': 'date', '3': 17, '4': 1, '5': 9, '10': 'date'},
   ],
   '3': const [ServiceRequestData_Details$json, ServiceRequestData_Location$json],
   '4': const [ServiceRequestData_State$json],
@@ -75,7 +79,7 @@ const ServiceRequestData_State$json = const {
 };
 
 /// Descriptor for `ServiceRequestData`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List serviceRequestDataDescriptor = $convert.base64Decode('ChJTZXJ2aWNlUmVxdWVzdERhdGESDgoCaWQYASABKAlSAmlkEhwKCXJlcXVlc3RvchgCIAEoCVIJcmVxdWVzdG9yEh8KCHByb3ZpZGVyGAMgASgJSABSCHByb3ZpZGVyiAEBElAKCGxvY2F0aW9uGAQgASgLMjQudGltZWJhbmsuc2VydmljZXJlcXVlc3QuU2VydmljZVJlcXVlc3REYXRhLkxvY2F0aW9uUghsb2NhdGlvbhJHCgVzdGF0ZRgFIAEoDjIxLnRpbWViYW5rLnNlcnZpY2VyZXF1ZXN0LlNlcnZpY2VSZXF1ZXN0RGF0YS5TdGF0ZVIFc3RhdGUSTQoHZGV0YWlscxgGIAEoCzIzLnRpbWViYW5rLnNlcnZpY2VyZXF1ZXN0LlNlcnZpY2VSZXF1ZXN0RGF0YS5EZXRhaWxzUgdkZXRhaWxzEisKEW1lZGlhX2F0dGFjaG1lbnRzGAcgAygJUhBtZWRpYUF0dGFjaG1lbnRzEhIKBHJhdGUYCCABKAJSBHJhdGUSHgoKYXBwbGljYW50cxgJIAMoCVIKYXBwbGljYW50cxIdCgpjcmVhdGVkX2F0GAogASgJUgljcmVhdGVkQXQSHQoKdXBkYXRlZF9hdBgLIAEoCVIJdXBkYXRlZEF0EiYKDGNvbXBsZXRlZF9hdBgMIAEoCUgBUgtjb21wbGV0ZWRBdIgBARIaCghjYXRlZ29yeRgNIAEoCVIIY2F0ZWdvcnkaQQoHRGV0YWlscxIUCgV0aXRsZRgBIAEoCVIFdGl0bGUSIAoLZGVzY3JpcHRpb24YAiABKAlSC2Rlc2NyaXB0aW9uGscBCghMb2NhdGlvbhISCgRuYW1lGAEgASgJUgRuYW1lEl8KCmNvb3JkaW5hdGUYAiABKAsyPy50aW1lYmFuay5zZXJ2aWNlcmVxdWVzdC5TZXJ2aWNlUmVxdWVzdERhdGEuTG9jYXRpb24uQ29vcmRpbmF0ZVIKY29vcmRpbmF0ZRpGCgpDb29yZGluYXRlEhoKCGxhdGl0dWRlGAEgASgJUghsYXRpdHVkZRIcCglsb25naXR1ZGUYAiABKAlSCWxvbmdpdHVkZSJLCgVTdGF0ZRILCgdQRU5ESU5HEAASDAoIQUNDRVBURUQQARILCgdPTkdPSU5HEAISDQoJQ09NUExFVEVEEAMSCwoHQUJPUlRFRBAEQgsKCV9wcm92aWRlckIPCg1fY29tcGxldGVkX2F0');
+final $typed_data.Uint8List serviceRequestDataDescriptor = $convert.base64Decode('ChJTZXJ2aWNlUmVxdWVzdERhdGESDgoCaWQYASABKAlSAmlkEhwKCXJlcXVlc3RvchgCIAEoCVIJcmVxdWVzdG9yEh8KCHByb3ZpZGVyGAMgASgJSABSCHByb3ZpZGVyiAEBElAKCGxvY2F0aW9uGAQgASgLMjQudGltZWJhbmsuc2VydmljZXJlcXVlc3QuU2VydmljZVJlcXVlc3REYXRhLkxvY2F0aW9uUghsb2NhdGlvbhJHCgVzdGF0ZRgFIAEoDjIxLnRpbWViYW5rLnNlcnZpY2VyZXF1ZXN0LlNlcnZpY2VSZXF1ZXN0RGF0YS5TdGF0ZVIFc3RhdGUSTQoHZGV0YWlscxgGIAEoCzIzLnRpbWViYW5rLnNlcnZpY2VyZXF1ZXN0LlNlcnZpY2VSZXF1ZXN0RGF0YS5EZXRhaWxzUgdkZXRhaWxzEisKEW1lZGlhX2F0dGFjaG1lbnRzGAcgAygJUhBtZWRpYUF0dGFjaG1lbnRzEhIKBHJhdGUYCCABKAJSBHJhdGUSHgoKYXBwbGljYW50cxgJIAMoCVIKYXBwbGljYW50cxIdCgpjcmVhdGVkX2F0GAogASgJUgljcmVhdGVkQXQSHQoKdXBkYXRlZF9hdBgLIAEoCVIJdXBkYXRlZEF0EiYKDGNvbXBsZXRlZF9hdBgMIAEoCUgBUgtjb21wbGV0ZWRBdIgBARIaCghjYXRlZ29yeRgNIAEoCVIIY2F0ZWdvcnkSHQoKc3RhcnRlZF9hdBgOIAEoCVIJc3RhcnRlZEF0Eh0KCnRpbWVfbGltaXQYDyABKAJSCXRpbWVMaW1pdBIlCg5hY3R1YWxfcGF5bWVudBgQIAEoAlINYWN0dWFsUGF5bWVudBISCgRkYXRlGBEgASgJUgRkYXRlGkEKB0RldGFpbHMSFAoFdGl0bGUYASABKAlSBXRpdGxlEiAKC2Rlc2NyaXB0aW9uGAIgASgJUgtkZXNjcmlwdGlvbhrHAQoITG9jYXRpb24SEgoEbmFtZRgBIAEoCVIEbmFtZRJfCgpjb29yZGluYXRlGAIgASgLMj8udGltZWJhbmsuc2VydmljZXJlcXVlc3QuU2VydmljZVJlcXVlc3REYXRhLkxvY2F0aW9uLkNvb3JkaW5hdGVSCmNvb3JkaW5hdGUaRgoKQ29vcmRpbmF0ZRIaCghsYXRpdHVkZRgBIAEoCVIIbGF0aXR1ZGUSHAoJbG9uZ2l0dWRlGAIgASgJUglsb25naXR1ZGUiSwoFU3RhdGUSCwoHUEVORElORxAAEgwKCEFDQ0VQVEVEEAESCwoHT05HT0lORxACEg0KCUNPTVBMRVRFRBADEgsKB0FCT1JURUQQBEILCglfcHJvdmlkZXJCDwoNX2NvbXBsZXRlZF9hdA==');
 @$core.Deprecated('Use createDescriptor instead')
 const Create$json = const {
   '1': 'Create',
@@ -312,3 +316,49 @@ const SelectProvider_Response$json = const {
 
 /// Descriptor for `SelectProvider`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List selectProviderDescriptor = $convert.base64Decode('Cg5TZWxlY3RQcm92aWRlchpcCgdSZXF1ZXN0Eh0KCnJlcXVlc3RfaWQYASABKAlSCXJlcXVlc3RJZBIaCghwcm92aWRlchgCIAEoCVIIcHJvdmlkZXISFgoGY2FsbGVyGAMgASgJUgZjYWxsZXIaCgoIUmVzcG9uc2U=');
+@$core.Deprecated('Use getAvailableDescriptor instead')
+const GetAvailable$json = const {
+  '1': 'GetAvailable',
+  '3': const [GetAvailable_Request$json, GetAvailable_Response$json],
+};
+
+@$core.Deprecated('Use getAvailableDescriptor instead')
+const GetAvailable_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'filter', '3': 1, '4': 1, '5': 11, '6': '.misc.Filter', '10': 'filter'},
+  ],
+};
+
+@$core.Deprecated('Use getAvailableDescriptor instead')
+const GetAvailable_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'requests', '3': 1, '4': 3, '5': 11, '6': '.timebank.servicerequest.ServiceRequestData', '10': 'requests'},
+  ],
+};
+
+/// Descriptor for `GetAvailable`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getAvailableDescriptor = $convert.base64Decode('CgxHZXRBdmFpbGFibGUaLwoHUmVxdWVzdBIkCgZmaWx0ZXIYASABKAsyDC5taXNjLkZpbHRlclIGZmlsdGVyGlMKCFJlc3BvbnNlEkcKCHJlcXVlc3RzGAEgAygLMisudGltZWJhbmsuc2VydmljZXJlcXVlc3QuU2VydmljZVJlcXVlc3REYXRhUghyZXF1ZXN0cw==');
+@$core.Deprecated('Use startServiceDescriptor instead')
+const StartService$json = const {
+  '1': 'StartService',
+  '3': const [StartService_Request$json, StartService_Response$json],
+};
+
+@$core.Deprecated('Use startServiceDescriptor instead')
+const StartService_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'request_id', '3': 1, '4': 1, '5': 9, '10': 'requestId'},
+    const {'1': 'user_id', '3': 2, '4': 1, '5': 9, '10': 'userId'},
+  ],
+};
+
+@$core.Deprecated('Use startServiceDescriptor instead')
+const StartService_Response$json = const {
+  '1': 'Response',
+};
+
+/// Descriptor for `StartService`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List startServiceDescriptor = $convert.base64Decode('CgxTdGFydFNlcnZpY2UaQQoHUmVxdWVzdBIdCgpyZXF1ZXN0X2lkGAEgASgJUglyZXF1ZXN0SWQSFwoHdXNlcl9pZBgCIAEoCVIGdXNlcklkGgoKCFJlc3BvbnNl');

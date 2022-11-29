@@ -1,6 +1,7 @@
 import 'package:grpc/grpc.dart';
-import '../generated/rating/auth.pbgrpc.dart';
-import '../generated/rating/user.pb.dart';
+
+import '../generated/auth.pbgrpc.dart';
+import '../generated/user.pb.dart';
 
 class ClientAuth {
   late AuthClient stub;

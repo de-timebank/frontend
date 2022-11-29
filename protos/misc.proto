@@ -1,0 +1,7 @@
+syntax = "proto3";
+package misc;
+
+message Filter {
+    string by = 1;
+    string value = 2;
+}

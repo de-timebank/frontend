@@ -30,6 +30,12 @@ class ServiceRequestClient extends $grpc.Client {
           ($1.GetById_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $1.GetById_Response.fromBuffer(value));
+  static final _$getAvailable =
+      $grpc.ClientMethod<$1.GetAvailable_Request, $1.GetAvailable_Response>(
+          '/timebank.servicerequest.ServiceRequest/getAvailable',
+          ($1.GetAvailable_Request value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $1.GetAvailable_Response.fromBuffer(value));
   static final _$update =
       $grpc.ClientMethod<$1.Update_Request, $1.Update_Response>(
           '/timebank.servicerequest.ServiceRequest/update',
@@ -54,6 +60,12 @@ class ServiceRequestClient extends $grpc.Client {
           ($1.SelectProvider_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $1.SelectProvider_Response.fromBuffer(value));
+  static final _$startService =
+      $grpc.ClientMethod<$1.StartService_Request, $1.StartService_Response>(
+          '/timebank.servicerequest.ServiceRequest/startService',
+          ($1.StartService_Request value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $1.StartService_Response.fromBuffer(value));
   static final _$completeService = $grpc.ClientMethod<
           $1.CompleteService_Request, $1.CompleteService_Response>(
       '/timebank.servicerequest.ServiceRequest/completeService',
@@ -87,6 +99,12 @@ class ServiceRequestClient extends $grpc.Client {
     return $createUnaryCall(_$getById, request, options: options);
   }
 
+  $grpc.ResponseFuture<$1.GetAvailable_Response> getAvailable(
+      $1.GetAvailable_Request request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getAvailable, request, options: options);
+  }
+
   $grpc.ResponseFuture<$1.Update_Response> update($1.Update_Request request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$update, request, options: options);
@@ -107,6 +125,12 @@ class ServiceRequestClient extends $grpc.Client {
       $1.SelectProvider_Request request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$selectProvider, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.StartService_Response> startService(
+      $1.StartService_Request request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$startService, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.CompleteService_Response> completeService(
@@ -147,6 +171,15 @@ abstract class ServiceRequestServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $1.GetById_Request.fromBuffer(value),
         ($1.GetById_Response value) => value.writeToBuffer()));
+    $addMethod(
+        $grpc.ServiceMethod<$1.GetAvailable_Request, $1.GetAvailable_Response>(
+            'getAvailable',
+            getAvailable_Pre,
+            false,
+            false,
+            ($core.List<$core.int> value) =>
+                $1.GetAvailable_Request.fromBuffer(value),
+            ($1.GetAvailable_Response value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$1.Update_Request, $1.Update_Response>(
         'update',
         update_Pre,
@@ -179,6 +212,15 @@ abstract class ServiceRequestServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $1.SelectProvider_Request.fromBuffer(value),
         ($1.SelectProvider_Response value) => value.writeToBuffer()));
+    $addMethod(
+        $grpc.ServiceMethod<$1.StartService_Request, $1.StartService_Response>(
+            'startService',
+            startService_Pre,
+            false,
+            false,
+            ($core.List<$core.int> value) =>
+                $1.StartService_Request.fromBuffer(value),
+            ($1.StartService_Response value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$1.CompleteService_Request,
             $1.CompleteService_Response>(
         'completeService',
@@ -214,6 +256,12 @@ abstract class ServiceRequestServiceBase extends $grpc.Service {
     return getById(call, await request);
   }
 
+  $async.Future<$1.GetAvailable_Response> getAvailable_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$1.GetAvailable_Request> request) async {
+    return getAvailable(call, await request);
+  }
+
   $async.Future<$1.Update_Response> update_Pre(
       $grpc.ServiceCall call, $async.Future<$1.Update_Request> request) async {
     return update(call, await request);
@@ -236,6 +284,12 @@ abstract class ServiceRequestServiceBase extends $grpc.Service {
     return selectProvider(call, await request);
   }
 
+  $async.Future<$1.StartService_Response> startService_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$1.StartService_Request> request) async {
+    return startService(call, await request);
+  }
+
   $async.Future<$1.CompleteService_Response> completeService_Pre(
       $grpc.ServiceCall call,
       $async.Future<$1.CompleteService_Request> request) async {
@@ -254,6 +308,8 @@ abstract class ServiceRequestServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $1.Get_Request request);
   $async.Future<$1.GetById_Response> getById(
       $grpc.ServiceCall call, $1.GetById_Request request);
+  $async.Future<$1.GetAvailable_Response> getAvailable(
+      $grpc.ServiceCall call, $1.GetAvailable_Request request);
   $async.Future<$1.Update_Response> update(
       $grpc.ServiceCall call, $1.Update_Request request);
   $async.Future<$1.Delete_Response> delete(
@@ -262,6 +318,8 @@ abstract class ServiceRequestServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $1.ApplyProvider_Request request);
   $async.Future<$1.SelectProvider_Response> selectProvider(
       $grpc.ServiceCall call, $1.SelectProvider_Request request);
+  $async.Future<$1.StartService_Response> startService(
+      $grpc.ServiceCall call, $1.StartService_Request request);
   $async.Future<$1.CompleteService_Response> completeService(
       $grpc.ServiceCall call, $1.CompleteService_Request request);
   $async.Future<$1.GetCommitment_Response> getCommitment(

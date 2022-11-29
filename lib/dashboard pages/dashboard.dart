@@ -1,15 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:testfyp/custom%20widgets/customDivider.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:testfyp/custom%20widgets/serviceDashboardCard.dart';
 import 'package:testfyp/custom%20widgets/theme.dart';
 import 'package:testfyp/rate%20pages/rateGiven.dart';
+import 'package:testfyp/request%20pages/request.dart';
 import '../components/constants.dart';
 import '../custom widgets/customHeadline.dart';
 import '../rate pages/rateReceived.dart';
 
 class DashBoard extends StatefulWidget {
-  //final onTapped;
-  const DashBoard({Key? key}) : super(key: key);
+  final onTapped;
+  DashBoard({Key? key, this.onTapped}) : super(key: key);
 
   @override
   State<DashBoard> createState() => _DashBoardState();
@@ -123,13 +125,32 @@ class _DashBoardState extends State<DashBoard> {
                           child: InkWell(
                             onTap: () {
                               //d_onItemTapped
-                              // Navigator.of(context)
-                              //     .pushReplacementNamed('/navigation');
+                              // Navigator.of(context).pushReplacement(
+                              //     MaterialPageRoute(
+                              //         builder: (context) => RequestPage()));
+
+                              // Navigator.of(context).pushReplacement(
+                              //   CupertinoPageRoute(
+                              //     builder: (BuildContext context) {
+                              //       return RequestPage();
+                              //     },
+                              //   ),
+                              // );
+                              //Navigator.of(context).pushNamed('/request');
+                              PersistentNavBarNavigator.pushNewScreen(
+                                context,
+                                screen: RequestPage(),
+                                //settings: Navigator.pushNamed(),
+                                withNavBar:
+                                    true, // OPTIONAL VALUE. True by default.
+                                pageTransitionAnimation:
+                                    PageTransitionAnimation.cupertino,
+                              );
                             },
                             child: Column(
                               children: [
                                 CustomHeadline(heading: 'Your Request'),
-                                ServiceDashboardCard()
+                                ServiceDashboardCard(isRequest: true)
                               ],
                             ),
                           ),
@@ -146,11 +167,14 @@ class _DashBoardState extends State<DashBoard> {
                                 const BorderRadius.all(Radius.circular(12)),
                           ),
                           //elevation: 5,
-                          child: Column(
-                            children: [
-                              CustomHeadline(heading: 'Your Service'),
-                              ServiceDashboardCard()
-                            ],
+                          child: InkWell(
+                            onTap: () {},
+                            child: Column(
+                              children: [
+                                CustomHeadline(heading: 'Your Service'),
+                                ServiceDashboardCard(isRequest: false)
+                              ],
+                            ),
                           ),
                         ),
                       ),

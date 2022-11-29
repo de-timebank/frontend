@@ -1,16 +1,19 @@
 syntax = "proto3";
 package timebank.servicerequest;
 
+import "misc.proto";
 import "collection/rating.proto";
 
 service ServiceRequest {
     rpc create (Create.Request) returns (Create.Response);
     rpc get (Get.Request) returns (Get.Response);
     rpc getById (GetById.Request) returns (GetById.Response);
+    rpc getAvailable (GetAvailable.Request) returns (GetAvailable.Response);
     rpc update (Update.Request) returns (Update.Response);
     rpc delete (Delete.Request) returns (Delete.Response);
     rpc applyProvider (ApplyProvider.Request) returns (ApplyProvider.Response);
     rpc selectProvider (SelectProvider.Request) returns (SelectProvider.Response);
+    rpc startService (StartService.Request) returns (StartService.Response);
     rpc completeService (CompleteService.Request) returns (CompleteService.Response);
     rpc getCommitment (GetCommitment.Request) returns (GetCommitment.Response);
 }
@@ -32,10 +35,15 @@ message ServiceRequestData {
     }
 
     enum State {
+        // The default state when the service request is first created
         PENDING = 0;
+        // When the service requestor has chosen a provider from the list of applicants
         ACCEPTED = 1;
+        // When the service requestor has started the job (eg by clicking the start button)
         ONGOING = 2;
+        // After the job has been completed either by being triggered manually by the requestor or if the time limit is up
         COMPLETED = 3;
+        // Reserved
         ABORTED = 4;
     }
 
@@ -52,6 +60,10 @@ message ServiceRequestData {
     string updated_at = 11;
     optional string completed_at = 12;
     string category = 13;
+    string started_at = 14;
+    float time_limit = 15;
+    float actual_payment = 16;
+    string date = 17;
 } 
 
 message Create {
@@ -156,6 +168,26 @@ message SelectProvider {
         string request_id = 1;
         string provider = 2;
         string caller = 3;
+    }
+
+    message Response {
+    }
+}
+
+message GetAvailable {
+    message Request {
+        misc.Filter filter = 1;
+    }
+
+    message Response {
+        repeated ServiceRequestData requests = 1;
+    }
+}
+
+message StartService {
+    message Request {
+        string request_id = 1;
+        string user_id = 2;
     }
 
     message Response {

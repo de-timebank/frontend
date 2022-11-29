@@ -29,6 +29,8 @@ class _BottomBarNavigationState extends State<BottomBarNavigation> {
   // final evergreen = '06a7a82f-b04f-4111-b0c9-a92d918d3207';
   // final ujaiahmad = '291b79a7-c67c-4783-b004-239cb334804d';
 
+  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
   int _selectedIndex = 0;
   final session = supabase.auth.currentSession;
 
@@ -48,7 +50,7 @@ class _BottomBarNavigationState extends State<BottomBarNavigation> {
     super.initState();
   }
 
-  void onItemTapped(int index) {
+  onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -89,8 +91,21 @@ class _BottomBarNavigationState extends State<BottomBarNavigation> {
           currentIndex: _selectedIndex,
           onTap: onItemTapped,
         ),
-        body: Container(
-          child: _widgetOptions.elementAt(_selectedIndex),
-        ));
+        body:
+            // _widgetOptions.elementAt(_selectedIndex)
+            Navigator(
+          initialRoute: '/dashboard',
+          onGenerateRoute: (settings) {
+            Widget page = DashBoard();
+            //if (tabItem == )
+            if (settings.name == '/service') page = ServicePage();
+            if (settings.name == '/request') page = RequestPage();
+            return MaterialPageRoute(builder: (_) => page);
+          },
+        )
+        // Container(
+        //   child: ,
+        // )
+        );
   }
 }

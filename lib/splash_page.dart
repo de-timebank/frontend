@@ -65,7 +65,7 @@ class _SplashPageState extends State<SplashPage> {
     // });
 
     if (session != null) {
-      Navigator.of(context).pushReplacementNamed('/navigation');
+      Navigator.of(context).pushReplacementNamed('/navigationP');
     } else {
       Navigator.of(context).pushReplacementNamed('/login');
     }

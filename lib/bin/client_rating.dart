@@ -1,5 +1,6 @@
 import 'package:grpc/grpc.dart';
-import '../generated/rating/rating.pbgrpc.dart';
+
+import '../generated/collection/rating.pbgrpc.dart';
 // import 'common.dart';
 
 class ClientRating {

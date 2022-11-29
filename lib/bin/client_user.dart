@@ -1,5 +1,6 @@
 import 'package:grpc/grpc.dart';
-import '../generated/rating/user.pbgrpc.dart';
+
+import '../generated/user.pbgrpc.dart';
 
 class ClientUser {
   late UserClient stub;
