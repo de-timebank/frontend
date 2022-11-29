@@ -27,6 +27,8 @@ class _PersistentBottomNavigationBarState
   int _selectedIndex = 0;
   final session = supabase.auth.currentSession;
 
+  //https://pub.dev/packages/persistent_bottom_nav_bar
+
   // final List<Widget> _widgetOptions = [
   //   DashBoard(),
   //   RequestPage(),
@@ -41,28 +43,37 @@ class _PersistentBottomNavigationBarState
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.home),
+        icon: Icon(
+          CupertinoIcons.home,
+          // color: Colors.white,
+        ),
         title: ("Home"),
-        activeColorPrimary: CupertinoColors.activeBlue,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+
+        //routeAndNavigatorSettings: ,
+        activeColorSecondary: themeData1().primaryColor,
+        activeColorPrimary: CupertinoColors.white,
+        inactiveColorPrimary: CupertinoColors.white,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.handshake),
         title: ("Need Help?"),
-        activeColorPrimary: CupertinoColors.activeBlue,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        activeColorSecondary: themeData1().primaryColor,
+        activeColorPrimary: CupertinoColors.white,
+        inactiveColorPrimary: CupertinoColors.white,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.emoji_people),
         title: ("Offer Help?"),
-        activeColorPrimary: CupertinoColors.activeBlue,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        activeColorSecondary: CupertinoColors.white,
+        activeColorPrimary: themeData1().secondaryHeaderColor,
+        inactiveColorPrimary: CupertinoColors.white,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.account_box),
         title: ("Settings"),
-        activeColorPrimary: CupertinoColors.activeBlue,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        activeColorSecondary: CupertinoColors.white,
+        activeColorPrimary: themeData1().secondaryHeaderColor,
+        inactiveColorPrimary: CupertinoColors.white,
       ),
     ];
   }
@@ -101,6 +112,7 @@ class _PersistentBottomNavigationBarState
       //   borderRadius: BorderRadius.circular(10.0),
       //   colorBehindNavBar: Colors.white,
       // ),
+
       popAllScreensOnTapOfSelectedTab: true,
       popActionScreens: PopActionScreensType.all,
       itemAnimationProperties: ItemAnimationProperties(
@@ -115,7 +127,7 @@ class _PersistentBottomNavigationBarState
         duration: Duration(milliseconds: 200),
       ),
       navBarStyle:
-          NavBarStyle.style1, // Choose the nav bar style with this property.
+          NavBarStyle.style10, // Choose the nav bar style with this property.
     );
   }
 }

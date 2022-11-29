@@ -5,6 +5,7 @@ import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/extension_string.dart';
 import 'package:testfyp/splash_page.dart';
 
+import '../custom widgets/customHeadline.dart';
 import '../generated/user.pb.dart';
 
 class AccountPage extends StatefulWidget {
@@ -243,7 +244,7 @@ class _AccountPageState extends State<AccountPage> {
                   // ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('Name'),
+                    child: CustomHeadline(heading: 'Name'),
                   ),
                   TextFormField(
                     controller: _usernameController,
@@ -261,7 +262,7 @@ class _AccountPageState extends State<AccountPage> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('Gender'),
+                        child: CustomHeadline(heading: 'Gender'),
                       ),
                       Container(
                         //padding: EdgeInsets.all(8),
@@ -306,7 +307,7 @@ class _AccountPageState extends State<AccountPage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 8),
-                    child: Text('Identification'),
+                    child: CustomHeadline(heading: 'Identification'),
                   ),
                   Row(
                     children: [
@@ -376,7 +377,7 @@ class _AccountPageState extends State<AccountPage> {
                       endIndent: 15),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('Skill'),
+                    child: CustomHeadline(heading: 'Skill'),
                   ),
                   TextFormField(
                     controller: _skillController,
@@ -456,7 +457,7 @@ class _AccountPageState extends State<AccountPage> {
                       endIndent: 15),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('Contacts'),
+                    child: CustomHeadline(heading: 'Contacts'),
                   ),
                   Row(
                     children: [

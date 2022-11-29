@@ -8,6 +8,7 @@ import 'package:testfyp/request%20pages/request.dart';
 import '../components/constants.dart';
 import '../custom widgets/customHeadline.dart';
 import '../rate pages/rateReceived.dart';
+import '../service pages/service.dart';
 
 class DashBoard extends StatefulWidget {
   final onTapped;
@@ -51,7 +52,7 @@ class _DashBoardState extends State<DashBoard> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Dashboard'),
-        // backgroundColor: Color.fromARGB(255, 127, 17, 224),
+        //backgroundColor: themeData2().primaryColor,
       ),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 15),
@@ -125,9 +126,8 @@ class _DashBoardState extends State<DashBoard> {
                           child: InkWell(
                             onTap: () {
                               //d_onItemTapped
-                              // Navigator.of(context).pushReplacement(
-                              //     MaterialPageRoute(
-                              //         builder: (context) => RequestPage()));
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => RequestPage()));
 
                               // Navigator.of(context).pushReplacement(
                               //   CupertinoPageRoute(
@@ -137,15 +137,15 @@ class _DashBoardState extends State<DashBoard> {
                               //   ),
                               // );
                               //Navigator.of(context).pushNamed('/request');
-                              PersistentNavBarNavigator.pushNewScreen(
-                                context,
-                                screen: RequestPage(),
-                                //settings: Navigator.pushNamed(),
-                                withNavBar:
-                                    true, // OPTIONAL VALUE. True by default.
-                                pageTransitionAnimation:
-                                    PageTransitionAnimation.cupertino,
-                              );
+                              // PersistentNavBarNavigator.pushNewScreen(
+                              //   context,
+                              //   screen: RequestPage(),
+                              //   //settings: Navigator.pushNamed(),
+                              //   withNavBar:
+                              //       true, // OPTIONAL VALUE. True by default.
+                              //   pageTransitionAnimation:
+                              //       PageTransitionAnimation.cupertino,
+                              // );
                             },
                             child: Column(
                               children: [
@@ -168,7 +168,10 @@ class _DashBoardState extends State<DashBoard> {
                           ),
                           //elevation: 5,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => ServicePage()));
+                            },
                             child: Column(
                               children: [
                                 CustomHeadline(heading: 'Your Service'),

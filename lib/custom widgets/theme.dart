@@ -14,7 +14,7 @@ ThemeData themeData1() {
       //Color.fromARGB(255, 245, 167, 44)
       labelStyle: TextStyle(
         //fontSize: 35,
-        color: Color.fromARGB(255, 144, 127, 127),
+        color: Color.fromARGB(255, 127, 17, 224),
       ),
     ),
     appBarTheme: const AppBarTheme(color: Color.fromARGB(255, 127, 17, 224)),

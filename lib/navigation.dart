@@ -61,12 +61,12 @@ class _BottomBarNavigationState extends State<BottomBarNavigation> {
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           //selectedItemColor: Color.fromARGB(255, 91, 71, 189),
+
           unselectedItemColor: Colors.white,
           //Color.fromARGB(255, 203, 197, 234)
-          selectedFontSize: 18,
-
+          selectedFontSize: 15,
           unselectedFontSize: 10,
-          //selectedLabelStyle: TextStyle(color: Color.fromARGB(255, 27, 15, 15)),
+          // selectedLabelStyle: ,
           showUnselectedLabels: true,
           //type: BottomNavigationBarType.fixed,
           backgroundColor: Theme.of(context).primaryColor,
@@ -91,18 +91,17 @@ class _BottomBarNavigationState extends State<BottomBarNavigation> {
           currentIndex: _selectedIndex,
           onTap: onItemTapped,
         ),
-        body:
-            // _widgetOptions.elementAt(_selectedIndex)
-            Navigator(
-          initialRoute: '/dashboard',
-          onGenerateRoute: (settings) {
-            Widget page = DashBoard();
-            //if (tabItem == )
-            if (settings.name == '/service') page = ServicePage();
-            if (settings.name == '/request') page = RequestPage();
-            return MaterialPageRoute(builder: (_) => page);
-          },
-        )
+        body: _widgetOptions.elementAt(_selectedIndex)
+        //   Navigator(
+        //   initialRoute: '/dashboard',
+        //   onGenerateRoute: (settings) {
+        //     Widget page = DashBoard();
+        //     //if (tabItem == )
+        //     if (settings.name == '/service') page = ServicePage();
+        //     if (settings.name == '/request') page = RequestPage();
+        //     return MaterialPageRoute(builder: (_) => page);
+        //   },
+        // )
         // Container(
         //   child: ,
         // )

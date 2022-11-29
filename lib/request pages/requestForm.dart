@@ -3,6 +3,7 @@ import 'package:grpc/grpc.dart';
 import 'package:testfyp/bin/client_service_request.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/custom%20widgets/customDivider.dart';
+import 'package:testfyp/custom%20widgets/customHeadline.dart';
 import 'package:testfyp/extension_string.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -186,7 +187,7 @@ class _RequestFormState extends State<RequestForm> {
                 // ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Title'),
+                  child: CustomHeadline(heading: 'Title'),
                 ),
                 TextFormField(
                   controller: _titleController,
@@ -204,7 +205,7 @@ class _RequestFormState extends State<RequestForm> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Description'),
+                  child: CustomHeadline(heading: 'Description'),
                 ),
                 TextFormField(
                   controller: _descriptionController,
@@ -222,7 +223,7 @@ class _RequestFormState extends State<RequestForm> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Category'),
+                  child: CustomHeadline(heading: 'Category'),
                 ),
                 Container(
                   alignment: Alignment.center,
@@ -264,7 +265,7 @@ class _RequestFormState extends State<RequestForm> {
                 CustomDivider(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Location'),
+                  child: CustomHeadline(heading: 'Location'),
                 ),
                 SizedBox(height: 8),
                 TextFormField(
@@ -346,7 +347,7 @@ class _RequestFormState extends State<RequestForm> {
                 CustomDivider(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Attachment'),
+                  child: CustomHeadline(heading: 'Attachment'),
                 ),
                 Row(
                   children: [
@@ -417,7 +418,7 @@ class _RequestFormState extends State<RequestForm> {
                 CustomDivider(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Rate'),
+                  child: CustomHeadline(heading: 'Rate'),
                 ),
                 Row(
                   children: [

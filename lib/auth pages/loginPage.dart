@@ -4,6 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/auth%20pages/forgotPasword.dart';
 import 'package:testfyp/auth%20pages/signUpPage.dart';
+import 'package:testfyp/custom%20widgets/theme.dart';
 
 import '../bin/common.dart';
 
@@ -95,20 +96,45 @@ class _LoginPageState extends State<LoginPage> {
           //mainAxisAlignment: MainAxisAlignment.center,
           //padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
           children: [
-            const Text(
-              'Budi',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Color.fromARGB(255, 127, 17, 224),
-                  fontSize: 65,
-                  fontWeight: FontWeight.bold),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Bu',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: themeData1().primaryColor,
+                      fontSize: 65,
+                      fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'di',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: themeData1().primaryColor,
+                      fontSize: 65,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
-            const Text(
-              'Blockchain-Based Time Bank',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Color.fromARGB(255, 127, 17, 224),
-                  fontWeight: FontWeight.w600),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Blockchain-Based ',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: themeData1().secondaryHeaderColor,
+                      fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  'Time Bank',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: themeData1().secondaryHeaderColor,
+                      fontWeight: FontWeight.w600),
+                ),
+              ],
             ),
             const SizedBox(
               height: 5,
@@ -164,8 +190,19 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(height: 18),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: themeData1().secondaryHeaderColor,
+                foregroundColor: Colors.white,
+                // side: BorderSide(
+                //   width: 3.0,
+                //   color: themeData1().secondaryHeaderColor,
+                // )
+              ),
               onPressed: _isLoading ? null : _logIn,
-              child: Text(_isLoading ? 'Loading' : 'Login'),
+              child: Text(
+                _isLoading ? 'Loading' : 'Login',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
             ElevatedButton(
               onPressed: (() {
@@ -175,7 +212,8 @@ class _LoginPageState extends State<LoginPage> {
                       builder: (context) => const PasswordRecoveryPage(),
                     ));
               }),
-              child: const Text('Forgot Password'),
+              child: const Text('Forgot Password',
+                  style: TextStyle(fontWeight: FontWeight.bold)),
             ),
             TextButton(
               onPressed: (() {
@@ -185,7 +223,9 @@ class _LoginPageState extends State<LoginPage> {
                       builder: (context) => const SignUpPage(),
                     ));
               }),
-              child: const Text('Sign Up'),
+              child: const Text(
+                'Sign Up',
+              ),
             ),
             // ElevatedButton(
             //     onPressed: (() {
