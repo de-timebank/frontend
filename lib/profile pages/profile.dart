@@ -1,12 +1,19 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/auth%20pages/account_page.dart';
+import 'package:testfyp/custom%20widgets/customHeadline.dart';
 import 'package:testfyp/extension_string.dart';
+import 'package:testfyp/profile%20pages/listViewContact.dart';
+import 'package:testfyp/profile%20pages/ratingCardWidget.dart';
 
 import '../bin/client_rating.dart';
 import '../bin/common.dart';
+import '../custom widgets/theme.dart';
+import 'contactIconWidget.dart';
+import 'emptyCardWidget.dart';
 
 //import 'package:testfyp/splash_page.dart';
 
@@ -29,6 +36,10 @@ class _ProfilePageState extends State<ProfilePage> {
   String _avatarUrl = 'asset/girl.png';
   late List<dynamic> skills;
   late List<dynamic> contacts;
+  late List<dynamic> email1;
+  late List<dynamic> phone1;
+  late List<dynamic> twitter1;
+  late List<dynamic> whatsapp1;
   var _loading = true;
 
   @override
@@ -67,6 +78,10 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> _getProfile() async {
     skills = [];
     contacts = [];
+    email1 = [];
+    phone1 = [];
+    twitter1 = [];
+    whatsapp1 = [];
     setState(() {
       _loading = true;
     });
@@ -78,6 +93,7 @@ class _ProfilePageState extends State<ProfilePage> {
           .select()
           .eq('user_id', userId)
           .single() as Map;
+      //print(data['contacts'].length);
       _username = (data['name'] ?? '') as String;
       // _website = (data['website'] ?? '') as String;
       // _avatarUrl = (data['avatar_url'] ?? '') as String;
@@ -89,16 +105,25 @@ class _ProfilePageState extends State<ProfilePage> {
         }
       }
       for (int i = 0; i < data['contacts'].length; i++) {
-        if (data['contacts'][i] != '') {
-          contacts.add(data['contacts'][i]);
+        //print(data['contacts'][i]['type'].toString() == 'Email');
+        if (data['contacts'][i]['type'].toString() == 'Email') {
+          //print("ui");
+          email1.add(data['contacts'][i]['address'].toString());
+        }
+        if (data['contacts'][i]['type'].toString() == 'Phone') {
+          phone1.add(data['contacts'][i]['address']);
+        }
+        if (data['contacts'][i]['type'].toString() == 'Twitter') {
+          twitter1.add(data['contacts'][i]['address']);
+        }
+        if (data['contacts'][i]['type'].toString() == 'WhatsApp') {
+          whatsapp1.add(data['contacts'][i]['address']);
         }
       }
-      // _getRating(user);
-      // print(skills[0][2]);
-      // print(contacts);
-      // _desc = (data['description'] ?? '') as String;
+      //print(email);
     } on PostgrestException catch (error) {
       context.showErrorSnackBar(message: error.message);
+      //print(error.message.toString());
     } catch (error) {
       context.showErrorSnackBar(message: 'Unexpected exception occured');
     }
@@ -144,79 +169,65 @@ class _ProfilePageState extends State<ProfilePage> {
               padding: const EdgeInsets.all(15.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Flexible(
-                    flex: 3,
-                    child: Row(
-                      //crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Expanded(
-                          child: Container(
-                            padding: const EdgeInsets.all(20.0),
-                            decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 219, 216, 233),
-                                //border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          color: themeData1().primaryColor,
+                          width: 3,
+                        ),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(12)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            CustomHeadline(heading: _username),
+                            SizedBox(height: 8),
+                            Row(
                               children: [
-                                Text(
-                                  _username,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                                SizedBox(height: 10),
-                                Text('Matric Id: $_matric'),
-                                SizedBox(height: 8),
-                                Text('Gender: ${_gender.capitalize()}'),
-                                SizedBox(height: 8),
-                                Text('Contact:'),
-                                SizedBox(height: 8),
-                                isEmpty(contacts)
-                                    ? Text(
-                                        'You have not entered any contacts..')
-                                    : Expanded(
-                                        child: SizedBox(
-                                          //height: 50,
-                                          child: ListView.builder(
-                                            physics:
-                                                const BouncingScrollPhysics(),
-                                            itemCount: contacts.length,
-                                            itemBuilder: (context, index) {
-                                              return Row(
-                                                children: [
-                                                  Text(
-                                                      '${index + 1}) ${contacts[index]['type'].toString()}'),
-                                                  Text(
-                                                      ', ${contacts[index]['address'].toString()}'),
-                                                ],
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      )
+                                Text('Id: '),
+                                Text('$_matric'),
                               ],
                             ),
-                          ),
+                            Row(
+                              children: [
+                                Text('Gender: '),
+                                Text('${_gender.titleCase()}'),
+                              ],
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
-                  SizedBox(
-                    height: 15,
+                  CustomHeadline(heading: ' Rating'),
+                  RatingCardWidget(
+                    isProvider: true,
+                    title: 'Provider Rating',
+                    iconRating: Icons.emoji_people,
+                    isEmpty: isEmpty,
+                    userCalculatedRating: _userCalculatedRating,
+                    userRating: _userRating,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('Skilled in',
-                        style:
-                            TextStyle(fontWeight: FontWeight.bold, fontSize: 15)
-                        //style: Theme.of(context).textTheme.headline1,
-                        ),
+                  RatingCardWidget(
+                    isProvider: false,
+                    title: 'Requestor Rating',
+                    iconRating: Icons.handshake,
+                    isEmpty: isEmpty,
+                    userCalculatedRating: _userCalculatedRating,
+                    userRating: _userRating,
                   ),
+                  CustomHeadline(heading: ' Skill List'),
                   isEmpty(skills)
-                      ? Text('You have not entered any skills')
+                      ? Text(' You have not entered any skills')
                       : SizedBox(
                           height: 50,
                           child: ListView.builder(
@@ -237,37 +248,66 @@ class _ProfilePageState extends State<ProfilePage> {
                               );
                             },
                           )),
-                  const Divider(
-                      //horizontal line
-                      height: 10,
-                      thickness: 2,
-                      indent: 30,
-                      endIndent: 30),
+                  CustomHeadline(heading: ' Contact List'),
                   Row(
                     children: [
-                      Flexible(
-                        flex: 1,
-                        child: Card(
-                          elevation: 5,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Text('Rating',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
-                              ),
-                              isEmpty(_userRating.ratings)
-                                  ? Text('No Rating')
-                                  : Text(
-                                      '${(_userCalculatedRating / _userRating.ratings.length).toStringAsFixed(2)}')
-                            ],
+                      ContactWidget(
+                          containerColor: themeData1().primaryColor,
+                          theIcon: const Icon(
+                            Icons.email,
+                            color: Colors.white,
                           ),
-                        ),
-                      ),
+                          iconColor: Colors.white),
+                      isEmpty(email1)
+                          ? emptyCardContact()
+                          : CustomListviewContact(contactList: email1)
                     ],
-                  )
+                  ),
+                  Row(
+                    children: [
+                      ContactWidget(
+                          containerColor: themeData1().primaryColor,
+                          theIcon: const Icon(
+                            Icons.phone,
+                            color: Colors.white,
+                          ),
+                          iconColor: Colors.white),
+                      isEmpty(phone1)
+                          ? emptyCardContact()
+                          : CustomListviewContact(contactList: phone1)
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      ContactWidget(
+                          containerColor: themeData1().primaryColor,
+                          theIcon: const FaIcon(
+                            FontAwesomeIcons.twitter,
+                            color: Colors.white,
+                          ),
+                          iconColor: Colors.white),
+                      isEmpty(twitter1)
+                          ? emptyCardContact()
+                          : CustomListviewContact(contactList: twitter1)
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      ContactWidget(
+                          containerColor: themeData1().primaryColor,
+                          theIcon: const FaIcon(
+                            FontAwesomeIcons.whatsapp,
+                            color: Colors.white,
+                          ),
+                          iconColor: Colors.white),
+                      isEmpty(whatsapp1)
+                          ? emptyCardContact()
+                          : CustomListviewContact(contactList: whatsapp1)
+                    ],
+                  ),
+                  // SizedBox(
+                  //   height: 15,
+                  // ),
                 ],
               ),
             ),

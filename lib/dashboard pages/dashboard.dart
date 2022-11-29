@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:testfyp/custom%20widgets/serviceDashboardCard.dart';
 import 'package:testfyp/custom%20widgets/theme.dart';
 import 'package:testfyp/rate%20pages/rateGiven.dart';
@@ -101,7 +99,7 @@ class _DashBoardState extends State<DashBoard> {
                             Padding(
                               padding: EdgeInsets.all(10.0),
                               child: Text(
-                                  '\$ Time/hour: ${data!["total"].toString()}',
+                                  '\$ Time/hour: ${data!["total"].toStringAsFixed(2)}',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white)),
