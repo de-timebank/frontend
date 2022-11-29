@@ -21,7 +21,7 @@ class _ServicePageState extends State<ServicePage> {
               backgroundColor: Theme.of(context).secondaryHeaderColor,
               bottom:
                   TabBar(indicatorColor: Theme.of(context).primaryColor, tabs: [
-                Tab(text: 'Ongoing\nServices'),
+                Tab(text: 'Ongoing\n\t\t\tJob'),
                 Badge(
                     showBadge: false,
                     badgeContent: Text('!'),
@@ -31,7 +31,7 @@ class _ServicePageState extends State<ServicePage> {
                 Tab(text: 'Completed\n\t\t\t\t\tJob')
               ]),
               // backgroundColor: Color.fromARGB(255, 127, 17, 224),
-              title: const Text('Help people with your service'),
+              title: const Text('Want to help other people?'),
             ),
             body: TabBarView(
               children: [

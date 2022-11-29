@@ -69,7 +69,7 @@ class _YourRequestState extends State<YourRequest> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        'Need help from other people?\nAdd request to let people know',
+                        'Need help from other people?\nRequest help to let people know...',
                         textAlign: TextAlign.center,
                       ),
                       Container(

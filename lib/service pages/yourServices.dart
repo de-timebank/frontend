@@ -68,7 +68,7 @@ class _YourServicesState extends State<YourServices> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      'What to help other people? try to apply job in the next tab. At the moment, you have no ongoing services... ',
+                      'What to help other people?\ntry to apply job in the next tab. At the moment, you have no ongoing services... ',
                       textAlign: TextAlign.center,
                     ),
                     Container(

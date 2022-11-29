@@ -357,7 +357,7 @@ class _DashBoardState extends State<DashBoard> {
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 7.0),
                                             child: Text(
-                                              'See what other thinks about you',
+                                              'See what other people thinks about you',
                                               style: TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.white),

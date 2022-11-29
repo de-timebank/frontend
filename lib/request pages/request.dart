@@ -23,9 +23,9 @@ class _RequestPageState extends State<RequestPage> {
               tabs: [
                 Tab(text: '\t\t\tYour\nRequest'),
                 Tab(text: 'Requested\n\t\t\t\tJob'),
-                Tab(text: 'Completed\n\t\t\t\t\t\tJob')
+                Tab(text: 'Completed\n\t\t\tRequest')
               ]),
-          title: const Text('Need Help / Favour ?'),
+          title: const Text('Need help from other people?'),
         ),
         body: TabBarView(
             children: [YourRequest(), RequestedJob(), CompletedRequest()]),
