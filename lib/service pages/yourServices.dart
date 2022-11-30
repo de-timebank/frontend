@@ -34,7 +34,7 @@ class _YourServicesState extends State<YourServices> {
 
     listRequest =
         await ClientServiceRequest(Common().channel).getResponse('state', '2');
-
+    print(listRequest);
     for (var i = 0; i < listRequest.requests.length; i++) {
       if (listRequest.requests[i].requestor != user) {
         listFiltered.add(listRequest.requests[i]);

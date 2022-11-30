@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:testfyp/custom%20widgets/serviceDashboardCard.dart';
 import 'package:testfyp/custom%20widgets/theme.dart';
+import 'package:testfyp/dashboard%20pages/serviceDashboardCard.dart';
 import 'package:testfyp/rate%20pages/rateGiven.dart';
 import 'package:testfyp/request%20pages/request.dart';
 import '../components/constants.dart';

@@ -564,7 +564,7 @@ class _RequestFormState extends State<RequestForm> {
                         var rate = double.parse(
                             _rateController.text); //convert to double
                         var time = double.parse(_timeLimitController.text);
-                        //media.add(_mediaController.text); //add to array
+
                         _submitJobForm(
                             _titleController.text,
                             _descriptionController.text,
@@ -577,19 +577,6 @@ class _RequestFormState extends State<RequestForm> {
                             _categoryController.text,
                             time,
                             _dateController.text);
-                        // _submitJobForm(
-                        //     _titleController.text,
-                        //     _descriptionController.text,
-                        //     _latitudeController.text,
-                        //     _longitudeController.text,
-                        //     _locationController.text,
-                        //     rate,
-                        //     media,
-                        //     user,
-                        //     _categoryController.text);
-
-                        //'291b79a7-c67c-4783-b004-239cb334804d'
-
                       }
                     },
                     child: const Text('Create Request')),
@@ -611,10 +598,6 @@ class _RequestFormState extends State<RequestForm> {
       String category,
       double timeLimit,
       String date) async {
-    // final _user = await supabase.auth.currentUser;
-    // print(_user!.id);\
-    //print(category);
-    //print(media);
     try {
       await ClientServiceRequest(Common().channel).createServiceRequest(
           title,
@@ -628,11 +611,13 @@ class _RequestFormState extends State<RequestForm> {
           category,
           timeLimit,
           date);
+      //print(test);
       //dprint(test.toProto3Json());
       context.showSnackBar(message: 'Job Created');
       Navigator.of(context).pop();
     } on GrpcError catch (e) {
       context.showErrorSnackBar(message: '${e.message}');
+      print(e.toString());
     } catch (e) {
       context.showErrorSnackBar(message: e.toString());
     }
