@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:grpc/grpc.dart';
 import '../generated/collection/service-request.pbgrpc.dart';
 
@@ -26,9 +28,6 @@ class ClientServiceRequest {
 
   Future<GetById_Response> getResponseById(String id) async {
     return await stub.getById(GetById_Request()..requestId = id);
-    //'9b5f1dca-ea47-4774-867c-8102daef586c'
-    //print(_result);
-    //return _serviceResult;
   }
 
   Future<Get_Response> getResponse(String key, String value) async {
@@ -46,7 +45,9 @@ class ClientServiceRequest {
       double rate,
       List<String> media,
       String requestor,
-      String category) async {
+      String category,
+      double timeLimit,
+      String date) async {
     return await stub.create(Create_Request(
         requestData: Create_NewServiceRequestData(
             details: ServiceRequestData_Details()
@@ -57,6 +58,8 @@ class ClientServiceRequest {
                   ..latitude = latitude
                   ..longitude = longitude)
               ..name = locName)
+          ..timeLimit = timeLimit
+          ..date = date
           ..rate = rate
           ..mediaAttachments.addAll(media)
           ..category = category)

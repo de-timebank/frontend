@@ -31,6 +31,7 @@ class _RequestFormState extends State<RequestForm> {
   final _mediaController = TextEditingController();
   final _dateControllerDisplay = TextEditingController();
   final _dateController = TextEditingController();
+  final _timeLimitController = TextEditingController();
 
   final DateTime _dateTime = DateTime.now();
 
@@ -491,7 +492,7 @@ class _RequestFormState extends State<RequestForm> {
                   child: CustomHeadline(heading: 'Time Limit'),
                 ),
                 TextFormField(
-                  controller: _titleController,
+                  controller: _timeLimitController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -562,6 +563,7 @@ class _RequestFormState extends State<RequestForm> {
                       if (_formKey.currentState!.validate()) {
                         var rate = double.parse(
                             _rateController.text); //convert to double
+                        var time = double.parse(_timeLimitController.text);
                         //media.add(_mediaController.text); //add to array
                         _submitJobForm(
                             _titleController.text,
@@ -572,7 +574,9 @@ class _RequestFormState extends State<RequestForm> {
                             rate,
                             mediaList,
                             user,
-                            _categoryController.text);
+                            _categoryController.text,
+                            time,
+                            _dateController.text);
                         // _submitJobForm(
                         //     _titleController.text,
                         //     _descriptionController.text,
@@ -604,7 +608,9 @@ class _RequestFormState extends State<RequestForm> {
       double rate,
       List<String> media,
       String requestor,
-      String category) async {
+      String category,
+      double timeLimit,
+      String date) async {
     // final _user = await supabase.auth.currentUser;
     // print(_user!.id);\
     //print(category);
@@ -619,7 +625,9 @@ class _RequestFormState extends State<RequestForm> {
           rate,
           media,
           requestor,
-          category);
+          category,
+          timeLimit,
+          date);
       //dprint(test.toProto3Json());
       context.showSnackBar(message: 'Job Created');
       Navigator.of(context).pop();
