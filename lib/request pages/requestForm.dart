@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:grpc/grpc.dart';
 import 'package:testfyp/bin/client_service_request.dart';
 import 'package:testfyp/components/constants.dart';
-import 'package:testfyp/custom%20widgets/customDivider.dart';
 import 'package:testfyp/custom%20widgets/customHeadline.dart';
+import 'package:testfyp/custom%20widgets/theme.dart';
 import 'package:testfyp/extension_string.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-
 import '../bin/common.dart';
 
 //map API
@@ -30,6 +29,10 @@ class _RequestFormState extends State<RequestForm> {
   final _locationController = TextEditingController();
   final _rateController = TextEditingController();
   final _mediaController = TextEditingController();
+  final _dateControllerDisplay = TextEditingController();
+  final _dateController = TextEditingController();
+
+  final DateTime _dateTime = DateTime.now();
 
   List<String> mediaList = [];
   List<String> listCategories = <String>[
@@ -223,6 +226,73 @@ class _RequestFormState extends State<RequestForm> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
+                  child: CustomHeadline(heading: 'Date'),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        enabled: false,
+                        controller: _dateControllerDisplay,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Pick a date'),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter date...';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            DateTime? newDate = await showDatePicker(
+                              builder: (context, child) {
+                                return Theme(
+                                  data: Theme.of(context).copyWith(
+                                    colorScheme: ColorScheme.light(
+                                      primary: themeData1()
+                                          .primaryColor, // header background color
+                                      onPrimary:
+                                          Colors.white, // header text color
+                                      onSurface:
+                                          Colors.black, // body text color
+                                    ),
+                                    // textButtonTheme: TextButtonThemeData(
+                                    //   style: TextButton.styleFrom(
+                                    //     foregroundColor:
+                                    //         Colors.red, // button text color
+                                    //   ),
+                                    // ),
+                                  ),
+                                  child: child!,
+                                );
+                              },
+                              context: context,
+                              initialDate: _dateTime,
+                              firstDate: DateTime(_dateTime.year,
+                                  _dateTime.month, _dateTime.day),
+                              lastDate: _dateTime.add(Duration(days: 365)),
+                            );
+
+                            setState(() {
+                              _dateControllerDisplay.text =
+                                  '${newDate?.day}-${newDate?.month}-${newDate?.year}';
+                              _dateController.text = newDate.toString();
+                              //;
+                            });
+                            // _addmedia(_mediaController.text);
+                            // _mediaController.clear();
+                          },
+                          child: Text('Pick A Date')),
+                    )
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: CustomHeadline(heading: 'Category'),
                 ),
                 Container(
@@ -262,10 +332,46 @@ class _RequestFormState extends State<RequestForm> {
                     },
                   ),
                 ),
-                CustomDivider(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CustomHeadline(heading: 'Location'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child:
+                      Text('Enter address of the job or get current location'),
+                ),
+                TextFormField(
+                  controller: _locationController,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      helperText:
+                          'Latitude and longitude of the location will be\nautomatically added',
+                      hintText: 'Enter location address'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter location...';
+                    }
+                    return null;
+                  },
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            GetLatLongfromAddress(_locationController.text);
+                          },
+                          child: Text('Enter Address')),
+                    ),
+                    SizedBox(width: 5),
+                    ElevatedButton(
+                        onPressed: () async {
+                          Position position = await _getGeoLocationPosition();
+                          GetAddressFromLatLong(position);
+                        },
+                        child: Text('Get current location')),
+                  ],
                 ),
                 SizedBox(height: 8),
                 TextFormField(
@@ -276,12 +382,12 @@ class _RequestFormState extends State<RequestForm> {
                     labelText: 'Latitude',
                     //prefixIcon: Icon(Icons.map)
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter latitude...';
-                    }
-                    return null;
-                  },
+                  // validator: (value) {
+                  //   if (value == null || value.isEmpty) {
+                  //     return 'Please enter latitude...';
+                  //   }
+                  //   return null;
+                  // },
                 ),
                 SizedBox(height: 8),
                 TextFormField(
@@ -289,12 +395,12 @@ class _RequestFormState extends State<RequestForm> {
                   enabled: false,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), labelText: 'Longitude'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter longitude';
-                    }
-                    return null;
-                  },
+                  // validator: (value) {
+                  //   if (value == null || value.isEmpty) {
+                  //     return 'Please enter longitude';
+                  //   }
+                  //   return null;
+                  // },
                 ),
                 SizedBox(height: 8),
                 TextFormField(
@@ -302,49 +408,14 @@ class _RequestFormState extends State<RequestForm> {
                   enabled: false,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), labelText: 'Address'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter location...';
-                    }
-                    return null;
-                  },
+                  // validator: (value) {
+                  //   if (value == null || value.isEmpty) {
+                  //     return 'Please enter location...';
+                  //   }
+                  //   return null;
+                  // },
                 ),
-                ElevatedButton(
-                    onPressed: () async {
-                      Position position = await _getGeoLocationPosition();
-                      GetAddressFromLatLong(position);
 
-                      // GetLatLongfromAddress(
-                      //     '1600 Amphitheatre Pkwy, , Mountain View, 94043, United States');
-                      //1600 Amphitheatre Pkwy, , Mountain View, 94043, United States
-                      // location1 =
-                      //     'Lat: ${position.latitude} , Long: ${position.longitude}';
-
-                      //print('The location is : ' + location1);
-                    },
-                    child: Text('Get current location')),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                      'Need request somewhere else?.. Enter address below'),
-                ),
-                TextFormField(
-                  controller: _locationController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(), hintText: 'Enter Location'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter location...';
-                    }
-                    return null;
-                  },
-                ),
-                ElevatedButton(
-                    onPressed: () async {
-                      GetLatLongfromAddress(_locationController.text);
-                    },
-                    child: Text('Enter Address')),
-                CustomDivider(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CustomHeadline(heading: 'Attachment'),
@@ -357,20 +428,20 @@ class _RequestFormState extends State<RequestForm> {
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Enter attachment'),
-                        // validator: (value) {
-                        //   if (value == null || value.isEmpty) {
-                        //     return 'Please enter some text';
-                        //   }
-                        //   return null;
-                        // },
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextButton(
                           onPressed: () {
-                            _addmedia(_mediaController.text);
-                            _mediaController.clear();
+                            if (_mediaController.text.length == 0) {
+                              context.showErrorSnackBar(
+                                  message:
+                                      'You have not entered any attachment..');
+                            } else {
+                              _addmedia(_mediaController.text);
+                              _mediaController.clear();
+                            }
                           },
                           child: Icon(Icons.add)),
                     )
@@ -415,7 +486,27 @@ class _RequestFormState extends State<RequestForm> {
                             );
                           },
                         )),
-                CustomDivider(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomHeadline(heading: 'Time Limit'),
+                ),
+                TextFormField(
+                  controller: _titleController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      helperText: 'Time required to finish the request',
+                      hintText: 'Enter time limit (hours)'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter time limit';
+                    }
+                    return null;
+                  },
+                  // onFieldSubmitted: (value) {
+                  //   reqList[0]['Title'] = value;
+                  // },
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CustomHeadline(heading: 'Rate'),
@@ -438,6 +529,24 @@ class _RequestFormState extends State<RequestForm> {
                         },
                       ),
                     ),
+                    // Expanded(
+                    //   child: TextFormField(
+                    //     controller: _titleController,
+                    //     keyboardType: TextInputType.number,
+                    //     decoration: InputDecoration(
+                    //         border: OutlineInputBorder(),
+                    //         hintText: 'Enter time limit (hours)'),
+                    //     validator: (value) {
+                    //       if (value == null || value.isEmpty) {
+                    //         return 'Please enter time limit';
+                    //       }
+                    //       return null;
+                    //     },
+                    //     // onFieldSubmitted: (value) {
+                    //     //   reqList[0]['Title'] = value;
+                    //     // },
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text('\$ time/hour'),

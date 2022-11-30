@@ -23,7 +23,7 @@ class _RequestPageState extends State<RequestPage> {
               tabs: [
                 Tab(text: '\t\t\tYour\nRequest'),
                 Tab(text: 'Requested\n\t\t\t\tJob'),
-                Tab(text: 'Completed\n\t\t\tRequest')
+                Tab(text: 'Completed\n\t\t Request')
               ]),
           title: const Text('Need help from other people?'),
         ),

@@ -471,6 +471,8 @@ class Create_NewServiceRequestData extends $pb.GeneratedMessage {
     ..a<$core.double>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'rate', $pb.PbFieldType.OF)
     ..pPS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'mediaAttachments')
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'category')
+    ..a<$core.double>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timeLimit', $pb.PbFieldType.OF)
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'date')
     ..hasRequiredFields = false
   ;
 
@@ -481,6 +483,8 @@ class Create_NewServiceRequestData extends $pb.GeneratedMessage {
     $core.double? rate,
     $core.Iterable<$core.String>? mediaAttachments,
     $core.String? category,
+    $core.double? timeLimit,
+    $core.String? date,
   }) {
     final _result = create();
     if (details != null) {
@@ -497,6 +501,12 @@ class Create_NewServiceRequestData extends $pb.GeneratedMessage {
     }
     if (category != null) {
       _result.category = category;
+    }
+    if (timeLimit != null) {
+      _result.timeLimit = timeLimit;
+    }
+    if (date != null) {
+      _result.date = date;
     }
     return _result;
   }
@@ -563,6 +573,24 @@ class Create_NewServiceRequestData extends $pb.GeneratedMessage {
   $core.bool hasCategory() => $_has(4);
   @$pb.TagNumber(5)
   void clearCategory() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.double get timeLimit => $_getN(5);
+  @$pb.TagNumber(6)
+  set timeLimit($core.double v) { $_setFloat(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasTimeLimit() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearTimeLimit() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get date => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set date($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasDate() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearDate() => clearField(7);
 }
 
 class Create_Request extends $pb.GeneratedMessage {

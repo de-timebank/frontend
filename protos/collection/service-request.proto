@@ -63,7 +63,7 @@ message ServiceRequestData {
     string category = 13;
     string started_at = 14;
     float time_limit = 15;
-    float actual_payment = 16;
+    optional float actual_payment = 16;
     string date = 17;
 } 
 
@@ -74,6 +74,8 @@ message Create {
         float rate = 3;
         repeated string media_attachments = 4;
         string category = 5;
+        float time_limit = 6;
+        string date = 7;
     }
 
     message Request {

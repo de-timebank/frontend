@@ -392,13 +392,18 @@ class _AccountPageState extends State<AccountPage> {
                                 Theme.of(context).secondaryHeaderColor,
                           ),
                           onPressed: () {
-                            try {
-                              _addskills(_skillController.text);
-                              _skillController.clear();
-                              context.showSnackBar(message: 'Skill added!');
-                            } catch (e) {
+                            if (_skillController.text.length == 0) {
                               context.showErrorSnackBar(
-                                  message: 'Unable to add skill');
+                                  message: 'You have not entered any skill..');
+                            } else {
+                              try {
+                                _addskills(_skillController.text);
+                                _skillController.clear();
+                                context.showSnackBar(message: 'Skill added!');
+                              } catch (e) {
+                                context.showErrorSnackBar(
+                                    message: 'Unable to add skill');
+                              }
                             }
                           },
                           child: const Icon(Icons.add),
@@ -483,14 +488,19 @@ class _AccountPageState extends State<AccountPage> {
                               Theme.of(context).secondaryHeaderColor,
                         ),
                         onPressed: () {
-                          try {
-                            _addcontact(_contactControllerType.text,
-                                _contactController.text);
-                            _contactController.clear();
-                            context.showSnackBar(message: 'Contact Added!');
-                          } catch (e) {
+                          if (_contactController.text.length == 0) {
                             context.showErrorSnackBar(
-                                message: 'Unable to add contact');
+                                message: 'You have not entered any contact..');
+                          } else {
+                            try {
+                              _addcontact(_contactControllerType.text,
+                                  _contactController.text);
+                              _contactController.clear();
+                              context.showSnackBar(message: 'Contact Added!');
+                            } catch (e) {
+                              context.showErrorSnackBar(
+                                  message: 'Unable to add contact');
+                            }
                           }
                         },
                         child: Icon(Icons.add),
