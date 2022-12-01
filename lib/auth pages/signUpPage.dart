@@ -71,7 +71,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   _signUpGrpc(String email, String password, String name, String gender,
-      String matricnumber) async {
+      String identificationNumber) async {
     setState(() {
       _isLoading = true;
     });
@@ -80,8 +80,8 @@ class _SignUpPageState extends State<SignUpPage> {
     // var profile1 = NewUserProfile(contacts: Contact()..address = address..type = type);
     profile
       ..name = name
-      ..gender = gender
-      ..matricNumber = matricnumber;
+      ..gender = gender;
+    // ..identificationNumber = identificationNumber;
 
     try {
       await ClientAuth(Common().channel).signUpUser(email, password, profile);
