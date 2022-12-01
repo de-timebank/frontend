@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:grpc/grpc.dart';
@@ -74,10 +72,10 @@ class _RequestDetailsState extends State<RequestDetails> {
   final _commentController = TextEditingController();
   final _comment1Controller = TextEditingController();
 
-  late final data;
-  late final dateCreatedOn;
-  late final dateUpdatedOn;
-  late final dateCompletedOn;
+  // late final data;
+  late final dynamic dateCreatedOn;
+  late final dynamic dateUpdatedOn;
+  late final dynamic dateCompletedOn;
 
   late dynamic ratedUser;
   late dynamic ratedUserId;
@@ -350,14 +348,15 @@ class _RequestDetailsState extends State<RequestDetails> {
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                               children: [
-                                isNull(widget.applicants)
+                                isNull(widget
+                                        .applicants) //does not have any  applicants
                                     ? Column(
                                         children: [
                                           Heading2('Applicants'),
                                           Text('No Applicants'),
                                         ],
                                       )
-                                    : isNull(widget.provider)
+                                    : isNull(widget.provider) // have applicants
                                         ? Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 8, vertical: 3),
@@ -400,59 +399,57 @@ class _RequestDetailsState extends State<RequestDetails> {
                                               ],
                                             ),
                                           )
-                                        : isComplete()
-                                            ? Column(
-                                                // mainAxisAlignment:
-                                                //     MainAxisAlignment.center,
-                                                // crossAxisAlignment:
-                                                //     CrossAxisAlignment.center,
-                                                children: [
-                                                  Heading2(
-                                                      'Provider'), //complete on 1
-                                                  Text(_userProvidor.user.name
-                                                      .toString()
-                                                      .titleCase()),
-                                                  Text(
-                                                      'Completed On: ${dateCompletedOn.day}-${dateCompletedOn.month}-${dateCompletedOn.year}'),
-                                                  Text(
-                                                      'Time: ${dateCompletedOn.hour}:${dateCompletedOn.minute}:${dateCompletedOn.second}')
-                                                ],
-                                              )
-                                            : Column(
-                                                children: [
-                                                  Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: Text(
-                                                        'Provider Selected',
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 16,
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .primaryColor),
-                                                      )),
-                                                  SizedBox(height: 5),
-                                                  isNull(widget.provider)
-                                                      ? Text(
-                                                          'No provider selected')
-                                                      : Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .fromLTRB(
-                                                                  3, 3, 3, 6),
-                                                          child: Text(
-                                                              _userProvidor
-                                                                  .user.name
-                                                                  .toString()
-                                                                  .titleCase()),
-                                                        )
-                                                ],
-                                              ),
+                                        :
+                                        // isComplete()
+                                        //     ? Column(
+                                        //         //job completed
+                                        //         // mainAxisAlignment:
+                                        //         //     MainAxisAlignment.center,
+                                        //         // crossAxisAlignment:
+                                        //         //     CrossAxisAlignment.center,
+                                        //         children: [
+                                        //           Heading2(
+                                        //               'Provider'), //complete on 1
+                                        //           Text(_userProvidor.user.name
+                                        //               .toString()
+                                        //               .titleCase()),
+                                        //           Text(
+                                        //               'Completed On: ${dateCompletedOn.day}-${dateCompletedOn.month}-${dateCompletedOn.year}'),
+                                        //           Text(
+                                        //               'Time: ${dateCompletedOn.hour}:${dateCompletedOn.minute}:${dateCompletedOn.second}')
+                                        //         ],
+                                        //       )
+                                        //     :
+                                        Column(
+                                            //when requestor select provider
+                                            children: [
+                                              Container(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    'Provider Selected',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 16,
+                                                        color: themeData2()
+                                                            .primaryColor),
+                                                  )),
+                                              SizedBox(height: 5),
+                                              isNull(widget.provider)
+                                                  ? Text('No provider selected')
+                                                  : Padding(
+                                                      padding: const EdgeInsets
+                                                          .fromLTRB(3, 3, 3, 6),
+                                                      child: Text(_userProvidor
+                                                          .user.name
+                                                          .toString()
+                                                          .titleCase()),
+                                                    )
+                                            ],
+                                          ),
                                 CustomDivider(),
                                 //SizedBox(height: 8),
-                                isPending()
+                                isPending() //when has no applicants
                                     ? Column(
                                         children: [
                                           ElevatedButton(
@@ -474,7 +471,7 @@ class _RequestDetailsState extends State<RequestDetails> {
                                                   Text('Job is still pending')),
                                         ],
                                       )
-                                    : isComplete()
+                                    : isComplete() //when request is complete
                                         ? isRated() //still for request
                                             ? isProviderRated()
                                                 ? Text(
@@ -563,9 +560,6 @@ class _RequestDetailsState extends State<RequestDetails> {
                                     ? TextButton(
                                         onPressed: () {
                                           _deleteRequest(widget.id);
-
-                                          //Navigator.of(context).popUntil((route) => route.i);
-                                          //Navigator.of(context).pushNamed('/navigation');
                                         },
                                         child: Text('Delete Job'))
                                     : isComplete()
@@ -596,7 +590,7 @@ class _RequestDetailsState extends State<RequestDetails> {
                             ),
                           ),
                         )
-                      : isComplete()
+                      : isComplete() //isRequestcomplete?
                           ? Card(
                               elevation: 5,
                               child: Padding(
