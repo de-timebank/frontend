@@ -19,6 +19,7 @@ class RatingData extends $pb.GeneratedMessage {
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt')
     ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updatedAt')
     ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requestId')
+    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ratingFor')
     ..hasRequiredFields = false
   ;
 
@@ -32,6 +33,7 @@ class RatingData extends $pb.GeneratedMessage {
     $core.String? createdAt,
     $core.String? updatedAt,
     $core.String? requestId,
+    $core.String? ratingFor,
   }) {
     final _result = create();
     if (id != null) {
@@ -57,6 +59,9 @@ class RatingData extends $pb.GeneratedMessage {
     }
     if (requestId != null) {
       _result.requestId = requestId;
+    }
+    if (ratingFor != null) {
+      _result.ratingFor = ratingFor;
     }
     return _result;
   }
@@ -152,6 +157,15 @@ class RatingData extends $pb.GeneratedMessage {
   $core.bool hasRequestId() => $_has(7);
   @$pb.TagNumber(8)
   void clearRequestId() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.String get ratingFor => $_getSZ(8);
+  @$pb.TagNumber(9)
+  set ratingFor($core.String v) { $_setString(8, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasRatingFor() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearRatingFor() => clearField(9);
 }
 
 class Create_NewRatingData extends $pb.GeneratedMessage {

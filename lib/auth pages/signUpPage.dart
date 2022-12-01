@@ -43,11 +43,13 @@ class _SignUpPageState extends State<SignUpPage> {
   List<String> idUser = <String>['Ic', 'Passport'];
 
   late NewUserProfile profile;
+  late IdentificationNumber _identificationNumber;
   late final StreamSubscription<AuthState> _authStateSubscription;
 
   @override
   void initState() {
     profile = NewUserProfile();
+
     _genderController.text = listGender[0];
     _contactControllerType.text = listContactType[2];
     _idTypeController.text = idUser[0];
@@ -71,17 +73,19 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   _signUpGrpc(String email, String password, String name, String gender,
-      String identificationNumber) async {
+      String identificationNum, String idType) async {
     setState(() {
       _isLoading = true;
     });
-    // profile..contacts.addAll(contacts);
-    // profile.skills.toList();
-    // var profile1 = NewUserProfile(contacts: Contact()..address = address..type = type);
+
+    _identificationNumber
+      ..type = idType
+      ..value = identificationNum;
+
     profile
       ..name = name
-      ..gender = gender;
-    // ..identificationNumber = identificationNumber;
+      ..gender = gender
+      ..identificationNo = _identificationNumber;
 
     try {
       await ClientAuth(Common().channel).signUpUser(email, password, profile);
@@ -602,7 +606,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       _passwordController.text,
                       _usernameController.text,
                       _genderController.text,
-                      _idController.text);
+                      _idController.text,
+                      _idTypeController.text);
                 }
               },
               child: Text(_isLoading ? 'Loading' : 'Sign Up'),

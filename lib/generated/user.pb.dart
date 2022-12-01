@@ -134,13 +134,74 @@ class Contact extends $pb.GeneratedMessage {
   void clearAddress() => clearField(2);
 }
 
+class IdentificationNumber extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'IdentificationNumber', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.user'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'value')
+    ..hasRequiredFields = false
+  ;
+
+  IdentificationNumber._() : super();
+  factory IdentificationNumber({
+    $core.String? type,
+    $core.String? value,
+  }) {
+    final _result = create();
+    if (type != null) {
+      _result.type = type;
+    }
+    if (value != null) {
+      _result.value = value;
+    }
+    return _result;
+  }
+  factory IdentificationNumber.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory IdentificationNumber.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  IdentificationNumber clone() => IdentificationNumber()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  IdentificationNumber copyWith(void Function(IdentificationNumber) updates) => super.copyWith((message) => updates(message as IdentificationNumber)) as IdentificationNumber; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static IdentificationNumber create() => IdentificationNumber._();
+  IdentificationNumber createEmptyInstance() => create();
+  static $pb.PbList<IdentificationNumber> createRepeated() => $pb.PbList<IdentificationNumber>();
+  @$core.pragma('dart2js:noInline')
+  static IdentificationNumber getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<IdentificationNumber>(create);
+  static IdentificationNumber? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get type => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set type($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasType() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearType() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get value => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set value($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasValue() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearValue() => clearField(2);
+}
+
 class NewUserProfile extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NewUserProfile', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.user'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
     ..pPS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'skills')
     ..pc<Contact>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'contacts', $pb.PbFieldType.PM, subBuilder: Contact.create)
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'gender')
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'matricNumber')
+    ..aOM<IdentificationNumber>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'identificationNo', subBuilder: IdentificationNumber.create)
     ..hasRequiredFields = false
   ;
 
@@ -150,7 +211,7 @@ class NewUserProfile extends $pb.GeneratedMessage {
     $core.Iterable<$core.String>? skills,
     $core.Iterable<Contact>? contacts,
     $core.String? gender,
-    $core.String? matricNumber,
+    IdentificationNumber? identificationNo,
   }) {
     final _result = create();
     if (name != null) {
@@ -165,8 +226,8 @@ class NewUserProfile extends $pb.GeneratedMessage {
     if (gender != null) {
       _result.gender = gender;
     }
-    if (matricNumber != null) {
-      _result.matricNumber = matricNumber;
+    if (identificationNo != null) {
+      _result.identificationNo = identificationNo;
     }
     return _result;
   }
@@ -216,13 +277,15 @@ class NewUserProfile extends $pb.GeneratedMessage {
   void clearGender() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.String get matricNumber => $_getSZ(4);
+  IdentificationNumber get identificationNo => $_getN(4);
   @$pb.TagNumber(5)
-  set matricNumber($core.String v) { $_setString(4, v); }
+  set identificationNo(IdentificationNumber v) { setField(5, v); }
   @$pb.TagNumber(5)
-  $core.bool hasMatricNumber() => $_has(4);
+  $core.bool hasIdentificationNo() => $_has(4);
   @$pb.TagNumber(5)
-  void clearMatricNumber() => clearField(5);
+  void clearIdentificationNo() => clearField(5);
+  @$pb.TagNumber(5)
+  IdentificationNumber ensureIdentificationNo() => $_ensure(4);
 }
 
 class UserProfile extends $pb.GeneratedMessage {
@@ -234,7 +297,7 @@ class UserProfile extends $pb.GeneratedMessage {
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt')
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updatedAt')
     ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'gender')
-    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'matricNumber')
+    ..aOM<IdentificationNumber>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'identificationNo', subBuilder: IdentificationNumber.create)
     ..hasRequiredFields = false
   ;
 
@@ -247,7 +310,7 @@ class UserProfile extends $pb.GeneratedMessage {
     $core.String? createdAt,
     $core.String? updatedAt,
     $core.String? gender,
-    $core.String? matricNumber,
+    IdentificationNumber? identificationNo,
   }) {
     final _result = create();
     if (userId != null) {
@@ -271,8 +334,8 @@ class UserProfile extends $pb.GeneratedMessage {
     if (gender != null) {
       _result.gender = gender;
     }
-    if (matricNumber != null) {
-      _result.matricNumber = matricNumber;
+    if (identificationNo != null) {
+      _result.identificationNo = identificationNo;
     }
     return _result;
   }
@@ -349,13 +412,15 @@ class UserProfile extends $pb.GeneratedMessage {
   void clearGender() => clearField(7);
 
   @$pb.TagNumber(8)
-  $core.String get matricNumber => $_getSZ(7);
+  IdentificationNumber get identificationNo => $_getN(7);
   @$pb.TagNumber(8)
-  set matricNumber($core.String v) { $_setString(7, v); }
+  set identificationNo(IdentificationNumber v) { setField(8, v); }
   @$pb.TagNumber(8)
-  $core.bool hasMatricNumber() => $_has(7);
+  $core.bool hasIdentificationNo() => $_has(7);
   @$pb.TagNumber(8)
-  void clearMatricNumber() => clearField(8);
+  void clearIdentificationNo() => clearField(8);
+  @$pb.TagNumber(8)
+  IdentificationNumber ensureIdentificationNo() => $_ensure(7);
 }
 
 class Get_Request extends $pb.GeneratedMessage {
