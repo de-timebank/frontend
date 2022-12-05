@@ -1,4 +1,5 @@
 import 'package:grpc/grpc.dart';
+import 'package:testfyp/generated/misc.pb.dart';
 import '../generated/collection/service-request.pbgrpc.dart';
 
 class ClientServiceRequest {
@@ -55,6 +56,19 @@ class ClientServiceRequest {
       ..body = body);
   }
 
+  Future<GetAvailable_Response> getAvailable1(String by, String value) async {
+    return await stub.getAvailable(GetAvailable_Request(
+        filter: Filter()
+          ..by = by
+          ..value = value));
+  }
+
+  Future<StartService_Response> StartService1(String id, String user) async {
+    return await stub.startService(StartService_Request()
+      ..requestId = id
+      ..userId = user);
+  }
+
   Future<Delete_Response> deleteService(String id) async {
     return await stub.delete(Delete_Request()..requestId = id);
   }
@@ -81,10 +95,10 @@ class ClientServiceRequest {
       ..userId = user_id);
   }
 
-  Future<GetCommitment_Response> getCommitment1(String req_id) async {
-    return await stub
-        .getCommitment(GetCommitment_Request()..requestId = req_id);
-  }
+  // Future<GetCommitment_Response> getCommitment1(String req_id) async {
+  //   return await stub
+  //       .getCommitment(GetCommitment_Request()..requestId = req_id);
+  // }
 }
 
 // void main() {

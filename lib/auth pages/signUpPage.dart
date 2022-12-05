@@ -40,7 +40,7 @@ class _SignUpPageState extends State<SignUpPage> {
     'Phone',
     'Twitter'
   ];
-  List<String> idUser = <String>['Ic', 'Passport'];
+  List<String> idUser = <String>['passport', 'matricno', 'mykad'];
 
   late NewUserProfile profile;
   late IdentificationNumber _identificationNumber;
@@ -49,6 +49,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   void initState() {
     profile = NewUserProfile();
+    _identificationNumber = IdentificationNumber();
 
     _genderController.text = listGender[0];
     _contactControllerType.text = listContactType[2];
@@ -92,6 +93,7 @@ class _SignUpPageState extends State<SignUpPage> {
       context.showSnackBar(message: 'Check your email for confirmation...');
     } on GrpcError catch (e) {
       context.showErrorSnackBar(message: 'Caught error: ${e.message}');
+      print(e);
     } catch (e) {
       context.showErrorSnackBar(message: e.toString());
     }
@@ -183,7 +185,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: CustomHeadline(heading: 'Email'),
+              child: CustomHeadline(heading: 'Email*'),
             ),
             TextFormField(
               controller: _emailController,
@@ -200,7 +202,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: CustomHeadline(heading: 'Password'),
+              child: CustomHeadline(heading: 'Password*'),
             ),
             TextFormField(
               controller: _passwordController,
@@ -241,7 +243,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 endIndent: 15),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: CustomHeadline(heading: 'Name'),
+              child: CustomHeadline(heading: 'Name*'),
             ),
             TextFormField(
               controller: _usernameController,
@@ -265,7 +267,7 @@ class _SignUpPageState extends State<SignUpPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: CustomHeadline(heading: 'Gender'),
+                  child: CustomHeadline(heading: 'Gender*'),
                 ),
                 Container(
                   //padding: EdgeInsets.all(8),
@@ -307,7 +309,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: CustomHeadline(heading: 'Identification'),
+              child: CustomHeadline(heading: 'Identification*'),
             ),
             Row(
               children: [
@@ -347,7 +349,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Text(
-                              e,
+                              e.titleCase(),
                               style: TextStyle(
                                   color: Theme.of(context).primaryColor,
                                   fontWeight: FontWeight.bold,

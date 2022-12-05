@@ -24,6 +24,12 @@ class UserClient extends $grpc.Client {
           ($1.GetById_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $1.GetById_Response.fromBuffer(value));
+  static final _$getProfile =
+      $grpc.ClientMethod<$1.GetProfile_Request, $1.GetProfile_Response>(
+          '/timebank.user.User/getProfile',
+          ($1.GetProfile_Request value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $1.GetProfile_Response.fromBuffer(value));
   static final _$update =
       $grpc.ClientMethod<$1.Update_Request, $1.Update_Response>(
           '/timebank.user.User/update',
@@ -56,6 +62,12 @@ class UserClient extends $grpc.Client {
   $grpc.ResponseFuture<$1.GetById_Response> getById($1.GetById_Request request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getById, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.GetProfile_Response> getProfile(
+      $1.GetProfile_Request request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getProfile, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.Update_Response> update($1.Update_Request request,
@@ -94,6 +106,15 @@ abstract class UserServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $1.GetById_Request.fromBuffer(value),
         ($1.GetById_Response value) => value.writeToBuffer()));
+    $addMethod(
+        $grpc.ServiceMethod<$1.GetProfile_Request, $1.GetProfile_Response>(
+            'getProfile',
+            getProfile_Pre,
+            false,
+            false,
+            ($core.List<$core.int> value) =>
+                $1.GetProfile_Request.fromBuffer(value),
+            ($1.GetProfile_Response value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$1.Update_Request, $1.Update_Response>(
         'update',
         update_Pre,
@@ -129,6 +150,11 @@ abstract class UserServiceBase extends $grpc.Service {
     return getById(call, await request);
   }
 
+  $async.Future<$1.GetProfile_Response> getProfile_Pre($grpc.ServiceCall call,
+      $async.Future<$1.GetProfile_Request> request) async {
+    return getProfile(call, await request);
+  }
+
   $async.Future<$1.Update_Response> update_Pre(
       $grpc.ServiceCall call, $async.Future<$1.Update_Request> request) async {
     return update(call, await request);
@@ -149,6 +175,8 @@ abstract class UserServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $1.Get_Request request);
   $async.Future<$1.GetById_Response> getById(
       $grpc.ServiceCall call, $1.GetById_Request request);
+  $async.Future<$1.GetProfile_Response> getProfile(
+      $grpc.ServiceCall call, $1.GetProfile_Request request);
   $async.Future<$1.Update_Response> update(
       $grpc.ServiceCall call, $1.Update_Request request);
   $async.Future<$1.GetRating_Response> getRating(

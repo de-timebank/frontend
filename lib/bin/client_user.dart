@@ -7,7 +7,7 @@ class ClientUser {
 
   ClientUser(ClientChannel channel) {
     stub = UserClient(channel,
-        options: CallOptions(timeout: Duration(seconds: 30)));
+        options: CallOptions(timeout: const Duration(seconds: 30)));
   }
 
   Future<Get_Response> getUser(String key, String value) async {

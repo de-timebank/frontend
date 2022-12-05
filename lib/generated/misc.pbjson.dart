@@ -19,3 +19,25 @@ const Filter$json = const {
 
 /// Descriptor for `Filter`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List filterDescriptor = $convert.base64Decode('CgZGaWx0ZXISDgoCYnkYASABKAlSAmJ5EhQKBXZhbHVlGAIgASgJUgV2YWx1ZQ==');
+@$core.Deprecated('Use pageDescriptor instead')
+const Page$json = const {
+  '1': 'Page',
+  '2': const [
+    const {'1': 'limit', '3': 1, '4': 1, '5': 5, '10': 'limit'},
+    const {'1': 'offset', '3': 2, '4': 1, '5': 5, '10': 'offset'},
+  ],
+};
+
+/// Descriptor for `Page`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List pageDescriptor = $convert.base64Decode('CgRQYWdlEhQKBWxpbWl0GAEgASgFUgVsaW1pdBIWCgZvZmZzZXQYAiABKAVSBm9mZnNldA==');
+@$core.Deprecated('Use pageInfoDescriptor instead')
+const PageInfo$json = const {
+  '1': 'PageInfo',
+  '2': const [
+    const {'1': 'has_next', '3': 1, '4': 1, '5': 8, '10': 'hasNext'},
+    const {'1': 'page_no', '3': 2, '4': 1, '5': 5, '10': 'pageNo'},
+  ],
+};
+
+/// Descriptor for `PageInfo`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List pageInfoDescriptor = $convert.base64Decode('CghQYWdlSW5mbxIZCghoYXNfbmV4dBgBIAEoCFIHaGFzTmV4dBIXCgdwYWdlX25vGAIgASgFUgZwYWdlTm8=');

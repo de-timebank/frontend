@@ -72,12 +72,6 @@ class ServiceRequestClient extends $grpc.Client {
       ($2.CompleteService_Request value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
           $2.CompleteService_Response.fromBuffer(value));
-  static final _$getCommitment =
-      $grpc.ClientMethod<$2.GetCommitment_Request, $2.GetCommitment_Response>(
-          '/timebank.servicerequest.ServiceRequest/getCommitment',
-          ($2.GetCommitment_Request value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) =>
-              $2.GetCommitment_Response.fromBuffer(value));
 
   ServiceRequestClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -137,12 +131,6 @@ class ServiceRequestClient extends $grpc.Client {
       $2.CompleteService_Request request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$completeService, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$2.GetCommitment_Response> getCommitment(
-      $2.GetCommitment_Request request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$getCommitment, request, options: options);
   }
 }
 
@@ -230,15 +218,6 @@ abstract class ServiceRequestServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $2.CompleteService_Request.fromBuffer(value),
         ($2.CompleteService_Response value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$2.GetCommitment_Request,
-            $2.GetCommitment_Response>(
-        'getCommitment',
-        getCommitment_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) =>
-            $2.GetCommitment_Request.fromBuffer(value),
-        ($2.GetCommitment_Response value) => value.writeToBuffer()));
   }
 
   $async.Future<$2.Create_Response> create_Pre(
@@ -296,12 +275,6 @@ abstract class ServiceRequestServiceBase extends $grpc.Service {
     return completeService(call, await request);
   }
 
-  $async.Future<$2.GetCommitment_Response> getCommitment_Pre(
-      $grpc.ServiceCall call,
-      $async.Future<$2.GetCommitment_Request> request) async {
-    return getCommitment(call, await request);
-  }
-
   $async.Future<$2.Create_Response> create(
       $grpc.ServiceCall call, $2.Create_Request request);
   $async.Future<$2.Get_Response> get(
@@ -322,6 +295,4 @@ abstract class ServiceRequestServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $2.StartService_Request request);
   $async.Future<$2.CompleteService_Response> completeService(
       $grpc.ServiceCall call, $2.CompleteService_Request request);
-  $async.Future<$2.GetCommitment_Response> getCommitment(
-      $grpc.ServiceCall call, $2.GetCommitment_Request request);
 }

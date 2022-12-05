@@ -5,6 +5,7 @@ import '../bin/common.dart';
 import '../bin/searchfunction.dart';
 import '../components/constants.dart';
 import '../custom widgets/customCardRequest.dart';
+import '../generated/misc.pb.dart';
 import '../request pages/requestDetails.dart';
 
 class AvailableServices extends StatefulWidget {
@@ -21,6 +22,8 @@ class _AvailableServicesState extends State<AvailableServices> {
   late dynamic _userCurrent;
   late String user;
   late bool _isEmpty;
+
+  late Filter _filter;
 
   final _categoryController = TextEditingController();
   List<String> listCategories = <String>[
@@ -39,6 +42,7 @@ class _AvailableServicesState extends State<AvailableServices> {
 
   @override
   void initState() {
+    _filter = Filter();
     _isEmpty = true;
     _categoryController.text = listCategories[0];
     getinstance();
@@ -61,9 +65,11 @@ class _AvailableServicesState extends State<AvailableServices> {
     listFiltered = [];
     user = supabase.auth.currentUser!.id;
 
-    listRequest =
-        await ClientServiceRequest(Common().channel).getResponse('state', '0');
-
+    //_filter..by = 'state'..value = '0';
+    listRequest = await ClientServiceRequest(Common().channel)
+        .getAvailable1('state', '0');
+    //await ClientServiceRequest(Common().channel).getResponse('state', '0');
+    print(listRequest);
     for (var i = 0; i < listRequest.requests.length; i++) {
       if (listRequest.requests[i].requestor != user &&
           _categoryController.text == 'All Categories') {
@@ -258,11 +264,8 @@ class _AvailableServicesState extends State<AvailableServices> {
                                                   listFiltered[index].requestor,
                                               provider:
                                                   listFiltered[index].provider,
-                                              title: listFiltered[index]
-                                                  .details
-                                                  .title,
+                                              title: listFiltered[index].title,
                                               description: listFiltered[index]
-                                                  .details
                                                   .description,
                                               locationName: listFiltered[index]
                                                   .location
@@ -300,9 +303,9 @@ class _AvailableServicesState extends State<AvailableServices> {
                                 //id: listFiltered[index].id,
                                 requestor: listFiltered[index].requestor,
                                 //provider: listFiltered[index].provider,
-                                title: listFiltered[index].details.title,
+                                title: listFiltered[index].title,
                                 // description:
-                                //     listFiltered[index].details.description,
+                                //     listFiltered[index].description,
                                 // locationName: listFiltered[index].location.name,
                                 // latitude: listFiltered
                                 //     [index].location.coordinate.latitude,
