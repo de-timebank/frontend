@@ -23,7 +23,7 @@ class _AvailableServicesState extends State<AvailableServices> {
   late String user;
   late bool _isEmpty;
 
-  late Filter _filter;
+  // late Filter _filter;
 
   final _categoryController = TextEditingController();
   List<String> listCategories = <String>[
@@ -42,7 +42,7 @@ class _AvailableServicesState extends State<AvailableServices> {
 
   @override
   void initState() {
-    _filter = Filter();
+    // _filter = Filter();
     _isEmpty = true;
     _categoryController.text = listCategories[0];
     getinstance();

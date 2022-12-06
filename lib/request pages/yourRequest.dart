@@ -96,11 +96,9 @@ class _YourRequestState extends State<YourRequest> {
                                         requestor:
                                             listFiltered[index].requestor,
                                         provider: listFiltered[index].provider,
-                                        title:
-                                            listFiltered[index].details.title,
-                                        description: listFiltered[index]
-                                            .details
-                                            .description,
+                                        title: listFiltered[index].title,
+                                        description:
+                                            listFiltered[index].description,
                                         locationName:
                                             listFiltered[index].location.name,
                                         latitude: listFiltered[index]
@@ -133,9 +131,9 @@ class _YourRequestState extends State<YourRequest> {
                           //id: listFiltered[index].id,
                           requestor: listFiltered[index].requestor,
                           //provider: listFiltered[index].provider,
-                          title: listFiltered[index].details.title,
+                          title: listFiltered[index].title,
                           // description:
-                          //     listFiltered[index].details.description,
+                          //     listFiltered[index].description,
                           // locationName: listFiltered[index].location.name,
                           // latitude: listFiltered
                           //     [index].location.coordinate.latitude,

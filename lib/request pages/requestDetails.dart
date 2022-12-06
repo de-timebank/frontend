@@ -318,8 +318,10 @@ class _RequestDetailsState extends State<RequestDetails> {
                   Text(widget.title.toString().capitalize()),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Heading2('Requestor'),
                           Text(_userRequestor.user.name.toString().titleCase()),
@@ -332,6 +334,7 @@ class _RequestDetailsState extends State<RequestDetails> {
                         ],
                       ),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Heading2('Rate'),
                           Text('\$time/hour ' +
@@ -374,6 +377,9 @@ class _RequestDetailsState extends State<RequestDetails> {
                                                   itemBuilder:
                                                       (context, index) {
                                                     return ElevatedButton(
+                                                        style: themeData2()
+                                                            .textButtonTheme
+                                                            .style,
                                                         onPressed: () {
                                                           // print(widget.id);
                                                           // print(
@@ -447,7 +453,7 @@ class _RequestDetailsState extends State<RequestDetails> {
                                                     )
                                             ],
                                           ),
-                                CustomDivider(),
+                                CustomDivider(color: themeData2().primaryColor),
                                 //SizedBox(height: 8),
                                 isPending() //when has no applicants
                                     ? Column(
@@ -516,6 +522,9 @@ class _RequestDetailsState extends State<RequestDetails> {
                                                               'Enter comment'),
                                                     ),
                                                     ElevatedButton(
+                                                        style: themeData2()
+                                                            .textButtonTheme
+                                                            .style,
                                                         onPressed: () {
                                                           //print(ratedUser);
                                                           // print(user);
@@ -542,6 +551,9 @@ class _RequestDetailsState extends State<RequestDetails> {
                                                 ],
                                               )
                                         : ElevatedButton(
+                                            style: themeData2()
+                                                .textButtonTheme
+                                                .style,
                                             onPressed: () {
                                               _completeJob(
                                                   widget.id, widget.user);
@@ -558,6 +570,8 @@ class _RequestDetailsState extends State<RequestDetails> {
                                 //     child: Text('Job Not Complete')),
                                 isNull(widget.provider)
                                     ? TextButton(
+                                        style:
+                                            themeData2().textButtonTheme.style,
                                         onPressed: () {
                                           _deleteRequest(widget.id);
                                         },
@@ -566,6 +580,9 @@ class _RequestDetailsState extends State<RequestDetails> {
                                         ? Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: TextButton(
+                                                style: themeData2()
+                                                    .textButtonTheme
+                                                    .style,
                                                 onPressed: () {
                                                   Navigator.of(context)
                                                       .push(MaterialPageRoute(
@@ -577,6 +594,9 @@ class _RequestDetailsState extends State<RequestDetails> {
                                                     Text('Go to rating page')),
                                           )
                                         : TextButton(
+                                            style: themeData2()
+                                                .textButtonTheme
+                                                .style,
                                             onPressed: () {
                                               _deleteRequest(widget.id);
                                               context.showSnackBar(
@@ -607,7 +627,8 @@ class _RequestDetailsState extends State<RequestDetails> {
                                     //   style: TextStyle(
                                     //       fontWeight: FontWeight.bold, fontSize: 15),
                                     // ),
-                                    CustomDivider(),
+                                    CustomDivider(
+                                        color: themeData2().primaryColor),
                                     Heading2('Rate the requestor'),
                                     Text(_userRequestor.user.name
                                         .toString()
@@ -643,6 +664,9 @@ class _RequestDetailsState extends State<RequestDetails> {
                                                             'Enter comment'),
                                                   ),
                                                   ElevatedButton(
+                                                      style: themeData2()
+                                                          .textButtonTheme
+                                                          .style,
                                                       onPressed: () {
                                                         _rateRequestor(
                                                             widget.user,
@@ -659,6 +683,9 @@ class _RequestDetailsState extends State<RequestDetails> {
                                         : Padding(
                                             padding: const EdgeInsets.all(5.0),
                                             child: TextButton(
+                                                style: themeData2()
+                                                    .textButtonTheme
+                                                    .style,
                                                 onPressed: () {
                                                   Navigator.of(context)
                                                       .push(MaterialPageRoute(
@@ -690,6 +717,9 @@ class _RequestDetailsState extends State<RequestDetails> {
                                     children: [
                                       Heading2('Interested in the job?'),
                                       ElevatedButton(
+                                          style: themeData2()
+                                              .textButtonTheme
+                                              .style,
                                           onPressed: () {
                                             // print(widget.id);
                                             // print(widget.user);
@@ -700,10 +730,6 @@ class _RequestDetailsState extends State<RequestDetails> {
                                   ),
                                 ),
 
-                  Divider(
-                    color: Theme.of(context).primaryColor,
-                    thickness: 1,
-                  ),
                   Container(
                       alignment: Alignment.center,
                       child: Heading2('Other Information')),

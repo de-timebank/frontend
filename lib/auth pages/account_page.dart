@@ -35,15 +35,15 @@ class _AccountPageState extends State<AccountPage> {
     'Phone',
     'Twitter'
   ];
-  List<String> idUser = <String>['Ic', 'Passport'];
+  List<String> idUser = <String>['passport', 'matricno', 'mykad'];
   bool _loading = true;
 
   @override
   void initState() {
     super.initState();
-    _genderController.text = listGender[0];
+    // _genderController.text = listGender[0];
     _contactControllerType.text = listContactType[2];
-    _idTypeController.text = idUser[0];
+    // _idTypeController.text = idUser[0];
     Future.delayed(Duration.zero, _getProfile);
   }
 
@@ -95,6 +95,7 @@ class _AccountPageState extends State<AccountPage> {
   Future<void> _getProfile() async {
     skills = [];
     contacts = [];
+
     setState(() {
       _loading = true;
     });
@@ -108,8 +109,34 @@ class _AccountPageState extends State<AccountPage> {
           .single() as Map;
       _usernameController.text = (data['name'] ?? '') as String;
       // _contactController.text = (data['website'] ?? '') as String;
-      _idController.text = (data['matric_number'] ?? '') as String;
-      _genderController.text = (data['gender'] ?? '') as String;
+      _idController.text = (data['identification_no']['value'] ?? '') as String;
+      // print(data['identification_no']['type']);
+      // print(data['identification_no']['value'] == 'mykad');
+      if (data['identification_no']['type'] == 'mykad') {
+        _idTypeController.text = idUser[2];
+      } else if (data['identification_no']['type'] == 'matricno') {
+        _idTypeController.text = idUser[1];
+      } else {
+        _idTypeController.text = idUser[0];
+      }
+
+      if (data['gender'] == 'male') {
+        _genderController.text = listGender[0];
+      } else {
+        _genderController.text = listGender[1];
+      }
+
+      // _idTypeController.text =
+      //     (data['identification_no']['type'] ?? '') as String;
+      // _genderController.text = (data['gender'] ?? '') as String;
+      //print(_idController.text);
+
+      // for (int i = 0; i < data['identification_no'].length; i++) {
+      //   if (data['skills'][i] != '') {
+      //     skills.add(data['skills'][i]);
+      //   }
+      // }
+
       for (int i = 0; i < data['skills'].length; i++) {
         if (data['skills'][i] != '') {
           skills.add(data['skills'][i]);
@@ -125,9 +152,11 @@ class _AccountPageState extends State<AccountPage> {
         context.showSnackBar(message: 'Welcome to BUDI!');
       } else {
         context.showErrorSnackBar(message: error.message);
+        print(error);
       }
     } catch (error) {
       context.showErrorSnackBar(message: 'Missing Description');
+      print(error);
     }
 
     setState(() {
@@ -159,17 +188,20 @@ class _AccountPageState extends State<AccountPage> {
       _loading = true;
     });
     final userName = _usernameController.text;
-    final matricNum = _idController.text;
+    // final idnum = _idController.text;
     final user = supabase.auth.currentUser;
     final gender = _genderController.text;
-
+    final idUser = {
+      'type': _idTypeController.text,
+      'value': _idController.text
+    };
     final updates = {
       'user_id': user!.id,
       'name': userName,
       'skills': skills,
       'contacts': contacts,
       'updated_at': DateTime.now().toIso8601String(),
-      'matric_number': matricNum,
+      'identification_no': idUser,
       'gender': gender,
       // 'avatar_url': _avatarUrl,
     };
@@ -188,6 +220,7 @@ class _AccountPageState extends State<AccountPage> {
       context.showErrorSnackBar(message: error.message);
     } catch (error) {
       context.showErrorSnackBar(message: 'Unable to Update Profile');
+      print(error);
     }
     setState(() {
       _loading = false;

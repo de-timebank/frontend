@@ -38,7 +38,10 @@ class _CustomCard_ServiceRequestState extends State<CustomCard_ServiceRequest> {
   getRequestorName() async {
     _userCurrent =
         await ClientUser(Common().channel).getUserById(widget.requestor);
-    //print(_userCurrent);
+    // print('The current user (widget)' + widget.requestor);
+
+    //print('The current user' + _userCurrent.toString());
+    //print(_userCurrent.user.name);
     // _userCurrent = await supabase
     //     .from('profiles')
     //     .select()

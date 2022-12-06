@@ -26,7 +26,8 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   late String _username = '';
-  late String _matric = '';
+  late String _identificationNumber = '';
+  late String _identificationTypeNumber = '';
   late String _gender = '';
   late final userId;
   late dynamic _userCalculatedRating = 0;
@@ -95,9 +96,13 @@ class _ProfilePageState extends State<ProfilePage> {
           .single() as Map;
       //print(data['contacts'].length);
       _username = (data['name'] ?? '') as String;
+      _identificationNumber =
+          (data['identification_no']['value'] ?? '') as String;
+      _identificationTypeNumber =
+          (data['identification_no']['type'] ?? '') as String;
       // _website = (data['website'] ?? '') as String;
       // _avatarUrl = (data['avatar_url'] ?? '') as String;
-      _matric = (data['matric_number'] ?? '') as String;
+      // _identificationNumber = (data['identification_no'] ?? '') as String;
       _gender = (data['gender'] ?? '') as String;
       for (int i = 0; i < data['skills'].length; i++) {
         if (data['skills'][i] != '') {
@@ -133,12 +138,12 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
-  bool isAvatarEqual() {
-    if (_avatarUrl == 'asset/girl.png') {
-      return true;
-    } else
-      return false;
-  }
+  // bool isAvatarEqual() {
+  //   if (_avatarUrl == 'asset/girl.png') {
+  //     return true;
+  //   } else
+  //     return false;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -193,8 +198,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             SizedBox(height: 8),
                             Row(
                               children: [
-                                Text('Id: '),
-                                Text('$_matric'),
+                                Text(
+                                    '${_identificationTypeNumber.capitalize()}: '),
+                                Text('$_identificationNumber'),
                               ],
                             ),
                             Row(

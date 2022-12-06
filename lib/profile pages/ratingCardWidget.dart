@@ -51,7 +51,7 @@ class _RatingCardWidgetState extends State<RatingCardWidget> {
                         widget.iconRating,
                         color: widget.isProvider
                             ? themeData1().secondaryHeaderColor
-                            : themeData2().primaryColor,
+                            : themeData1().primaryColor,
                       ),
                     ),
                     SizedBox(width: 5),

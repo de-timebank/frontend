@@ -1,3 +1,5 @@
+import 'package:country_state_city_picker/country_state_city_picker.dart';
+import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:grpc/grpc.dart';
 import 'package:testfyp/bin/client_service_request.dart';
@@ -35,6 +37,8 @@ class _RequestFormState extends State<RequestForm> {
 
   final DateTime _dateTime = DateTime.now();
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   List<String> mediaList = [];
   List<String> listCategories = <String>[
     'Arts, Crafts & Music',
@@ -48,10 +52,14 @@ class _RequestFormState extends State<RequestForm> {
     'Wellness',
   ];
 
-  final _formKey = GlobalKey<FormState>();
-
   late String address;
   late String location1;
+  late DateTime? newDate;
+  late TimeOfDay? newTime;
+
+  late String countryValue;
+  late String stateValue;
+  late String cityValue;
 
   @override
   void initState() {
@@ -184,403 +192,596 @@ class _RequestFormState extends State<RequestForm> {
           key: _formKey,
           child: Padding(
             padding: const EdgeInsets.all(15.0),
-            child: ListView(
-              children: [
-                // SizedBox(
-                //   height: 20,
-                // ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomHeadline(heading: 'Title'),
-                ),
-                TextFormField(
-                  controller: _titleController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(), hintText: 'Enter Title'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter title...';
-                    }
-                    return null;
-                  },
-                  // onFieldSubmitted: (value) {
-                  //   reqList[0]['Title'] = value;
-                  // },
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomHeadline(heading: 'Description'),
-                ),
-                TextFormField(
-                  controller: _descriptionController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Enter description of the job',
-                    //prefixIcon: Icon(Icons.map)
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CustomHeadline(heading: 'Title'),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter description...';
-                    }
-                    return null;
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomHeadline(heading: 'Date'),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        enabled: false,
-                        controller: _dateControllerDisplay,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Pick a date'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter date...';
-                          }
-                          return null;
-                        },
+                  TextFormField(
+                    controller: _titleController,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(), hintText: 'Enter Title'),
+                    validator: (value) {
+                      if (value == null ||
+                          value.isEmpty ||
+                          _titleController.text == '') {
+                        return 'Please enter title...';
+                      }
+                      return null;
+                    },
+                    // onFieldSubmitted: (value) {
+                    //   reqList[0]['Title'] = value;
+                    // },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CustomHeadline(heading: 'Description'),
+                  ),
+                  TextFormField(
+                    controller: _descriptionController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Enter description of the job',
+                      //prefixIcon: Icon(Icons.map)
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter description...';
+                      }
+                      return null;
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CustomHeadline(heading: 'Date & Time'),
+                  ),
+                  Row(
+                    children: [
+                      // Expanded(
+                      //   child: TextFormField(
+                      //     enabled: false,
+                      //     controller: _dateControllerDisplay,
+                      //     decoration: InputDecoration(
+                      //         border: OutlineInputBorder(),
+                      //         hintText: 'Pick a date'),
+                      //     validator: (value) {
+                      //       if (value == null || value.isEmpty) {
+                      //         return 'Please enter date...';
+                      //       }
+                      //       return null;
+                      //     },
+                      //   ),
+                      // ),
+                      Icon(
+                        Icons.calendar_month,
+                        color: themeData1().primaryColor,
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                          onPressed: () async {
-                            DateTime? newDate = await showDatePicker(
-                              builder: (context, child) {
-                                return Theme(
-                                  data: Theme.of(context).copyWith(
-                                    colorScheme: ColorScheme.light(
-                                      primary: themeData1()
-                                          .primaryColor, // header background color
-                                      onPrimary:
-                                          Colors.white, // header text color
-                                      onSurface:
-                                          Colors.black, // body text color
-                                    ),
-                                    // textButtonTheme: TextButtonThemeData(
-                                    //   style: TextButton.styleFrom(
-                                    //     foregroundColor:
-                                    //         Colors.red, // button text color
-                                    //   ),
-                                    // ),
-                                  ),
-                                  child: child!,
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: ElevatedButton(
+                              onPressed: () async {
+                                newDate = await showDatePicker(
+                                  builder: (context, child) {
+                                    return Theme(
+                                      data: Theme.of(context).copyWith(
+                                        colorScheme: ColorScheme.light(
+                                          primary: themeData1()
+                                              .primaryColor, // header background color
+                                          onPrimary:
+                                              Colors.white, // header text color
+                                          onSurface:
+                                              Colors.black, // body text color
+                                        ),
+                                        // textButtonTheme: TextButtonThemeData(
+                                        //   style: TextButton.styleFrom(
+                                        //     foregroundColor:
+                                        //         Colors.red, // button text color
+                                        //   ),
+                                        // ),
+                                      ),
+                                      child: child!,
+                                    );
+                                  },
+                                  context: context,
+                                  initialDate: _dateTime,
+                                  firstDate: DateTime(_dateTime.year,
+                                      _dateTime.month, _dateTime.day),
+                                  lastDate: _dateTime.add(Duration(days: 365)),
                                 );
-                              },
-                              context: context,
-                              initialDate: _dateTime,
-                              firstDate: DateTime(_dateTime.year,
-                                  _dateTime.month, _dateTime.day),
-                              lastDate: _dateTime.add(Duration(days: 365)),
-                            );
 
-                            setState(() {
-                              _dateControllerDisplay.text =
-                                  '${newDate?.day}-${newDate?.month}-${newDate?.year}';
-                              _dateController.text = newDate.toString();
-                              //;
-                            });
-                            // _addmedia(_mediaController.text);
-                            // _mediaController.clear();
-                          },
-                          child: Text('Pick A Date')),
-                    )
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomHeadline(heading: 'Category'),
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  //padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(
-                        color: Theme.of(context).primaryColor,
-                        width: 2,
-                      )),
-                  child: DropdownButton<String>(
-                    underline: Container(
-                      height: 0,
+                                setState(() {
+                                  _dateControllerDisplay.text =
+                                      '${newDate?.day}-${newDate?.month}-${newDate?.year}';
+                                  //newDate.
+                                  // _dateControllerDisplay.text =
+                                  //     newDate.toString();
+                                  _dateController.text = newDate.toString();
+                                  //print(_dateController.text);
+                                  //;
+                                });
+                                // _addmedia(_mediaController.text);
+                                // _mediaController.clear();
+                              },
+                              child: Text('Pick a Date')),
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      // Expanded(
+                      //   child: TextFormField(
+                      //     enabled: false,
+                      //     controller: _dateControllerDisplay,
+                      //     decoration: InputDecoration(
+                      //         border: OutlineInputBorder(),
+                      //         hintText: 'Pick a date'),
+                      //     validator: (value) {
+                      //       if (value == null || value.isEmpty) {
+                      //         return 'Please enter date...';
+                      //       }
+                      //       return null;
+                      //     },
+                      //   ),
+                      // ),
+                      Icon(
+                        Icons.alarm,
+                        color: themeData1().primaryColor,
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: ElevatedButton(
+                              onPressed: () async {
+                                newTime = await showTimePicker(
+                                  builder: (context, child) {
+                                    return Theme(
+                                      data: Theme.of(context).copyWith(
+                                        colorScheme: ColorScheme.light(
+                                          primary: themeData1()
+                                              .primaryColor, // header background color
+                                          onPrimary:
+                                              Colors.white, // header text color
+                                          onSurface:
+                                              Colors.black, // body text color
+                                        ),
+                                        // textButtonTheme: TextButtonThemeData(
+                                        //   style: TextButton.styleFrom(
+                                        //     foregroundColor:
+                                        //         Colors.red, // button text color
+                                        //   ),
+                                        // ),
+                                      ),
+                                      child: child!,
+                                    );
+                                  },
+                                  context: context,
+                                  initialTime: TimeOfDay.now(),
+
+                                  // initialDate: _dateTime,
+                                  // firstDate: DateTime(_dateTime.year,
+                                  //     _dateTime.month, _dateTime.day),
+                                  // lastDate: _dateTime.add(Duration(days: 365)), initialTime: null,
+                                );
+
+                                setState(() {
+                                  try {
+                                    _dateControllerDisplay.text =
+                                        'Date: ${newDate?.day}-${newDate?.month}-${newDate?.year} | Time: ${newTime?.hour}:${newTime?.minute}';
+                                    _dateController.text = newDate!
+                                        .add(Duration(
+                                            hours: newTime!.hour,
+                                            minutes: newTime!.minute))
+                                        .toString();
+                                  } catch (e) {
+                                    context.showErrorSnackBar(
+                                        message: 'Pick a date first...');
+                                  }
+
+                                  // '${newDate?.year}-${newDate?.month}-${newDate?.day} ${newTime?.hour}:${newTime?.minute}:00.000';
+                                  //print(_dateController.text);
+                                  //;
+                                });
+                                // _addmedia(_mediaController.text);
+                                // _mediaController.clear();
+                              },
+                              child: Text('Pick a Time')),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  TextFormField(
+                    enabled: false,
+                    controller: _dateControllerDisplay,
+                    decoration: InputDecoration(
+                        errorStyle: TextStyle(
+                          color: Colors.red, // or any other color
+                        ),
+                        border: OutlineInputBorder(),
+                        hintText: 'Date & Time'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please pick a date & time...';
+                      }
+                      // else if (newDate!.hour == 0 || newDate!.minute == 0) {
+                      //   return 'Pick a time';
+                      // }
+                      return null;
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CustomHeadline(heading: 'Category'),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    //padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(
+                          color: Theme.of(context).primaryColor,
+                          width: 2,
+                        )),
+                    child: DropdownButton<String>(
+                      underline: Container(
+                        height: 0,
+                      ),
+                      iconEnabledColor: Theme.of(context).primaryColor,
+                      value: _categoryController.text,
+                      items: listCategories.map<DropdownMenuItem<String>>((e) {
+                        return DropdownMenuItem<String>(
+                            value: e,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Text(
+                                e,
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15),
+                              ),
+                            ));
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _categoryController.text = value.toString();
+                          //print(_genderController.text);
+                        });
+                      },
                     ),
-                    iconEnabledColor: Theme.of(context).primaryColor,
-                    value: _categoryController.text,
-                    items: listCategories.map<DropdownMenuItem<String>>((e) {
-                      return DropdownMenuItem<String>(
-                          value: e,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              e,
-                              style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15),
-                            ),
-                          ));
-                    }).toList(),
-                    onChanged: (value) {
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CustomHeadline(heading: 'Location'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                        'Enter address of the job or get current location'),
+                  ),
+                  TextFormField(
+                    controller: _locationController,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        // helperText:
+                        //     'Latitude and longitude of the location will be\nautomatically added',
+                        hintText: 'Enter location address'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter location...';
+                      }
+                      return null;
+                    },
+                  ),
+
+                  CSCPicker(
+                    // showCities: true,
+                    defaultCountry: DefaultCountry.Malaysia,
+                    layout: Layout.vertical,
+                    dropdownDecoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Theme.of(context).primaryColor,
+                          width: 2,
+                        )),
+                    cityDropdownLabel: 'Pick a City',
+                    stateDropdownLabel: 'Pick a State',
+
+                    // dropdownItemStyle: TextStyle,
+                    // stateSearchPlaceholder: ,
+                    // dropdownHeadingStyle: ,
+
+                    onCountryChanged: (value) {
                       setState(() {
-                        _categoryController.text = value.toString();
-                        //print(_genderController.text);
+                        countryValue = value;
+                        //_locationController.text = ''
+                      });
+                    },
+                    onStateChanged: (value) {
+                      setState(() {
+                        stateValue = value.toString();
+                      });
+                    },
+                    onCityChanged: (value) {
+                      setState(() {
+                        cityValue = value.toString();
                       });
                     },
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomHeadline(heading: 'Location'),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child:
-                      Text('Enter address of the job or get current location'),
-                ),
-                TextFormField(
-                  controller: _locationController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      helperText:
-                          'Latitude and longitude of the location will be\nautomatically added',
-                      hintText: 'Enter location address'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter location...';
-                    }
-                    return null;
-                  },
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                            onPressed: () async {
+                              GetLatLongfromAddress(_locationController.text);
+                            },
+                            child: Text('Enter Address')),
+                      ),
+                      SizedBox(width: 5),
+                      ElevatedButton(
                           onPressed: () async {
-                            GetLatLongfromAddress(_locationController.text);
+                            Position position = await _getGeoLocationPosition();
+                            GetAddressFromLatLong(position);
                           },
-                          child: Text('Enter Address')),
-                    ),
-                    SizedBox(width: 5),
-                    ElevatedButton(
-                        onPressed: () async {
-                          Position position = await _getGeoLocationPosition();
-                          GetAddressFromLatLong(position);
-                        },
-                        child: Text('Get current location')),
-                  ],
-                ),
-                SizedBox(height: 8),
-                TextFormField(
-                  controller: _latitudeController,
-                  enabled: false,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Latitude',
-                    //prefixIcon: Icon(Icons.map)
+                          child: Text('Get current location')),
+                    ],
                   ),
-                  // validator: (value) {
-                  //   if (value == null || value.isEmpty) {
-                  //     return 'Please enter latitude...';
-                  //   }
-                  //   return null;
-                  // },
-                ),
-                SizedBox(height: 8),
-                TextFormField(
-                  controller: _longitudeController,
-                  enabled: false,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(), labelText: 'Longitude'),
-                  // validator: (value) {
-                  //   if (value == null || value.isEmpty) {
-                  //     return 'Please enter longitude';
-                  //   }
-                  //   return null;
-                  // },
-                ),
-                SizedBox(height: 8),
-                TextFormField(
-                  controller: _locationController,
-                  enabled: false,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(), labelText: 'Address'),
-                  // validator: (value) {
-                  //   if (value == null || value.isEmpty) {
-                  //     return 'Please enter location...';
-                  //   }
-                  //   return null;
-                  // },
-                ),
+                  SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CustomHeadline(heading: 'Country & State & City'),
+                  ),
+                  TextFormField(
+                    controller: _locationController,
+                    enabled: false,
+                    decoration: InputDecoration(
+                        errorStyle: TextStyle(
+                          color: Colors.red, // or any other color
+                        ),
+                        border: OutlineInputBorder(),
+                        labelText: 'Address'),
+                    // validator: (value) {
+                    //   if (value == null || value.isEmpty) {
+                    //     return 'Please enter location...';
+                    //   }
+                    //   return null;
+                    // },
+                  ),
+                  SizedBox(height: 15),
 
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomHeadline(heading: 'Attachment'),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: _mediaController,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Enter attachment'),
+                  // SelectState(
+                  //   //dropdownColor: themeData1().primaryColor,
+                  //   // style: ,
+                  //   onCountryChanged: (value) {
+                  //     setState(() {
+                  //       countryValue = value;
+                  //     });
+                  //   },
+                  //   onStateChanged: (value) {
+                  //     setState(() {
+                  //       stateValue = value;
+                  //     });
+                  //   },
+                  //   onCityChanged: (value) {
+                  //     setState(() {
+                  //       cityValue = value;
+                  //     });
+                  //   },
+                  // ),
+                  // SizedBox(height: 8),
+                  // TextFormField(
+                  //   controller: _latitudeController,
+                  //   enabled: false,
+                  //   decoration: InputDecoration(
+                  //     errorStyle: TextStyle(
+                  //       color: Colors.red, // or any other color
+                  //     ),
+                  //     border: OutlineInputBorder(),
+                  //     labelText: 'Latitude',
+                  //     //prefixIcon: Icon(Icons.map)
+                  //   ),
+                  //   validator: (value) {
+                  //     if (value == null || value.isEmpty) {
+                  //       return 'Tap "Enter Address" to obtain latitude';
+                  //     }
+                  //     return null;
+                  //   },
+                  // ),
+                  // SizedBox(height: 8),
+                  // TextFormField(
+                  //   controller: _longitudeController,
+                  //   enabled: false,
+                  //   decoration: InputDecoration(
+                  //       errorStyle: TextStyle(
+                  //         color: Colors.red, // or any other color
+                  //       ),
+                  //       border: OutlineInputBorder(),
+                  //       labelText: 'Longitude'),
+                  //   validator: (value) {
+                  //     if (value == null || value.isEmpty) {
+                  //       return 'Tap "Enter Address" to obtain longitude';
+                  //     }
+                  //     return null;
+                  //   },
+                  // ),
+                  // SizedBox(height: 8),
+
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CustomHeadline(heading: 'Attachment'),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          controller: _mediaController,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Enter attachment'),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextButton(
-                          onPressed: () {
-                            if (_mediaController.text.length == 0) {
-                              context.showErrorSnackBar(
-                                  message:
-                                      'You have not entered any attachment..');
-                            } else {
-                              _addmedia(_mediaController.text);
-                              _mediaController.clear();
-                            }
-                          },
-                          child: Icon(Icons.add)),
-                    )
-                  ],
-                ),
-                _isMediaEmpty(mediaList)
-                    ? Padding(
+                      Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('You have not entered any attachment'),
+                        child: TextButton(
+                            onPressed: () {
+                              if (_mediaController.text.length == 0) {
+                                context.showErrorSnackBar(
+                                    message:
+                                        'You have not entered any attachment..');
+                              } else {
+                                _addmedia(_mediaController.text);
+                                _mediaController.clear();
+                              }
+                            },
+                            child: Icon(Icons.add)),
                       )
-                    : SizedBox(
-                        height: 60,
-                        child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemCount: mediaList.length,
-                          itemBuilder: (context, index) {
-                            return Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    Text(mediaList[index]
-                                        .toString()
-                                        .titleCase()),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    IconButton(
-                                        onPressed: () {
-                                          _deleteMedia(
-                                              mediaList[index].toString());
-                                        },
-                                        icon: Icon(
-                                          Icons.remove_circle_outline,
-                                          color: Colors.red,
-                                        ))
-                                  ],
+                    ],
+                  ),
+                  _isMediaEmpty(mediaList)
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('You have not entered any attachment'),
+                        )
+                      : SizedBox(
+                          height: 60,
+                          child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: mediaList.length,
+                            itemBuilder: (context, index) {
+                              return Card(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Text(mediaList[index]
+                                          .toString()
+                                          .titleCase()),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      IconButton(
+                                          onPressed: () {
+                                            _deleteMedia(
+                                                mediaList[index].toString());
+                                          },
+                                          icon: Icon(
+                                            Icons.remove_circle_outline,
+                                            color: Colors.red,
+                                          ))
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                        )),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomHeadline(heading: 'Time Limit'),
-                ),
-                TextFormField(
-                  controller: _timeLimitController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      helperText: 'Time required to finish the request',
-                      hintText: 'Enter time limit (hours)'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter time limit';
-                    }
-                    return null;
-                  },
-                  // onFieldSubmitted: (value) {
-                  //   reqList[0]['Title'] = value;
-                  // },
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomHeadline(heading: 'Rate'),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: _rateController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Enter Rate',
-                            helperText: 'Make sure you have enough \$ to pay'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter rate..';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    // Expanded(
-                    //   child: TextFormField(
-                    //     controller: _titleController,
-                    //     keyboardType: TextInputType.number,
-                    //     decoration: InputDecoration(
-                    //         border: OutlineInputBorder(),
-                    //         hintText: 'Enter time limit (hours)'),
-                    //     validator: (value) {
-                    //       if (value == null || value.isEmpty) {
-                    //         return 'Please enter time limit';
-                    //       }
-                    //       return null;
-                    //     },
-                    //     // onFieldSubmitted: (value) {
-                    //     //   reqList[0]['Title'] = value;
-                    //     // },
-                    //   ),
-                    // ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text('\$ time/hour'),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 8),
-                ElevatedButton(
-                    onPressed: () async {
-                      final user = supabase.auth.currentUser!.id;
-                      //final _userCurrent = getCurrentUser(user);
-                      //print(_userCurrent);
-                      if (_formKey.currentState!.validate()) {
-                        var rate = double.parse(
-                            _rateController.text); //convert to double
-                        var time = double.parse(_timeLimitController.text);
-
-                        _submitJobForm(
-                            _titleController.text,
-                            _descriptionController.text,
-                            _latitudeController.text,
-                            _longitudeController.text,
-                            _locationController.text,
-                            rate,
-                            mediaList,
-                            user,
-                            _categoryController.text,
-                            time,
-                            _dateController.text);
+                              );
+                            },
+                          )),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CustomHeadline(heading: 'Time Limit'),
+                  ),
+                  TextFormField(
+                    controller: _timeLimitController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        helperText: 'Time required to finish the request',
+                        hintText: 'Enter time limit (hours)'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter time limit';
                       }
+                      return null;
                     },
-                    child: const Text('Create Request')),
-              ],
+                    // onFieldSubmitted: (value) {
+                    //   reqList[0]['Title'] = value;
+                    // },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CustomHeadline(heading: 'Rate'),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          controller: _rateController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Enter Rate',
+                              helperText:
+                                  'Make sure you have enough \$ to pay'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter rate..';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      // Expanded(
+                      //   child: TextFormField(
+                      //     controller: _titleController,
+                      //     keyboardType: TextInputType.number,
+                      //     decoration: InputDecoration(
+                      //         border: OutlineInputBorder(),
+                      //         hintText: 'Enter time limit (hours)'),
+                      //     validator: (value) {
+                      //       if (value == null || value.isEmpty) {
+                      //         return 'Please enter time limit';
+                      //       }
+                      //       return null;
+                      //     },
+                      //     // onFieldSubmitted: (value) {
+                      //     //   reqList[0]['Title'] = value;
+                      //     // },
+                      //   ),
+                      // ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('\$ time/hour'),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  ElevatedButton(
+                      onPressed: () async {
+                        final user = supabase.auth.currentUser!.id;
+                        //final _userCurrent = getCurrentUser(user);
+                        //print(_userCurrent);
+                        if (_formKey.currentState!.validate()) {
+                          var rate = double.parse(
+                              _rateController.text); //convert to double
+                          var time = double.parse(_timeLimitController.text);
+
+                          _submitJobForm(
+                              _titleController.text,
+                              _descriptionController.text,
+                              _latitudeController.text,
+                              _longitudeController.text,
+                              _locationController.text,
+                              rate,
+                              mediaList,
+                              user,
+                              _categoryController.text,
+                              time,
+                              _dateController.text);
+                        }
+                      },
+                      child: const Text('Create Request')),
+                ],
+              ),
+
+              // SizedBox(
+              //   height: 20,
+              // ),
             ),
           ),
         ));
