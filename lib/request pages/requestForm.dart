@@ -1,5 +1,5 @@
-import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:csc_picker/csc_picker.dart';
+import 'package:csc_picker/model/select_status_model.dart';
 import 'package:flutter/material.dart';
 import 'package:grpc/grpc.dart';
 import 'package:testfyp/bin/client_service_request.dart';
@@ -57,12 +57,15 @@ class _RequestFormState extends State<RequestForm> {
   late DateTime? newDate;
   late TimeOfDay? newTime;
 
-  late String countryValue;
-  late String stateValue;
-  late String cityValue;
+  late String countryValue = '';
+  late String stateValue = '';
+  late String cityValue = '';
+
+  late bool isLocationFetched;
 
   @override
   void initState() {
+    isLocationFetched = false;
     _categoryController.text = listCategories[2];
     // TODO: implement initState
     super.initState();
@@ -111,12 +114,22 @@ class _RequestFormState extends State<RequestForm> {
           await placemarkFromCoordinates(position.latitude, position.longitude);
       Placemark place = placemarks[0];
       address =
-          '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+          '${place.street}, ${place.subLocality}, ${place.locality}, ${place.administrativeArea}, ${place.postalCode}, ${place.country}';
+      // print('State: ${place.administrativeArea}');
+      // print("City: ${place.locality}");
+      // // print(place.country);
+      // print(place);
 
       setState(() {
-        _latitudeController.text = position.latitude.toString();
-        _longitudeController.text = position.longitude.toString();
+        //print(countryValue);
+        countryValue = place.country.toString();
+        cityValue = place.locality.toString();
+        stateValue = place.administrativeArea.toString();
+        isLocationFetched = true;
+        // _latitudeController.text = position.latitude.toString();
+        // _longitudeController.text = position.longitude.toString();
         _locationController.text = address;
+        //print(isLocationFetched);
       });
       context.showSnackBar(message: 'Location details added!!');
     } catch (e) {
@@ -126,26 +139,26 @@ class _RequestFormState extends State<RequestForm> {
     //print(Address);
   }
 
-  Future<void> GetLatLongfromAddress(String location) async {
-    try {
-      List<Location> locations = await locationFromAddress(location);
-      setState(() {
-        _latitudeController.text = locations[0].latitude.toString();
-        _longitudeController.text = locations[0].longitude.toString();
-        //_locationController.text = Address;
-      });
-      context.showSnackBar(message: 'Location details added!!');
-    } catch (e) {
-      context.showErrorSnackBar(message: e.toString());
-    }
+  // Future<void> GetLatLongfromAddress(String location) async {
+  //   try {
+  //     List<Location> locations = await locationFromAddress(location);
+  //     setState(() {
+  //       // _latitudeController.text = locations[0].latitude.toString();
+  //       // _longitudeController.text = locations[0].longitude.toString();
+  //       //_locationController.text = Address;
+  //     });
+  //     context.showSnackBar(message: 'Location details added!!');
+  //   } catch (e) {
+  //     context.showErrorSnackBar(message: e.toString());
+  //   }
 
-    //sprint(locations[0].latitude);
-    //print(placemarks);
-    // Placemark place = locations[0];
-    // Address =
-    //     '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
-    //print(Address);
-  }
+  //   //sprint(locations[0].latitude);
+  //   //print(placemarks);
+  //   // Placemark place = locations[0];
+  //   // Address =
+  //   //     '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+  //   //print(Address);
+  // }
 
   @override
   void dispose() {
@@ -480,9 +493,14 @@ class _RequestFormState extends State<RequestForm> {
                     },
                   ),
 
+                  SizedBox(height: 10),
                   CSCPicker(
                     // showCities: true,
+
                     defaultCountry: DefaultCountry.Malaysia,
+                    disableCountry: true,
+                    // currentState: 'Negeri Sembilan',
+                    // currentCountry: 'Malaysia',
                     layout: Layout.vertical,
                     dropdownDecoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
@@ -506,75 +524,80 @@ class _RequestFormState extends State<RequestForm> {
                     onStateChanged: (value) {
                       setState(() {
                         stateValue = value.toString();
+                        _latitudeController.text = stateValue;
                       });
                     },
                     onCityChanged: (value) {
                       setState(() {
                         cityValue = value.toString();
+                        _longitudeController.text = cityValue;
                       });
                     },
                   ),
                   Row(
                     children: [
+                      // Expanded(
+                      //   child: ElevatedButton(
+                      //       onPressed: () async {
+                      //         GetLatLongfromAddress(_locationController.text);
+                      //       },
+                      //       child: Text('Enter Address')),
+                      // ),
+                      // SizedBox(width: 5),
                       Expanded(
                         child: ElevatedButton(
                             onPressed: () async {
-                              GetLatLongfromAddress(_locationController.text);
+                              Position position =
+                                  await _getGeoLocationPosition();
+                              GetAddressFromLatLong(position);
                             },
-                            child: Text('Enter Address')),
+                            child: Text('Get current location')),
                       ),
-                      SizedBox(width: 5),
-                      ElevatedButton(
-                          onPressed: () async {
-                            Position position = await _getGeoLocationPosition();
-                            GetAddressFromLatLong(position);
-                          },
-                          child: Text('Get current location')),
                     ],
                   ),
                   SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CustomHeadline(heading: 'Country & State & City'),
-                  ),
-                  TextFormField(
-                    controller: _locationController,
-                    enabled: false,
-                    decoration: InputDecoration(
-                        errorStyle: TextStyle(
-                          color: Colors.red, // or any other color
-                        ),
-                        border: OutlineInputBorder(),
-                        labelText: 'Address'),
-                    // validator: (value) {
-                    //   if (value == null || value.isEmpty) {
-                    //     return 'Please enter location...';
-                    //   }
-                    //   return null;
-                    // },
-                  ),
-                  SizedBox(height: 15),
-
-                  // SelectState(
-                  //   //dropdownColor: themeData1().primaryColor,
-                  //   // style: ,
-                  //   onCountryChanged: (value) {
-                  //     setState(() {
-                  //       countryValue = value;
-                  //     });
-                  //   },
-                  //   onStateChanged: (value) {
-                  //     setState(() {
-                  //       stateValue = value;
-                  //     });
-                  //   },
-                  //   onCityChanged: (value) {
-                  //     setState(() {
-                  //       cityValue = value;
-                  //     });
-                  //   },
+                  // Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: CustomHeadline(heading: 'Country & State & City'),
                   // ),
-                  // SizedBox(height: 8),
+                  // TextFormField(
+                  //   controller: _locationController,
+                  //   enabled: false,
+                  //   decoration: InputDecoration(
+                  //       errorStyle: TextStyle(
+                  //         color: Colors.red, // or any other color
+                  //       ),
+                  //       border: OutlineInputBorder(),
+                  //       labelText: 'Address'),
+                  //   // validator: (value) {
+                  //   //   if (value == null || value.isEmpty) {
+                  //   //     return 'Please enter location...';
+                  //   //   }
+                  //   //   return null;
+                  //   // },
+                  // ),
+                  // SizedBox(height: 15),
+
+                  // // SelectState(
+                  // //   //dropdownColor: themeData1().primaryColor,
+                  // //   // style: ,
+                  // //   onCountryChanged: (value) {
+                  // //     setState(() {
+                  // //       countryValue = value;
+                  // //     });
+                  // //   },
+                  // //   onStateChanged: (value) {
+                  // //     setState(() {
+                  // //       stateValue = value;
+                  // //     });
+                  // //   },
+                  // //   onCityChanged: (value) {
+                  // //     setState(() {
+                  // //       cityValue = value;
+                  // //     });
+                  // //   },
+                  // // ),
+                  // // SizedBox(height: 8),
                   // TextFormField(
                   //   controller: _latitudeController,
                   //   enabled: false,
@@ -583,7 +606,7 @@ class _RequestFormState extends State<RequestForm> {
                   //       color: Colors.red, // or any other color
                   //     ),
                   //     border: OutlineInputBorder(),
-                  //     labelText: 'Latitude',
+                  //     labelText: 'State',
                   //     //prefixIcon: Icon(Icons.map)
                   //   ),
                   //   validator: (value) {
@@ -593,7 +616,7 @@ class _RequestFormState extends State<RequestForm> {
                   //     return null;
                   //   },
                   // ),
-                  // SizedBox(height: 8),
+                  // SizedBox(height: 15),
                   // TextFormField(
                   //   controller: _longitudeController,
                   //   enabled: false,
@@ -602,7 +625,7 @@ class _RequestFormState extends State<RequestForm> {
                   //         color: Colors.red, // or any other color
                   //       ),
                   //       border: OutlineInputBorder(),
-                  //       labelText: 'Longitude'),
+                  //       labelText: 'City'),
                   //   validator: (value) {
                   //     if (value == null || value.isEmpty) {
                   //       return 'Tap "Enter Address" to obtain longitude';
@@ -756,7 +779,12 @@ class _RequestFormState extends State<RequestForm> {
                         final user = supabase.auth.currentUser!.id;
                         //final _userCurrent = getCurrentUser(user);
                         //print(_userCurrent);
-                        if (_formKey.currentState!.validate()) {
+                        // print(stateValue == 'null');
+                        if (_latitudeController.text == 'null') {
+                          context.showErrorSnackBar(message: 'Pick a state..');
+                        } else if (_longitudeController.text == 'null') {
+                          context.showErrorSnackBar(message: 'Pick a city..');
+                        } else if (_formKey.currentState!.validate()) {
                           var rate = double.parse(
                               _rateController.text); //convert to double
                           var time = double.parse(_timeLimitController.text);

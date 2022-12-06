@@ -740,8 +740,8 @@ class _RequestDetailsState extends State<RequestDetails> {
                   Heading2('Location'),
                   Text(
                       'Address: ${widget.locationName.toString().titleCase()}'),
-                  // Text('Latitude: ' + widget.latitude),
-                  // Text('Longitude: ' + widget.longitude),
+                  Text('State: ' + widget.latitude),
+                  Text('City: ' + widget.longitude),
                   Heading2('Media'),
                   isNull(widget.media)
                       ? Text('No Attachment')
