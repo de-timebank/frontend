@@ -14,9 +14,7 @@ class ServiceDashboardCard extends StatefulWidget {
 }
 
 class _ServiceDashboardCardState extends State<ServiceDashboardCard> {
-  late final _serviceList;
-  late final _serviceListFiltered = [];
-  late final _requestList;
+  late dynamic _summaryList;
   late int pending = 0;
   late int accepted = 0;
   late int ongoing = 0;
@@ -28,7 +26,6 @@ class _ServiceDashboardCardState extends State<ServiceDashboardCard> {
   late int completedReq = 0;
   bool isLoad = true;
 
-  //late final _requestListFiltered = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -38,58 +35,13 @@ class _ServiceDashboardCardState extends State<ServiceDashboardCard> {
 
   _getinstance() async {
     final user = supabase.auth.currentUser!.id;
-    _serviceList = await ClientServiceRequest(Common().channel)
-        .getResponse('provider', user);
 
-    //get total request
-    _requestList = await ClientServiceRequest(Common().channel)
-        .getResponse('requestor', user);
-
-    //print(_requestList.requests[0].state == 0);
-    for (int i = 0; i < _requestList.requests.length; i++) {
-      if (_requestList.requests[i].state.toString() == 'PENDING') {
-        pendingReq++;
-      }
-      if (_requestList.requests[i].state.toString() == 'ACCEPTED') {
-        acceptedReq++;
-      }
-      if (_requestList.requests[i].state.toString() == 'ONGOING') {
-        ongoingReq++;
-      }
-      if (_requestList.requests[i].state.toString() == 'COMPLETED') {
-        completedReq++;
-      }
-    }
-
-    //print(_serviceList);
-    //get total service
-    for (int i = 0; i < _serviceList.requests.length; i++) {
-      for (int j = 0; j < _serviceList.requests[i].applicants.length; j++) {
-        if (_serviceList.requests[i].applicants[j] == user &&
-            _serviceList.requests[i].state.toString() == 'PENDING') {
-          // _serviceListFiltered.add(_serviceList.requests[i].applicants[j]);
-          pending++;
-        }
-      }
-      if (_serviceList.requests[i].state.toString() == 'ACCEPTED') {
-        // _serviceListFiltered.add(_serviceList.requests[i].applicants[j]);
-        accepted++;
-      }
-      if (_serviceList.requests[i].state.toString() == 'ONGOING') {
-        // _serviceListFiltered.add(_serviceList.requests[i].applicants[j]);
-        ongoing++;
-      }
-      if (_serviceList.requests[i].state.toString() == 'COMPLETED') {
-        // _serviceListFiltered.add(_serviceList.requests[i].applicants[j]);
-        completed++;
-      }
-    }
+    _summaryList =
+        await ClientServiceRequest(Common().channel).getSummary(user);
 
     setState(() {
       isLoad = false;
     });
-    //print(_serviceListFiltered);
-    //print(_serviceList);
   }
 
   @override
@@ -113,35 +65,36 @@ class _ServiceDashboardCardState extends State<ServiceDashboardCard> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('Total Request: '),
-                              Text('${_requestList.requests.length}')
+                              Text(
+                                  '${_summaryList.pending.asRequestor + _summaryList.accepted.asRequestor + _summaryList.ongoing.asRequestor + _summaryList.completed.asRequestor}')
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('Pending: '),
-                              Text('${pendingReq}')
+                              Text('${_summaryList.pending.asRequestor}')
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('Accepted: '),
-                              Text('${acceptedReq}')
+                              Text('${_summaryList.accepted.asRequestor}')
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('Ongoing: '),
-                              Text('${ongoingReq}')
+                              Text('${_summaryList.ongoing.asRequestor}')
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('Completed: '),
-                              Text('${completedReq}')
+                              Text('${_summaryList.completed.asRequestor}')
                             ],
                           ),
                         ],
@@ -155,26 +108,36 @@ class _ServiceDashboardCardState extends State<ServiceDashboardCard> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('Total Service: '),
-                              Text('${_serviceListFiltered.length}')
+                              Text(
+                                  '${_summaryList.pending.asProvider + _summaryList.accepted.asProvider + _summaryList.ongoing.asProvider + _summaryList.completed.asProvider}')
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [Text('Pending: '), Text('${pending}')],
+                            children: [
+                              Text('Pending: '),
+                              Text('${_summaryList.pending.asProvider}')
+                            ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [Text('Accepted: '), Text('${accepted}')],
+                            children: [
+                              Text('Accepted: '),
+                              Text('${_summaryList.accepted.asProvider}')
+                            ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [Text('Ongoing: '), Text('${ongoing}')],
+                            children: [
+                              Text('Ongoing: '),
+                              Text('${_summaryList.ongoing.asProvider}')
+                            ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('Completed: '),
-                              Text('${completed}')
+                              Text('${_summaryList.completed.asProvider}')
                             ],
                           ),
                         ],

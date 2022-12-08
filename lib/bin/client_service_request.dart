@@ -74,6 +74,11 @@ class ClientServiceRequest {
     return await stub.delete(Delete_Request()..requestId = id);
   }
 
+  Future<GetSummaryForUser_Response> getSummary(String id) async {
+    return await stub
+        .getSummaryForUser(GetSummaryForUser_Request()..userId = id);
+  }
+
   Future<ApplyProvider_Response> applyProvider1(
       String id, String provider) async {
     return await stub.applyProvider(ApplyProvider_Request()

@@ -34,8 +34,8 @@ class _RateReceivedPageState extends State<RateReceivedPage> {
     user = supabase.auth.currentUser!.id;
 
     //print(_userCurrent);
-    listRequest = await ClientRating(Common().channel)
-        .getResponseRating('recipient', user);
+    listRequest =
+        await ClientRating(Common().channel).getbyId(user, 'provider');
     //print(listRequest);
     for (var i = 0; i < listRequest.ratings.length; i++) {
       if (listRequest.ratings[i].recipient == user) {

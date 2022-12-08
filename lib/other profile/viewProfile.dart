@@ -20,7 +20,7 @@ class ViewProfile extends StatefulWidget {
 }
 
 class _ViewProfileState extends State<ViewProfile> {
-  late final dynamic profile;
+  late dynamic profile;
   late List<String> skills;
   late List<dynamic> email;
   late List<dynamic> phone;
@@ -136,10 +136,10 @@ class _ViewProfileState extends State<ViewProfile> {
                   CustomHeadline(heading: ' Ratings'),
                   RatingCardDetails1(
                       isProvider: true,
-                      userRating: profile.user.rating.asProvider.toString()),
+                      userRating: profile.user.rating.asProvider),
                   RatingCardDetails1(
                       isProvider: false,
-                      userRating: profile.user.rating.asRequestor.toString()),
+                      userRating: profile.user.rating.asRequestor),
                   CustomHeadline(heading: ' Skill List'),
                   isEmpty(skills)
                       ? Text('No skills entered')

@@ -11,33 +11,34 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 class RatingData extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RatingData', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'rating'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'author')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'recipient')
-    ..a<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'value', $pb.PbFieldType.O3)
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'comment')
-    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt')
-    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updatedAt')
-    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requestId')
-    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ratingFor')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requestId')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ratingFor')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'author')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'recipient')
+    ..a<$core.int>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'value', $pb.PbFieldType.O3)
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'comment')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt')
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updatedAt')
     ..hasRequiredFields = false
   ;
 
   RatingData._() : super();
   factory RatingData({
-    $core.String? id,
+    $core.String? requestId,
+    $core.String? ratingFor,
     $core.String? author,
     $core.String? recipient,
     $core.int? value,
     $core.String? comment,
     $core.String? createdAt,
     $core.String? updatedAt,
-    $core.String? requestId,
-    $core.String? ratingFor,
   }) {
     final _result = create();
-    if (id != null) {
-      _result.id = id;
+    if (requestId != null) {
+      _result.requestId = requestId;
+    }
+    if (ratingFor != null) {
+      _result.ratingFor = ratingFor;
     }
     if (author != null) {
       _result.author = author;
@@ -56,12 +57,6 @@ class RatingData extends $pb.GeneratedMessage {
     }
     if (updatedAt != null) {
       _result.updatedAt = updatedAt;
-    }
-    if (requestId != null) {
-      _result.requestId = requestId;
-    }
-    if (ratingFor != null) {
-      _result.ratingFor = ratingFor;
     }
     return _result;
   }
@@ -87,85 +82,76 @@ class RatingData extends $pb.GeneratedMessage {
   static RatingData? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get id => $_getSZ(0);
+  $core.String get requestId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set id($core.String v) { $_setString(0, v); }
+  set requestId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasId() => $_has(0);
+  $core.bool hasRequestId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearId() => clearField(1);
+  void clearRequestId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get author => $_getSZ(1);
+  $core.String get ratingFor => $_getSZ(1);
   @$pb.TagNumber(2)
-  set author($core.String v) { $_setString(1, v); }
+  set ratingFor($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasAuthor() => $_has(1);
+  $core.bool hasRatingFor() => $_has(1);
   @$pb.TagNumber(2)
-  void clearAuthor() => clearField(2);
+  void clearRatingFor() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get recipient => $_getSZ(2);
+  $core.String get author => $_getSZ(2);
   @$pb.TagNumber(3)
-  set recipient($core.String v) { $_setString(2, v); }
+  set author($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasRecipient() => $_has(2);
+  $core.bool hasAuthor() => $_has(2);
   @$pb.TagNumber(3)
-  void clearRecipient() => clearField(3);
+  void clearAuthor() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.int get value => $_getIZ(3);
+  $core.String get recipient => $_getSZ(3);
   @$pb.TagNumber(4)
-  set value($core.int v) { $_setSignedInt32(3, v); }
+  set recipient($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasValue() => $_has(3);
+  $core.bool hasRecipient() => $_has(3);
   @$pb.TagNumber(4)
-  void clearValue() => clearField(4);
+  void clearRecipient() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.String get comment => $_getSZ(4);
+  $core.int get value => $_getIZ(4);
   @$pb.TagNumber(5)
-  set comment($core.String v) { $_setString(4, v); }
+  set value($core.int v) { $_setSignedInt32(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasComment() => $_has(4);
+  $core.bool hasValue() => $_has(4);
   @$pb.TagNumber(5)
-  void clearComment() => clearField(5);
+  void clearValue() => clearField(5);
 
   @$pb.TagNumber(6)
-  $core.String get createdAt => $_getSZ(5);
+  $core.String get comment => $_getSZ(5);
   @$pb.TagNumber(6)
-  set createdAt($core.String v) { $_setString(5, v); }
+  set comment($core.String v) { $_setString(5, v); }
   @$pb.TagNumber(6)
-  $core.bool hasCreatedAt() => $_has(5);
+  $core.bool hasComment() => $_has(5);
   @$pb.TagNumber(6)
-  void clearCreatedAt() => clearField(6);
+  void clearComment() => clearField(6);
 
   @$pb.TagNumber(7)
-  $core.String get updatedAt => $_getSZ(6);
+  $core.String get createdAt => $_getSZ(6);
   @$pb.TagNumber(7)
-  set updatedAt($core.String v) { $_setString(6, v); }
+  set createdAt($core.String v) { $_setString(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasUpdatedAt() => $_has(6);
+  $core.bool hasCreatedAt() => $_has(6);
   @$pb.TagNumber(7)
-  void clearUpdatedAt() => clearField(7);
+  void clearCreatedAt() => clearField(7);
 
   @$pb.TagNumber(8)
-  $core.String get requestId => $_getSZ(7);
+  $core.String get updatedAt => $_getSZ(7);
   @$pb.TagNumber(8)
-  set requestId($core.String v) { $_setString(7, v); }
+  set updatedAt($core.String v) { $_setString(7, v); }
   @$pb.TagNumber(8)
-  $core.bool hasRequestId() => $_has(7);
+  $core.bool hasUpdatedAt() => $_has(7);
   @$pb.TagNumber(8)
-  void clearRequestId() => clearField(8);
-
-  @$pb.TagNumber(9)
-  $core.String get ratingFor => $_getSZ(8);
-  @$pb.TagNumber(9)
-  set ratingFor($core.String v) { $_setString(8, v); }
-  @$pb.TagNumber(9)
-  $core.bool hasRatingFor() => $_has(8);
-  @$pb.TagNumber(9)
-  void clearRatingFor() => clearField(9);
+  void clearUpdatedAt() => clearField(8);
 }
 
 class Create_NewRatingData extends $pb.GeneratedMessage {
@@ -384,75 +370,61 @@ class Create extends $pb.GeneratedMessage {
   static Create? _defaultInstance;
 }
 
-class Get_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Get.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'rating'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'key')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'value')
+class GetForRequest_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetForRequest.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'rating'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requestId')
     ..hasRequiredFields = false
   ;
 
-  Get_Request._() : super();
-  factory Get_Request({
-    $core.String? key,
-    $core.String? value,
+  GetForRequest_Request._() : super();
+  factory GetForRequest_Request({
+    $core.String? requestId,
   }) {
     final _result = create();
-    if (key != null) {
-      _result.key = key;
-    }
-    if (value != null) {
-      _result.value = value;
+    if (requestId != null) {
+      _result.requestId = requestId;
     }
     return _result;
   }
-  factory Get_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Get_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory GetForRequest_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetForRequest_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  Get_Request clone() => Get_Request()..mergeFromMessage(this);
+  GetForRequest_Request clone() => GetForRequest_Request()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Get_Request copyWith(void Function(Get_Request) updates) => super.copyWith((message) => updates(message as Get_Request)) as Get_Request; // ignore: deprecated_member_use
+  GetForRequest_Request copyWith(void Function(GetForRequest_Request) updates) => super.copyWith((message) => updates(message as GetForRequest_Request)) as GetForRequest_Request; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static Get_Request create() => Get_Request._();
-  Get_Request createEmptyInstance() => create();
-  static $pb.PbList<Get_Request> createRepeated() => $pb.PbList<Get_Request>();
+  static GetForRequest_Request create() => GetForRequest_Request._();
+  GetForRequest_Request createEmptyInstance() => create();
+  static $pb.PbList<GetForRequest_Request> createRepeated() => $pb.PbList<GetForRequest_Request>();
   @$core.pragma('dart2js:noInline')
-  static Get_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Get_Request>(create);
-  static Get_Request? _defaultInstance;
+  static GetForRequest_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetForRequest_Request>(create);
+  static GetForRequest_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get key => $_getSZ(0);
+  $core.String get requestId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set key($core.String v) { $_setString(0, v); }
+  set requestId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasKey() => $_has(0);
+  $core.bool hasRequestId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearKey() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.String get value => $_getSZ(1);
-  @$pb.TagNumber(2)
-  set value($core.String v) { $_setString(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasValue() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearValue() => clearField(2);
+  void clearRequestId() => clearField(1);
 }
 
-class Get_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Get.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'rating'), createEmptyInstance: create)
+class GetForRequest_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetForRequest.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'rating'), createEmptyInstance: create)
     ..pc<RatingData>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ratings', $pb.PbFieldType.PM, subBuilder: RatingData.create)
     ..hasRequiredFields = false
   ;
 
-  Get_Response._() : super();
-  factory Get_Response({
+  GetForRequest_Response._() : super();
+  factory GetForRequest_Response({
     $core.Iterable<RatingData>? ratings,
   }) {
     final _result = create();
@@ -461,75 +433,80 @@ class Get_Response extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory Get_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Get_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory GetForRequest_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetForRequest_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  Get_Response clone() => Get_Response()..mergeFromMessage(this);
+  GetForRequest_Response clone() => GetForRequest_Response()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Get_Response copyWith(void Function(Get_Response) updates) => super.copyWith((message) => updates(message as Get_Response)) as Get_Response; // ignore: deprecated_member_use
+  GetForRequest_Response copyWith(void Function(GetForRequest_Response) updates) => super.copyWith((message) => updates(message as GetForRequest_Response)) as GetForRequest_Response; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static Get_Response create() => Get_Response._();
-  Get_Response createEmptyInstance() => create();
-  static $pb.PbList<Get_Response> createRepeated() => $pb.PbList<Get_Response>();
+  static GetForRequest_Response create() => GetForRequest_Response._();
+  GetForRequest_Response createEmptyInstance() => create();
+  static $pb.PbList<GetForRequest_Response> createRepeated() => $pb.PbList<GetForRequest_Response>();
   @$core.pragma('dart2js:noInline')
-  static Get_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Get_Response>(create);
-  static Get_Response? _defaultInstance;
+  static GetForRequest_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetForRequest_Response>(create);
+  static GetForRequest_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<RatingData> get ratings => $_getList(0);
 }
 
-class Get extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Get', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'rating'), createEmptyInstance: create)
+class GetForRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetForRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'rating'), createEmptyInstance: create)
     ..hasRequiredFields = false
   ;
 
-  Get._() : super();
-  factory Get() => create();
-  factory Get.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Get.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  GetForRequest._() : super();
+  factory GetForRequest() => create();
+  factory GetForRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetForRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  Get clone() => Get()..mergeFromMessage(this);
+  GetForRequest clone() => GetForRequest()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Get copyWith(void Function(Get) updates) => super.copyWith((message) => updates(message as Get)) as Get; // ignore: deprecated_member_use
+  GetForRequest copyWith(void Function(GetForRequest) updates) => super.copyWith((message) => updates(message as GetForRequest)) as GetForRequest; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static Get create() => Get._();
-  Get createEmptyInstance() => create();
-  static $pb.PbList<Get> createRepeated() => $pb.PbList<Get>();
+  static GetForRequest create() => GetForRequest._();
+  GetForRequest createEmptyInstance() => create();
+  static $pb.PbList<GetForRequest> createRepeated() => $pb.PbList<GetForRequest>();
   @$core.pragma('dart2js:noInline')
-  static Get getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Get>(create);
-  static Get? _defaultInstance;
+  static GetForRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetForRequest>(create);
+  static GetForRequest? _defaultInstance;
 }
 
 class Update_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Update.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'rating'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ratingId')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'body')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requestId')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ratingFor')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'body')
     ..hasRequiredFields = false
   ;
 
   Update_Request._() : super();
   factory Update_Request({
-    $core.String? ratingId,
+    $core.String? requestId,
+    $core.String? ratingFor,
     $core.String? body,
   }) {
     final _result = create();
-    if (ratingId != null) {
-      _result.ratingId = ratingId;
+    if (requestId != null) {
+      _result.requestId = requestId;
+    }
+    if (ratingFor != null) {
+      _result.ratingFor = ratingFor;
     }
     if (body != null) {
       _result.body = body;
@@ -558,22 +535,31 @@ class Update_Request extends $pb.GeneratedMessage {
   static Update_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get ratingId => $_getSZ(0);
+  $core.String get requestId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set ratingId($core.String v) { $_setString(0, v); }
+  set requestId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasRatingId() => $_has(0);
+  $core.bool hasRequestId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearRatingId() => clearField(1);
+  void clearRequestId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get body => $_getSZ(1);
+  $core.String get ratingFor => $_getSZ(1);
   @$pb.TagNumber(2)
-  set body($core.String v) { $_setString(1, v); }
+  set ratingFor($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasBody() => $_has(1);
+  $core.bool hasRatingFor() => $_has(1);
   @$pb.TagNumber(2)
-  void clearBody() => clearField(2);
+  void clearRatingFor() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get body => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set body($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasBody() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearBody() => clearField(3);
 }
 
 class Update_Response extends $pb.GeneratedMessage {
@@ -656,17 +642,22 @@ class Update extends $pb.GeneratedMessage {
 
 class Delete_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Delete.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'rating'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ratingId')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requestId')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ratingFor')
     ..hasRequiredFields = false
   ;
 
   Delete_Request._() : super();
   factory Delete_Request({
-    $core.String? ratingId,
+    $core.String? requestId,
+    $core.String? ratingFor,
   }) {
     final _result = create();
-    if (ratingId != null) {
-      _result.ratingId = ratingId;
+    if (requestId != null) {
+      _result.requestId = requestId;
+    }
+    if (ratingFor != null) {
+      _result.ratingFor = ratingFor;
     }
     return _result;
   }
@@ -692,13 +683,22 @@ class Delete_Request extends $pb.GeneratedMessage {
   static Delete_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get ratingId => $_getSZ(0);
+  $core.String get requestId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set ratingId($core.String v) { $_setString(0, v); }
+  set requestId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasRatingId() => $_has(0);
+  $core.bool hasRequestId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearRatingId() => clearField(1);
+  void clearRequestId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get ratingFor => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set ratingFor($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasRatingFor() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearRatingFor() => clearField(2);
 }
 
 class Delete_Response extends $pb.GeneratedMessage {
@@ -757,5 +757,144 @@ class Delete extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static Delete getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Delete>(create);
   static Delete? _defaultInstance;
+}
+
+class GetById_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetById.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'rating'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requestId')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ratingFor')
+    ..hasRequiredFields = false
+  ;
+
+  GetById_Request._() : super();
+  factory GetById_Request({
+    $core.String? requestId,
+    $core.String? ratingFor,
+  }) {
+    final _result = create();
+    if (requestId != null) {
+      _result.requestId = requestId;
+    }
+    if (ratingFor != null) {
+      _result.ratingFor = ratingFor;
+    }
+    return _result;
+  }
+  factory GetById_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetById_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetById_Request clone() => GetById_Request()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetById_Request copyWith(void Function(GetById_Request) updates) => super.copyWith((message) => updates(message as GetById_Request)) as GetById_Request; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetById_Request create() => GetById_Request._();
+  GetById_Request createEmptyInstance() => create();
+  static $pb.PbList<GetById_Request> createRepeated() => $pb.PbList<GetById_Request>();
+  @$core.pragma('dart2js:noInline')
+  static GetById_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetById_Request>(create);
+  static GetById_Request? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get requestId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set requestId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasRequestId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearRequestId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get ratingFor => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set ratingFor($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasRatingFor() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearRatingFor() => clearField(2);
+}
+
+class GetById_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetById.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'rating'), createEmptyInstance: create)
+    ..aOM<RatingData>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'rating', subBuilder: RatingData.create)
+    ..hasRequiredFields = false
+  ;
+
+  GetById_Response._() : super();
+  factory GetById_Response({
+    RatingData? rating,
+  }) {
+    final _result = create();
+    if (rating != null) {
+      _result.rating = rating;
+    }
+    return _result;
+  }
+  factory GetById_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetById_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetById_Response clone() => GetById_Response()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetById_Response copyWith(void Function(GetById_Response) updates) => super.copyWith((message) => updates(message as GetById_Response)) as GetById_Response; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetById_Response create() => GetById_Response._();
+  GetById_Response createEmptyInstance() => create();
+  static $pb.PbList<GetById_Response> createRepeated() => $pb.PbList<GetById_Response>();
+  @$core.pragma('dart2js:noInline')
+  static GetById_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetById_Response>(create);
+  static GetById_Response? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  RatingData get rating => $_getN(0);
+  @$pb.TagNumber(1)
+  set rating(RatingData v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasRating() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearRating() => clearField(1);
+  @$pb.TagNumber(1)
+  RatingData ensureRating() => $_ensure(0);
+}
+
+class GetById extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetById', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'rating'), createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  GetById._() : super();
+  factory GetById() => create();
+  factory GetById.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetById.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetById clone() => GetById()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetById copyWith(void Function(GetById) updates) => super.copyWith((message) => updates(message as GetById)) as GetById; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetById create() => GetById._();
+  GetById createEmptyInstance() => create();
+  static $pb.PbList<GetById> createRepeated() => $pb.PbList<GetById>();
+  @$core.pragma('dart2js:noInline')
+  static GetById getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetById>(create);
+  static GetById? _defaultInstance;
 }
 

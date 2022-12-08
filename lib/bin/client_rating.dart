@@ -3,6 +3,8 @@ import 'package:grpc/grpc.dart';
 import '../generated/collection/rating.pbgrpc.dart';
 // import 'common.dart';
 
+//'provider' 'requestor'
+
 class ClientRating {
   //final common = Common();
   late RatingClient stub;
@@ -48,20 +50,26 @@ class ClientRating {
   //         ..requestId = id));
   // }
 
-  Future<Get_Response> getResponseRating(String key, String value) async {
-    return await stub.get(Get_Request()
-      ..key = key
-      ..value = value);
+  Future<GetForRequest_Response> getResponseRating(String id) async {
+    return await stub.getForRequest(GetForRequest_Request()..requestId = id);
   }
 
-  Future<Update_Response> updateRating(String id, String body) async {
+  Future<Update_Response> updateRating(String id, String ratingFor) async {
     return await stub.update(Update_Request()
-      ..ratingId = id
-      ..body = body);
+      ..requestId = id
+      ..ratingFor = ratingFor);
   }
 
-  Future<Delete_Response> deleteRating(String id) async {
-    return await stub.delete(Delete_Request()..ratingId = id);
+  Future<GetById_Response> getbyId(String id, String ratingFor) async {
+    return await stub.getById(GetById_Request()
+      ..requestId = id
+      ..ratingFor = ratingFor);
+  }
+
+  Future<Delete_Response> deleteRating(String id, String ratingFor) async {
+    return await stub.delete(Delete_Request()
+      ..requestId = id
+      ..ratingFor = ratingFor);
   }
 }
 

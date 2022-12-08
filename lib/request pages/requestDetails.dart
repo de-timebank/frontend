@@ -188,8 +188,8 @@ class _RequestDetailsState extends State<RequestDetails> {
         ? dateCompletedOn = DateTime.parse(widget.completed)
         : dateCompletedOn = '';
     //print(widget.id);
-    ratedUser = await ClientRating(Common().channel)
-        .getResponseRating('request_id', widget.id);
+    ratedUser =
+        await ClientRating(Common().channel).getResponseRating(widget.id);
 
     // print(ratedUser);
     // print(widget.requestor);
@@ -597,7 +597,12 @@ class _RequestDetailsState extends State<RequestDetails> {
                                             : Column(
                                                 children: [
                                                   Heading2(
-                                                      'The task is completed'), //completed on 2
+                                                      'The job is completed'),
+
+                                                  Text(
+                                                      'Completed On: ${dateCompletedOn.day}-${dateCompletedOn.month}-${dateCompletedOn.year}'),
+                                                  Text(
+                                                      'Time: ${dateCompletedOn.hour}:${dateCompletedOn.minute}:${dateCompletedOn.second}'), //completed on 2
                                                   //Text(widget.completed),
                                                 ],
                                               )

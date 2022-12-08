@@ -3,7 +3,7 @@ import 'package:testfyp/custom%20widgets/theme.dart';
 
 class RatingCardDetails1 extends StatefulWidget {
   final bool isProvider;
-  final String userRating;
+  final dynamic userRating;
   // final Icon icon;
   const RatingCardDetails1(
       {super.key, required this.isProvider, required this.userRating});
@@ -13,8 +13,16 @@ class RatingCardDetails1 extends StatefulWidget {
 }
 
 class _RatingCardDetails1State extends State<RatingCardDetails1> {
-  bool isEmpty(stuff) {
-    if (stuff.length == 0 || stuff.toString() == '' || stuff == '0') {
+  @override
+  void initState() {
+    // TODO: implement initState
+    //print('the count is woi: ' + widget.userRating.count.toString());
+    //print('the count is length: ' + widget.userRating.count);
+    super.initState();
+  }
+
+  bool isEmpty() {
+    if (widget.userRating.count == 0) {
       return true;
     } else {
       return false;
@@ -52,10 +60,14 @@ class _RatingCardDetails1State extends State<RatingCardDetails1> {
                               color: themeData1().secondaryHeaderColor,
                             )),
                 ),
-                Text('Provider Rating', style: TextStyle(color: Colors.white)),
+                widget.isProvider
+                    ? Text('Provider Rating',
+                        style: TextStyle(color: Colors.white))
+                    : Text('Requestor Rating',
+                        style: TextStyle(color: Colors.white))
               ],
             ),
-            isEmpty(widget.userRating)
+            isEmpty()
                 ? Padding(
                     padding: const EdgeInsets.only(right: 15.0),
                     child: Text('No Rating yet',
@@ -63,8 +75,18 @@ class _RatingCardDetails1State extends State<RatingCardDetails1> {
                   )
                 : Padding(
                     padding: const EdgeInsets.only(right: 15.0),
-                    child: Text(widget.userRating,
-                        style: TextStyle(color: Colors.white)),
+                    child: Row(
+                      children: [
+                        Text('Count: ', style: TextStyle(color: Colors.white)),
+                        Text(widget.userRating.count.toString(),
+                            style: TextStyle(color: Colors.white)),
+                        Text(' | ', style: TextStyle(color: Colors.white)),
+                        Text('Average: ',
+                            style: TextStyle(color: Colors.white)),
+                        Text(widget.userRating.avg.toString(),
+                            style: TextStyle(color: Colors.white)),
+                      ],
+                    ),
                   ),
           ],
         ));

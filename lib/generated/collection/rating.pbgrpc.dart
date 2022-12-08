@@ -26,10 +26,18 @@ class RatingClient extends $grpc.Client {
           ($0.Create_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.Create_Response.fromBuffer(value));
-  static final _$get = $grpc.ClientMethod<$0.Get_Request, $0.Get_Response>(
-      '/rating.Rating/get',
-      ($0.Get_Request value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.Get_Response.fromBuffer(value));
+  static final _$getForRequest =
+      $grpc.ClientMethod<$0.GetForRequest_Request, $0.GetForRequest_Response>(
+          '/rating.Rating/getForRequest',
+          ($0.GetForRequest_Request value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.GetForRequest_Response.fromBuffer(value));
+  static final _$getById =
+      $grpc.ClientMethod<$0.GetById_Request, $0.GetById_Response>(
+          '/rating.Rating/getById',
+          ($0.GetById_Request value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.GetById_Response.fromBuffer(value));
   static final _$update =
       $grpc.ClientMethod<$0.Update_Request, $0.Update_Response>(
           '/rating.Rating/update',
@@ -60,9 +68,15 @@ class RatingClient extends $grpc.Client {
     return $createUnaryCall(_$createForProvider, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.Get_Response> get($0.Get_Request request,
+  $grpc.ResponseFuture<$0.GetForRequest_Response> getForRequest(
+      $0.GetForRequest_Request request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$get, request, options: options);
+    return $createUnaryCall(_$getForRequest, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.GetById_Response> getById($0.GetById_Request request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getById, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.Update_Response> update($0.Update_Request request,
@@ -94,13 +108,22 @@ abstract class RatingServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.Create_Request.fromBuffer(value),
         ($0.Create_Response value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.Get_Request, $0.Get_Response>(
-        'get',
-        get_Pre,
+    $addMethod($grpc.ServiceMethod<$0.GetForRequest_Request,
+            $0.GetForRequest_Response>(
+        'getForRequest',
+        getForRequest_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $0.Get_Request.fromBuffer(value),
-        ($0.Get_Response value) => value.writeToBuffer()));
+        ($core.List<$core.int> value) =>
+            $0.GetForRequest_Request.fromBuffer(value),
+        ($0.GetForRequest_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.GetById_Request, $0.GetById_Response>(
+        'getById',
+        getById_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.GetById_Request.fromBuffer(value),
+        ($0.GetById_Response value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.Update_Request, $0.Update_Response>(
         'update',
         update_Pre,
@@ -127,9 +150,15 @@ abstract class RatingServiceBase extends $grpc.Service {
     return createForProvider(call, await request);
   }
 
-  $async.Future<$0.Get_Response> get_Pre(
-      $grpc.ServiceCall call, $async.Future<$0.Get_Request> request) async {
-    return get(call, await request);
+  $async.Future<$0.GetForRequest_Response> getForRequest_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.GetForRequest_Request> request) async {
+    return getForRequest(call, await request);
+  }
+
+  $async.Future<$0.GetById_Response> getById_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.GetById_Request> request) async {
+    return getById(call, await request);
   }
 
   $async.Future<$0.Update_Response> update_Pre(
@@ -146,8 +175,10 @@ abstract class RatingServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.Create_Request request);
   $async.Future<$0.Create_Response> createForProvider(
       $grpc.ServiceCall call, $0.Create_Request request);
-  $async.Future<$0.Get_Response> get(
-      $grpc.ServiceCall call, $0.Get_Request request);
+  $async.Future<$0.GetForRequest_Response> getForRequest(
+      $grpc.ServiceCall call, $0.GetForRequest_Request request);
+  $async.Future<$0.GetById_Response> getById(
+      $grpc.ServiceCall call, $0.GetById_Request request);
   $async.Future<$0.Update_Response> update(
       $grpc.ServiceCall call, $0.Update_Request request);
   $async.Future<$0.Delete_Response> delete(

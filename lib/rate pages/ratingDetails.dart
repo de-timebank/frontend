@@ -36,6 +36,10 @@ class RatingDetails extends StatefulWidget {
 }
 
 class _RatingDetailsState extends State<RatingDetails> {
+//   AS ENUM (
+//   'requestor',
+//   'provider'
+// );
   late dynamic _userRequestor;
   late dynamic _userProvider;
 
@@ -76,8 +80,8 @@ class _RatingDetailsState extends State<RatingDetails> {
     }
   }
 
-  void _deleteRating(String id) async {
-    ClientRating(Common().channel).deleteRating(id);
+  void _deleteRating(String id, String ratingFor) async {
+    ClientRating(Common().channel).deleteRating(id, ratingFor);
 
     // setState(() {
     //   getinstance();
@@ -124,7 +128,7 @@ class _RatingDetailsState extends State<RatingDetails> {
                       ? TextButton(
                           onPressed: () {
                             //print(id);
-                            _deleteRating(widget.id);
+                            _deleteRating(widget.id, 'provider');
                             context.showSnackBar(message: 'Rate Deleted');
                             Navigator.of(context).pop();
                             //Navigator.of(context).popUntil((route) => route.i);

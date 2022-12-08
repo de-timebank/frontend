@@ -34,8 +34,8 @@ class _RateGivenPageState extends State<RateGivenPage> {
     user = supabase.auth.currentUser!.id;
     //print(_userCurrent);
     listRequest =
-        await ClientRating(Common().channel).getResponseRating('author', user);
-    //print(listRequest);
+        await ClientRating(Common().channel).getbyId(user, 'provider');
+    print(listRequest);
     for (var i = 0; i < listRequest.ratings.length; i++) {
       if (listRequest.ratings[i].author == user) {
         listFiltered.add(listRequest.ratings[i]);
