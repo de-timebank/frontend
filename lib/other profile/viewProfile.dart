@@ -2,26 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:testfyp/bin/client_user.dart';
 import 'package:testfyp/bin/common.dart';
-import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/custom%20widgets/customHeadline.dart';
 import 'package:testfyp/custom%20widgets/ratingCardDetails1.dart';
 import 'package:testfyp/custom%20widgets/theme.dart';
 import 'package:testfyp/extension_string.dart';
 
-import '../auth pages/account_page.dart';
 import '../profile pages/contactIconWidget.dart';
 import '../profile pages/emptyCardWidget.dart';
 import '../profile pages/listViewContact.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class ViewProfile extends StatefulWidget {
+  final String id;
+  const ViewProfile({super.key, required this.id});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<ViewProfile> createState() => _ViewProfileState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
-  late dynamic profile;
+class _ViewProfileState extends State<ViewProfile> {
+  late final dynamic profile;
   late List<String> skills;
   late List<dynamic> email;
   late List<dynamic> phone;
@@ -33,15 +32,14 @@ class _ProfilePageState extends State<ProfilePage> {
   bool isLoad = true;
   @override
   void initState() {
-    Future.delayed(Duration.zero, getInstance);
+    getInstance();
     // TODO: implement initState
     super.initState();
   }
 
   getInstance() async {
-    final user = supabase.auth.currentUser!.id;
-    profile = await ClientUser(Common().channel).getProfile1(user);
-    //print(profile);
+    profile = await ClientUser(Common().channel).getProfile1(widget.id);
+    // print(profile);
     // print('the type is : ' + profile.user.profile.contacts[0].type.toString());
     skills = [];
     email = [];
@@ -87,24 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 245, 167, 44),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AccountPage(),
-                  )).then((value) => setState(
-                    () {
-                      getInstance();
-                    },
-                  ));
-            },
-          )
-        ],
-        title: Text('Profile Page'),
+        title: Text('Profile Summary'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -141,14 +122,6 @@ class _ProfilePageState extends State<ProfilePage> {
                             SizedBox(height: 8),
                             Row(
                               children: [
-                                Text(
-                                    '${profile.user.profile.identificationNo.type.toString().capitalize()}: '),
-                                Text(
-                                    '${profile.user.profile.identificationNo.value}'),
-                              ],
-                            ),
-                            Row(
-                              children: [
                                 Text('Gender: '),
                                 Text(
                                     '${profile.user.profile.gender.toString().capitalize()}'),
@@ -183,7 +156,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Center(
-                                      child: Text(skills[index].toString())),
+                                      child: Text(skills[index]
+                                          .toString()
+                                          .capitalize())),
                                 ),
                               );
                             },

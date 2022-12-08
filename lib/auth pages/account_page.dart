@@ -586,10 +586,10 @@ class _AccountPageState extends State<AccountPage> {
                   _isContactsEmpty(contacts)
                       ? Text('You have not entered any contacts...')
                       : SizedBox(
-                          height: 60,
+                          height: 180,
                           child: ListView.builder(
                             physics: const BouncingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
+                            //scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
                             itemCount: contacts.length,
                             itemBuilder: (context, index) {
@@ -597,7 +597,8 @@ class _AccountPageState extends State<AccountPage> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Row(
-                                    //mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Column(
                                         mainAxisAlignment:

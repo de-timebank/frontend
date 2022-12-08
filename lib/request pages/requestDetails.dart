@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grpc/grpc.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/custom%20widgets/customDivider.dart';
 import 'package:testfyp/custom%20widgets/theme.dart';
 import 'package:testfyp/extension_string.dart';
+import 'package:testfyp/other%20profile/viewProfile.dart';
 import 'package:testfyp/rate%20pages/rateGiven.dart';
 import '../bin/client_rating.dart';
 import '../bin/client_service_request.dart';
@@ -180,11 +182,12 @@ class _RequestDetailsState extends State<RequestDetails> {
         ? _userProvidor = 'No Providor'
         : _userProvidor =
             await ClientUser(Common().channel).getUserById(widget.provider);
+    //print(_userProvidor);
 
     isComplete()
         ? dateCompletedOn = DateTime.parse(widget.completed)
         : dateCompletedOn = '';
-
+    //print(widget.id);
     ratedUser = await ClientRating(Common().channel)
         .getResponseRating('request_id', widget.id);
 
@@ -196,6 +199,7 @@ class _RequestDetailsState extends State<RequestDetails> {
           await ClientUser(Common().channel).getUserById(widget.applicants[i]);
       _listApplicants.add(name);
     }
+    // print(_listApplicants);
     setState(() {
       isLoad = false;
     });
@@ -299,11 +303,11 @@ class _RequestDetailsState extends State<RequestDetails> {
       appBar: widget.isRequest
           ? AppBar(
               backgroundColor: Theme.of(context).primaryColor,
-              title: Text('Rating Details'),
+              title: Text('Job Details'),
             )
           : AppBar(
               backgroundColor: Theme.of(context).secondaryHeaderColor,
-              title: Text('Rating Details'),
+              title: Text('Job Details'),
             ),
       body: isLoad
           ? Center(child: CircularProgressIndicator())
@@ -376,30 +380,58 @@ class _RequestDetailsState extends State<RequestDetails> {
                                                       widget.applicants.length,
                                                   itemBuilder:
                                                       (context, index) {
-                                                    return ElevatedButton(
-                                                        style: themeData2()
-                                                            .textButtonTheme
-                                                            .style,
-                                                        onPressed: () {
-                                                          // print(widget.id);
-                                                          // print(
-                                                          //     widget.applicants[
-                                                          //         index]);
-                                                          // print(widget.user);
-                                                          _selectProvider(
-                                                              widget.id
-                                                                  .toString(),
-                                                              widget.applicants[
-                                                                      index]
-                                                                  .toString(),
-                                                              widget.user
-                                                                  .toString());
-                                                        },
-                                                        child: Text(
-                                                          '${index + 1}) ${_listApplicants[index].user.name.toString().titleCase()}',
-                                                          style: TextStyle(
-                                                              fontSize: 12),
-                                                        ));
+                                                    return Row(
+                                                      children: [
+                                                        Expanded(
+                                                          child: ElevatedButton(
+                                                              style: themeData2()
+                                                                  .elevatedButtonTheme
+                                                                  .style,
+                                                              onPressed: () {
+                                                                // print(widget.id);
+                                                                // print(
+                                                                //     widget.applicants[
+                                                                //         index]);
+                                                                // print(widget.user);
+                                                                _selectProvider(
+                                                                    widget.id
+                                                                        .toString(),
+                                                                    widget
+                                                                        .applicants[
+                                                                            index]
+                                                                        .toString(),
+                                                                    widget.user
+                                                                        .toString());
+                                                              },
+                                                              child: Text(
+                                                                '${index + 1}) ${_listApplicants[index].user.name.toString().titleCase()}',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        12),
+                                                              )),
+                                                        ),
+                                                        SizedBox(width: 8),
+                                                        IconButton(
+                                                          onPressed: (() {
+                                                            Navigator
+                                                                .pushReplacement(
+                                                                    context,
+                                                                    MaterialPageRoute(
+                                                                        builder: (BuildContext
+                                                                                context) =>
+                                                                            ViewProfile(
+                                                                              id: _listApplicants[index].user.userId.toString(),
+                                                                            )));
+                                                          }),
+                                                          icon: FaIcon(
+                                                            FontAwesomeIcons
+                                                                .solidCircleQuestion,
+                                                            color: themeData2()
+                                                                .primaryColor,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    );
                                                   },
                                                 ),
                                               ],
@@ -446,10 +478,29 @@ class _RequestDetailsState extends State<RequestDetails> {
                                                   : Padding(
                                                       padding: const EdgeInsets
                                                           .fromLTRB(3, 3, 3, 6),
-                                                      child: Text(_userProvidor
-                                                          .user.name
-                                                          .toString()
-                                                          .titleCase()),
+                                                      child: TextButton(
+                                                        style: themeData2()
+                                                            .textButtonTheme
+                                                            .style,
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .push(
+                                                                  MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    ViewProfile(
+                                                              id: _userProvidor
+                                                                  .user.userId
+                                                                  .toString(),
+                                                            ),
+                                                          ));
+                                                        },
+                                                        child: Text(
+                                                            _userProvidor
+                                                                .user.name
+                                                                .toString()
+                                                                .titleCase()),
+                                                      ),
                                                     )
                                             ],
                                           ),
@@ -523,7 +574,7 @@ class _RequestDetailsState extends State<RequestDetails> {
                                                     ),
                                                     ElevatedButton(
                                                         style: themeData2()
-                                                            .textButtonTheme
+                                                            .elevatedButtonTheme
                                                             .style,
                                                         onPressed: () {
                                                           //print(ratedUser);
@@ -550,15 +601,62 @@ class _RequestDetailsState extends State<RequestDetails> {
                                                   //Text(widget.completed),
                                                 ],
                                               )
-                                        : ElevatedButton(
-                                            style: themeData2()
-                                                .textButtonTheme
-                                                .style,
-                                            onPressed: () {
-                                              _completeJob(
-                                                  widget.id, widget.user);
-                                            },
-                                            child: Text('Complete Job')),
+                                        : isOngoing()
+                                            ? ElevatedButton(
+                                                style: themeData2()
+                                                    .elevatedButtonTheme
+                                                    .style,
+                                                onPressed: () {
+                                                  // try {
+                                                  //   ClientServiceRequest(
+                                                  //           Common().channel)
+                                                  //       .startService1(
+                                                  //           widget.id,
+                                                  //           widget.user);
+                                                  //   context.showSnackBar(
+                                                  //       message:
+                                                  //           'Job Started!!');
+                                                  //   Navigator.of(context).pop();
+                                                  // } on GrpcError catch (e) {
+                                                  //   context.showErrorSnackBar(
+                                                  //       message: e.toString());
+                                                  // } catch (e) {
+                                                  //   context.showErrorSnackBar(
+                                                  //       message: e.toString());
+                                                  // }
+
+                                                  _completeJob(
+                                                      widget.id, widget.user);
+                                                },
+                                                child: Text('Complete Job'))
+                                            : ElevatedButton(
+                                                style: themeData2()
+                                                    .elevatedButtonTheme
+                                                    .style,
+                                                onPressed: () {
+                                                  try {
+                                                    ClientServiceRequest(
+                                                            Common().channel)
+                                                        .startService1(
+                                                            widget.id,
+                                                            widget.user);
+                                                    context.showSnackBar(
+                                                        message:
+                                                            'Job Started!!');
+                                                    Navigator.of(context).pop();
+                                                  } on GrpcError catch (e) {
+                                                    context.showErrorSnackBar(
+                                                        message: e.toString());
+                                                  } catch (e) {
+                                                    context.showErrorSnackBar(
+                                                        message: e.toString());
+                                                  }
+
+                                                  // _completeJob(
+                                                  //     widget.id, widget.user);
+                                                },
+                                                child: Text('Start Job')),
+
                                 // : Container(
                                 //     padding: EdgeInsets.all(5),
                                 //     decoration: BoxDecoration(
@@ -665,7 +763,7 @@ class _RequestDetailsState extends State<RequestDetails> {
                                                   ),
                                                   ElevatedButton(
                                                       style: themeData2()
-                                                          .textButtonTheme
+                                                          .elevatedButtonTheme
                                                           .style,
                                                       onPressed: () {
                                                         _rateRequestor(
@@ -718,7 +816,7 @@ class _RequestDetailsState extends State<RequestDetails> {
                                       Heading2('Interested in the job?'),
                                       ElevatedButton(
                                           style: themeData2()
-                                              .textButtonTheme
+                                              .elevatedButtonTheme
                                               .style,
                                           onPressed: () {
                                             // print(widget.id);
@@ -738,8 +836,7 @@ class _RequestDetailsState extends State<RequestDetails> {
                   Heading2('Description'),
                   Text(widget.description.toString().capitalize()),
                   Heading2('Location'),
-                  Text(
-                      'Address: ${widget.locationName.toString().titleCase()}'),
+                  Text('Address: ${widget.locationName.toString()}'),
                   Text('State: ' + widget.latitude),
                   Text('City: ' + widget.longitude),
                   Heading2('Media'),

@@ -16,29 +16,29 @@ export 'rating.pb.dart';
 class RatingClient extends $grpc.Client {
   static final _$createForRequestor =
       $grpc.ClientMethod<$0.Create_Request, $0.Create_Response>(
-          '/timebank.rating.Rating/createForRequestor',
+          '/rating.Rating/createForRequestor',
           ($0.Create_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.Create_Response.fromBuffer(value));
   static final _$createForProvider =
       $grpc.ClientMethod<$0.Create_Request, $0.Create_Response>(
-          '/timebank.rating.Rating/createForProvider',
+          '/rating.Rating/createForProvider',
           ($0.Create_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.Create_Response.fromBuffer(value));
   static final _$get = $grpc.ClientMethod<$0.Get_Request, $0.Get_Response>(
-      '/timebank.rating.Rating/get',
+      '/rating.Rating/get',
       ($0.Get_Request value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.Get_Response.fromBuffer(value));
   static final _$update =
       $grpc.ClientMethod<$0.Update_Request, $0.Update_Response>(
-          '/timebank.rating.Rating/update',
+          '/rating.Rating/update',
           ($0.Update_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.Update_Response.fromBuffer(value));
   static final _$delete =
       $grpc.ClientMethod<$0.Delete_Request, $0.Delete_Response>(
-          '/timebank.rating.Rating/delete',
+          '/rating.Rating/delete',
           ($0.Delete_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.Delete_Response.fromBuffer(value));
@@ -77,7 +77,7 @@ class RatingClient extends $grpc.Client {
 }
 
 abstract class RatingServiceBase extends $grpc.Service {
-  $core.String get $name => 'timebank.rating.Rating';
+  $core.String get $name => 'rating.Rating';
 
   RatingServiceBase() {
     $addMethod($grpc.ServiceMethod<$0.Create_Request, $0.Create_Response>(

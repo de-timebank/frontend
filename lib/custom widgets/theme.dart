@@ -5,7 +5,7 @@ ThemeData themeData1() {
   return ThemeData(
     textSelectionTheme:
         TextSelectionThemeData(cursorColor: Color.fromARGB(255, 127, 17, 224)),
-    iconTheme: IconThemeData(color: Color.fromARGB(255, 127, 17, 224)),
+    //iconTheme: IconThemeData(color: Color.fromARGB(255, 127, 17, 224)),
     inputDecorationTheme: const InputDecorationTheme(
       border: OutlineInputBorder(),
       // contentPadding: EdgeInsets.symmetric(

@@ -15,36 +15,36 @@ export 'user.pb.dart';
 
 class UserClient extends $grpc.Client {
   static final _$get = $grpc.ClientMethod<$1.Get_Request, $1.Get_Response>(
-      '/timebank.user.User/get',
+      '/user.User/get',
       ($1.Get_Request value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Get_Response.fromBuffer(value));
   static final _$getById =
       $grpc.ClientMethod<$1.GetById_Request, $1.GetById_Response>(
-          '/timebank.user.User/getById',
+          '/user.User/getById',
           ($1.GetById_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $1.GetById_Response.fromBuffer(value));
   static final _$getProfile =
       $grpc.ClientMethod<$1.GetProfile_Request, $1.GetProfile_Response>(
-          '/timebank.user.User/getProfile',
+          '/user.User/getProfile',
           ($1.GetProfile_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $1.GetProfile_Response.fromBuffer(value));
   static final _$update =
       $grpc.ClientMethod<$1.Update_Request, $1.Update_Response>(
-          '/timebank.user.User/update',
+          '/user.User/update',
           ($1.Update_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $1.Update_Response.fromBuffer(value));
   static final _$getRating =
       $grpc.ClientMethod<$1.GetRating_Request, $1.GetRating_Response>(
-          '/timebank.user.User/getRating',
+          '/user.User/getRating',
           ($1.GetRating_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $1.GetRating_Response.fromBuffer(value));
   static final _$getCreditBalance = $grpc.ClientMethod<
           $1.GetCreditBalance_Request, $1.GetCreditBalance_Response>(
-      '/timebank.user.User/getCreditBalance',
+      '/user.User/getCreditBalance',
       ($1.GetCreditBalance_Request value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
           $1.GetCreditBalance_Response.fromBuffer(value));
@@ -89,7 +89,7 @@ class UserClient extends $grpc.Client {
 }
 
 abstract class UserServiceBase extends $grpc.Service {
-  $core.String get $name => 'timebank.user.User';
+  $core.String get $name => 'user.User';
 
   UserServiceBase() {
     $addMethod($grpc.ServiceMethod<$1.Get_Request, $1.Get_Response>(

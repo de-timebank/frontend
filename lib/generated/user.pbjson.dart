@@ -47,14 +47,14 @@ const NewUserProfile$json = const {
   '2': const [
     const {'1': 'name', '3': 1, '4': 1, '5': 9, '10': 'name'},
     const {'1': 'skills', '3': 2, '4': 3, '5': 9, '10': 'skills'},
-    const {'1': 'contacts', '3': 3, '4': 3, '5': 11, '6': '.timebank.user.Contact', '10': 'contacts'},
+    const {'1': 'contacts', '3': 3, '4': 3, '5': 11, '6': '.user.Contact', '10': 'contacts'},
     const {'1': 'gender', '3': 4, '4': 1, '5': 9, '10': 'gender'},
-    const {'1': 'identification_no', '3': 5, '4': 1, '5': 11, '6': '.timebank.user.IdentificationNumber', '10': 'identificationNo'},
+    const {'1': 'identification_no', '3': 5, '4': 1, '5': 11, '6': '.user.IdentificationNumber', '10': 'identificationNo'},
   ],
 };
 
 /// Descriptor for `NewUserProfile`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List newUserProfileDescriptor = $convert.base64Decode('Cg5OZXdVc2VyUHJvZmlsZRISCgRuYW1lGAEgASgJUgRuYW1lEhYKBnNraWxscxgCIAMoCVIGc2tpbGxzEjIKCGNvbnRhY3RzGAMgAygLMhYudGltZWJhbmsudXNlci5Db250YWN0Ughjb250YWN0cxIWCgZnZW5kZXIYBCABKAlSBmdlbmRlchJQChFpZGVudGlmaWNhdGlvbl9ubxgFIAEoCzIjLnRpbWViYW5rLnVzZXIuSWRlbnRpZmljYXRpb25OdW1iZXJSEGlkZW50aWZpY2F0aW9uTm8=');
+final $typed_data.Uint8List newUserProfileDescriptor = $convert.base64Decode('Cg5OZXdVc2VyUHJvZmlsZRISCgRuYW1lGAEgASgJUgRuYW1lEhYKBnNraWxscxgCIAMoCVIGc2tpbGxzEikKCGNvbnRhY3RzGAMgAygLMg0udXNlci5Db250YWN0Ughjb250YWN0cxIWCgZnZW5kZXIYBCABKAlSBmdlbmRlchJHChFpZGVudGlmaWNhdGlvbl9ubxgFIAEoCzIaLnVzZXIuSWRlbnRpZmljYXRpb25OdW1iZXJSEGlkZW50aWZpY2F0aW9uTm8=');
 @$core.Deprecated('Use userProfileDescriptor instead')
 const UserProfile$json = const {
   '1': 'UserProfile',
@@ -62,16 +62,16 @@ const UserProfile$json = const {
     const {'1': 'user_id', '3': 1, '4': 1, '5': 9, '10': 'userId'},
     const {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
     const {'1': 'skills', '3': 3, '4': 3, '5': 9, '10': 'skills'},
-    const {'1': 'contacts', '3': 4, '4': 3, '5': 11, '6': '.timebank.user.Contact', '10': 'contacts'},
+    const {'1': 'contacts', '3': 4, '4': 3, '5': 11, '6': '.user.Contact', '10': 'contacts'},
     const {'1': 'created_at', '3': 5, '4': 1, '5': 9, '10': 'createdAt'},
     const {'1': 'updated_at', '3': 6, '4': 1, '5': 9, '10': 'updatedAt'},
     const {'1': 'gender', '3': 7, '4': 1, '5': 9, '10': 'gender'},
-    const {'1': 'identification_no', '3': 8, '4': 1, '5': 11, '6': '.timebank.user.IdentificationNumber', '10': 'identificationNo'},
+    const {'1': 'identification_no', '3': 8, '4': 1, '5': 11, '6': '.user.IdentificationNumber', '10': 'identificationNo'},
   ],
 };
 
 /// Descriptor for `UserProfile`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List userProfileDescriptor = $convert.base64Decode('CgtVc2VyUHJvZmlsZRIXCgd1c2VyX2lkGAEgASgJUgZ1c2VySWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIWCgZza2lsbHMYAyADKAlSBnNraWxscxIyCghjb250YWN0cxgEIAMoCzIWLnRpbWViYW5rLnVzZXIuQ29udGFjdFIIY29udGFjdHMSHQoKY3JlYXRlZF9hdBgFIAEoCVIJY3JlYXRlZEF0Eh0KCnVwZGF0ZWRfYXQYBiABKAlSCXVwZGF0ZWRBdBIWCgZnZW5kZXIYByABKAlSBmdlbmRlchJQChFpZGVudGlmaWNhdGlvbl9ubxgIIAEoCzIjLnRpbWViYW5rLnVzZXIuSWRlbnRpZmljYXRpb25OdW1iZXJSEGlkZW50aWZpY2F0aW9uTm8=');
+final $typed_data.Uint8List userProfileDescriptor = $convert.base64Decode('CgtVc2VyUHJvZmlsZRIXCgd1c2VyX2lkGAEgASgJUgZ1c2VySWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIWCgZza2lsbHMYAyADKAlSBnNraWxscxIpCghjb250YWN0cxgEIAMoCzINLnVzZXIuQ29udGFjdFIIY29udGFjdHMSHQoKY3JlYXRlZF9hdBgFIAEoCVIJY3JlYXRlZEF0Eh0KCnVwZGF0ZWRfYXQYBiABKAlSCXVwZGF0ZWRBdBIWCgZnZW5kZXIYByABKAlSBmdlbmRlchJHChFpZGVudGlmaWNhdGlvbl9ubxgIIAEoCzIaLnVzZXIuSWRlbnRpZmljYXRpb25OdW1iZXJSEGlkZW50aWZpY2F0aW9uTm8=');
 @$core.Deprecated('Use getDescriptor instead')
 const Get$json = const {
   '1': 'Get',
@@ -91,12 +91,12 @@ const Get_Request$json = const {
 const Get_Response$json = const {
   '1': 'Response',
   '2': const [
-    const {'1': 'users', '3': 1, '4': 3, '5': 11, '6': '.timebank.user.UserProfile', '10': 'users'},
+    const {'1': 'users', '3': 1, '4': 3, '5': 11, '6': '.user.UserProfile', '10': 'users'},
   ],
 };
 
 /// Descriptor for `Get`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getDescriptor = $convert.base64Decode('CgNHZXQaMQoHUmVxdWVzdBIQCgNrZXkYASABKAlSA2tleRIUCgV2YWx1ZRgCIAEoCVIFdmFsdWUaPAoIUmVzcG9uc2USMAoFdXNlcnMYASADKAsyGi50aW1lYmFuay51c2VyLlVzZXJQcm9maWxlUgV1c2Vycw==');
+final $typed_data.Uint8List getDescriptor = $convert.base64Decode('CgNHZXQaMQoHUmVxdWVzdBIQCgNrZXkYASABKAlSA2tleRIUCgV2YWx1ZRgCIAEoCVIFdmFsdWUaMwoIUmVzcG9uc2USJwoFdXNlcnMYASADKAsyES51c2VyLlVzZXJQcm9maWxlUgV1c2Vycw==');
 @$core.Deprecated('Use getByIdDescriptor instead')
 const GetById$json = const {
   '1': 'GetById',
@@ -115,12 +115,12 @@ const GetById_Request$json = const {
 const GetById_Response$json = const {
   '1': 'Response',
   '2': const [
-    const {'1': 'user', '3': 1, '4': 1, '5': 11, '6': '.timebank.user.UserProfile', '10': 'user'},
+    const {'1': 'user', '3': 1, '4': 1, '5': 11, '6': '.user.UserProfile', '10': 'user'},
   ],
 };
 
 /// Descriptor for `GetById`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getByIdDescriptor = $convert.base64Decode('CgdHZXRCeUlkGiIKB1JlcXVlc3QSFwoHdXNlcl9pZBgBIAEoCVIGdXNlcklkGjoKCFJlc3BvbnNlEi4KBHVzZXIYASABKAsyGi50aW1lYmFuay51c2VyLlVzZXJQcm9maWxlUgR1c2Vy');
+final $typed_data.Uint8List getByIdDescriptor = $convert.base64Decode('CgdHZXRCeUlkGiIKB1JlcXVlc3QSFwoHdXNlcl9pZBgBIAEoCVIGdXNlcklkGjEKCFJlc3BvbnNlEiUKBHVzZXIYASABKAsyES51c2VyLlVzZXJQcm9maWxlUgR1c2Vy');
 @$core.Deprecated('Use updateDescriptor instead')
 const Update$json = const {
   '1': 'Update',
@@ -140,12 +140,12 @@ const Update_Request$json = const {
 const Update_Response$json = const {
   '1': 'Response',
   '2': const [
-    const {'1': 'user', '3': 1, '4': 1, '5': 11, '6': '.timebank.user.UserProfile', '10': 'user'},
+    const {'1': 'user', '3': 1, '4': 1, '5': 11, '6': '.user.UserProfile', '10': 'user'},
   ],
 };
 
 /// Descriptor for `Update`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List updateDescriptor = $convert.base64Decode('CgZVcGRhdGUaNgoHUmVxdWVzdBIXCgd1c2VyX2lkGAEgASgJUgZ1c2VySWQSEgoEYm9keRgCIAEoCVIEYm9keRo6CghSZXNwb25zZRIuCgR1c2VyGAEgASgLMhoudGltZWJhbmsudXNlci5Vc2VyUHJvZmlsZVIEdXNlcg==');
+final $typed_data.Uint8List updateDescriptor = $convert.base64Decode('CgZVcGRhdGUaNgoHUmVxdWVzdBIXCgd1c2VyX2lkGAEgASgJUgZ1c2VySWQSEgoEYm9keRgCIAEoCVIEYm9keRoxCghSZXNwb25zZRIlCgR1c2VyGAEgASgLMhEudXNlci5Vc2VyUHJvZmlsZVIEdXNlcg==');
 @$core.Deprecated('Use getRatingDescriptor instead')
 const GetRating$json = const {
   '1': 'GetRating',
@@ -165,12 +165,12 @@ const GetRating_Response$json = const {
   '1': 'Response',
   '2': const [
     const {'1': 'average', '3': 1, '4': 1, '5': 5, '10': 'average'},
-    const {'1': 'ratings', '3': 2, '4': 3, '5': 11, '6': '.timebank.rating.RatingData', '10': 'ratings'},
+    const {'1': 'ratings', '3': 2, '4': 3, '5': 11, '6': '.rating.RatingData', '10': 'ratings'},
   ],
 };
 
 /// Descriptor for `GetRating`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getRatingDescriptor = $convert.base64Decode('CglHZXRSYXRpbmcaIgoHUmVxdWVzdBIXCgd1c2VyX2lkGAEgASgJUgZ1c2VySWQaWwoIUmVzcG9uc2USGAoHYXZlcmFnZRgBIAEoBVIHYXZlcmFnZRI1CgdyYXRpbmdzGAIgAygLMhsudGltZWJhbmsucmF0aW5nLlJhdGluZ0RhdGFSB3JhdGluZ3M=');
+final $typed_data.Uint8List getRatingDescriptor = $convert.base64Decode('CglHZXRSYXRpbmcaIgoHUmVxdWVzdBIXCgd1c2VyX2lkGAEgASgJUgZ1c2VySWQaUgoIUmVzcG9uc2USGAoHYXZlcmFnZRgBIAEoBVIHYXZlcmFnZRIsCgdyYXRpbmdzGAIgAygLMhIucmF0aW5nLlJhdGluZ0RhdGFSB3JhdGluZ3M=');
 @$core.Deprecated('Use getCreditBalanceDescriptor instead')
 const GetCreditBalance$json = const {
   '1': 'GetCreditBalance',
@@ -199,8 +199,8 @@ final $typed_data.Uint8List getCreditBalanceDescriptor = $convert.base64Decode('
 const ProfileSummary$json = const {
   '1': 'ProfileSummary',
   '2': const [
-    const {'1': 'profile', '3': 1, '4': 1, '5': 11, '6': '.timebank.user.UserProfile', '10': 'profile'},
-    const {'1': 'rating', '3': 2, '4': 1, '5': 11, '6': '.timebank.user.ProfileSummary.Rating', '10': 'rating'},
+    const {'1': 'profile', '3': 1, '4': 1, '5': 11, '6': '.user.UserProfile', '10': 'profile'},
+    const {'1': 'rating', '3': 2, '4': 1, '5': 11, '6': '.user.ProfileSummary.Rating', '10': 'rating'},
   ],
   '3': const [ProfileSummary_RatingSummary$json, ProfileSummary_Rating$json],
 };
@@ -221,13 +221,13 @@ const ProfileSummary_RatingSummary$json = const {
 const ProfileSummary_Rating$json = const {
   '1': 'Rating',
   '2': const [
-    const {'1': 'as_provider', '3': 1, '4': 1, '5': 11, '6': '.timebank.user.ProfileSummary.RatingSummary', '10': 'asProvider'},
-    const {'1': 'as_requestor', '3': 2, '4': 1, '5': 11, '6': '.timebank.user.ProfileSummary.RatingSummary', '10': 'asRequestor'},
+    const {'1': 'as_provider', '3': 1, '4': 1, '5': 11, '6': '.user.ProfileSummary.RatingSummary', '10': 'asProvider'},
+    const {'1': 'as_requestor', '3': 2, '4': 1, '5': 11, '6': '.user.ProfileSummary.RatingSummary', '10': 'asRequestor'},
   ],
 };
 
 /// Descriptor for `ProfileSummary`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List profileSummaryDescriptor = $convert.base64Decode('Cg5Qcm9maWxlU3VtbWFyeRI0Cgdwcm9maWxlGAEgASgLMhoudGltZWJhbmsudXNlci5Vc2VyUHJvZmlsZVIHcHJvZmlsZRI8CgZyYXRpbmcYAiABKAsyJC50aW1lYmFuay51c2VyLlByb2ZpbGVTdW1tYXJ5LlJhdGluZ1IGcmF0aW5nGkQKDVJhdGluZ1N1bW1hcnkSFAoFY291bnQYASABKAVSBWNvdW50EhUKA2F2ZxgCIAEoAkgAUgNhdmeIAQFCBgoEX2F2ZxqmAQoGUmF0aW5nEkwKC2FzX3Byb3ZpZGVyGAEgASgLMisudGltZWJhbmsudXNlci5Qcm9maWxlU3VtbWFyeS5SYXRpbmdTdW1tYXJ5Ugphc1Byb3ZpZGVyEk4KDGFzX3JlcXVlc3RvchgCIAEoCzIrLnRpbWViYW5rLnVzZXIuUHJvZmlsZVN1bW1hcnkuUmF0aW5nU3VtbWFyeVILYXNSZXF1ZXN0b3I=');
+final $typed_data.Uint8List profileSummaryDescriptor = $convert.base64Decode('Cg5Qcm9maWxlU3VtbWFyeRIrCgdwcm9maWxlGAEgASgLMhEudXNlci5Vc2VyUHJvZmlsZVIHcHJvZmlsZRIzCgZyYXRpbmcYAiABKAsyGy51c2VyLlByb2ZpbGVTdW1tYXJ5LlJhdGluZ1IGcmF0aW5nGkQKDVJhdGluZ1N1bW1hcnkSFAoFY291bnQYASABKAVSBWNvdW50EhUKA2F2ZxgCIAEoAkgAUgNhdmeIAQFCBgoEX2F2ZxqUAQoGUmF0aW5nEkMKC2FzX3Byb3ZpZGVyGAEgASgLMiIudXNlci5Qcm9maWxlU3VtbWFyeS5SYXRpbmdTdW1tYXJ5Ugphc1Byb3ZpZGVyEkUKDGFzX3JlcXVlc3RvchgCIAEoCzIiLnVzZXIuUHJvZmlsZVN1bW1hcnkuUmF0aW5nU3VtbWFyeVILYXNSZXF1ZXN0b3I=');
 @$core.Deprecated('Use getProfileDescriptor instead')
 const GetProfile$json = const {
   '1': 'GetProfile',
@@ -246,9 +246,9 @@ const GetProfile_Request$json = const {
 const GetProfile_Response$json = const {
   '1': 'Response',
   '2': const [
-    const {'1': 'user', '3': 1, '4': 1, '5': 11, '6': '.timebank.user.ProfileSummary', '10': 'user'},
+    const {'1': 'user', '3': 1, '4': 1, '5': 11, '6': '.user.ProfileSummary', '10': 'user'},
   ],
 };
 
 /// Descriptor for `GetProfile`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getProfileDescriptor = $convert.base64Decode('CgpHZXRQcm9maWxlGiIKB1JlcXVlc3QSFwoHdXNlcl9pZBgBIAEoCVIGdXNlcklkGj0KCFJlc3BvbnNlEjEKBHVzZXIYASABKAsyHS50aW1lYmFuay51c2VyLlByb2ZpbGVTdW1tYXJ5UgR1c2Vy');
+final $typed_data.Uint8List getProfileDescriptor = $convert.base64Decode('CgpHZXRQcm9maWxlGiIKB1JlcXVlc3QSFwoHdXNlcl9pZBgBIAEoCVIGdXNlcklkGjQKCFJlc3BvbnNlEigKBHVzZXIYASABKAsyFC51c2VyLlByb2ZpbGVTdW1tYXJ5UgR1c2Vy');

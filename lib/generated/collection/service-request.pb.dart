@@ -17,7 +17,7 @@ import 'service-request.pbenum.dart';
 export 'service-request.pbenum.dart';
 
 class ServiceRequestData_Details extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ServiceRequestData.Details', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ServiceRequestData.Details', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
     ..hasRequiredFields = false
@@ -78,7 +78,7 @@ class ServiceRequestData_Details extends $pb.GeneratedMessage {
 }
 
 class ServiceRequestData_Location_Coordinate extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ServiceRequestData.Location.Coordinate', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ServiceRequestData.Location.Coordinate', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'latitude')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'longitude')
     ..hasRequiredFields = false
@@ -139,7 +139,7 @@ class ServiceRequestData_Location_Coordinate extends $pb.GeneratedMessage {
 }
 
 class ServiceRequestData_Location extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ServiceRequestData.Location', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ServiceRequestData.Location', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
     ..aOM<ServiceRequestData_Location_Coordinate>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coordinate', subBuilder: ServiceRequestData_Location_Coordinate.create)
     ..hasRequiredFields = false
@@ -202,7 +202,7 @@ class ServiceRequestData_Location extends $pb.GeneratedMessage {
 }
 
 class ServiceRequestData extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ServiceRequestData', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ServiceRequestData', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requestor')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'provider')
@@ -477,7 +477,7 @@ class ServiceRequestData extends $pb.GeneratedMessage {
 }
 
 class Create_NewServiceRequestData extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Create.NewServiceRequestData', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Create.NewServiceRequestData', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..aOM<ServiceRequestData_Details>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'details', subBuilder: ServiceRequestData_Details.create)
     ..aOM<ServiceRequestData_Location>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'location', subBuilder: ServiceRequestData_Location.create)
     ..a<$core.double>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'rate', $pb.PbFieldType.OF)
@@ -606,7 +606,7 @@ class Create_NewServiceRequestData extends $pb.GeneratedMessage {
 }
 
 class Create_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Create.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Create.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..aOM<Create_NewServiceRequestData>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requestData', subBuilder: Create_NewServiceRequestData.create)
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requestor')
     ..hasRequiredFields = false
@@ -669,7 +669,7 @@ class Create_Request extends $pb.GeneratedMessage {
 }
 
 class Create_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Create.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Create.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..aOM<ServiceRequestData>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'request', subBuilder: ServiceRequestData.create)
     ..hasRequiredFields = false
   ;
@@ -718,7 +718,7 @@ class Create_Response extends $pb.GeneratedMessage {
 }
 
 class Create extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Create', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Create', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..hasRequiredFields = false
   ;
 
@@ -747,7 +747,7 @@ class Create extends $pb.GeneratedMessage {
 }
 
 class Delete_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Delete.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Delete.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requestId')
     ..hasRequiredFields = false
   ;
@@ -794,7 +794,7 @@ class Delete_Request extends $pb.GeneratedMessage {
 }
 
 class Delete_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Delete.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Delete.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..hasRequiredFields = false
   ;
 
@@ -823,7 +823,7 @@ class Delete_Response extends $pb.GeneratedMessage {
 }
 
 class Delete extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Delete', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Delete', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..hasRequiredFields = false
   ;
 
@@ -852,7 +852,7 @@ class Delete extends $pb.GeneratedMessage {
 }
 
 class Get_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Get.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Get.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'key')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'value')
     ..hasRequiredFields = false
@@ -913,7 +913,7 @@ class Get_Request extends $pb.GeneratedMessage {
 }
 
 class Get_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Get.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Get.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..pc<ServiceRequestData>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requests', $pb.PbFieldType.PM, subBuilder: ServiceRequestData.create)
     ..hasRequiredFields = false
   ;
@@ -954,7 +954,7 @@ class Get_Response extends $pb.GeneratedMessage {
 }
 
 class Get extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Get', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Get', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..hasRequiredFields = false
   ;
 
@@ -983,7 +983,7 @@ class Get extends $pb.GeneratedMessage {
 }
 
 class GetById_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetById.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetById.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requestId')
     ..hasRequiredFields = false
   ;
@@ -1030,7 +1030,7 @@ class GetById_Request extends $pb.GeneratedMessage {
 }
 
 class GetById_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetById.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetById.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..aOM<ServiceRequestData>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'request', subBuilder: ServiceRequestData.create)
     ..aOM<$1.UserProfile>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requestor', subBuilder: $1.UserProfile.create)
     ..aOM<$1.UserProfile>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'provider', subBuilder: $1.UserProfile.create)
@@ -1111,7 +1111,7 @@ class GetById_Response extends $pb.GeneratedMessage {
 }
 
 class GetById extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetById', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetById', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..hasRequiredFields = false
   ;
 
@@ -1140,7 +1140,7 @@ class GetById extends $pb.GeneratedMessage {
 }
 
 class Update_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Update.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Update.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requestId')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'body')
     ..hasRequiredFields = false
@@ -1201,7 +1201,7 @@ class Update_Request extends $pb.GeneratedMessage {
 }
 
 class Update_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Update.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Update.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..aOM<ServiceRequestData>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'request', subBuilder: ServiceRequestData.create)
     ..hasRequiredFields = false
   ;
@@ -1250,7 +1250,7 @@ class Update_Response extends $pb.GeneratedMessage {
 }
 
 class Update extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Update', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Update', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..hasRequiredFields = false
   ;
 
@@ -1279,7 +1279,7 @@ class Update extends $pb.GeneratedMessage {
 }
 
 class CompleteService_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CompleteService.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CompleteService.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requestId')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userId')
     ..hasRequiredFields = false
@@ -1340,7 +1340,7 @@ class CompleteService_Request extends $pb.GeneratedMessage {
 }
 
 class CompleteService_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CompleteService.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CompleteService.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..hasRequiredFields = false
   ;
 
@@ -1369,7 +1369,7 @@ class CompleteService_Response extends $pb.GeneratedMessage {
 }
 
 class CompleteService extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CompleteService', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CompleteService', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..hasRequiredFields = false
   ;
 
@@ -1398,7 +1398,7 @@ class CompleteService extends $pb.GeneratedMessage {
 }
 
 class ApplyProvider_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ApplyProvider.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ApplyProvider.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requestId')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'provider')
     ..hasRequiredFields = false
@@ -1459,7 +1459,7 @@ class ApplyProvider_Request extends $pb.GeneratedMessage {
 }
 
 class ApplyProvider_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ApplyProvider.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ApplyProvider.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..hasRequiredFields = false
   ;
 
@@ -1488,7 +1488,7 @@ class ApplyProvider_Response extends $pb.GeneratedMessage {
 }
 
 class ApplyProvider extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ApplyProvider', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ApplyProvider', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..hasRequiredFields = false
   ;
 
@@ -1517,7 +1517,7 @@ class ApplyProvider extends $pb.GeneratedMessage {
 }
 
 class SelectProvider_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SelectProvider.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SelectProvider.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requestId')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'provider')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'caller')
@@ -1592,7 +1592,7 @@ class SelectProvider_Request extends $pb.GeneratedMessage {
 }
 
 class SelectProvider_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SelectProvider.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SelectProvider.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..hasRequiredFields = false
   ;
 
@@ -1621,7 +1621,7 @@ class SelectProvider_Response extends $pb.GeneratedMessage {
 }
 
 class SelectProvider extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SelectProvider', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SelectProvider', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..hasRequiredFields = false
   ;
 
@@ -1650,7 +1650,7 @@ class SelectProvider extends $pb.GeneratedMessage {
 }
 
 class GetAvailable_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetAvailable.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetAvailable.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..aOM<$3.Filter>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filter', subBuilder: $3.Filter.create)
     ..aOM<$3.Page>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'page', subBuilder: $3.Page.create)
     ..hasRequiredFields = false
@@ -1715,7 +1715,7 @@ class GetAvailable_Request extends $pb.GeneratedMessage {
 }
 
 class GetAvailable_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetAvailable.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetAvailable.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..pc<ServiceRequestData>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requests', $pb.PbFieldType.PM, subBuilder: ServiceRequestData.create)
     ..hasRequiredFields = false
   ;
@@ -1756,7 +1756,7 @@ class GetAvailable_Response extends $pb.GeneratedMessage {
 }
 
 class GetAvailable extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetAvailable', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetAvailable', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..hasRequiredFields = false
   ;
 
@@ -1785,7 +1785,7 @@ class GetAvailable extends $pb.GeneratedMessage {
 }
 
 class StartService_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'StartService.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'StartService.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requestId')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userId')
     ..hasRequiredFields = false
@@ -1846,7 +1846,7 @@ class StartService_Request extends $pb.GeneratedMessage {
 }
 
 class StartService_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'StartService.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'StartService.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..hasRequiredFields = false
   ;
 
@@ -1875,7 +1875,7 @@ class StartService_Response extends $pb.GeneratedMessage {
 }
 
 class StartService extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'StartService', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'timebank.servicerequest'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'StartService', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..hasRequiredFields = false
   ;
 
@@ -1901,5 +1901,239 @@ class StartService extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static StartService getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<StartService>(create);
   static StartService? _defaultInstance;
+}
+
+class GetSummaryForUser_SummaryCount extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetSummaryForUser.SummaryCount', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'asRequestor', $pb.PbFieldType.O3)
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'asProvider', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
+  GetSummaryForUser_SummaryCount._() : super();
+  factory GetSummaryForUser_SummaryCount({
+    $core.int? asRequestor,
+    $core.int? asProvider,
+  }) {
+    final _result = create();
+    if (asRequestor != null) {
+      _result.asRequestor = asRequestor;
+    }
+    if (asProvider != null) {
+      _result.asProvider = asProvider;
+    }
+    return _result;
+  }
+  factory GetSummaryForUser_SummaryCount.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetSummaryForUser_SummaryCount.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetSummaryForUser_SummaryCount clone() => GetSummaryForUser_SummaryCount()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetSummaryForUser_SummaryCount copyWith(void Function(GetSummaryForUser_SummaryCount) updates) => super.copyWith((message) => updates(message as GetSummaryForUser_SummaryCount)) as GetSummaryForUser_SummaryCount; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetSummaryForUser_SummaryCount create() => GetSummaryForUser_SummaryCount._();
+  GetSummaryForUser_SummaryCount createEmptyInstance() => create();
+  static $pb.PbList<GetSummaryForUser_SummaryCount> createRepeated() => $pb.PbList<GetSummaryForUser_SummaryCount>();
+  @$core.pragma('dart2js:noInline')
+  static GetSummaryForUser_SummaryCount getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetSummaryForUser_SummaryCount>(create);
+  static GetSummaryForUser_SummaryCount? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get asRequestor => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set asRequestor($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasAsRequestor() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAsRequestor() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get asProvider => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set asProvider($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasAsProvider() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearAsProvider() => clearField(2);
+}
+
+class GetSummaryForUser_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetSummaryForUser.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userId')
+    ..hasRequiredFields = false
+  ;
+
+  GetSummaryForUser_Request._() : super();
+  factory GetSummaryForUser_Request({
+    $core.String? userId,
+  }) {
+    final _result = create();
+    if (userId != null) {
+      _result.userId = userId;
+    }
+    return _result;
+  }
+  factory GetSummaryForUser_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetSummaryForUser_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetSummaryForUser_Request clone() => GetSummaryForUser_Request()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetSummaryForUser_Request copyWith(void Function(GetSummaryForUser_Request) updates) => super.copyWith((message) => updates(message as GetSummaryForUser_Request)) as GetSummaryForUser_Request; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetSummaryForUser_Request create() => GetSummaryForUser_Request._();
+  GetSummaryForUser_Request createEmptyInstance() => create();
+  static $pb.PbList<GetSummaryForUser_Request> createRepeated() => $pb.PbList<GetSummaryForUser_Request>();
+  @$core.pragma('dart2js:noInline')
+  static GetSummaryForUser_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetSummaryForUser_Request>(create);
+  static GetSummaryForUser_Request? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get userId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set userId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasUserId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUserId() => clearField(1);
+}
+
+class GetSummaryForUser_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetSummaryForUser.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
+    ..aOM<GetSummaryForUser_SummaryCount>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pending', subBuilder: GetSummaryForUser_SummaryCount.create)
+    ..aOM<GetSummaryForUser_SummaryCount>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'accepted', subBuilder: GetSummaryForUser_SummaryCount.create)
+    ..aOM<GetSummaryForUser_SummaryCount>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ongoing', subBuilder: GetSummaryForUser_SummaryCount.create)
+    ..aOM<GetSummaryForUser_SummaryCount>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'completed', subBuilder: GetSummaryForUser_SummaryCount.create)
+    ..hasRequiredFields = false
+  ;
+
+  GetSummaryForUser_Response._() : super();
+  factory GetSummaryForUser_Response({
+    GetSummaryForUser_SummaryCount? pending,
+    GetSummaryForUser_SummaryCount? accepted,
+    GetSummaryForUser_SummaryCount? ongoing,
+    GetSummaryForUser_SummaryCount? completed,
+  }) {
+    final _result = create();
+    if (pending != null) {
+      _result.pending = pending;
+    }
+    if (accepted != null) {
+      _result.accepted = accepted;
+    }
+    if (ongoing != null) {
+      _result.ongoing = ongoing;
+    }
+    if (completed != null) {
+      _result.completed = completed;
+    }
+    return _result;
+  }
+  factory GetSummaryForUser_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetSummaryForUser_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetSummaryForUser_Response clone() => GetSummaryForUser_Response()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetSummaryForUser_Response copyWith(void Function(GetSummaryForUser_Response) updates) => super.copyWith((message) => updates(message as GetSummaryForUser_Response)) as GetSummaryForUser_Response; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetSummaryForUser_Response create() => GetSummaryForUser_Response._();
+  GetSummaryForUser_Response createEmptyInstance() => create();
+  static $pb.PbList<GetSummaryForUser_Response> createRepeated() => $pb.PbList<GetSummaryForUser_Response>();
+  @$core.pragma('dart2js:noInline')
+  static GetSummaryForUser_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetSummaryForUser_Response>(create);
+  static GetSummaryForUser_Response? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  GetSummaryForUser_SummaryCount get pending => $_getN(0);
+  @$pb.TagNumber(1)
+  set pending(GetSummaryForUser_SummaryCount v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPending() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPending() => clearField(1);
+  @$pb.TagNumber(1)
+  GetSummaryForUser_SummaryCount ensurePending() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  GetSummaryForUser_SummaryCount get accepted => $_getN(1);
+  @$pb.TagNumber(2)
+  set accepted(GetSummaryForUser_SummaryCount v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasAccepted() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearAccepted() => clearField(2);
+  @$pb.TagNumber(2)
+  GetSummaryForUser_SummaryCount ensureAccepted() => $_ensure(1);
+
+  @$pb.TagNumber(3)
+  GetSummaryForUser_SummaryCount get ongoing => $_getN(2);
+  @$pb.TagNumber(3)
+  set ongoing(GetSummaryForUser_SummaryCount v) { setField(3, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasOngoing() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearOngoing() => clearField(3);
+  @$pb.TagNumber(3)
+  GetSummaryForUser_SummaryCount ensureOngoing() => $_ensure(2);
+
+  @$pb.TagNumber(4)
+  GetSummaryForUser_SummaryCount get completed => $_getN(3);
+  @$pb.TagNumber(4)
+  set completed(GetSummaryForUser_SummaryCount v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasCompleted() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearCompleted() => clearField(4);
+  @$pb.TagNumber(4)
+  GetSummaryForUser_SummaryCount ensureCompleted() => $_ensure(3);
+}
+
+class GetSummaryForUser extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetSummaryForUser', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  GetSummaryForUser._() : super();
+  factory GetSummaryForUser() => create();
+  factory GetSummaryForUser.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetSummaryForUser.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetSummaryForUser clone() => GetSummaryForUser()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetSummaryForUser copyWith(void Function(GetSummaryForUser) updates) => super.copyWith((message) => updates(message as GetSummaryForUser)) as GetSummaryForUser; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetSummaryForUser create() => GetSummaryForUser._();
+  GetSummaryForUser createEmptyInstance() => create();
+  static $pb.PbList<GetSummaryForUser> createRepeated() => $pb.PbList<GetSummaryForUser>();
+  @$core.pragma('dart2js:noInline')
+  static GetSummaryForUser getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetSummaryForUser>(create);
+  static GetSummaryForUser? _defaultInstance;
 }
 

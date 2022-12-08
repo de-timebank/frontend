@@ -26,6 +26,10 @@ class ClientUser {
       ..body = body);
   }
 
+  Future<GetProfile_Response> getProfile1(String id) async {
+    return await stub.getProfile(GetProfile_Request()..userId = id);
+  }
+
   Future<GetRating_Response> getUserRating(String id) async {
     return await stub.getRating(GetRating_Request()..userId = id);
   }

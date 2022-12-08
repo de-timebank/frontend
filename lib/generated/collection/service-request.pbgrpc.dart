@@ -16,62 +16,68 @@ export 'service-request.pb.dart';
 class ServiceRequestClient extends $grpc.Client {
   static final _$create =
       $grpc.ClientMethod<$2.Create_Request, $2.Create_Response>(
-          '/timebank.servicerequest.ServiceRequest/create',
+          '/servicerequest.ServiceRequest/create',
           ($2.Create_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $2.Create_Response.fromBuffer(value));
   static final _$get = $grpc.ClientMethod<$2.Get_Request, $2.Get_Response>(
-      '/timebank.servicerequest.ServiceRequest/get',
+      '/servicerequest.ServiceRequest/get',
       ($2.Get_Request value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $2.Get_Response.fromBuffer(value));
   static final _$getById =
       $grpc.ClientMethod<$2.GetById_Request, $2.GetById_Response>(
-          '/timebank.servicerequest.ServiceRequest/getById',
+          '/servicerequest.ServiceRequest/getById',
           ($2.GetById_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $2.GetById_Response.fromBuffer(value));
   static final _$getAvailable =
       $grpc.ClientMethod<$2.GetAvailable_Request, $2.GetAvailable_Response>(
-          '/timebank.servicerequest.ServiceRequest/getAvailable',
+          '/servicerequest.ServiceRequest/getAvailable',
           ($2.GetAvailable_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $2.GetAvailable_Response.fromBuffer(value));
   static final _$update =
       $grpc.ClientMethod<$2.Update_Request, $2.Update_Response>(
-          '/timebank.servicerequest.ServiceRequest/update',
+          '/servicerequest.ServiceRequest/update',
           ($2.Update_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $2.Update_Response.fromBuffer(value));
   static final _$delete =
       $grpc.ClientMethod<$2.Delete_Request, $2.Delete_Response>(
-          '/timebank.servicerequest.ServiceRequest/delete',
+          '/servicerequest.ServiceRequest/delete',
           ($2.Delete_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $2.Delete_Response.fromBuffer(value));
   static final _$applyProvider =
       $grpc.ClientMethod<$2.ApplyProvider_Request, $2.ApplyProvider_Response>(
-          '/timebank.servicerequest.ServiceRequest/applyProvider',
+          '/servicerequest.ServiceRequest/applyProvider',
           ($2.ApplyProvider_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $2.ApplyProvider_Response.fromBuffer(value));
   static final _$selectProvider =
       $grpc.ClientMethod<$2.SelectProvider_Request, $2.SelectProvider_Response>(
-          '/timebank.servicerequest.ServiceRequest/selectProvider',
+          '/servicerequest.ServiceRequest/selectProvider',
           ($2.SelectProvider_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $2.SelectProvider_Response.fromBuffer(value));
   static final _$startService =
       $grpc.ClientMethod<$2.StartService_Request, $2.StartService_Response>(
-          '/timebank.servicerequest.ServiceRequest/startService',
+          '/servicerequest.ServiceRequest/startService',
           ($2.StartService_Request value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $2.StartService_Response.fromBuffer(value));
   static final _$completeService = $grpc.ClientMethod<
           $2.CompleteService_Request, $2.CompleteService_Response>(
-      '/timebank.servicerequest.ServiceRequest/completeService',
+      '/servicerequest.ServiceRequest/completeService',
       ($2.CompleteService_Request value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
           $2.CompleteService_Response.fromBuffer(value));
+  static final _$getSummaryForUser = $grpc.ClientMethod<
+          $2.GetSummaryForUser_Request, $2.GetSummaryForUser_Response>(
+      '/servicerequest.ServiceRequest/getSummaryForUser',
+      ($2.GetSummaryForUser_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $2.GetSummaryForUser_Response.fromBuffer(value));
 
   ServiceRequestClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -132,10 +138,16 @@ class ServiceRequestClient extends $grpc.Client {
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$completeService, request, options: options);
   }
+
+  $grpc.ResponseFuture<$2.GetSummaryForUser_Response> getSummaryForUser(
+      $2.GetSummaryForUser_Request request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getSummaryForUser, request, options: options);
+  }
 }
 
 abstract class ServiceRequestServiceBase extends $grpc.Service {
-  $core.String get $name => 'timebank.servicerequest.ServiceRequest';
+  $core.String get $name => 'servicerequest.ServiceRequest';
 
   ServiceRequestServiceBase() {
     $addMethod($grpc.ServiceMethod<$2.Create_Request, $2.Create_Response>(
@@ -218,6 +230,15 @@ abstract class ServiceRequestServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $2.CompleteService_Request.fromBuffer(value),
         ($2.CompleteService_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.GetSummaryForUser_Request,
+            $2.GetSummaryForUser_Response>(
+        'getSummaryForUser',
+        getSummaryForUser_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $2.GetSummaryForUser_Request.fromBuffer(value),
+        ($2.GetSummaryForUser_Response value) => value.writeToBuffer()));
   }
 
   $async.Future<$2.Create_Response> create_Pre(
@@ -275,6 +296,12 @@ abstract class ServiceRequestServiceBase extends $grpc.Service {
     return completeService(call, await request);
   }
 
+  $async.Future<$2.GetSummaryForUser_Response> getSummaryForUser_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$2.GetSummaryForUser_Request> request) async {
+    return getSummaryForUser(call, await request);
+  }
+
   $async.Future<$2.Create_Response> create(
       $grpc.ServiceCall call, $2.Create_Request request);
   $async.Future<$2.Get_Response> get(
@@ -295,4 +322,6 @@ abstract class ServiceRequestServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $2.StartService_Request request);
   $async.Future<$2.CompleteService_Response> completeService(
       $grpc.ServiceCall call, $2.CompleteService_Request request);
+  $async.Future<$2.GetSummaryForUser_Response> getSummaryForUser(
+      $grpc.ServiceCall call, $2.GetSummaryForUser_Request request);
 }

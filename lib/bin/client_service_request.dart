@@ -50,6 +50,13 @@ class ClientServiceRequest {
       ..requestor = requestor);
   }
 
+  Future<StartService_Response> startService1(
+      String reqId, String userId) async {
+    return await stub.startService(StartService_Request()
+      ..requestId = reqId
+      ..userId = userId);
+  }
+
   Future<Update_Response> updateService(String id, String body) async {
     return await stub.update(Update_Request()
       ..requestId = id
@@ -61,12 +68,6 @@ class ClientServiceRequest {
         filter: Filter()
           ..by = by
           ..value = value));
-  }
-
-  Future<StartService_Response> StartService1(String id, String user) async {
-    return await stub.startService(StartService_Request()
-      ..requestId = id
-      ..userId = user);
   }
 
   Future<Delete_Response> deleteService(String id) async {

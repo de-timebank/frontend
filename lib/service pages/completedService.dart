@@ -39,8 +39,9 @@ class _CompletedServicesState extends State<CompletedServices> {
     listRequest =
         await ClientServiceRequest(Common().channel).getResponse('state', '3');
 
+    //print(listRequest);
     for (var i = 0; i < listRequest.requests.length; i++) {
-      if (listRequest.requests[i].requestor != user) {
+      if (listRequest.requests[i].provider == user) {
         listFiltered.add(listRequest.requests[i]);
       }
     }
@@ -104,10 +105,9 @@ class _CompletedServicesState extends State<CompletedServices> {
                                       id: listFiltered[index].id,
                                       requestor: listFiltered[index].requestor,
                                       provider: listFiltered[index].provider,
-                                      title: listFiltered[index].details.title,
-                                      description: listFiltered[index]
-                                          .details
-                                          .description,
+                                      title: listFiltered[index].title,
+                                      description:
+                                          listFiltered[index].description,
                                       locationName:
                                           listFiltered[index].location.name,
                                       latitude: listFiltered[index]
@@ -138,7 +138,7 @@ class _CompletedServicesState extends State<CompletedServices> {
                       },
                       child: CustomCard_ServiceRequest(
                         requestor: listFiltered[index].requestor,
-                        title: listFiltered[index].details.title,
+                        title: listFiltered[index].title,
                         rate: listFiltered[index].rate,
                       ),
                     );

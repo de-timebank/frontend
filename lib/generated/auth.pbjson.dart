@@ -20,7 +20,7 @@ const SignUp_Request$json = const {
   '2': const [
     const {'1': 'email', '3': 1, '4': 1, '5': 9, '10': 'email'},
     const {'1': 'password', '3': 2, '4': 1, '5': 9, '10': 'password'},
-    const {'1': 'profile', '3': 3, '4': 1, '5': 11, '6': '.timebank.user.NewUserProfile', '10': 'profile'},
+    const {'1': 'profile', '3': 3, '4': 1, '5': 11, '6': '.user.NewUserProfile', '10': 'profile'},
   ],
 };
 
@@ -33,4 +33,4 @@ const SignUp_Response$json = const {
 };
 
 /// Descriptor for `SignUp`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List signUpDescriptor = $convert.base64Decode('CgZTaWduVXAadAoHUmVxdWVzdBIUCgVlbWFpbBgBIAEoCVIFZW1haWwSGgoIcGFzc3dvcmQYAiABKAlSCHBhc3N3b3JkEjcKB3Byb2ZpbGUYAyABKAsyHS50aW1lYmFuay51c2VyLk5ld1VzZXJQcm9maWxlUgdwcm9maWxlGiMKCFJlc3BvbnNlEhcKB3VzZXJfaWQYASABKAlSBnVzZXJJZA==');
+final $typed_data.Uint8List signUpDescriptor = $convert.base64Decode('CgZTaWduVXAaawoHUmVxdWVzdBIUCgVlbWFpbBgBIAEoCVIFZW1haWwSGgoIcGFzc3dvcmQYAiABKAlSCHBhc3N3b3JkEi4KB3Byb2ZpbGUYAyABKAsyFC51c2VyLk5ld1VzZXJQcm9maWxlUgdwcm9maWxlGiMKCFJlc3BvbnNlEhcKB3VzZXJfaWQYASABKAlSBnVzZXJJZA==');

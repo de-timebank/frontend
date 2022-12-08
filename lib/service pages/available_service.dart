@@ -66,10 +66,11 @@ class _AvailableServicesState extends State<AvailableServices> {
     user = supabase.auth.currentUser!.id;
 
     //_filter..by = 'state'..value = '0';
-    listRequest = await ClientServiceRequest(Common().channel)
-        .getAvailable1('state', '0');
-    //await ClientServiceRequest(Common().channel).getResponse('state', '0');
-    print(listRequest);
+    listRequest =
+        // await ClientServiceRequest(Common().channel)
+        //     .getAvailable1('state', '0');
+        await ClientServiceRequest(Common().channel).getResponse('state', '0');
+    //print(listRequest);
     for (var i = 0; i < listRequest.requests.length; i++) {
       if (listRequest.requests[i].requestor != user &&
           _categoryController.text == 'All Categories') {

@@ -3,26 +3,38 @@ import 'package:flutter/material.dart';
 import '../custom widgets/theme.dart';
 
 class RatingCardWidget extends StatefulWidget {
-  final Function isEmpty;
   final dynamic userRating;
-  final dynamic userCalculatedRating;
   final String title;
   final IconData iconRating;
   final bool isProvider;
-  const RatingCardWidget(
-      {super.key,
-      required this.isEmpty,
-      this.userRating,
-      this.userCalculatedRating,
-      required this.title,
-      required this.iconRating,
-      required this.isProvider});
+  const RatingCardWidget({
+    super.key,
+    this.userRating,
+    required this.title,
+    required this.iconRating,
+    required this.isProvider,
+  });
 
   @override
   State<RatingCardWidget> createState() => _RatingCardWidgetState();
 }
 
 class _RatingCardWidgetState extends State<RatingCardWidget> {
+  bool isEmpty(stuff) {
+    if (stuff.length == 0 || stuff.toString() == '') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  void initState() {
+    print('the user rating is: ' + widget.userRating);
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -65,12 +77,11 @@ class _RatingCardWidgetState extends State<RatingCardWidget> {
               ),
               Padding(
                   padding: EdgeInsets.fromLTRB(10, 0, 25, 0),
-                  child: widget.isEmpty(widget.userRating.ratings)
+                  child: isEmpty(widget.userRating)
                       ? Text('No Rating',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.white))
-                      : Text(
-                          '${(widget.userCalculatedRating / widget.userRating.ratings.length).toStringAsFixed(2)}',
+                      : Text('${widget.userRating}',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.white)))

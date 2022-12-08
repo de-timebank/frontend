@@ -18,7 +18,7 @@ class _CompletedRequestState extends State<CompletedRequest> {
   late bool isLoad;
   late dynamic listRequest;
   late dynamic listFiltered;
-  late dynamic listRating;
+  // late dynamic listRating;
   late String user;
   late bool _isEmpty;
   bool isRequest = true;
@@ -35,14 +35,14 @@ class _CompletedRequestState extends State<CompletedRequest> {
     listFiltered = [];
     user = supabase.auth.currentUser!.id;
 
-    listRating =
-        await ClientRating(Common().channel).getResponseRating('author', user);
+    // listRating =
+    //     await ClientRating(Common().channel).getResponseRating('author', user);
 
     listRequest =
         await ClientServiceRequest(Common().channel).getResponse('state', '3');
 
     for (var i = 0; i < listRequest.requests.length; i++) {
-      if (listRequest.requests[i].provider != user) {
+      if (listRequest.requests[i].requestor == user) {
         listFiltered.add(listRequest.requests[i]);
       }
     }
@@ -103,10 +103,9 @@ class _CompletedRequestState extends State<CompletedRequest> {
                                       id: listFiltered[index].id,
                                       requestor: listFiltered[index].requestor,
                                       provider: listFiltered[index].provider,
-                                      title: listFiltered[index].details.title,
-                                      description: listFiltered[index]
-                                          .details
-                                          .description,
+                                      title: listFiltered[index].title,
+                                      description:
+                                          listFiltered[index].description,
                                       locationName:
                                           listFiltered[index].location.name,
                                       latitude: listFiltered[index]
@@ -140,9 +139,9 @@ class _CompletedRequestState extends State<CompletedRequest> {
                         //id: listFiltered[index].id,
                         requestor: listFiltered[index].requestor,
                         //provider: listFiltered[index].provider,
-                        title: listFiltered[index].details.title,
+                        title: listFiltered[index].title,
                         // description:
-                        //     listFiltered[index].details.description,
+                        //     listFiltered[index].description,
                         // locationName: listFiltered[index].location.name,
                         // latitude: listFiltered
                         //     [index].location.coordinate.latitude,

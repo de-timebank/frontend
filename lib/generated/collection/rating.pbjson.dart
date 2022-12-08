@@ -47,7 +47,7 @@ const Create_NewRatingData$json = const {
 const Create_Request$json = const {
   '1': 'Request',
   '2': const [
-    const {'1': 'rating', '3': 1, '4': 1, '5': 11, '6': '.timebank.rating.Create.NewRatingData', '10': 'rating'},
+    const {'1': 'rating', '3': 1, '4': 1, '5': 11, '6': '.rating.Create.NewRatingData', '10': 'rating'},
   ],
 };
 
@@ -55,12 +55,12 @@ const Create_Request$json = const {
 const Create_Response$json = const {
   '1': 'Response',
   '2': const [
-    const {'1': 'rating', '3': 1, '4': 1, '5': 11, '6': '.timebank.rating.RatingData', '10': 'rating'},
+    const {'1': 'rating', '3': 1, '4': 1, '5': 11, '6': '.rating.RatingData', '10': 'rating'},
   ],
 };
 
 /// Descriptor for `Create`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List createDescriptor = $convert.base64Decode('CgZDcmVhdGUadgoNTmV3UmF0aW5nRGF0YRIWCgZhdXRob3IYASABKAlSBmF1dGhvchIUCgV2YWx1ZRgCIAEoBVIFdmFsdWUSGAoHY29tbWVudBgDIAEoCVIHY29tbWVudBIdCgpyZXF1ZXN0X2lkGAQgASgJUglyZXF1ZXN0SWQaSAoHUmVxdWVzdBI9CgZyYXRpbmcYASABKAsyJS50aW1lYmFuay5yYXRpbmcuQ3JlYXRlLk5ld1JhdGluZ0RhdGFSBnJhdGluZxo/CghSZXNwb25zZRIzCgZyYXRpbmcYASABKAsyGy50aW1lYmFuay5yYXRpbmcuUmF0aW5nRGF0YVIGcmF0aW5n');
+final $typed_data.Uint8List createDescriptor = $convert.base64Decode('CgZDcmVhdGUadgoNTmV3UmF0aW5nRGF0YRIWCgZhdXRob3IYASABKAlSBmF1dGhvchIUCgV2YWx1ZRgCIAEoBVIFdmFsdWUSGAoHY29tbWVudBgDIAEoCVIHY29tbWVudBIdCgpyZXF1ZXN0X2lkGAQgASgJUglyZXF1ZXN0SWQaPwoHUmVxdWVzdBI0CgZyYXRpbmcYASABKAsyHC5yYXRpbmcuQ3JlYXRlLk5ld1JhdGluZ0RhdGFSBnJhdGluZxo2CghSZXNwb25zZRIqCgZyYXRpbmcYASABKAsyEi5yYXRpbmcuUmF0aW5nRGF0YVIGcmF0aW5n');
 @$core.Deprecated('Use getDescriptor instead')
 const Get$json = const {
   '1': 'Get',
@@ -80,12 +80,12 @@ const Get_Request$json = const {
 const Get_Response$json = const {
   '1': 'Response',
   '2': const [
-    const {'1': 'ratings', '3': 1, '4': 3, '5': 11, '6': '.timebank.rating.RatingData', '10': 'ratings'},
+    const {'1': 'ratings', '3': 1, '4': 3, '5': 11, '6': '.rating.RatingData', '10': 'ratings'},
   ],
 };
 
 /// Descriptor for `Get`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getDescriptor = $convert.base64Decode('CgNHZXQaMQoHUmVxdWVzdBIQCgNrZXkYASABKAlSA2tleRIUCgV2YWx1ZRgCIAEoCVIFdmFsdWUaQQoIUmVzcG9uc2USNQoHcmF0aW5ncxgBIAMoCzIbLnRpbWViYW5rLnJhdGluZy5SYXRpbmdEYXRhUgdyYXRpbmdz');
+final $typed_data.Uint8List getDescriptor = $convert.base64Decode('CgNHZXQaMQoHUmVxdWVzdBIQCgNrZXkYASABKAlSA2tleRIUCgV2YWx1ZRgCIAEoCVIFdmFsdWUaOAoIUmVzcG9uc2USLAoHcmF0aW5ncxgBIAMoCzISLnJhdGluZy5SYXRpbmdEYXRhUgdyYXRpbmdz');
 @$core.Deprecated('Use updateDescriptor instead')
 const Update$json = const {
   '1': 'Update',
@@ -105,12 +105,12 @@ const Update_Request$json = const {
 const Update_Response$json = const {
   '1': 'Response',
   '2': const [
-    const {'1': 'rating', '3': 1, '4': 1, '5': 11, '6': '.timebank.rating.RatingData', '10': 'rating'},
+    const {'1': 'rating', '3': 1, '4': 1, '5': 11, '6': '.rating.RatingData', '10': 'rating'},
   ],
 };
 
 /// Descriptor for `Update`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List updateDescriptor = $convert.base64Decode('CgZVcGRhdGUaOgoHUmVxdWVzdBIbCglyYXRpbmdfaWQYASABKAlSCHJhdGluZ0lkEhIKBGJvZHkYAiABKAlSBGJvZHkaPwoIUmVzcG9uc2USMwoGcmF0aW5nGAEgASgLMhsudGltZWJhbmsucmF0aW5nLlJhdGluZ0RhdGFSBnJhdGluZw==');
+final $typed_data.Uint8List updateDescriptor = $convert.base64Decode('CgZVcGRhdGUaOgoHUmVxdWVzdBIbCglyYXRpbmdfaWQYASABKAlSCHJhdGluZ0lkEhIKBGJvZHkYAiABKAlSBGJvZHkaNgoIUmVzcG9uc2USKgoGcmF0aW5nGAEgASgLMhIucmF0aW5nLlJhdGluZ0RhdGFSBnJhdGluZw==');
 @$core.Deprecated('Use deleteDescriptor instead')
 const Delete$json = const {
   '1': 'Delete',
