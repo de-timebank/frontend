@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../bin/client_service_request.dart';
 import '../bin/common.dart';
 import '../components/constants.dart';
-import '../custom widgets/customCardRequest.dart';
+import '../custom widgets/customCardServiceRequest.dart';
 import 'requestDetails.dart';
 
 class RequestedJob extends StatefulWidget {
@@ -126,7 +126,8 @@ class _RequestedJobState extends State<RequestedJob> {
                                   },
                                 ));
                       },
-                      child: CustomCard_ServiceRequest(
+                      child: CustomCardServiceRequest(
+                        state: listFiltered[index].state,
                         //function: getinstance,
                         //id: listFiltered[index].id,
                         requestor: listFiltered[index].requestor,

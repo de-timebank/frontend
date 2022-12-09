@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:testfyp/bin/client_user.dart';
 import 'package:testfyp/bin/common.dart';
 import 'package:testfyp/extension_string.dart';
 
 import '../components/constants.dart';
+import '../custom widgets/theme.dart';
 import '../service pages/serviceDetails.dart';
 
 class CustomCardRating extends StatefulWidget {
@@ -12,6 +14,7 @@ class CustomCardRating extends StatefulWidget {
   final provider;
   final title; //details
   final rate;
+  final ratingFor;
 
   const CustomCardRating({
     super.key,
@@ -20,6 +23,7 @@ class CustomCardRating extends StatefulWidget {
     required this.provider,
     required this.title, //details /
     required this.rate,
+    required this.ratingFor,
   });
 
   @override
@@ -31,7 +35,7 @@ class _CustomCardRatingState extends State<CustomCardRating> {
   late dynamic _userRequestor;
   late dynamic _userProvider;
   bool isLoading = false;
-
+  bool forProvider = false;
   @override
   void initState() {
     isLoading = true;
@@ -51,6 +55,14 @@ class _CustomCardRatingState extends State<CustomCardRating> {
     setState(() {
       isLoading = false;
     });
+  }
+
+  isProvider() {
+    if (widget.ratingFor == 'provider') {
+      return true;
+    } else {
+      return false;
+    }
   }
   //get function => null;
 
@@ -88,42 +100,51 @@ class _CustomCardRatingState extends State<CustomCardRating> {
                     ),
                   ),
                   Flexible(
-                      flex: 4,
+                      flex: 3,
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Container(
                             decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 219, 216, 233),
+                                border: Border.all(
+                                    color: isProvider()
+                                        ? themeData1().primaryColor
+                                        : themeData1().secondaryHeaderColor,
+                                    width: 2),
+                                //color: Color.fromARGB(255, 219, 216, 233),
                                 borderRadius: BorderRadius.circular(10)),
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Recipient\n${_userProvider.user.name.toString().titleCase()}',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 14),
-                              ),
-                            )),
+                                padding: const EdgeInsets.all(8.0),
+                                child: isProvider()
+                                    ? Text(
+                                        'Provider\n${_userProvider.user.name.toString().titleCase()}',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 12),
+                                      )
+                                    : Text(
+                                        'Requestor\n${_userProvider.user.name.toString().titleCase()}',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 12),
+                                      ))),
                       )),
                   Flexible(
-                      flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              '${widget.value}',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                          ),
+                    flex: 3,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: RatingBar.builder(
+                        ignoreGestures: true,
+                        itemSize: 20,
+                        initialRating: double.parse(widget.value.toString()),
+                        itemBuilder: (context, index) => Icon(
+                          Icons.star,
+                          color: themeData2().primaryColor,
                         ),
-                      )),
+                        onRatingUpdate: (value) {
+                          //_value1Controller = value;
+                          //print(_valueController);
+                        },
+                      ),
+                    ),
+                  ),
                   // Flexible(
                   //   flex: 1,
                   //   child: IconButton(

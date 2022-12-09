@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../custom widgets/customCardRequest.dart';
+import '../custom widgets/customCardServiceRequest.dart';
 import '../request pages/requestDetails.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
@@ -65,7 +65,8 @@ class CustomSearchDelegate extends SearchDelegate {
                       media: matchQuery[index].mediaAttachments,
                     )));
           },
-          child: CustomCard_ServiceRequest(
+          child: CustomCardServiceRequest(
+            state: matchQuery[index].state,
             //function: getinstance,
             //id: matchQuery[index].id,
             requestor: matchQuery[index].requestor,
@@ -128,7 +129,8 @@ class CustomSearchDelegate extends SearchDelegate {
                       media: matchQuery[index].mediaAttachments,
                     )));
           },
-          child: CustomCard_ServiceRequest(
+          child: CustomCardServiceRequest(
+            state: matchQuery[index].state,
             //function: getinstance,
             //id: matchQuery[index].id,
             requestor: matchQuery[index].requestor,

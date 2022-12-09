@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:grpc/grpc.dart';
 import 'package:testfyp/bin/client_rating.dart';
 import 'package:testfyp/bin/client_user.dart';
 import 'package:testfyp/components/constants.dart';
+import 'package:testfyp/custom%20widgets/customHeadline.dart';
+import 'package:testfyp/custom%20widgets/theme.dart';
 import 'package:testfyp/extension_string.dart';
 import '../bin/common.dart';
 import '../custom widgets/heading2.dart';
@@ -9,7 +13,7 @@ import '../custom widgets/heading2.dart';
 class RatingDetails extends StatefulWidget {
   //final function;
   final bool isProvider;
-  final id;
+  final ratingFor;
   final author;
   final recipient;
   final value; //detailsF
@@ -21,7 +25,7 @@ class RatingDetails extends StatefulWidget {
   RatingDetails({
     //required this.function,
     required this.isProvider,
-    required this.id,
+    required this.ratingFor,
     required this.author,
     required this.recipient,
     required this.value, //details /
@@ -81,7 +85,15 @@ class _RatingDetailsState extends State<RatingDetails> {
   }
 
   void _deleteRating(String id, String ratingFor) async {
-    ClientRating(Common().channel).deleteRating(id, ratingFor);
+    try {
+      ClientRating(Common().channel).deleteRating(id, ratingFor);
+      context.showSnackBar(message: 'Rate Deleted');
+      Navigator.of(context).pop();
+    } on GrpcError catch (e) {
+      context.showErrorSnackBar(message: e.toString());
+    } catch (e) {
+      context.showErrorSnackBar(message: e.toString());
+    }
 
     // setState(() {
     //   getinstance();
@@ -100,27 +112,127 @@ class _RatingDetailsState extends State<RatingDetails> {
         padding: const EdgeInsets.all(15.0),
         child: isLoad
             ? const Center(child: CircularProgressIndicator())
-            : ListView(
-                shrinkWrap: true,
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                //shrinkWrap: true,
                 children: [
-                  Heading2('Id'),
-                  Text(widget.id),
-                  Heading2('Author'),
-                  Text(_userRequestor.user.name.toString().titleCase()),
-                  Heading2('Recipient'),
-                  Text(_userProvider.user.name.toString().titleCase()),
-                  Heading2('Value'),
-                  Text(widget.value.toString().titleCase()),
-                  Heading2('Comment'),
-                  Text(widget.comment.toString().capitalize()),
-                  Heading2('Created On'),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        color: themeData2().primaryColor,
+                        width: 3,
+                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(12)),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(Icons.comment,
+                                      color: themeData2().primaryColor),
+                                  SizedBox(width: 5),
+                                  Heading2('Comment'),
+                                ],
+                              ),
+                              Text(widget.comment.toString().capitalize()),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Heading2('Rate'),
+                              Center(
+                                child: RatingBar.builder(
+                                  ignoreGestures: true,
+                                  itemSize: 20,
+                                  initialRating:
+                                      double.parse(widget.value.toString()),
+                                  itemBuilder: (context, index) => Icon(
+                                    Icons.star,
+                                    color: themeData2().primaryColor,
+                                  ),
+                                  onRatingUpdate: (value) {
+                                    //_value1Controller = value;
+                                    //print(_valueController);
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        color: widget.isProvider
+                            ? themeData1().primaryColor
+                            : themeData2().secondaryHeaderColor,
+                        width: 3,
+                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(12)),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomHeadline(
+                                heading: 'Recipient',
+                                color: widget.isProvider
+                                    ? themeData1().primaryColor
+                                    : themeData2().secondaryHeaderColor,
+                              ),
+                              Text(_userProvider.user.name
+                                  .toString()
+                                  .titleCase()),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              CustomHeadline(
+                                heading: 'Author',
+                                color: widget.isProvider
+                                    ? themeData1().primaryColor
+                                    : themeData2().secondaryHeaderColor,
+                              ),
+                              Text(_userRequestor.user.name
+                                  .toString()
+                                  .titleCase()),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              CustomHeadline(
+                                heading: 'Rating As:',
+                                color: widget.isProvider
+                                    ? themeData1().primaryColor
+                                    : themeData2().secondaryHeaderColor,
+                              ),
+                              Text(widget.ratingFor.toString().capitalize()),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Heading2(' Created On'),
                   Text(
-                      'Date: ${dateCreatedOn.day}-${dateCreatedOn.month}-${dateCreatedOn.year}\nTime: ${dateCreatedOn.hour}:${dateCreatedOn.minute}'),
-                  Heading2('Updated On'),
+                      ' Date: ${dateCreatedOn.day}-${dateCreatedOn.month}-${dateCreatedOn.year}\n\tTime: ${dateCreatedOn.hour}:${dateCreatedOn.minute}'),
+                  Heading2(' Updated On'),
                   Text(
-                      'Date: ${dateUpdatedOn.day}-${dateUpdatedOn.month}-${dateUpdatedOn.year}\nTime: ${dateUpdatedOn.hour}:${dateUpdatedOn.minute}'),
-                  Heading2('Job Id'),
-                  Text(widget.requestId),
+                      ' Date: ${dateUpdatedOn.day}-${dateUpdatedOn.month}-${dateUpdatedOn.year}\n\tTime: ${dateUpdatedOn.hour}:${dateUpdatedOn.minute}'),
+                  Heading2(' Job Id'),
+                  Text(' ${widget.requestId}'),
                   SizedBox(
                     height: 15,
                   ),
@@ -128,9 +240,8 @@ class _RatingDetailsState extends State<RatingDetails> {
                       ? TextButton(
                           onPressed: () {
                             //print(id);
-                            _deleteRating(widget.id, 'provider');
-                            context.showSnackBar(message: 'Rate Deleted');
-                            Navigator.of(context).pop();
+                            //_deleteRating(widget.id, 'provider');
+
                             //Navigator.of(context).popUntil((route) => route.i);
                             //Navigator.of(context).pushNamed('/navigation');
                           },

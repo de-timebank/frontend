@@ -4,7 +4,7 @@ import '../bin/client_rating.dart';
 import '../bin/client_service_request.dart';
 import '../bin/common.dart';
 import '../components/constants.dart';
-import '../custom widgets/customCardRequest.dart';
+import '../custom widgets/customCardServiceRequest.dart';
 import '../request pages/requestDetails.dart';
 
 class CompletedServices extends StatefulWidget {
@@ -136,7 +136,8 @@ class _CompletedServicesState extends State<CompletedServices> {
                                   },
                                 ));
                       },
-                      child: CustomCard_ServiceRequest(
+                      child: CustomCardServiceRequest(
+                        state: listFiltered[index].state,
                         requestor: listFiltered[index].requestor,
                         title: listFiltered[index].title,
                         rate: listFiltered[index].rate,

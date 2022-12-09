@@ -50,7 +50,13 @@ class ClientRating {
   //         ..requestId = id));
   // }
 
-  Future<GetForRequest_Response> getResponseRating(String id) async {
+  Future<Get_Response> getResponseRating(String key, String value) async {
+    return await stub.get(Get_Request()
+      ..key = key
+      ..value = value);
+  }
+
+  Future<GetForRequest_Response> getForRequest1(String id) async {
     return await stub.getForRequest(GetForRequest_Request()..requestId = id);
   }
 

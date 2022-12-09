@@ -188,8 +188,8 @@ class _RequestDetailsState extends State<RequestDetails> {
         ? dateCompletedOn = DateTime.parse(widget.completed)
         : dateCompletedOn = '';
     //print(widget.id);
-    ratedUser =
-        await ClientRating(Common().channel).getResponseRating(widget.id);
+    ratedUser = await ClientRating(Common().channel)
+        .getResponseRating('request_id', widget.id);
 
     // print(ratedUser);
     // print(widget.requestor);
@@ -413,15 +413,17 @@ class _RequestDetailsState extends State<RequestDetails> {
                                                         SizedBox(width: 8),
                                                         IconButton(
                                                           onPressed: (() {
-                                                            Navigator
-                                                                .pushReplacement(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder: (BuildContext
-                                                                                context) =>
-                                                                            ViewProfile(
-                                                                              id: _listApplicants[index].user.userId.toString(),
-                                                                            )));
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder: (BuildContext
+                                                                            context) =>
+                                                                        ViewProfile(
+                                                                          id: _listApplicants[index]
+                                                                              .user
+                                                                              .userId
+                                                                              .toString(),
+                                                                        )));
                                                           }),
                                                           icon: FaIcon(
                                                             FontAwesomeIcons

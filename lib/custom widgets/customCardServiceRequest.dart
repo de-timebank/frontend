@@ -3,26 +3,28 @@ import 'package:testfyp/bin/client_user.dart';
 import 'package:testfyp/bin/common.dart';
 import 'package:testfyp/extension_string.dart';
 
-class CustomCard_ServiceRequest extends StatefulWidget {
+class CustomCardServiceRequest extends StatefulWidget {
   final requestor;
+  final state;
   // final provider;
   final title; //details
   final rate;
 
-  const CustomCard_ServiceRequest({
+  const CustomCardServiceRequest({
     super.key,
     required this.requestor,
     required this.title, //details /
     required this.rate,
+    required this.state,
   });
 
   @override
-  State<CustomCard_ServiceRequest> createState() =>
-      _CustomCard_ServiceRequestState();
+  State<CustomCardServiceRequest> createState() =>
+      _CustomCardServiceRequestState();
 }
 
 // ignore: camel_case_types
-class _CustomCard_ServiceRequestState extends State<CustomCard_ServiceRequest> {
+class _CustomCardServiceRequestState extends State<CustomCardServiceRequest> {
   late dynamic _userCurrent;
   bool isLoading = false;
 

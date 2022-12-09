@@ -4,7 +4,7 @@ import '../bin/client_service_request.dart';
 import '../bin/common.dart';
 import '../bin/searchfunction.dart';
 import '../components/constants.dart';
-import '../custom widgets/customCardRequest.dart';
+import '../custom widgets/customCardServiceRequest.dart';
 import '../generated/misc.pb.dart';
 import '../request pages/requestDetails.dart';
 
@@ -299,7 +299,8 @@ class _AvailableServicesState extends State<AvailableServices> {
                                           },
                                         ));
                               },
-                              child: CustomCard_ServiceRequest(
+                              child: CustomCardServiceRequest(
+                                state: listFiltered[index].state,
                                 //function: getinstance,
                                 //id: listFiltered[index].id,
                                 requestor: listFiltered[index].requestor,

@@ -157,3 +157,28 @@ const GetById_Response$json = const {
 
 /// Descriptor for `GetById`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getByIdDescriptor = $convert.base64Decode('CgdHZXRCeUlkGkcKB1JlcXVlc3QSHQoKcmVxdWVzdF9pZBgBIAEoCVIJcmVxdWVzdElkEh0KCnJhdGluZ19mb3IYAiABKAlSCXJhdGluZ0Zvcho2CghSZXNwb25zZRIqCgZyYXRpbmcYASABKAsyEi5yYXRpbmcuUmF0aW5nRGF0YVIGcmF0aW5n');
+@$core.Deprecated('Use getDescriptor instead')
+const Get$json = const {
+  '1': 'Get',
+  '3': const [Get_Request$json, Get_Response$json],
+};
+
+@$core.Deprecated('Use getDescriptor instead')
+const Get_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'key', '3': 1, '4': 1, '5': 9, '10': 'key'},
+    const {'1': 'value', '3': 2, '4': 1, '5': 9, '10': 'value'},
+  ],
+};
+
+@$core.Deprecated('Use getDescriptor instead')
+const Get_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'ratings', '3': 1, '4': 3, '5': 11, '6': '.rating.RatingData', '10': 'ratings'},
+  ],
+};
+
+/// Descriptor for `Get`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getDescriptor = $convert.base64Decode('CgNHZXQaMQoHUmVxdWVzdBIQCgNrZXkYASABKAlSA2tleRIUCgV2YWx1ZRgCIAEoCVIFdmFsdWUaOAoIUmVzcG9uc2USLAoHcmF0aW5ncxgBIAMoCzISLnJhdGluZy5SYXRpbmdEYXRhUgdyYXRpbmdz');

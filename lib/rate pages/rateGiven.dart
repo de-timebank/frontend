@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:testfyp/bin/client_rating.dart';
-import 'package:testfyp/custom%20widgets/customCardRating.dart';
+import 'package:testfyp/rate%20pages/customCardRating.dart';
 
 import '../bin/common.dart';
 import '../components/constants.dart';
-import '../custom widgets/customCardRequest.dart';
+import '../custom widgets/customCardServiceRequest.dart';
 import 'ratingDetails.dart';
 
 class RateGivenPage extends StatefulWidget {
@@ -17,7 +17,7 @@ class RateGivenPage extends StatefulWidget {
 class _RateGivenPageState extends State<RateGivenPage> {
   late bool isLoad;
   late dynamic listRequest;
-  late dynamic listFiltered;
+  // late dynamic listRequest.ratings;
   late String user;
   late bool _isEmpty;
 
@@ -30,18 +30,20 @@ class _RateGivenPageState extends State<RateGivenPage> {
   }
 
   void getinstance() async {
-    listFiltered = [];
+    // listRequest.ratings = [];
     user = supabase.auth.currentUser!.id;
     //print(_userCurrent);
     listRequest =
-        await ClientRating(Common().channel).getbyId(user, 'provider');
-    print(listRequest);
-    for (var i = 0; i < listRequest.ratings.length; i++) {
-      if (listRequest.ratings[i].author == user) {
-        listFiltered.add(listRequest.ratings[i]);
-      }
-      //print(listFiltered);
-    }
+        await ClientRating(Common().channel).getResponseRating('author', user);
+    //print(listRequest);
+
+    //print(listRequest);
+    // for (var i = 0; i < listRequest.ratings.length; i++) {
+    //   if (listRequest.ratings[i].author == user) {
+    //     listRequest.ratings.add(listRequest.ratings[i]);
+    //   }
+    //   //print(listRequest.ratings);
+    // }
     setState(() {
       isLoad = false;
       isEmpty();
@@ -50,7 +52,7 @@ class _RateGivenPageState extends State<RateGivenPage> {
   }
 
   bool isEmpty() {
-    if (listFiltered.length == 0) {
+    if (listRequest.ratings.length == 0) {
       _isEmpty = true;
       return _isEmpty;
     } else {
@@ -68,7 +70,7 @@ class _RateGivenPageState extends State<RateGivenPage> {
           : _isEmpty
               ? const Center(child: Text('No rate given to other people...'))
               : ListView.builder(
-                  itemCount: listFiltered.length,
+                  itemCount: listRequest.ratings.length,
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
@@ -76,14 +78,20 @@ class _RateGivenPageState extends State<RateGivenPage> {
                             .push(MaterialPageRoute(
                                 builder: (context) => RatingDetails(
                                       isProvider: true,
-                                      id: listFiltered[index].id,
-                                      author: listFiltered[index].author,
-                                      recipient: listFiltered[index].recipient,
-                                      value: listFiltered[index].value,
-                                      comment: listFiltered[index].comment,
-                                      createdAt: listFiltered[index].createdAt,
-                                      updatedAt: listFiltered[index].updatedAt,
-                                      requestId: listFiltered[index].requestId,
+                                      ratingFor:
+                                          listRequest.ratings[index].ratingFor,
+                                      author: listRequest.ratings[index].author,
+                                      recipient:
+                                          listRequest.ratings[index].recipient,
+                                      value: listRequest.ratings[index].value,
+                                      comment:
+                                          listRequest.ratings[index].comment,
+                                      createdAt:
+                                          listRequest.ratings[index].createdAt,
+                                      updatedAt:
+                                          listRequest.ratings[index].updatedAt,
+                                      requestId:
+                                          listRequest.ratings[index].requestId,
                                     )))
                             .then((value) => setState(
                                   () {
@@ -93,26 +101,27 @@ class _RateGivenPageState extends State<RateGivenPage> {
                                 ));
                       },
                       child: CustomCardRating(
-                        provider: listFiltered[index].recipient,
-                        value: listFiltered[index].value,
+                        ratingFor: listRequest.ratings[index].ratingFor,
+                        provider: listRequest.ratings[index].recipient,
+                        value: listRequest.ratings[index].value,
                         //function: getinstance,
-                        //id: listFiltered[index].id,
-                        requestor: listFiltered[index].author,
-                        //provider: listFiltered[index].provider,
-                        title: listFiltered[index].comment,
+                        //id: listRequest.ratings[index].id,
+                        requestor: listRequest.ratings[index].author,
+                        //provider: listRequest.ratings[index].provider,
+                        title: listRequest.ratings[index].comment,
                         // description:
-                        //     listFiltered[index].details.description,
-                        // locationName: listFiltered[index].location.name,
-                        // latitude: listFiltered
+                        //     listRequest.ratings[index].details.description,
+                        // locationName: listRequest.ratings[index].location.name,
+                        // latitude: listRequest.ratings
                         //     [index].location.coordinate.latitude,
-                        // longitude: listFiltered
+                        // longitude: listRequest.ratings
                         //     [index].location.coordinate.longitude,
-                        // state: listFiltered[index].state,
-                        rate: listFiltered[index].value,
-                        // applicants: listFiltered[index].applicants,
-                        // created: listFiltered[index].createdAt,
-                        // updated: listFiltered[index].updatedAt,
-                        // completed: listFiltered[index].completedAt,
+                        // state: listRequest.ratings[index].state,
+                        rate: listRequest.ratings[index].value,
+                        // applicants: listRequest.ratings[index].applicants,
+                        // created: listRequest.ratings[index].createdAt,
+                        // updated: listRequest.ratings[index].updatedAt,
+                        // completed: listRequest.ratings[index].completedAt,
                         // media: listRequest[index].mediaAttachments,
                       ),
                     );
