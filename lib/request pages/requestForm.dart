@@ -122,6 +122,7 @@ class _RequestFormState extends State<RequestForm> {
 
       setState(() {
         //print(countryValue);
+        //CSCPicker.onCountryChanged
         countryValue = place.country.toString();
         cityValue = place.locality.toString();
         stateValue = place.administrativeArea.toString();
@@ -499,8 +500,8 @@ class _RequestFormState extends State<RequestForm> {
 
                     defaultCountry: DefaultCountry.Malaysia,
                     disableCountry: true,
-                    // currentState: 'Negeri Sembilan',
-                    // currentCountry: 'Malaysia',
+                    currentState: stateValue,
+                    currentCity: cityValue,
                     layout: Layout.vertical,
                     dropdownDecoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),

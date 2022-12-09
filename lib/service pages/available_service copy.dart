@@ -5,7 +5,6 @@ import '../bin/common.dart';
 import '../bin/searchfunction.dart';
 import '../components/constants.dart';
 import '../custom widgets/customCardServiceRequest.dart';
-import '../generated/misc.pb.dart';
 import '../request pages/requestDetails.dart';
 
 class AvailableServices extends StatefulWidget {
@@ -17,8 +16,8 @@ class AvailableServices extends StatefulWidget {
 
 class _AvailableServicesState extends State<AvailableServices> {
   late bool isLoad;
-  // late dynamic listRequest;
-  late List<dynamic> listFiltered;
+  late dynamic listRequest;
+  late dynamic listFiltered;
   late dynamic _userCurrent;
   late String user;
   late bool _isEmpty;
@@ -66,38 +65,24 @@ class _AvailableServicesState extends State<AvailableServices> {
     user = supabase.auth.currentUser!.id;
 
     //_filter..by = 'state'..value = '0';
-
-    listFiltered.addAll(await supabase
-        .from('service_requests')
-        .select()
-        .neq('requestor', user)
-        .limit(5));
-    // final data = await supabase
-    //     .from('service_requests')
-    //     .select()
-    //     .neq('requestor', user)
-    //     .limit(5) as Map;
-
-    // print(data['id']);
-    //listFiltered.addAll(data);
-    print(listFiltered);
-    // await ClientServiceRequest(Common().channel)
-    //     .getAvailable1('state', '0');
-    //await ClientServiceRequest(Common().channel).getResponse('state', '0');
+    listRequest =
+        // await ClientServiceRequest(Common().channel)
+        //     .getAvailable1('state', '0');
+        await ClientServiceRequest(Common().channel).getResponse('state', '0');
     //print(listRequest);
-    // for (var i = 0; i < listRequest.requests.length; i++) {
-    //   if (listRequest.requests[i].requestor != user &&
-    //       _categoryController.text == 'All Categories') {
-    //     listFiltered.add(listRequest.requests[i]);
-    //     //print(listFiltered);
-    //     //_listuserCurrent.add(listRequest.request[i].requestor)
-    //   } else if (listRequest.requests[i].requestor != user &&
-    //       listRequest.requests[i].category.contains(_categoryController.text)) {
-    //     print(_categoryController.text);
-    //     listFiltered.add(listRequest.requests[i]);
-    //     //_listuserCurrent.add(listRequest.request[i].requestor)
-    //   }
-    // }
+    for (var i = 0; i < listRequest.requests.length; i++) {
+      if (listRequest.requests[i].requestor != user &&
+          _categoryController.text == 'All Categories') {
+        listFiltered.add(listRequest.requests[i]);
+        //print(listFiltered);
+        //_listuserCurrent.add(listRequest.request[i].requestor)
+      } else if (listRequest.requests[i].requestor != user &&
+          listRequest.requests[i].category.contains(_categoryController.text)) {
+        print(_categoryController.text);
+        listFiltered.add(listRequest.requests[i]);
+        //_listuserCurrent.add(listRequest.request[i].requestor)
+      }
+    }
     //print(listFiltered);
     //print(listRequest);
     setState(() {
