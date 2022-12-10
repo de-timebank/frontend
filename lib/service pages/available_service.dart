@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/custom%20widgets/customHeadline.dart';
 import '../bin/client_service_request.dart';
 import '../bin/common.dart';
@@ -6,7 +7,7 @@ import '../bin/searchfunction.dart';
 import '../components/constants.dart';
 import '../custom widgets/customCardServiceRequest.dart';
 import '../generated/misc.pb.dart';
-import '../request pages/requestDetails.dart';
+import '../request pages/request details/requestDetails.dart';
 
 class AvailableServices extends StatefulWidget {
   AvailableServices({Key? key}) : super(key: key);
@@ -22,9 +23,12 @@ class _AvailableServicesState extends State<AvailableServices> {
   late dynamic _userCurrent;
   late String user;
   late bool _isEmpty;
-
+  late int from;
+  late int to;
+  late int finalCount;
+  late dynamic data;
   // late Filter _filter;
-
+  final _scrollController = ScrollController();
   final _categoryController = TextEditingController();
   List<String> listCategories = <String>[
     'All Categories',
@@ -43,10 +47,66 @@ class _AvailableServicesState extends State<AvailableServices> {
   @override
   void initState() {
     // _filter = Filter();
+
     _isEmpty = true;
     _categoryController.text = listCategories[0];
+    _scrollController.addListener(
+      () {
+        if (_scrollController.position.maxScrollExtent ==
+            _scrollController.offset) {
+          fetch();
+          // from += 5;
+          // to += 5;
+
+        }
+      },
+    );
     getinstance();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void fetch() async {
+    //setState(() {});
+    from += 7;
+    to += 7;
+    print('from ' + from.toString());
+    print('to ' + to.toString());
+    final data1;
+    //print('fetching data...');
+    if (_categoryController.text == 'All Categories') {
+      data1 = await supabase
+          .from('service_requests')
+          .select()
+          .neq('requestor', user)
+          .range(from, to);
+    } else {
+      data1 = await supabase
+          .from('service_requests')
+          .select()
+          .neq('requestor', user)
+          .eq('category', _categoryController.text)
+          .range(from, to);
+    }
+
+    // final data1 = await supabase
+    //     .from('service_requests')
+    //     .select()
+    //     .neq('requestor', user)
+    //     .range(from, to);
+    setState(() {
+      listFiltered.addAll(data1);
+    });
+
+    //print('new added list $listFiltered');
+    // print(listFiltered);
+    // print(listFiltered.length);
   }
 
   getRequestorName(requestor) async {
@@ -61,26 +121,54 @@ class _AvailableServicesState extends State<AvailableServices> {
   void getinstance() async {
     setState(() {
       isLoad = true;
+      from = 0;
+      to = 6;
     });
     listFiltered = [];
     user = supabase.auth.currentUser!.id;
 
     //_filter..by = 'state'..value = '0';
-
-    listFiltered.addAll(await supabase
-        .from('service_requests')
-        .select()
-        .neq('requestor', user)
-        .limit(5));
-    // final data = await supabase
+    // print('from ' + from.toString());
+    // print('to ' + to.toString());
+    if (_categoryController.text == 'All Categories') {
+      listFiltered.addAll(await supabase
+          .from('service_requests')
+          .select()
+          .neq('requestor', user)
+          .range(from, to));
+      data = await supabase
+          .from('service_requests')
+          .select()
+          .neq('requestor', user);
+    } else {
+      listFiltered.addAll(await supabase
+          .from('service_requests')
+          .select()
+          .neq('requestor', user)
+          .eq('category', _categoryController.text)
+          .range(from, to));
+      data = await supabase
+          .from('service_requests')
+          .select()
+          .neq('requestor', user)
+          .eq('category', _categoryController.text);
+    }
+    // from += 7;
+    // to += 7;
+    // listFiltered.addAll(await supabase
     //     .from('service_requests')
     //     .select()
-    //     .neq('requestor', user)
-    //     .limit(5) as Map;
+    //     .neq('requestor', user));
+    // print(finalCount.count);
+    // from += 7;
+    // to += 7;
 
+    finalCount = data.length;
+    print('the final count is $finalCount');
     // print(data['id']);
     //listFiltered.addAll(data);
-    print(listFiltered);
+    // print(listFiltered);
+    // print('length' + listFiltered.length.toString());
     // await ClientServiceRequest(Common().channel)
     //     .getAvailable1('state', '0');
     //await ClientServiceRequest(Common().channel).getResponse('state', '0');
@@ -263,79 +351,95 @@ class _AvailableServicesState extends State<AvailableServices> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height / 1.5,
                         child: ListView.builder(
-                          itemCount: listFiltered.length,
+                          controller: _scrollController,
+                          itemCount: listFiltered.length + 1,
                           itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                Navigator.of(context)
-                                    .push(MaterialPageRoute(
-                                        builder: (context) => RequestDetails(
-                                              category:
-                                                  listFiltered[index].category,
-                                              isRequest: false,
-                                              user: user,
-                                              id: listFiltered[index].id,
-                                              requestor:
-                                                  listFiltered[index].requestor,
-                                              provider:
-                                                  listFiltered[index].provider,
-                                              title: listFiltered[index].title,
-                                              description: listFiltered[index]
-                                                  .description,
-                                              locationName: listFiltered[index]
-                                                  .location
-                                                  .name,
-                                              latitude: listFiltered[index]
-                                                  .location
-                                                  .coordinate
-                                                  .latitude,
-                                              longitude: listFiltered[index]
-                                                  .location
-                                                  .coordinate
-                                                  .longitude,
-                                              state: listFiltered[index].state,
-                                              rate: listFiltered[index].rate,
-                                              applicants: listFiltered[index]
-                                                  .applicants,
-                                              created:
-                                                  listFiltered[index].createdAt,
-                                              updated:
-                                                  listFiltered[index].updatedAt,
-                                              completed: listFiltered[index]
-                                                  .completedAt,
-                                              media: listFiltered[index]
-                                                  .mediaAttachments,
-                                            )))
-                                    .then((value) => setState(
-                                          () {
-                                            //_isEmpty = true;
-                                            getinstance();
-                                          },
-                                        ));
-                              },
-                              child: CustomCardServiceRequest(
-                                state: listFiltered[index].state,
-                                //function: getinstance,
-                                //id: listFiltered[index].id,
-                                requestor: listFiltered[index].requestor,
-                                //provider: listFiltered[index].provider,
-                                title: listFiltered[index].title,
-                                // description:
-                                //     listFiltered[index].description,
-                                // locationName: listFiltered[index].location.name,
-                                // latitude: listFiltered
-                                //     [index].location.coordinate.latitude,
-                                // longitude: listFiltered
-                                //     [index].location.coordinate.longitude,
-                                // state: listFiltered[index].state,
-                                rate: listFiltered[index].rate,
-                                // applicants: listFiltered[index].applicants,
-                                // created: listFiltered[index].createdAt,
-                                // updated: listFiltered[index].updatedAt,
-                                // completed: listFiltered[index].completedAt,
-                                // media: listFiltered[index].mediaAttachments,
-                              ),
-                            );
+                            if (index < listFiltered.length) {
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .push(MaterialPageRoute(
+                                          builder: (context) => RequestDetails(
+                                                category: listFiltered[index]
+                                                    ['category'],
+                                                isRequest: false,
+                                                user: user,
+                                                id: listFiltered[index]['id'],
+                                                requestor: listFiltered[index]
+                                                    ['requestor'],
+                                                provider: listFiltered[index]
+                                                    ['provider'],
+                                                title: listFiltered[index]
+                                                    ['title'],
+                                                description: listFiltered[index]
+                                                    ['description'],
+                                                locationName:
+                                                    listFiltered[index]
+                                                        ['location']['name'],
+                                                latitude: listFiltered[index]
+                                                        ['location']
+                                                    ['coordinate']['latitude'],
+                                                longitude: listFiltered[index]
+                                                        ['location']
+                                                    ['coordinate']['longitude'],
+                                                state: listFiltered[index]
+                                                    ['state'],
+                                                rate: listFiltered[index]
+                                                    ['rate'],
+                                                applicants: listFiltered[index]
+                                                    ['applicants'],
+                                                created: listFiltered[index]
+                                                    ['createdAt'],
+                                                updated: listFiltered[index]
+                                                    ['updatedAt'],
+                                                completed: listFiltered[index]
+                                                    ['completedAt'],
+                                                media: listFiltered[index]
+                                                    ['mediaAttachments'],
+                                              )))
+                                      .then((value) => setState(
+                                            () {
+                                              //_isEmpty = true;
+                                              getinstance();
+                                            },
+                                          ));
+                                },
+                                child: CustomCardServiceRequest(
+                                  state: listFiltered[index]['state'],
+                                  //function: getinstance,
+                                  //id: listFiltered[index].id,
+                                  requestor: listFiltered[index]['requestor'],
+                                  //provider: listFiltered[index].provider,
+                                  title: listFiltered[index]['title'],
+                                  // description:
+                                  //     listFiltered[index].description,
+                                  // locationName: listFiltered[index].location.name,
+                                  // latitude: listFiltered
+                                  //     [index].location.coordinate.latitude,
+                                  // longitude: listFiltered
+                                  //     [index].location.coordinate.longitude,
+                                  // state: listFiltered[index].state,
+                                  rate: listFiltered[index]['rate'],
+                                  // applicants: listFiltered[index].applicants,
+                                  // created: listFiltered[index].createdAt,
+                                  // updated: listFiltered[index].updatedAt,
+                                  // completed: listFiltered[index].completedAt,
+                                  // media: listFiltered[index].mediaAttachments,
+                                ),
+                              );
+                            } else {
+                              if (finalCount < 6) {
+                                return const Center(
+                                    child: Text('No more data...'));
+                              }
+                              if (finalCount < from) {
+                                return const Center(
+                                    child: Text('No more data...'));
+                              } else {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              }
+                            }
                           },
                         ),
                       ),
