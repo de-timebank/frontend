@@ -5,7 +5,7 @@ import '../bin/common.dart';
 import '../bin/searchfunction.dart';
 import '../components/constants.dart';
 import '../custom widgets/customCardServiceRequest.dart';
-import '../request pages/request details/requestDetails.dart';
+import '../request pages/requestDetails.dart';
 
 class AvailableServices extends StatefulWidget {
   AvailableServices({Key? key}) : super(key: key);

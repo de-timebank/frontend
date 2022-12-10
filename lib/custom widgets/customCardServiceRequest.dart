@@ -67,6 +67,7 @@ class _CustomCardServiceRequestState extends State<CustomCardServiceRequest> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Flexible(
+                    fit: FlexFit.tight,
                     flex: 4,
                     child: Container(
                       padding: const EdgeInsets.all(15.0),
@@ -88,9 +89,23 @@ class _CustomCardServiceRequestState extends State<CustomCardServiceRequest> {
                     ),
                   ),
                   Flexible(
-                      flex: 3,
+                      flex: 2,
+                      child: Container(
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 219, 216, 233),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              '${widget.state.toString().titleCase()}',
+                              style: TextStyle(
+                                  fontSize: 10, fontWeight: FontWeight.bold),
+                            ),
+                          ))),
+                  Flexible(
+                      flex: 4,
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.only(right: 8.0),
                         child: Container(
                             decoration: BoxDecoration(
                                 color: Color.fromARGB(255, 219, 216, 233),
@@ -99,7 +114,7 @@ class _CustomCardServiceRequestState extends State<CustomCardServiceRequest> {
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 '${widget.rate} \$Time/hour',
-                                style: TextStyle(fontSize: 14),
+                                style: TextStyle(fontSize: 12),
                               ),
                             )),
                       )),

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/custom%20widgets/customHeadline.dart';
+import 'package:testfyp/request%20pages/requestDetails1.dart';
 import '../bin/client_service_request.dart';
 import '../bin/common.dart';
 import '../bin/searchfunction.dart';
 import '../components/constants.dart';
 import '../custom widgets/customCardServiceRequest.dart';
 import '../generated/misc.pb.dart';
-import '../request pages/request details/requestDetails.dart';
+import '../request pages/requestDetails.dart';
 
 class AvailableServices extends StatefulWidget {
   AvailableServices({Key? key}) : super(key: key);
@@ -27,6 +28,7 @@ class _AvailableServicesState extends State<AvailableServices> {
   late int to;
   late int finalCount;
   late dynamic data;
+  // late String state1 = 'Pending';
   // late Filter _filter;
   final _scrollController = ScrollController();
   final _categoryController = TextEditingController();
@@ -42,7 +44,6 @@ class _AvailableServicesState extends State<AvailableServices> {
     'Transportation',
     'Wellness',
   ];
-  //List<String> _listuserCurrent = [];
 
   @override
   void initState() {
@@ -72,12 +73,27 @@ class _AvailableServicesState extends State<AvailableServices> {
     super.dispose();
   }
 
+  changeState(state) {
+    switch (state) {
+      case 0:
+        return 'Pending';
+      case 1:
+        return 'Accepted';
+      case 2:
+        return 'Ongoing';
+      case 3:
+        return 'Completed';
+      case 4:
+        return 'Aborted';
+    }
+  }
+
   void fetch() async {
     //setState(() {});
     from += 7;
     to += 7;
-    print('from ' + from.toString());
-    print('to ' + to.toString());
+    // print('from ' + from.toString());
+    // print('to ' + to.toString());
     final data1;
     //print('fetching data...');
     if (_categoryController.text == 'All Categories') {
@@ -85,12 +101,14 @@ class _AvailableServicesState extends State<AvailableServices> {
           .from('service_requests')
           .select()
           .neq('requestor', user)
+          .eq('state', 0)
           .range(from, to);
     } else {
       data1 = await supabase
           .from('service_requests')
           .select()
           .neq('requestor', user)
+          .eq('state', 0)
           .eq('category', _categoryController.text)
           .range(from, to);
     }
@@ -135,10 +153,12 @@ class _AvailableServicesState extends State<AvailableServices> {
           .from('service_requests')
           .select()
           .neq('requestor', user)
+          .eq('state', 0)
           .range(from, to));
       data = await supabase
           .from('service_requests')
           .select()
+          .eq('state', 0)
           .neq('requestor', user);
     } else {
       listFiltered.addAll(await supabase
@@ -146,11 +166,13 @@ class _AvailableServicesState extends State<AvailableServices> {
           .select()
           .neq('requestor', user)
           .eq('category', _categoryController.text)
+          .eq('state', 0)
           .range(from, to));
       data = await supabase
           .from('service_requests')
           .select()
           .neq('requestor', user)
+          .eq('state', 0)
           .eq('category', _categoryController.text);
     }
     // from += 7;
@@ -164,7 +186,7 @@ class _AvailableServicesState extends State<AvailableServices> {
     // to += 7;
 
     finalCount = data.length;
-    print('the final count is $finalCount');
+    //print('the final count is $finalCount');
     // print(data['id']);
     //listFiltered.addAll(data);
     // print(listFiltered);
@@ -359,44 +381,11 @@ class _AvailableServicesState extends State<AvailableServices> {
                                 onTap: () {
                                   Navigator.of(context)
                                       .push(MaterialPageRoute(
-                                          builder: (context) => RequestDetails(
-                                                category: listFiltered[index]
-                                                    ['category'],
-                                                isRequest: false,
-                                                user: user,
-                                                id: listFiltered[index]['id'],
-                                                requestor: listFiltered[index]
-                                                    ['requestor'],
-                                                provider: listFiltered[index]
-                                                    ['provider'],
-                                                title: listFiltered[index]
-                                                    ['title'],
-                                                description: listFiltered[index]
-                                                    ['description'],
-                                                locationName:
-                                                    listFiltered[index]
-                                                        ['location']['name'],
-                                                latitude: listFiltered[index]
-                                                        ['location']
-                                                    ['coordinate']['latitude'],
-                                                longitude: listFiltered[index]
-                                                        ['location']
-                                                    ['coordinate']['longitude'],
-                                                state: listFiltered[index]
-                                                    ['state'],
-                                                rate: listFiltered[index]
-                                                    ['rate'],
-                                                applicants: listFiltered[index]
-                                                    ['applicants'],
-                                                created: listFiltered[index]
-                                                    ['createdAt'],
-                                                updated: listFiltered[index]
-                                                    ['updatedAt'],
-                                                completed: listFiltered[index]
-                                                    ['completedAt'],
-                                                media: listFiltered[index]
-                                                    ['mediaAttachments'],
-                                              )))
+                                          builder: (context) => RequestDetails1(
+                                              requestId: listFiltered[index]
+                                                  ['id'],
+                                              isRequest: false,
+                                              user: user)))
                                       .then((value) => setState(
                                             () {
                                               //_isEmpty = true;
@@ -405,26 +394,11 @@ class _AvailableServicesState extends State<AvailableServices> {
                                           ));
                                 },
                                 child: CustomCardServiceRequest(
-                                  state: listFiltered[index]['state'],
-                                  //function: getinstance,
-                                  //id: listFiltered[index].id,
+                                  state:
+                                      changeState(listFiltered[index]['state']),
                                   requestor: listFiltered[index]['requestor'],
-                                  //provider: listFiltered[index].provider,
                                   title: listFiltered[index]['title'],
-                                  // description:
-                                  //     listFiltered[index].description,
-                                  // locationName: listFiltered[index].location.name,
-                                  // latitude: listFiltered
-                                  //     [index].location.coordinate.latitude,
-                                  // longitude: listFiltered
-                                  //     [index].location.coordinate.longitude,
-                                  // state: listFiltered[index].state,
                                   rate: listFiltered[index]['rate'],
-                                  // applicants: listFiltered[index].applicants,
-                                  // created: listFiltered[index].createdAt,
-                                  // updated: listFiltered[index].updatedAt,
-                                  // completed: listFiltered[index].completedAt,
-                                  // media: listFiltered[index].mediaAttachments,
                                 ),
                               );
                             } else {
