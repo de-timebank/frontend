@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:testfyp/custom%20widgets/theme.dart';
 import 'package:testfyp/dashboard%20pages/serviceDashboardCard.dart';
+import 'package:testfyp/navigation.dart';
 import 'package:testfyp/rate%20pages/rateGiven.dart';
 import 'package:testfyp/request%20pages/request.dart';
 import '../components/constants.dart';
@@ -124,8 +125,11 @@ class _DashBoardState extends State<DashBoard> {
                           child: InkWell(
                             onTap: () {
                               //d_onItemTapped
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => RequestPage()));
+                              Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                      builder: (context) => BottomBarNavigation(
+                                            valueListenable: 1,
+                                          )));
 
                               // Navigator.of(context).pushReplacement(
                               //   CupertinoPageRoute(
@@ -167,8 +171,11 @@ class _DashBoardState extends State<DashBoard> {
                           //elevation: 5,
                           child: InkWell(
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => ServicePage()));
+                              Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                      builder: (context) => BottomBarNavigation(
+                                            valueListenable: 2,
+                                          )));
                             },
                             child: Column(
                               children: [

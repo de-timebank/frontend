@@ -1,4 +1,5 @@
 // import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/components/constants.dart';
@@ -9,7 +10,11 @@ import 'request pages/request.dart';
 import 'service pages/service.dart';
 
 class BottomBarNavigation extends StatefulWidget {
-  const BottomBarNavigation({Key? key}) : super(key: key);
+  final int valueListenable;
+  // final toRequest;
+  // final toService;
+  const BottomBarNavigation({Key? key, required this.valueListenable})
+      : super(key: key);
 
   @override
   State<BottomBarNavigation> createState() => _BottomBarNavigationState();
@@ -30,8 +35,7 @@ class _BottomBarNavigationState extends State<BottomBarNavigation> {
   // final ujaiahmad = '291b79a7-c67c-4783-b004-239cb334804d';
 
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-
-  int _selectedIndex = 0;
+  late int _selectedIndex;
   final session = supabase.auth.currentSession;
 
   final List<Widget> _widgetOptions = [
@@ -43,6 +47,15 @@ class _BottomBarNavigationState extends State<BottomBarNavigation> {
 
   @override
   void initState() {
+    if (widget.valueListenable == 0) {
+      _selectedIndex = 0;
+    } else if (widget.valueListenable == 1) {
+      _selectedIndex = 1;
+    } else {
+      _selectedIndex = 2;
+    }
+    // widget.toRequest ? _selectedIndex = 1 : _selectedIndex = 0;
+    // widget.toService ? _selectedIndex = 2 : _selectedIndex = 0;
     // _common = Common();
     // isLoad = true;
     // _isEmpty = true;
