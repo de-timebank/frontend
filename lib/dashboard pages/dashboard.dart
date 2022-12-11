@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:testfyp/bin/client_user.dart';
+import 'package:testfyp/bin/common.dart';
 import 'package:testfyp/custom%20widgets/theme.dart';
 import 'package:testfyp/dashboard%20pages/serviceDashboardCard.dart';
 import 'package:testfyp/navigation.dart';
@@ -34,6 +37,9 @@ class _DashBoardState extends State<DashBoard> {
       isLoading = true;
     });
     final user = supabase.auth.currentUser!.id;
+    // data = await ClientUser(Common().channel).getUserCreditBalance(user);
+    // print(data);
+
     data = await supabase
         .from('user_credits')
         .select()
@@ -100,7 +106,7 @@ class _DashBoardState extends State<DashBoard> {
                             Padding(
                               padding: EdgeInsets.all(10.0),
                               child: Text(
-                                  '\$ Time/hour: ${data!["total"].toStringAsFixed(2)}',
+                                  '\$ Time/hour: ${data["total"].toStringAsFixed(2)}',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white)),
@@ -125,11 +131,13 @@ class _DashBoardState extends State<DashBoard> {
                           child: InkWell(
                             onTap: () {
                               //d_onItemTapped
-                              Navigator.of(context)
-                                  .pushReplacement(MaterialPageRoute(
-                                      builder: (context) => BottomBarNavigation(
-                                            valueListenable: 1,
-                                          )));
+                              Navigator.of(context).pushReplacement(
+                                CupertinoPageRoute(
+                                  //fullscreenDialog: true,
+                                  builder: (BuildContext context) =>
+                                      BottomBarNavigation(valueListenable: 1),
+                                ),
+                              );
 
                               // Navigator.of(context).pushReplacement(
                               //   CupertinoPageRoute(
@@ -171,11 +179,17 @@ class _DashBoardState extends State<DashBoard> {
                           //elevation: 5,
                           child: InkWell(
                             onTap: () {
-                              Navigator.of(context)
-                                  .pushReplacement(MaterialPageRoute(
-                                      builder: (context) => BottomBarNavigation(
-                                            valueListenable: 2,
-                                          )));
+                              Navigator.of(context).pushReplacement(
+                                CupertinoPageRoute(
+                                  //fullscreenDialog: true,
+                                  builder: (BuildContext context) =>
+                                      BottomBarNavigation(valueListenable: 2),
+                                ),
+                                // MaterialPageRoute(
+                                //   builder: (context) => BottomBarNavigation(
+                                //         valueListenable: 2,
+                                //       ))
+                              );
                             },
                             child: Column(
                               children: [

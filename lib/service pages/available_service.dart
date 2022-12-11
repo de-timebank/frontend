@@ -4,7 +4,7 @@ import 'package:testfyp/custom%20widgets/customHeadline.dart';
 import 'package:testfyp/request%20pages/requestDetails1.dart';
 import '../bin/client_service_request.dart';
 import '../bin/common.dart';
-import '../bin/searchfunction.dart';
+import 'searchfunction.dart';
 import '../components/constants.dart';
 import '../custom widgets/customCardServiceRequest.dart';
 import '../generated/misc.pb.dart';
@@ -403,8 +403,10 @@ class _AvailableServicesState extends State<AvailableServices> {
                               );
                             } else {
                               if (finalCount < 6) {
-                                return const Center(
-                                    child: Text('No more data...'));
+                                return Padding(
+                                  padding: const EdgeInsets.only(left: 15.0),
+                                  child: Text('No more data...'),
+                                );
                               }
                               if (finalCount < from) {
                                 return const Center(
@@ -423,8 +425,7 @@ class _AvailableServicesState extends State<AvailableServices> {
           backgroundColor: Theme.of(context).secondaryHeaderColor,
           onPressed: () {
             showSearch(
-                context: context,
-                delegate: CustomSearchDelegate(listFiltered, user));
+                context: context, delegate: CustomSearchDelegate(data, user));
             //print(listFiltered);
           },
           icon: Icon(Icons.search),

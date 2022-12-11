@@ -5,6 +5,7 @@ import '../bin/common.dart';
 import '../components/constants.dart';
 import '../custom widgets/customCardServiceRequest.dart';
 import '../request pages/requestDetails.dart';
+import '../request pages/requestDetails1.dart';
 
 class YourServices extends StatefulWidget {
   YourServices({Key? key}) : super(key: key);
@@ -15,31 +16,111 @@ class YourServices extends StatefulWidget {
 
 class _YourServicesState extends State<YourServices> {
   late bool isLoad;
-  late dynamic listRequest;
+  // late dynamic listRequest;
   late dynamic listFiltered;
   late String user;
   late bool _isEmpty;
+  bool isRequest = true;
+  //for pagination
+  late int from;
+  late int to;
+  late int finalCount;
+  late dynamic data;
+  //for listview controller;
+  final _scrollController = ScrollController();
 
   @override
   void initState() {
     isLoad = true;
     _isEmpty = true;
+    _scrollController.addListener(
+      () {
+        if (_scrollController.position.maxScrollExtent ==
+            _scrollController.offset) {
+          fetch();
+          // from += 5;
+          // to += 5;
+
+        }
+      },
+    );
     getinstance();
     super.initState();
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  changeState(state) {
+    switch (state) {
+      case 0:
+        return 'Pending';
+      case 1:
+        return 'Accepted';
+      case 2:
+        return 'Ongoing';
+      case 3:
+        return 'Completed';
+      case 4:
+        return 'Aborted';
+    }
+  }
+
+  void fetch() async {
+    //setState(() {});
+    from += 7;
+    to += 7;
+    // print('from ' + from.toString());
+    // print('to ' + to.toString());
+    final data1;
+    //print('fetching data...');
+
+    data1 = await supabase
+        .from('service_requests')
+        .select()
+        .eq('requestor', user)
+        .eq('applicants', []).range(from, to);
+
+    // final data1 = await supabase
+    //     .from('service_requests')
+    //     .select()
+    //     .neq('requestor', user)
+    //     .range(from, to);
+    setState(() {
+      listFiltered.addAll(data1);
+    });
+
+    //print('new added list $listFiltered');
+    // print(listFiltered);
+    // print(listFiltered.length);
+  }
+
   void getinstance() async {
+    setState(() {
+      isLoad = true;
+      from = 0;
+      to = 6;
+    });
     listFiltered = [];
     user = supabase.auth.currentUser!.id;
 
-    listRequest =
-        await ClientServiceRequest(Common().channel).getResponse('state', '2');
-    //print(listRequest);
-    for (var i = 0; i < listRequest.requests.length; i++) {
-      if (listRequest.requests[i].requestor != user) {
-        listFiltered.add(listRequest.requests[i]);
-      }
-    }
+    listFiltered.addAll(await supabase
+        .from('service_requests')
+        .select()
+        .or('state.eq.1,state.eq.2')
+        .eq('provider', user)
+        .range(from, to));
+    data = await supabase
+        .from('service_requests')
+        .select()
+        .or('state.eq.1,state.eq.2')
+        .eq('provider', user);
+
+    finalCount = data.length;
     //print(listRequest);
     setState(() {
       isLoad = false;
@@ -80,59 +161,53 @@ class _YourServicesState extends State<YourServices> {
                         )),
                   ],
                 )
-              : ListView.builder(
-                  itemCount: listFiltered.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(
-                                builder: (context) => RequestDetails(
-                                      category: listFiltered[index].category,
-                                      isRequest: false,
-                                      user: user,
-                                      id: listFiltered[index].id,
-                                      requestor: listFiltered[index].requestor,
-                                      provider: listFiltered[index].provider,
-                                      title: listFiltered[index].title,
-                                      description:
-                                          listFiltered[index].description,
-                                      locationName:
-                                          listFiltered[index].location.name,
-                                      latitude: listFiltered[index]
-                                          .location
-                                          .coordinate
-                                          .latitude,
-                                      longitude: listFiltered[index]
-                                          .location
-                                          .coordinate
-                                          .longitude,
-                                      state: listFiltered[index].state,
-                                      rate: listFiltered[index].rate,
-                                      applicants:
-                                          listFiltered[index].applicants,
-                                      created: listFiltered[index].createdAt,
-                                      updated: listFiltered[index].updatedAt,
-                                      completed:
-                                          listFiltered[index].completedAt,
-                                      media:
-                                          listFiltered[index].mediaAttachments,
-                                    )))
-                            .then((value) => setState(
-                                  () {
-                                    //_isEmpty = true;
-                                    getinstance();
-                                  },
-                                ));
-                      },
-                      child: CustomCardServiceRequest(
-                        state: listFiltered[index].state,
-                        requestor: listFiltered[index].requestor,
-                        title: listFiltered[index].title,
-                        rate: listFiltered[index].rate,
-                      ),
-                    );
-                  },
+              : SizedBox(
+                  height: MediaQuery.of(context).size.height / 1.5,
+                  child: ListView.builder(
+                    controller: _scrollController,
+                    itemCount: listFiltered.length + 1,
+                    itemBuilder: (context, index) {
+                      if (index < listFiltered.length) {
+                        return InkWell(
+                          onTap: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(
+                                    builder: (context) => RequestDetails1(
+                                        requestId: listFiltered[index]['id'],
+                                        isRequest: isRequest,
+                                        user: user)))
+                                .then((value) => setState(
+                                      () {
+                                        getinstance();
+                                      },
+                                    ));
+                          },
+                          child: CustomCardServiceRequest(
+                            state: changeState(listFiltered[index]['state']),
+                            requestor: listFiltered[index]['requestor'],
+                            title: listFiltered[index]['title'],
+                            rate: listFiltered[index]['rate'],
+                          ),
+                        );
+                      } else {
+                        if (finalCount < 6) {
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 15.0),
+                            child: Text('No more data...'),
+                          );
+                        }
+                        if (finalCount < from) {
+                          return const Padding(
+                            padding: EdgeInsets.only(left: 15.0),
+                            child: Text('No more data...'),
+                          );
+                        } else {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                      }
+                    },
+                  ),
                 ),
       // floatingActionButton: FloatingActionButton.extended(
       //   backgroundColor: Color.fromARGB(255, 127, 17, 224),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:testfyp/custom%20widgets/customHeadline.dart';
 import '../bin/client_service_request.dart';
 import '../bin/common.dart';
-import '../bin/searchfunction.dart';
+import 'searchfunction.dart';
 import '../components/constants.dart';
 import '../custom widgets/customCardServiceRequest.dart';
 import '../request pages/requestDetails.dart';
