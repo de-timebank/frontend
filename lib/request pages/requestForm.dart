@@ -26,8 +26,8 @@ class _RequestFormState extends State<RequestForm> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _categoryController = TextEditingController();
-  final _latitudeController = TextEditingController();
-  final _longitudeController = TextEditingController();
+  final _stateController = TextEditingController();
+  final _cityController = TextEditingController();
   final _locationController = TextEditingController();
   final _rateController = TextEditingController();
   final _mediaController = TextEditingController();
@@ -127,8 +127,8 @@ class _RequestFormState extends State<RequestForm> {
         cityValue = place.locality.toString();
         stateValue = place.administrativeArea.toString();
         isLocationFetched = true;
-        // _latitudeController.text = position.latitude.toString();
-        // _longitudeController.text = position.longitude.toString();
+        // _stateController.text = position.latitude.toString();
+        // _cityController.text = position.longitude.toString();
         _locationController.text = address;
         //print(isLocationFetched);
       });
@@ -144,8 +144,8 @@ class _RequestFormState extends State<RequestForm> {
   //   try {
   //     List<Location> locations = await locationFromAddress(location);
   //     setState(() {
-  //       // _latitudeController.text = locations[0].latitude.toString();
-  //       // _longitudeController.text = locations[0].longitude.toString();
+  //       // _stateController.text = locations[0].latitude.toString();
+  //       // _cityController.text = locations[0].longitude.toString();
   //       //_locationController.text = Address;
   //     });
   //     context.showSnackBar(message: 'Location details added!!');
@@ -165,8 +165,8 @@ class _RequestFormState extends State<RequestForm> {
   void dispose() {
     _titleController.dispose();
     _descriptionController.dispose();
-    _latitudeController.dispose();
-    _longitudeController.dispose();
+    _stateController.dispose();
+    _cityController.dispose();
     _locationController.dispose();
     _rateController.dispose();
     _mediaController.dispose();
@@ -525,13 +525,13 @@ class _RequestFormState extends State<RequestForm> {
                     onStateChanged: (value) {
                       setState(() {
                         stateValue = value.toString();
-                        _latitudeController.text = stateValue;
+                        _stateController.text = stateValue;
                       });
                     },
                     onCityChanged: (value) {
                       setState(() {
                         cityValue = value.toString();
-                        _longitudeController.text = cityValue;
+                        _cityController.text = cityValue;
                       });
                     },
                   ),
@@ -600,7 +600,7 @@ class _RequestFormState extends State<RequestForm> {
                   // // ),
                   // // SizedBox(height: 8),
                   // TextFormField(
-                  //   controller: _latitudeController,
+                  //   controller: _stateController,
                   //   enabled: false,
                   //   decoration: InputDecoration(
                   //     errorStyle: TextStyle(
@@ -619,7 +619,7 @@ class _RequestFormState extends State<RequestForm> {
                   // ),
                   // SizedBox(height: 15),
                   // TextFormField(
-                  //   controller: _longitudeController,
+                  //   controller: _cityController,
                   //   enabled: false,
                   //   decoration: InputDecoration(
                   //       errorStyle: TextStyle(
@@ -781,9 +781,9 @@ class _RequestFormState extends State<RequestForm> {
                         //final _userCurrent = getCurrentUser(user);
                         //print(_userCurrent);
                         // print(stateValue == 'null');
-                        if (_latitudeController.text == 'null') {
+                        if (_stateController.text == 'null') {
                           context.showErrorSnackBar(message: 'Pick a state..');
-                        } else if (_longitudeController.text == 'null') {
+                        } else if (_cityController.text == 'null') {
                           context.showErrorSnackBar(message: 'Pick a city..');
                         } else if (_formKey.currentState!.validate()) {
                           var rate = double.parse(
@@ -793,8 +793,8 @@ class _RequestFormState extends State<RequestForm> {
                           _submitJobForm(
                               _titleController.text,
                               _descriptionController.text,
-                              _latitudeController.text,
-                              _longitudeController.text,
+                              _stateController.text,
+                              _cityController.text,
                               _locationController.text,
                               rate,
                               mediaList,

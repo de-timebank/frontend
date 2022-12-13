@@ -77,85 +77,29 @@ class ServiceRequestData_Details extends $pb.GeneratedMessage {
   void clearDescription() => clearField(2);
 }
 
-class ServiceRequestData_Location_Coordinate extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ServiceRequestData.Location.Coordinate', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'latitude')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'longitude')
-    ..hasRequiredFields = false
-  ;
-
-  ServiceRequestData_Location_Coordinate._() : super();
-  factory ServiceRequestData_Location_Coordinate({
-    $core.String? latitude,
-    $core.String? longitude,
-  }) {
-    final _result = create();
-    if (latitude != null) {
-      _result.latitude = latitude;
-    }
-    if (longitude != null) {
-      _result.longitude = longitude;
-    }
-    return _result;
-  }
-  factory ServiceRequestData_Location_Coordinate.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory ServiceRequestData_Location_Coordinate.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  ServiceRequestData_Location_Coordinate clone() => ServiceRequestData_Location_Coordinate()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  ServiceRequestData_Location_Coordinate copyWith(void Function(ServiceRequestData_Location_Coordinate) updates) => super.copyWith((message) => updates(message as ServiceRequestData_Location_Coordinate)) as ServiceRequestData_Location_Coordinate; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static ServiceRequestData_Location_Coordinate create() => ServiceRequestData_Location_Coordinate._();
-  ServiceRequestData_Location_Coordinate createEmptyInstance() => create();
-  static $pb.PbList<ServiceRequestData_Location_Coordinate> createRepeated() => $pb.PbList<ServiceRequestData_Location_Coordinate>();
-  @$core.pragma('dart2js:noInline')
-  static ServiceRequestData_Location_Coordinate getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ServiceRequestData_Location_Coordinate>(create);
-  static ServiceRequestData_Location_Coordinate? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get latitude => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set latitude($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasLatitude() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearLatitude() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.String get longitude => $_getSZ(1);
-  @$pb.TagNumber(2)
-  set longitude($core.String v) { $_setString(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasLongitude() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearLongitude() => clearField(2);
-}
-
 class ServiceRequestData_Location extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ServiceRequestData.Location', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
-    ..aOM<ServiceRequestData_Location_Coordinate>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coordinate', subBuilder: ServiceRequestData_Location_Coordinate.create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'address')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'city')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'state')
     ..hasRequiredFields = false
   ;
 
   ServiceRequestData_Location._() : super();
   factory ServiceRequestData_Location({
-    $core.String? name,
-    ServiceRequestData_Location_Coordinate? coordinate,
+    $core.String? address,
+    $core.String? city,
+    $core.String? state,
   }) {
     final _result = create();
-    if (name != null) {
-      _result.name = name;
+    if (address != null) {
+      _result.address = address;
     }
-    if (coordinate != null) {
-      _result.coordinate = coordinate;
+    if (city != null) {
+      _result.city = city;
+    }
+    if (state != null) {
+      _result.state = state;
     }
     return _result;
   }
@@ -181,24 +125,31 @@ class ServiceRequestData_Location extends $pb.GeneratedMessage {
   static ServiceRequestData_Location? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get name => $_getSZ(0);
+  $core.String get address => $_getSZ(0);
   @$pb.TagNumber(1)
-  set name($core.String v) { $_setString(0, v); }
+  set address($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasName() => $_has(0);
+  $core.bool hasAddress() => $_has(0);
   @$pb.TagNumber(1)
-  void clearName() => clearField(1);
+  void clearAddress() => clearField(1);
 
   @$pb.TagNumber(2)
-  ServiceRequestData_Location_Coordinate get coordinate => $_getN(1);
+  $core.String get city => $_getSZ(1);
   @$pb.TagNumber(2)
-  set coordinate(ServiceRequestData_Location_Coordinate v) { setField(2, v); }
+  set city($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasCoordinate() => $_has(1);
+  $core.bool hasCity() => $_has(1);
   @$pb.TagNumber(2)
-  void clearCoordinate() => clearField(2);
-  @$pb.TagNumber(2)
-  ServiceRequestData_Location_Coordinate ensureCoordinate() => $_ensure(1);
+  void clearCity() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get state => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set state($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasState() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearState() => clearField(3);
 }
 
 class ServiceRequestData extends $pb.GeneratedMessage {
@@ -478,19 +429,21 @@ class ServiceRequestData extends $pb.GeneratedMessage {
 
 class Create_NewServiceRequestData extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Create.NewServiceRequestData', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
-    ..aOM<ServiceRequestData_Details>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'details', subBuilder: ServiceRequestData_Details.create)
-    ..aOM<ServiceRequestData_Location>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'location', subBuilder: ServiceRequestData_Location.create)
-    ..a<$core.double>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'rate', $pb.PbFieldType.OF)
-    ..pPS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'mediaAttachments')
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'category')
-    ..a<$core.double>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timeLimit', $pb.PbFieldType.OF)
-    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'date')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
+    ..aOM<ServiceRequestData_Location>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'location', subBuilder: ServiceRequestData_Location.create)
+    ..a<$core.double>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'rate', $pb.PbFieldType.OF)
+    ..pPS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'mediaAttachments')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'category')
+    ..a<$core.double>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timeLimit', $pb.PbFieldType.OF)
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'date')
     ..hasRequiredFields = false
   ;
 
   Create_NewServiceRequestData._() : super();
   factory Create_NewServiceRequestData({
-    ServiceRequestData_Details? details,
+    $core.String? title,
+    $core.String? description,
     ServiceRequestData_Location? location,
     $core.double? rate,
     $core.Iterable<$core.String>? mediaAttachments,
@@ -499,8 +452,11 @@ class Create_NewServiceRequestData extends $pb.GeneratedMessage {
     $core.String? date,
   }) {
     final _result = create();
-    if (details != null) {
-      _result.details = details;
+    if (title != null) {
+      _result.title = title;
+    }
+    if (description != null) {
+      _result.description = description;
     }
     if (location != null) {
       _result.location = location;
@@ -544,65 +500,72 @@ class Create_NewServiceRequestData extends $pb.GeneratedMessage {
   static Create_NewServiceRequestData? _defaultInstance;
 
   @$pb.TagNumber(1)
-  ServiceRequestData_Details get details => $_getN(0);
+  $core.String get title => $_getSZ(0);
   @$pb.TagNumber(1)
-  set details(ServiceRequestData_Details v) { setField(1, v); }
+  set title($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasDetails() => $_has(0);
+  $core.bool hasTitle() => $_has(0);
   @$pb.TagNumber(1)
-  void clearDetails() => clearField(1);
-  @$pb.TagNumber(1)
-  ServiceRequestData_Details ensureDetails() => $_ensure(0);
+  void clearTitle() => clearField(1);
 
   @$pb.TagNumber(2)
-  ServiceRequestData_Location get location => $_getN(1);
+  $core.String get description => $_getSZ(1);
   @$pb.TagNumber(2)
-  set location(ServiceRequestData_Location v) { setField(2, v); }
+  set description($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasLocation() => $_has(1);
+  $core.bool hasDescription() => $_has(1);
   @$pb.TagNumber(2)
-  void clearLocation() => clearField(2);
-  @$pb.TagNumber(2)
-  ServiceRequestData_Location ensureLocation() => $_ensure(1);
+  void clearDescription() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.double get rate => $_getN(2);
+  ServiceRequestData_Location get location => $_getN(2);
   @$pb.TagNumber(3)
-  set rate($core.double v) { $_setFloat(2, v); }
+  set location(ServiceRequestData_Location v) { setField(3, v); }
   @$pb.TagNumber(3)
-  $core.bool hasRate() => $_has(2);
+  $core.bool hasLocation() => $_has(2);
   @$pb.TagNumber(3)
-  void clearRate() => clearField(3);
+  void clearLocation() => clearField(3);
+  @$pb.TagNumber(3)
+  ServiceRequestData_Location ensureLocation() => $_ensure(2);
 
   @$pb.TagNumber(4)
-  $core.List<$core.String> get mediaAttachments => $_getList(3);
+  $core.double get rate => $_getN(3);
+  @$pb.TagNumber(4)
+  set rate($core.double v) { $_setFloat(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasRate() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearRate() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.String get category => $_getSZ(4);
-  @$pb.TagNumber(5)
-  set category($core.String v) { $_setString(4, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasCategory() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearCategory() => clearField(5);
+  $core.List<$core.String> get mediaAttachments => $_getList(4);
 
   @$pb.TagNumber(6)
-  $core.double get timeLimit => $_getN(5);
+  $core.String get category => $_getSZ(5);
   @$pb.TagNumber(6)
-  set timeLimit($core.double v) { $_setFloat(5, v); }
+  set category($core.String v) { $_setString(5, v); }
   @$pb.TagNumber(6)
-  $core.bool hasTimeLimit() => $_has(5);
+  $core.bool hasCategory() => $_has(5);
   @$pb.TagNumber(6)
-  void clearTimeLimit() => clearField(6);
+  void clearCategory() => clearField(6);
 
   @$pb.TagNumber(7)
-  $core.String get date => $_getSZ(6);
+  $core.double get timeLimit => $_getN(6);
   @$pb.TagNumber(7)
-  set date($core.String v) { $_setString(6, v); }
+  set timeLimit($core.double v) { $_setFloat(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasDate() => $_has(6);
+  $core.bool hasTimeLimit() => $_has(6);
   @$pb.TagNumber(7)
-  void clearDate() => clearField(7);
+  void clearTimeLimit() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get date => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set date($core.String v) { $_setString(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasDate() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearDate() => clearField(8);
 }
 
 class Create_Request extends $pb.GeneratedMessage {

@@ -175,7 +175,7 @@ class _CompletedServicesState extends State<CompletedServices> {
                                 .push(MaterialPageRoute(
                                     builder: (context) => RequestDetails1(
                                         requestId: listFiltered[index]['id'],
-                                        isRequest: isRequest,
+                                        isRequest: false,
                                         user: user)))
                                 .then((value) => setState(
                                       () {

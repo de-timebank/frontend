@@ -189,12 +189,13 @@ const GetCreditBalance_Request$json = const {
 const GetCreditBalance_Response$json = const {
   '1': 'Response',
   '2': const [
-    const {'1': 'balance', '3': 1, '4': 1, '5': 4, '10': 'balance'},
+    const {'1': 'total', '3': 1, '4': 1, '5': 2, '10': 'total'},
+    const {'1': 'reserved', '3': 2, '4': 1, '5': 2, '10': 'reserved'},
   ],
 };
 
 /// Descriptor for `GetCreditBalance`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getCreditBalanceDescriptor = $convert.base64Decode('ChBHZXRDcmVkaXRCYWxhbmNlGiIKB1JlcXVlc3QSFwoHdXNlcl9pZBgBIAEoCVIGdXNlcklkGiQKCFJlc3BvbnNlEhgKB2JhbGFuY2UYASABKARSB2JhbGFuY2U=');
+final $typed_data.Uint8List getCreditBalanceDescriptor = $convert.base64Decode('ChBHZXRDcmVkaXRCYWxhbmNlGiIKB1JlcXVlc3QSFwoHdXNlcl9pZBgBIAEoCVIGdXNlcklkGjwKCFJlc3BvbnNlEhQKBXRvdGFsGAEgASgCUgV0b3RhbBIaCghyZXNlcnZlZBgCIAEoAlIIcmVzZXJ2ZWQ=');
 @$core.Deprecated('Use profileSummaryDescriptor instead')
 const ProfileSummary$json = const {
   '1': 'ProfileSummary',

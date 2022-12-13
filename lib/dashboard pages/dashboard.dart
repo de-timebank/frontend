@@ -37,14 +37,14 @@ class _DashBoardState extends State<DashBoard> {
       isLoading = true;
     });
     final user = supabase.auth.currentUser!.id;
-    // data = await ClientUser(Common().channel).getUserCreditBalance(user);
-    // print(data);
+    data = await ClientUser(Common().channel).getUserCreditBalance(user);
+    //print(data);
 
-    data = await supabase
-        .from('user_credits')
-        .select()
-        .eq('user_id', user)
-        .single() as Map;
+    // data = await supabase
+    //     .from('user_credits')
+    //     .select()
+    //     .eq('user_id', user)
+    //     .single() as Map;
 
     setState(() {
       isLoading = false;
@@ -62,7 +62,7 @@ class _DashBoardState extends State<DashBoard> {
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 15),
         child: isLoading
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -106,7 +106,7 @@ class _DashBoardState extends State<DashBoard> {
                             Padding(
                               padding: EdgeInsets.all(10.0),
                               child: Text(
-                                  '\$ Time/hour: ${data["total"].toStringAsFixed(2)}',
+                                  '\$ Time/hour: ${data.total.toStringAsFixed(2)}',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white)),

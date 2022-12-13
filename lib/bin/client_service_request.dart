@@ -34,14 +34,12 @@ class ClientServiceRequest {
       String date) async {
     return await stub.create(Create_Request(
         requestData: Create_NewServiceRequestData(
-            details: ServiceRequestData_Details()
-              ..title = title
-              ..description = description,
-            location: ServiceRequestData_Location(
-                coordinate: ServiceRequestData_Location_Coordinate()
-                  ..latitude = latitude
-                  ..longitude = longitude)
-              ..name = locName)
+            location: ServiceRequestData_Location()
+              ..address = locName
+              ..state = latitude
+              ..city = longitude)
+          ..title = title
+          ..description = description
           ..timeLimit = timeLimit
           ..date = date
           ..rate = rate

@@ -239,8 +239,12 @@ class _RatingDetailsState extends State<RatingDetails> {
                   widget.isProvider
                       ? TextButton(
                           onPressed: () {
+                            // var ratingFor = '';
+                            // if (widget.ratingFor == 'provider') {
+                            //   ratingFor = widget.ratingFor;
+                            // }
                             //print(id);
-                            //_deleteRating(widget.id, 'provider');
+                            _deleteRating(widget.requestId, widget.ratingFor);
 
                             //Navigator.of(context).popUntil((route) => route.i);
                             //Navigator.of(context).pushNamed('/navigation');

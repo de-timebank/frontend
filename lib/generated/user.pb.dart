@@ -7,7 +7,6 @@
 
 import 'dart:core' as $core;
 
-import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'collection/rating.pb.dart' as $0;
@@ -998,17 +997,22 @@ class GetCreditBalance_Request extends $pb.GeneratedMessage {
 
 class GetCreditBalance_Response extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetCreditBalance.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'user'), createEmptyInstance: create)
-    ..a<$fixnum.Int64>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'balance', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..a<$core.double>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'total', $pb.PbFieldType.OF)
+    ..a<$core.double>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'reserved', $pb.PbFieldType.OF)
     ..hasRequiredFields = false
   ;
 
   GetCreditBalance_Response._() : super();
   factory GetCreditBalance_Response({
-    $fixnum.Int64? balance,
+    $core.double? total,
+    $core.double? reserved,
   }) {
     final _result = create();
-    if (balance != null) {
-      _result.balance = balance;
+    if (total != null) {
+      _result.total = total;
+    }
+    if (reserved != null) {
+      _result.reserved = reserved;
     }
     return _result;
   }
@@ -1034,13 +1038,22 @@ class GetCreditBalance_Response extends $pb.GeneratedMessage {
   static GetCreditBalance_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $fixnum.Int64 get balance => $_getI64(0);
+  $core.double get total => $_getN(0);
   @$pb.TagNumber(1)
-  set balance($fixnum.Int64 v) { $_setInt64(0, v); }
+  set total($core.double v) { $_setFloat(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasBalance() => $_has(0);
+  $core.bool hasTotal() => $_has(0);
   @$pb.TagNumber(1)
-  void clearBalance() => clearField(1);
+  void clearTotal() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.double get reserved => $_getN(1);
+  @$pb.TagNumber(2)
+  set reserved($core.double v) { $_setFloat(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasReserved() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearReserved() => clearField(2);
 }
 
 class GetCreditBalance extends $pb.GeneratedMessage {

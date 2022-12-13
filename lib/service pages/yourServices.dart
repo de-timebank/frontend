@@ -20,7 +20,7 @@ class _YourServicesState extends State<YourServices> {
   late dynamic listFiltered;
   late String user;
   late bool _isEmpty;
-  bool isRequest = true;
+  //bool isRequest = false;
   //for pagination
   late int from;
   late int to;
@@ -174,7 +174,7 @@ class _YourServicesState extends State<YourServices> {
                                 .push(MaterialPageRoute(
                                     builder: (context) => RequestDetails1(
                                         requestId: listFiltered[index]['id'],
-                                        isRequest: isRequest,
+                                        isRequest: false,
                                         user: user)))
                                 .then((value) => setState(
                                       () {

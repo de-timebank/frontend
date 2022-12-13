@@ -53,18 +53,9 @@ const ServiceRequestData_Details$json = const {
 const ServiceRequestData_Location$json = const {
   '1': 'Location',
   '2': const [
-    const {'1': 'name', '3': 1, '4': 1, '5': 9, '10': 'name'},
-    const {'1': 'coordinate', '3': 2, '4': 1, '5': 11, '6': '.servicerequest.ServiceRequestData.Location.Coordinate', '10': 'coordinate'},
-  ],
-  '3': const [ServiceRequestData_Location_Coordinate$json],
-};
-
-@$core.Deprecated('Use serviceRequestDataDescriptor instead')
-const ServiceRequestData_Location_Coordinate$json = const {
-  '1': 'Coordinate',
-  '2': const [
-    const {'1': 'latitude', '3': 1, '4': 1, '5': 9, '10': 'latitude'},
-    const {'1': 'longitude', '3': 2, '4': 1, '5': 9, '10': 'longitude'},
+    const {'1': 'address', '3': 1, '4': 1, '5': 9, '10': 'address'},
+    const {'1': 'city', '3': 2, '4': 1, '5': 9, '10': 'city'},
+    const {'1': 'state', '3': 3, '4': 1, '5': 9, '10': 'state'},
   ],
 };
 
@@ -81,7 +72,7 @@ const ServiceRequestData_State$json = const {
 };
 
 /// Descriptor for `ServiceRequestData`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List serviceRequestDataDescriptor = $convert.base64Decode('ChJTZXJ2aWNlUmVxdWVzdERhdGESDgoCaWQYASABKAlSAmlkEhwKCXJlcXVlc3RvchgCIAEoCVIJcmVxdWVzdG9yEh8KCHByb3ZpZGVyGAMgASgJSABSCHByb3ZpZGVyiAEBEkcKCGxvY2F0aW9uGAQgASgLMisuc2VydmljZXJlcXVlc3QuU2VydmljZVJlcXVlc3REYXRhLkxvY2F0aW9uUghsb2NhdGlvbhI+CgVzdGF0ZRgFIAEoDjIoLnNlcnZpY2VyZXF1ZXN0LlNlcnZpY2VSZXF1ZXN0RGF0YS5TdGF0ZVIFc3RhdGUSFAoFdGl0bGUYBiABKAlSBXRpdGxlEiAKC2Rlc2NyaXB0aW9uGAcgASgJUgtkZXNjcmlwdGlvbhIrChFtZWRpYV9hdHRhY2htZW50cxgIIAMoCVIQbWVkaWFBdHRhY2htZW50cxISCgRyYXRlGAkgASgCUgRyYXRlEh4KCmFwcGxpY2FudHMYCiADKAlSCmFwcGxpY2FudHMSHQoKY3JlYXRlZF9hdBgLIAEoCVIJY3JlYXRlZEF0Eh0KCnVwZGF0ZWRfYXQYDCABKAlSCXVwZGF0ZWRBdBImCgxjb21wbGV0ZWRfYXQYDSABKAlIAVILY29tcGxldGVkQXSIAQESGgoIY2F0ZWdvcnkYDiABKAlSCGNhdGVnb3J5Eh0KCnN0YXJ0ZWRfYXQYDyABKAlSCXN0YXJ0ZWRBdBIdCgp0aW1lX2xpbWl0GBAgASgCUgl0aW1lTGltaXQSKgoOYWN0dWFsX3BheW1lbnQYESABKAJIAlINYWN0dWFsUGF5bWVudIgBARISCgRkYXRlGBIgASgJUgRkYXRlGkEKB0RldGFpbHMSFAoFdGl0bGUYASABKAlSBXRpdGxlEiAKC2Rlc2NyaXB0aW9uGAIgASgJUgtkZXNjcmlwdGlvbhq+AQoITG9jYXRpb24SEgoEbmFtZRgBIAEoCVIEbmFtZRJWCgpjb29yZGluYXRlGAIgASgLMjYuc2VydmljZXJlcXVlc3QuU2VydmljZVJlcXVlc3REYXRhLkxvY2F0aW9uLkNvb3JkaW5hdGVSCmNvb3JkaW5hdGUaRgoKQ29vcmRpbmF0ZRIaCghsYXRpdHVkZRgBIAEoCVIIbGF0aXR1ZGUSHAoJbG9uZ2l0dWRlGAIgASgJUglsb25naXR1ZGUiSwoFU3RhdGUSCwoHUEVORElORxAAEgwKCEFDQ0VQVEVEEAESCwoHT05HT0lORxACEg0KCUNPTVBMRVRFRBADEgsKB0FCT1JURUQQBEILCglfcHJvdmlkZXJCDwoNX2NvbXBsZXRlZF9hdEIRCg9fYWN0dWFsX3BheW1lbnQ=');
+final $typed_data.Uint8List serviceRequestDataDescriptor = $convert.base64Decode('ChJTZXJ2aWNlUmVxdWVzdERhdGESDgoCaWQYASABKAlSAmlkEhwKCXJlcXVlc3RvchgCIAEoCVIJcmVxdWVzdG9yEh8KCHByb3ZpZGVyGAMgASgJSABSCHByb3ZpZGVyiAEBEkcKCGxvY2F0aW9uGAQgASgLMisuc2VydmljZXJlcXVlc3QuU2VydmljZVJlcXVlc3REYXRhLkxvY2F0aW9uUghsb2NhdGlvbhI+CgVzdGF0ZRgFIAEoDjIoLnNlcnZpY2VyZXF1ZXN0LlNlcnZpY2VSZXF1ZXN0RGF0YS5TdGF0ZVIFc3RhdGUSFAoFdGl0bGUYBiABKAlSBXRpdGxlEiAKC2Rlc2NyaXB0aW9uGAcgASgJUgtkZXNjcmlwdGlvbhIrChFtZWRpYV9hdHRhY2htZW50cxgIIAMoCVIQbWVkaWFBdHRhY2htZW50cxISCgRyYXRlGAkgASgCUgRyYXRlEh4KCmFwcGxpY2FudHMYCiADKAlSCmFwcGxpY2FudHMSHQoKY3JlYXRlZF9hdBgLIAEoCVIJY3JlYXRlZEF0Eh0KCnVwZGF0ZWRfYXQYDCABKAlSCXVwZGF0ZWRBdBImCgxjb21wbGV0ZWRfYXQYDSABKAlIAVILY29tcGxldGVkQXSIAQESGgoIY2F0ZWdvcnkYDiABKAlSCGNhdGVnb3J5Eh0KCnN0YXJ0ZWRfYXQYDyABKAlSCXN0YXJ0ZWRBdBIdCgp0aW1lX2xpbWl0GBAgASgCUgl0aW1lTGltaXQSKgoOYWN0dWFsX3BheW1lbnQYESABKAJIAlINYWN0dWFsUGF5bWVudIgBARISCgRkYXRlGBIgASgJUgRkYXRlGkEKB0RldGFpbHMSFAoFdGl0bGUYASABKAlSBXRpdGxlEiAKC2Rlc2NyaXB0aW9uGAIgASgJUgtkZXNjcmlwdGlvbhpOCghMb2NhdGlvbhIYCgdhZGRyZXNzGAEgASgJUgdhZGRyZXNzEhIKBGNpdHkYAiABKAlSBGNpdHkSFAoFc3RhdGUYAyABKAlSBXN0YXRlIksKBVN0YXRlEgsKB1BFTkRJTkcQABIMCghBQ0NFUFRFRBABEgsKB09OR09JTkcQAhINCglDT01QTEVURUQQAxILCgdBQk9SVEVEEARCCwoJX3Byb3ZpZGVyQg8KDV9jb21wbGV0ZWRfYXRCEQoPX2FjdHVhbF9wYXltZW50');
 @$core.Deprecated('Use createDescriptor instead')
 const Create$json = const {
   '1': 'Create',
@@ -92,13 +83,14 @@ const Create$json = const {
 const Create_NewServiceRequestData$json = const {
   '1': 'NewServiceRequestData',
   '2': const [
-    const {'1': 'details', '3': 1, '4': 1, '5': 11, '6': '.servicerequest.ServiceRequestData.Details', '10': 'details'},
-    const {'1': 'location', '3': 2, '4': 1, '5': 11, '6': '.servicerequest.ServiceRequestData.Location', '10': 'location'},
-    const {'1': 'rate', '3': 3, '4': 1, '5': 2, '10': 'rate'},
-    const {'1': 'media_attachments', '3': 4, '4': 3, '5': 9, '10': 'mediaAttachments'},
-    const {'1': 'category', '3': 5, '4': 1, '5': 9, '10': 'category'},
-    const {'1': 'time_limit', '3': 6, '4': 1, '5': 2, '10': 'timeLimit'},
-    const {'1': 'date', '3': 7, '4': 1, '5': 9, '10': 'date'},
+    const {'1': 'title', '3': 1, '4': 1, '5': 9, '10': 'title'},
+    const {'1': 'description', '3': 2, '4': 1, '5': 9, '10': 'description'},
+    const {'1': 'location', '3': 3, '4': 1, '5': 11, '6': '.servicerequest.ServiceRequestData.Location', '10': 'location'},
+    const {'1': 'rate', '3': 4, '4': 1, '5': 2, '10': 'rate'},
+    const {'1': 'media_attachments', '3': 5, '4': 3, '5': 9, '10': 'mediaAttachments'},
+    const {'1': 'category', '3': 6, '4': 1, '5': 9, '10': 'category'},
+    const {'1': 'time_limit', '3': 7, '4': 1, '5': 2, '10': 'timeLimit'},
+    const {'1': 'date', '3': 8, '4': 1, '5': 9, '10': 'date'},
   ],
 };
 
@@ -120,7 +112,7 @@ const Create_Response$json = const {
 };
 
 /// Descriptor for `Create`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List createDescriptor = $convert.base64Decode('CgZDcmVhdGUatgIKFU5ld1NlcnZpY2VSZXF1ZXN0RGF0YRJECgdkZXRhaWxzGAEgASgLMiouc2VydmljZXJlcXVlc3QuU2VydmljZVJlcXVlc3REYXRhLkRldGFpbHNSB2RldGFpbHMSRwoIbG9jYXRpb24YAiABKAsyKy5zZXJ2aWNlcmVxdWVzdC5TZXJ2aWNlUmVxdWVzdERhdGEuTG9jYXRpb25SCGxvY2F0aW9uEhIKBHJhdGUYAyABKAJSBHJhdGUSKwoRbWVkaWFfYXR0YWNobWVudHMYBCADKAlSEG1lZGlhQXR0YWNobWVudHMSGgoIY2F0ZWdvcnkYBSABKAlSCGNhdGVnb3J5Eh0KCnRpbWVfbGltaXQYBiABKAJSCXRpbWVMaW1pdBISCgRkYXRlGAcgASgJUgRkYXRlGngKB1JlcXVlc3QSTwoMcmVxdWVzdF9kYXRhGAEgASgLMiwuc2VydmljZXJlcXVlc3QuQ3JlYXRlLk5ld1NlcnZpY2VSZXF1ZXN0RGF0YVILcmVxdWVzdERhdGESHAoJcmVxdWVzdG9yGAIgASgJUglyZXF1ZXN0b3IaSAoIUmVzcG9uc2USPAoHcmVxdWVzdBgBIAEoCzIiLnNlcnZpY2VyZXF1ZXN0LlNlcnZpY2VSZXF1ZXN0RGF0YVIHcmVxdWVzdA==');
+final $typed_data.Uint8List createDescriptor = $convert.base64Decode('CgZDcmVhdGUaqAIKFU5ld1NlcnZpY2VSZXF1ZXN0RGF0YRIUCgV0aXRsZRgBIAEoCVIFdGl0bGUSIAoLZGVzY3JpcHRpb24YAiABKAlSC2Rlc2NyaXB0aW9uEkcKCGxvY2F0aW9uGAMgASgLMisuc2VydmljZXJlcXVlc3QuU2VydmljZVJlcXVlc3REYXRhLkxvY2F0aW9uUghsb2NhdGlvbhISCgRyYXRlGAQgASgCUgRyYXRlEisKEW1lZGlhX2F0dGFjaG1lbnRzGAUgAygJUhBtZWRpYUF0dGFjaG1lbnRzEhoKCGNhdGVnb3J5GAYgASgJUghjYXRlZ29yeRIdCgp0aW1lX2xpbWl0GAcgASgCUgl0aW1lTGltaXQSEgoEZGF0ZRgIIAEoCVIEZGF0ZRp4CgdSZXF1ZXN0Ek8KDHJlcXVlc3RfZGF0YRgBIAEoCzIsLnNlcnZpY2VyZXF1ZXN0LkNyZWF0ZS5OZXdTZXJ2aWNlUmVxdWVzdERhdGFSC3JlcXVlc3REYXRhEhwKCXJlcXVlc3RvchgCIAEoCVIJcmVxdWVzdG9yGkgKCFJlc3BvbnNlEjwKB3JlcXVlc3QYASABKAsyIi5zZXJ2aWNlcmVxdWVzdC5TZXJ2aWNlUmVxdWVzdERhdGFSB3JlcXVlc3Q=');
 @$core.Deprecated('Use deleteDescriptor instead')
 const Delete$json = const {
   '1': 'Delete',

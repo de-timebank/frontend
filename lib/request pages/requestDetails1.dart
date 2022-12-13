@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grpc/grpc.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/custom%20widgets/customDivider.dart';
+import 'package:testfyp/custom%20widgets/customHeadline.dart';
 import 'package:testfyp/custom%20widgets/theme.dart';
 import 'package:testfyp/extension_string.dart';
 import 'package:testfyp/other%20profile/viewProfile.dart';
@@ -54,6 +55,14 @@ class _RequestDetails1State extends State<RequestDetails1> {
 
   isComplete() {
     if (requestDetails.request.state.toString() == 'COMPLETED') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isAccepted() {
+    if (requestDetails.request.state.toString() == 'ACCEPTED') {
       return true;
     } else {
       return false;
@@ -133,7 +142,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
   void _getAllinstance() async {
     requestDetails = await ClientServiceRequest(Common().channel)
         .getResponseById(widget.requestId);
-    //print(requestDetails.request.mediaAttachments);
+    //print(requestDetails);
     _userRequestor = await ClientUser(Common().channel)
         .getUserById(requestDetails.request.requestor);
 
@@ -279,40 +288,92 @@ class _RequestDetails1State extends State<RequestDetails1> {
                 children: [
                   // Heading2('Job Id'),
                   // Text(widget.id),
-                  Heading2('Title'),
-                  Text(requestDetails.request.title.toString().capitalize()),
+                  Center(child: Heading2('Title')),
+                  Center(
+                      child: Text(requestDetails.request.title
+                          .toString()
+                          .capitalize())),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Heading2('Requestor'),
-                          Text(_userRequestor.user.name.toString().titleCase()),
-                        ],
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          // side: BorderSide(
+                          //   color: themeData1().secondaryHeaderColor,
+                          //   width: 3,
+                          // ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12)),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            //crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Heading2('Requestor'),
+                              Text(_userRequestor.user.name
+                                  .toString()
+                                  .titleCase()),
+                            ],
+                          ),
+                        ),
                       ),
-                      Column(
-                        children: [
-                          Heading2('State'),
-                          Text(requestDetails.request.state
-                              .toString()
-                              .capitalize()),
-                        ],
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          // side: BorderSide(
+                          //   color: themeData1().secondaryHeaderColor,
+                          //   width: 3,
+                          // ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12)),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Heading2('State'),
+                              Text(requestDetails.request.state
+                                  .toString()
+                                  .capitalize()),
+                            ],
+                          ),
+                        ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Heading2('Rate'),
-                          Text('\$time/hour ' +
-                              requestDetails.request.rate.toString()),
-                        ],
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          // side: BorderSide(
+                          //   color: themeData1().secondaryHeaderColor,
+                          //   width: 3,
+                          // ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12)),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            //crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Heading2('Rate'),
+                              Text('\$time/hour ' +
+                                  requestDetails.request.rate.toString()),
+                            ],
+                          ),
+                        ),
                       ),
                     ],
                   ),
                   SizedBox(height: 15),
                   widget.isRequest
                       ? Card(
+                          shape: RoundedRectangleBorder(
+                            // side: BorderSide(
+                            //   color: themeData1().secondaryHeaderColor,
+                            //   width: 3,
+                            // ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(12)),
+                          ),
                           elevation: 5,
                           child: Container(
                             padding: const EdgeInsets.all(8.0),
@@ -374,9 +435,6 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                               },
                                                               child: Text(
                                                                 '${index + 1}) ${_listApplicants[index].user.name.toString().titleCase()}',
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        12),
                                                               )),
                                                         ),
                                                         SizedBox(width: 8),
@@ -408,28 +466,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                               ],
                                             ),
                                           )
-                                        :
-                                        // isComplete()
-                                        //     ? Column(
-                                        //         //job completed
-                                        //         // mainAxisAlignment:
-                                        //         //     MainAxisAlignment.center,
-                                        //         // crossAxisAlignment:
-                                        //         //     CrossAxisAlignment.center,
-                                        //         children: [
-                                        //           Heading2(
-                                        //               'Provider'), //complete on 1
-                                        //           Text(_userProvidor.user.name
-                                        //               .toString()
-                                        //               .titleCase()),
-                                        //           Text(
-                                        //               'Completed On: ${dateCompletedOn.day}-${dateCompletedOn.month}-${dateCompletedOn.year}'),
-                                        //           Text(
-                                        //               'Time: ${dateCompletedOn.hour}:${dateCompletedOn.minute}:${dateCompletedOn.second}')
-                                        //         ],
-                                        //       )
-                                        //     :
-                                        Column(
+                                        : Column(
                                             //when requestor select provider
                                             children: [
                                               Container(
@@ -476,29 +513,30 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                     )
                                             ],
                                           ),
-                                CustomDivider(color: themeData2().primaryColor),
+                                //CustomDivider(color: themeData2().primaryColor),
                                 //SizedBox(height: 8),
                                 isPending() //when has no applicants
-                                    ? Column(
-                                        children: [
-                                          ElevatedButton(
-                                              style: themeData2()
-                                                  .elevatedButtonTheme
-                                                  .style,
-                                              onPressed: () {
-                                                context.showSnackBar(
-                                                    message: 'Job updated!!!');
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Text(
-                                                  'Update Job Details (coming soon)')),
-                                          ElevatedButton(
-                                              style: ElevatedButton.styleFrom(
-                                                  backgroundColor: Colors.grey),
-                                              onPressed: () {},
-                                              child:
-                                                  Text('Job is still pending')),
-                                        ],
+                                    ? Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          children: [
+                                            ElevatedButton(
+                                                style: themeData2()
+                                                    .elevatedButtonTheme
+                                                    .style,
+                                                onPressed: () {
+                                                  context.showSnackBar(
+                                                      message:
+                                                          'Job updated!!!');
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: Text(
+                                                    'Update Job Details (coming soon)')),
+                                          ],
+                                        ),
                                       )
                                     : isComplete() //when request is complete
                                         ? isRated() //still for request
@@ -506,18 +544,13 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                 ? Text(
                                                     'You have rated the provider.')
                                                 : Column(children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Text(
-                                                        'Rate the provider',
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
+                                                    Text(
+                                                      'Rate the provider',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
+                                                    SizedBox(height: 15),
                                                     Center(
                                                       child: RatingBar.builder(
                                                         initialRating: 0,
@@ -525,9 +558,9 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                             (context, index) =>
                                                                 Icon(
                                                           Icons.star,
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .primaryColor,
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .secondaryHeaderColor,
                                                         ),
                                                         onRatingUpdate:
                                                             (value) {
@@ -537,6 +570,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                         },
                                                       ),
                                                     ),
+                                                    SizedBox(height: 15),
                                                     TextFormField(
                                                       controller:
                                                           _comment1Controller,
@@ -544,6 +578,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                           hintText:
                                                               'Enter comment'),
                                                     ),
+                                                    SizedBox(height: 15),
                                                     ElevatedButton(
                                                         style: themeData2()
                                                             .elevatedButtonTheme
@@ -580,34 +615,44 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                 ],
                                               )
                                         : isOngoing()
-                                            ? ElevatedButton(
-                                                style: themeData2()
-                                                    .elevatedButtonTheme
-                                                    .style,
-                                                onPressed: () {
-                                                  // try {
-                                                  //   ClientServiceRequest(
-                                                  //           Common().channel)
-                                                  //       .startService1(
-                                                  //           widget.id,
-                                                  //           widget.user);
-                                                  //   context.showSnackBar(
-                                                  //       message:
-                                                  //           'Job Started!!');
-                                                  //   Navigator.of(context).pop();
-                                                  // } on GrpcError catch (e) {
-                                                  //   context.showErrorSnackBar(
-                                                  //       message: e.toString());
-                                                  // } catch (e) {
-                                                  //   context.showErrorSnackBar(
-                                                  //       message: e.toString());
-                                                  // }
+                                            ? Column(
+                                                children: [
+                                                  Text(
+                                                    'The job has started, make sure to tap \n"Complete Job" when the provider has finished the job.',
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                  ElevatedButton(
+                                                      style: themeData2()
+                                                          .elevatedButtonTheme
+                                                          .style,
+                                                      onPressed: () {
+                                                        // try {
+                                                        //   ClientServiceRequest(
+                                                        //           Common().channel)
+                                                        //       .startService1(
+                                                        //           widget.id,
+                                                        //           widget.user);
+                                                        //   context.showSnackBar(
+                                                        //       message:
+                                                        //           'Job Started!!');
+                                                        //   Navigator.of(context).pop();
+                                                        // } on GrpcError catch (e) {
+                                                        //   context.showErrorSnackBar(
+                                                        //       message: e.toString());
+                                                        // } catch (e) {
+                                                        //   context.showErrorSnackBar(
+                                                        //       message: e.toString());
+                                                        // }
 
-                                                  _completeJob(
-                                                      requestDetails.request.id,
-                                                      widget.user);
-                                                },
-                                                child: Text('Complete Job'))
+                                                        _completeJob(
+                                                            requestDetails
+                                                                .request.id,
+                                                            widget.user);
+                                                      },
+                                                      child:
+                                                          Text('Complete Job')),
+                                                ],
+                                              )
                                             : ElevatedButton(
                                                 style: themeData2()
                                                     .elevatedButtonTheme
@@ -636,16 +681,6 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                   //     widget.id, widget.user);
                                                 },
                                                 child: Text('Start Job')),
-
-                                // : Container(
-                                //     padding: EdgeInsets.all(5),
-                                //     decoration: BoxDecoration(
-                                //         borderRadius: BorderRadius.circular(5),
-                                //         border: Border.all(
-                                //             width: 2,
-                                //             color: Theme.of(context)
-                                //                 .primaryColor)),
-                                //     child: Text('Job Not Complete')),
                                 isNull(requestDetails.request.provider)
                                     ? TextButton(
                                         style:
@@ -699,7 +734,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                   children: [
                                     Heading2('Completed On'),
                                     Text(
-                                        'Completed On: ${dateCompletedOn.day}-${dateCompletedOn.month}-${dateCompletedOn.year}'),
+                                        'Completed On: ${dateCompletedOn.day}-${dateCompletedOn.month}-${dateCompletedOn.year}\n'),
                                     Text(
                                         'Time: ${dateCompletedOn.hour}:${dateCompletedOn.minute}:${dateCompletedOn.second}'),
                                     // Text(
@@ -710,9 +745,10 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                     CustomDivider(
                                         color: themeData2().primaryColor),
                                     Heading2('Rate the requestor'),
-                                    Text(_userRequestor.user.name
-                                        .toString()
-                                        .titleCase()),
+                                    CustomHeadline(
+                                        heading: _userRequestor.user.name
+                                            .toString()
+                                            .titleCase()),
                                     //SizedBox(height: 5),
                                     isRated() //for providor
                                         ? isRequestorRated()
@@ -726,7 +762,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                           (context, index) =>
                                                               Icon(
                                                         Icons.star,
-                                                        color: Theme.of(context)
+                                                        color: themeData1()
                                                             .primaryColor,
                                                       ),
                                                       onRatingUpdate: (value) {
@@ -787,54 +823,104 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                 ),
                               ),
                             )
-                          : isOngoing()
-                              ? Center(
-                                  child: Text(
-                                      'You are currently taking this Job...'))
-                              : Card(
-                                  //sini oi the service
-                                  elevation: 5,
-                                  child: Column(
-                                    children: [
-                                      Heading2('Interested in the job?'),
-                                      ElevatedButton(
-                                          style: themeData2()
-                                              .elevatedButtonTheme
-                                              .style,
-                                          onPressed: () {
-                                            // print(widget.id);
-                                            // print(widget.user);
-                                            applyJob(requestDetails.request.id,
-                                                widget.user);
-                                          },
-                                          child: Text('Request Job')),
-                                    ],
+                          : isAccepted()
+                              ? Card(
+                                  shape: RoundedRectangleBorder(
+                                    // side: BorderSide(
+                                    //   color: themeData1().secondaryHeaderColor,
+                                    //   width: 3,
+                                    // ),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(12)),
                                   ),
-                                ),
-
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Column(
+                                      children: [
+                                        CustomHeadline(
+                                            heading:
+                                                'You have been accepted as the provider'),
+                                        Text(
+                                            'Contact your requestor to start the job when you are ready')
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              : isOngoing()
+                                  ? Card(
+                                      shape: RoundedRectangleBorder(
+                                        // side: BorderSide(
+                                        //   color: themeData1().secondaryHeaderColor,
+                                        //   width: 3,
+                                        // ),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(12)),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Center(
+                                            child: CustomHeadline(
+                                                heading:
+                                                    'You are currently taking this Job')),
+                                      ),
+                                    )
+                                  : Card(
+                                      shape: RoundedRectangleBorder(
+                                        // side: BorderSide(
+                                        //   //color: themeData1().secondaryHeaderColor,
+                                        //   width: 3,
+                                        // ),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(12)),
+                                      ),
+                                      //sini oi the service
+                                      elevation: 5,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(15.0),
+                                        child: Column(
+                                          children: [
+                                            Heading2('Interested in the job?'),
+                                            ElevatedButton(
+                                                style: themeData2()
+                                                    .elevatedButtonTheme
+                                                    .style,
+                                                onPressed: () {
+                                                  // print(widget.id);
+                                                  // print(widget.user);
+                                                  applyJob(
+                                                      requestDetails.request.id,
+                                                      widget.user);
+                                                },
+                                                child: Text('Request Job')),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                  const SizedBox(height: 15),
                   Container(
                       alignment: Alignment.center,
                       child: Heading2('Other Information')),
                   Heading2('Category'),
                   Text(requestDetails.request.category),
+                  const SizedBox(height: 15),
                   Heading2('Description'),
                   Text(requestDetails.request.description
                       .toString()
                       .capitalize()),
+                  const SizedBox(height: 15),
                   Heading2('Location'),
                   Text(
-                      'Address: ${requestDetails.request.location.name.toString()}'),
-                  Text('State: ' +
-                      requestDetails.request.location.coordinate.latitude),
-                  Text('City: ' +
-                      requestDetails.request.location.coordinate.longitude),
+                      'Address: ${requestDetails.request.location.address.toString()}'),
+                  Text('State: ${requestDetails.request.location.state}'),
+                  Text('City: ${requestDetails.request.location.city}'),
+                  const SizedBox(height: 15),
                   Heading2('Media'),
                   isNull(requestDetails.request.mediaAttachments)
                       ? Text('No Attachment')
                       : SizedBox(
-                          //height: 50,
+                          height: MediaQuery.of(context).size.height,
                           child: ListView.builder(
-                            shrinkWrap: true,
+                            //shrinkWrap: true,
                             physics: const BouncingScrollPhysics(),
                             itemCount:
                                 requestDetails.request.mediaAttachments.length,
@@ -848,6 +934,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
                             },
                           ),
                         ),
+                  const SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
