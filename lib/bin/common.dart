@@ -21,7 +21,7 @@ class Common {
     channel = ClientChannel(emulator,
         port: 8080,
         options:
-            const ChannelOptions(credentials: ChannelCredentials.insecure()));
+            const ChannelOptions(credentials: ChannelCredentials.insecure() ));
   }
 
   // var authClient = createClient(CallOptions(
