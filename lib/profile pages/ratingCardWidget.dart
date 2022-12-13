@@ -28,12 +28,12 @@ class _RatingCardWidgetState extends State<RatingCardWidget> {
     }
   }
 
-  @override
-  void initState() {
-    print('the user rating is: ' + widget.userRating);
-    // TODO: implement initState
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   //print('the user rating is: ' + widget.userRating);
+  //   // TODO: implement initState
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {

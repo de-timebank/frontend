@@ -11,7 +11,7 @@ class ClientRating {
 
   ClientRating(ClientChannel channel) {
     stub = RatingClient(channel,
-        options: CallOptions(timeout: Duration(seconds: 30)));
+        options: CallOptions(timeout: const Duration(seconds: 30)));
   }
 
   // void main() {

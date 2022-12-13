@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:grpc/grpc.dart';
 //import '../generated/services/service-request.pbgrpc.dart';
 
@@ -22,4 +23,7 @@ class Common {
         options:
             const ChannelOptions(credentials: ChannelCredentials.insecure()));
   }
+
+  // var authClient = createClient(CallOptions(
+  //     metadata: MetaData({'Authorization': 'Bearer ${access_token}'})));
 }

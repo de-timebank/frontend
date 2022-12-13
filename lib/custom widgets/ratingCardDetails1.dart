@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:testfyp/custom%20widgets/theme.dart';
 
 class RatingCardDetails1 extends StatefulWidget {
@@ -81,10 +82,27 @@ class _RatingCardDetails1State extends State<RatingCardDetails1> {
                         Text(widget.userRating.count.toString(),
                             style: TextStyle(color: Colors.white)),
                         Text(' | ', style: TextStyle(color: Colors.white)),
-                        Text('Average: ',
-                            style: TextStyle(color: Colors.white)),
-                        Text(widget.userRating.avg.toString(),
-                            style: TextStyle(color: Colors.white)),
+                        // Text('Average: ',
+                        //     style: TextStyle(color: Colors.white)),
+                        RatingBar.builder(
+                          allowHalfRating: true,
+                          ignoreGestures: true,
+                          itemSize: 15,
+                          initialRating:
+                              double.parse(widget.userRating.avg.toString()),
+                          itemBuilder: (context, index) => Icon(
+                            Icons.star,
+                            color: widget.isProvider
+                                ? themeData1().secondaryHeaderColor
+                                : themeData1().primaryColor,
+                          ),
+                          onRatingUpdate: (value) {
+                            //_value1Controller = value;
+                            //print(_valueController);
+                          },
+                        ),
+                        // Text(widget.userRating.avg.toString(),
+                        //     style: TextStyle(color: Colors.white)),
                       ],
                     ),
                   ),

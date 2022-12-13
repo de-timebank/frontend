@@ -193,10 +193,16 @@ class _CompletedRequestState extends State<CompletedRequest> {
                         );
                       } else {
                         if (finalCount < 6) {
-                          return Text('No more data...');
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 15.0),
+                            child: Text('No more data...'),
+                          );
                         }
                         if (finalCount < from) {
-                          return Text('No more data...');
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 15.0),
+                            child: Text('No more data...'),
+                          );
                         } else {
                           return const Center(
                               child: CircularProgressIndicator());
