@@ -288,7 +288,7 @@ const GetAvailable_Request$json = const {
   '1': 'Request',
   '2': const [
     const {'1': 'filter', '3': 1, '4': 1, '5': 11, '6': '.misc.Filter', '10': 'filter'},
-    const {'1': 'page', '3': 2, '4': 1, '5': 11, '6': '.misc.Page', '10': 'page'},
+    const {'1': 'range', '3': 2, '4': 1, '5': 11, '6': '.misc.Range', '10': 'range'},
   ],
 };
 
@@ -301,7 +301,7 @@ const GetAvailable_Response$json = const {
 };
 
 /// Descriptor for `GetAvailable`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getAvailableDescriptor = $convert.base64Decode('CgxHZXRBdmFpbGFibGUaTwoHUmVxdWVzdBIkCgZmaWx0ZXIYASABKAsyDC5taXNjLkZpbHRlclIGZmlsdGVyEh4KBHBhZ2UYAiABKAsyCi5taXNjLlBhZ2VSBHBhZ2UaSgoIUmVzcG9uc2USPgoIcmVxdWVzdHMYASADKAsyIi5zZXJ2aWNlcmVxdWVzdC5TZXJ2aWNlUmVxdWVzdERhdGFSCHJlcXVlc3Rz');
+final $typed_data.Uint8List getAvailableDescriptor = $convert.base64Decode('CgxHZXRBdmFpbGFibGUaUgoHUmVxdWVzdBIkCgZmaWx0ZXIYASABKAsyDC5taXNjLkZpbHRlclIGZmlsdGVyEiEKBXJhbmdlGAIgASgLMgsubWlzYy5SYW5nZVIFcmFuZ2UaSgoIUmVzcG9uc2USPgoIcmVxdWVzdHMYASADKAsyIi5zZXJ2aWNlcmVxdWVzdC5TZXJ2aWNlUmVxdWVzdERhdGFSCHJlcXVlc3Rz');
 @$core.Deprecated('Use startServiceDescriptor instead')
 const StartService$json = const {
   '1': 'StartService',

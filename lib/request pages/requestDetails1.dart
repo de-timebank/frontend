@@ -9,6 +9,7 @@ import 'package:testfyp/custom%20widgets/theme.dart';
 import 'package:testfyp/extension_string.dart';
 import 'package:testfyp/other%20profile/viewProfile.dart';
 import 'package:testfyp/rate%20pages/rateGiven.dart';
+import 'package:testfyp/request%20pages/updatePage.dart';
 import '../bin/client_rating.dart';
 import '../bin/client_service_request.dart';
 import '../bin/client_user.dart';
@@ -33,10 +34,11 @@ class _RequestDetails1State extends State<RequestDetails1> {
   final _commentController = TextEditingController();
   final _comment1Controller = TextEditingController();
 
-  late final dynamic dateCreatedOn;
-  late final dynamic dateUpdatedOn;
-  late final dynamic dateCompletedOn;
-  late final dynamic requestDetails;
+  late dynamic dateJob;
+  late dynamic dateCreatedOn;
+  late dynamic dateUpdatedOn;
+  late dynamic dateCompletedOn;
+  late dynamic requestDetails;
 
   late dynamic ratedUser;
   late dynamic _userRequestor;
@@ -140,6 +142,9 @@ class _RequestDetails1State extends State<RequestDetails1> {
   }
 
   void _getAllinstance() async {
+    setState(() {
+      isLoad = true;
+    });
     requestDetails = await ClientServiceRequest(Common().channel)
         .getResponseById(widget.requestId);
     //print(requestDetails);
@@ -153,6 +158,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
     //print(_userProvidor);
     dateCreatedOn = DateTime.parse(requestDetails.request.createdAt);
     dateUpdatedOn = DateTime.parse(requestDetails.request.updatedAt);
+    dateJob = DateTime.parse(requestDetails.request.date);
 
     isComplete()
         ? dateCompletedOn = DateTime.parse(requestDetails.request.completedAt)
@@ -528,13 +534,22 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                     .elevatedButtonTheme
                                                     .style,
                                                 onPressed: () {
-                                                  context.showSnackBar(
-                                                      message:
-                                                          'Job updated!!!');
-                                                  Navigator.of(context).pop();
+                                                  Navigator.of(context)
+                                                      .push(MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            UpdatePage(
+                                                                id: requestDetails
+                                                                    .request
+                                                                    .id),
+                                                      ))
+                                                      .then((value) => setState(
+                                                            () {
+                                                              _getAllinstance();
+                                                            },
+                                                          ));
                                                 },
-                                                child: Text(
-                                                    'Update Job Details (coming soon)')),
+                                                child:
+                                                    Text('Update Job Details')),
                                           ],
                                         ),
                                       )
@@ -900,6 +915,10 @@ class _RequestDetails1State extends State<RequestDetails1> {
                   Container(
                       alignment: Alignment.center,
                       child: Heading2('Other Information')),
+                  Heading2('Date of the Job'),
+                  Text(
+                      'Date: ${dateJob.day}-${dateJob.month}-${dateJob.year}\nTime: ${dateJob.hour}:${dateJob.minute}'),
+                  const SizedBox(height: 15),
                   Heading2('Category'),
                   Text(requestDetails.request.category),
                   const SizedBox(height: 15),
@@ -918,9 +937,8 @@ class _RequestDetails1State extends State<RequestDetails1> {
                   isNull(requestDetails.request.mediaAttachments)
                       ? Text('No Attachment')
                       : SizedBox(
-                          height: MediaQuery.of(context).size.height,
                           child: ListView.builder(
-                            //shrinkWrap: true,
+                            shrinkWrap: true,
                             physics: const BouncingScrollPhysics(),
                             itemCount:
                                 requestDetails.request.mediaAttachments.length,

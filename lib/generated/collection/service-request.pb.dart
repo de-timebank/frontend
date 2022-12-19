@@ -1615,21 +1615,21 @@ class SelectProvider extends $pb.GeneratedMessage {
 class GetAvailable_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetAvailable.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'servicerequest'), createEmptyInstance: create)
     ..aOM<$3.Filter>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filter', subBuilder: $3.Filter.create)
-    ..aOM<$3.Page>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'page', subBuilder: $3.Page.create)
+    ..aOM<$3.Range>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'range', subBuilder: $3.Range.create)
     ..hasRequiredFields = false
   ;
 
   GetAvailable_Request._() : super();
   factory GetAvailable_Request({
     $3.Filter? filter,
-    $3.Page? page,
+    $3.Range? range,
   }) {
     final _result = create();
     if (filter != null) {
       _result.filter = filter;
     }
-    if (page != null) {
-      _result.page = page;
+    if (range != null) {
+      _result.range = range;
     }
     return _result;
   }
@@ -1666,15 +1666,15 @@ class GetAvailable_Request extends $pb.GeneratedMessage {
   $3.Filter ensureFilter() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  $3.Page get page => $_getN(1);
+  $3.Range get range => $_getN(1);
   @$pb.TagNumber(2)
-  set page($3.Page v) { setField(2, v); }
+  set range($3.Range v) { setField(2, v); }
   @$pb.TagNumber(2)
-  $core.bool hasPage() => $_has(1);
+  $core.bool hasRange() => $_has(1);
   @$pb.TagNumber(2)
-  void clearPage() => clearField(2);
+  void clearRange() => clearField(2);
   @$pb.TagNumber(2)
-  $3.Page ensurePage() => $_ensure(1);
+  $3.Range ensureRange() => $_ensure(1);
 }
 
 class GetAvailable_Response extends $pb.GeneratedMessage {
