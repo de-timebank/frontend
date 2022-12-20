@@ -12,7 +12,7 @@ class emptyCardContact extends StatelessWidget {
     return Card(
       shape: RoundedRectangleBorder(
         side: BorderSide(
-          color: themeData1().primaryColor,
+          color: themeData2().primaryColor,
           width: 3,
         ),
         borderRadius: const BorderRadius.all(Radius.circular(12)),

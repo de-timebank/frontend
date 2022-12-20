@@ -45,6 +45,19 @@ class _AvailableServicesState extends State<AvailableServices> {
     'Wellness',
   ];
 
+  // List<String> listFilter = <String>[
+  //   'Categories',
+  //   'Location',
+  //   'Date',
+  //   'Community Activities',
+  //   'Companionship',
+  //   'Education',
+  //   'Help at Home',
+  //   'Recreation',
+  //   'Transportation',
+  //   'Wellness',
+  // ];
+
   @override
   void initState() {
     // _filter = Filter();

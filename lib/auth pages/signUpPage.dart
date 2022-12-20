@@ -210,7 +210,7 @@ class _SignUpPageState extends State<SignUpPage> {
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Enter your password',
-                //helperText: 'Do not close this page when signing up',
+                helperText: 'Password must have at least 6 characters',
                 suffixIcon: IconButton(
                   icon: Icon(
                     // Based on passwordVisible state choose the icon
@@ -271,6 +271,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 Container(
                   //padding: EdgeInsets.all(8),
+                  width: MediaQuery.of(context).size.width / 3,
+                  // margin: EdgeInsets.fromLTRB(9, 0, 0, 0),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       border: Border.all(
@@ -278,6 +280,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         width: 2,
                       )),
                   child: DropdownButton<String>(
+                    isExpanded: true,
                     underline: Container(
                       height: 0,
                     ),
@@ -285,6 +288,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     value: _genderController.text,
                     items: listGender.map<DropdownMenuItem<String>>((e) {
                       return DropdownMenuItem<String>(
+                          //alignment: Alignment.centerRight,
                           value: e,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -312,6 +316,7 @@ class _SignUpPageState extends State<SignUpPage> {
               child: CustomHeadline(heading: 'Identification*'),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
                   child: TextFormField(
@@ -330,6 +335,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 Container(
                   //padding: EdgeInsets.all(8),
+                  width: MediaQuery.of(context).size.width / 3,
+
                   margin: EdgeInsets.fromLTRB(8, 0, 0, 0),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
@@ -367,236 +374,236 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               ],
             ),
-            Divider(
-                //horizontal line
-                color: Theme.of(context).primaryColor,
-                height: 30,
-                thickness: 2,
-                indent: 15,
-                endIndent: 15),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CustomHeadline(heading: 'Skill'),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('(Optional)'),
-            ),
-            TextFormField(
-              controller: _skillController,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Add Skills',
-                  //hintText: 'Skill',
-                  suffixIcon: TextButton(
-                    onPressed: () {
-                      if (_skillController.text.length == 0) {
-                        context.showErrorSnackBar(
-                            message: 'You have not entered any skills..');
-                      } else {
-                        try {
-                          _addskills(_skillController.text);
-                          _skillController.clear();
-                          context.showSnackBar(message: 'Skill added!');
-                          setState(() {
-                            _isSkillsEmpty(profile.skills);
-                          });
-                        } catch (e) {
-                          context.showErrorSnackBar(
-                              message: 'Unable to add skill');
-                        }
-                      }
-                    },
-                    child: const Icon(Icons.add),
-                  )),
-            ),
-            //SizedBox(height: 8),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('Your Skills: '),
-            ),
-            _isSkillsEmpty(profile.skills)
-                ? Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('You have not entered any skills...'),
-                  )
-                : SizedBox(
-                    height: 60,
-                    child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemCount: profile.skills.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Text(profile.skills[index]
-                                    .toString()
-                                    .capitalize()),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                IconButton(
-                                    onPressed: () {
-                                      _deleteSkill(
-                                          profile.skills[index].toString());
-                                    },
-                                    icon: Icon(
-                                      Icons.remove_circle_outline,
-                                      color: Colors.red,
-                                    ))
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    )),
-            Divider(
-                //horizontal line
-                color: Theme.of(context).primaryColor,
-                height: 30,
-                thickness: 2,
-                indent: 15,
-                endIndent: 15),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CustomHeadline(heading: 'Contact'),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('(Optional)'),
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    controller: _contactController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Add your contacts',
-                      //hintText: 'Contact',
-                    ),
-                    // validator: (value) {
-                    //   if (value == null || value.isEmpty) {
-                    //     return 'Please enter contacts';
-                    //   }
-                    //   return null;
-                    // },
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    if (_contactController.text.length == 0) {
-                      context.showErrorSnackBar(
-                          message: 'You have not entered any contact');
-                    } else {
-                      try {
-                        _addcontactgrpc(_contactControllerType.text,
-                            _contactController.text);
-                        _contactController.clear();
-                        context.showSnackBar(message: 'Contact Added!');
-                      } catch (e) {
-                        context.showErrorSnackBar(
-                            message: 'Unable to add contact');
-                      }
-                    }
-                  },
-                  child: Icon(Icons.add),
-                ),
-                Container(
-                  //padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(
-                        color: Theme.of(context).primaryColor,
-                        width: 2,
-                      )),
-                  child: DropdownButton<String>(
-                    underline: Container(
-                      height: 0,
-                    ),
-                    iconEnabledColor: Theme.of(context).primaryColor,
-                    value: _contactControllerType.text,
-                    items: listContactType.map<DropdownMenuItem<String>>((e) {
-                      return DropdownMenuItem<String>(
-                          value: e,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              e,
-                              style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15),
-                            ),
-                          ));
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        _contactControllerType.text = value.toString();
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('Your Contacts: '),
-            ),
-            _isContactsEmpty(profile.contacts)
-                ? Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('You have not entered any contacts...'),
-                  )
-                : SizedBox(
-                    height: 60,
-                    child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemCount: profile.contacts.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              //mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(profile.contacts[index].type
-                                        .toString()
-                                        .capitalize()),
-                                    Text(profile.contacts[index].address
-                                        .toString()),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                IconButton(
-                                    onPressed: () {
-                                      _deleteContact(profile
-                                          .contacts[index].address
-                                          .toString());
-                                      //print(contacts[index].address.toString());
-                                    },
-                                    icon: Icon(
-                                      Icons.remove_circle_outline,
-                                      color: Colors.red,
-                                    ))
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    )),
+            // Divider(
+            //     //horizontal line
+            //     color: Theme.of(context).primaryColor,
+            //     height: 30,
+            //     thickness: 2,
+            //     indent: 15,
+            //     endIndent: 15),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: CustomHeadline(heading: 'Skill'),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Text('(Optional)'),
+            // ),
+            // TextFormField(
+            //   controller: _skillController,
+            //   decoration: InputDecoration(
+            //       border: OutlineInputBorder(),
+            //       hintText: 'Add Skills',
+            //       //hintText: 'Skill',
+            //       suffixIcon: TextButton(
+            //         onPressed: () {
+            //           if (_skillController.text.length == 0) {
+            //             context.showErrorSnackBar(
+            //                 message: 'You have not entered any skills..');
+            //           } else {
+            //             try {
+            //               _addskills(_skillController.text);
+            //               _skillController.clear();
+            //               context.showSnackBar(message: 'Skill added!');
+            //               setState(() {
+            //                 _isSkillsEmpty(profile.skills);
+            //               });
+            //             } catch (e) {
+            //               context.showErrorSnackBar(
+            //                   message: 'Unable to add skill');
+            //             }
+            //           }
+            //         },
+            //         child: const Icon(Icons.add),
+            //       )),
+            // ),
+            // //SizedBox(height: 8),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Text('Your Skills: '),
+            // ),
+            // _isSkillsEmpty(profile.skills)
+            //     ? Padding(
+            //         padding: const EdgeInsets.all(8.0),
+            //         child: Text('You have not entered any skills...'),
+            //       )
+            //     : SizedBox(
+            //         height: 60,
+            //         child: ListView.builder(
+            //           physics: const BouncingScrollPhysics(),
+            //           scrollDirection: Axis.horizontal,
+            //           shrinkWrap: true,
+            //           itemCount: profile.skills.length,
+            //           itemBuilder: (context, index) {
+            //             return Card(
+            //               child: Padding(
+            //                 padding: const EdgeInsets.all(8.0),
+            //                 child: Row(
+            //                   children: [
+            //                     Text(profile.skills[index]
+            //                         .toString()
+            //                         .capitalize()),
+            //                     SizedBox(
+            //                       height: 5,
+            //                     ),
+            //                     IconButton(
+            //                         onPressed: () {
+            //                           _deleteSkill(
+            //                               profile.skills[index].toString());
+            //                         },
+            //                         icon: Icon(
+            //                           Icons.remove_circle_outline,
+            //                           color: Colors.red,
+            //                         ))
+            //                   ],
+            //                 ),
+            //               ),
+            //             );
+            //           },
+            //         )),
+            // Divider(
+            //     //horizontal line
+            //     color: Theme.of(context).primaryColor,
+            //     height: 30,
+            //     thickness: 2,
+            //     indent: 15,
+            //     endIndent: 15),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: CustomHeadline(heading: 'Contact'),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Text('(Optional)'),
+            // ),
+            // Row(
+            //   children: [
+            //     Expanded(
+            //       child: TextFormField(
+            //         controller: _contactController,
+            //         decoration: InputDecoration(
+            //           border: OutlineInputBorder(),
+            //           hintText: 'Add your contacts',
+            //           //hintText: 'Contact',
+            //         ),
+            //         // validator: (value) {
+            //         //   if (value == null || value.isEmpty) {
+            //         //     return 'Please enter contacts';
+            //         //   }
+            //         //   return null;
+            //         // },
+            //       ),
+            //     ),
+            //     TextButton(
+            //       onPressed: () {
+            //         if (_contactController.text.length == 0) {
+            //           context.showErrorSnackBar(
+            //               message: 'You have not entered any contact');
+            //         } else {
+            //           try {
+            //             _addcontactgrpc(_contactControllerType.text,
+            //                 _contactController.text);
+            //             _contactController.clear();
+            //             context.showSnackBar(message: 'Contact Added!');
+            //           } catch (e) {
+            //             context.showErrorSnackBar(
+            //                 message: 'Unable to add contact');
+            //           }
+            //         }
+            //       },
+            //       child: Icon(Icons.add),
+            //     ),
+            //     Container(
+            //       //padding: EdgeInsets.all(8),
+            //       decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(15),
+            //           border: Border.all(
+            //             color: Theme.of(context).primaryColor,
+            //             width: 2,
+            //           )),
+            //       child: DropdownButton<String>(
+            //         underline: Container(
+            //           height: 0,
+            //         ),
+            //         iconEnabledColor: Theme.of(context).primaryColor,
+            //         value: _contactControllerType.text,
+            //         items: listContactType.map<DropdownMenuItem<String>>((e) {
+            //           return DropdownMenuItem<String>(
+            //               value: e,
+            //               child: Padding(
+            //                 padding: const EdgeInsets.symmetric(horizontal: 10),
+            //                 child: Text(
+            //                   e,
+            //                   style: TextStyle(
+            //                       color: Theme.of(context).primaryColor,
+            //                       fontWeight: FontWeight.bold,
+            //                       fontSize: 15),
+            //                 ),
+            //               ));
+            //         }).toList(),
+            //         onChanged: (value) {
+            //           setState(() {
+            //             _contactControllerType.text = value.toString();
+            //           });
+            //         },
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Text('Your Contacts: '),
+            // ),
+            // _isContactsEmpty(profile.contacts)
+            //     ? Padding(
+            //         padding: const EdgeInsets.all(8.0),
+            //         child: Text('You have not entered any contacts...'),
+            //       )
+            //     : SizedBox(
+            //         height: 60,
+            //         child: ListView.builder(
+            //           physics: const BouncingScrollPhysics(),
+            //           scrollDirection: Axis.horizontal,
+            //           shrinkWrap: true,
+            //           itemCount: profile.contacts.length,
+            //           itemBuilder: (context, index) {
+            //             return Card(
+            //               child: Padding(
+            //                 padding: const EdgeInsets.all(8.0),
+            //                 child: Row(
+            //                   //mainAxisAlignment: MainAxisAlignment.center,
+            //                   children: [
+            //                     Column(
+            //                       mainAxisAlignment: MainAxisAlignment.center,
+            //                       crossAxisAlignment: CrossAxisAlignment.start,
+            //                       children: [
+            //                         Text(profile.contacts[index].type
+            //                             .toString()
+            //                             .capitalize()),
+            //                         Text(profile.contacts[index].address
+            //                             .toString()),
+            //                       ],
+            //                     ),
+            //                     SizedBox(
+            //                       height: 5,
+            //                     ),
+            //                     IconButton(
+            //                         onPressed: () {
+            //                           _deleteContact(profile
+            //                               .contacts[index].address
+            //                               .toString());
+            //                           //print(contacts[index].address.toString());
+            //                         },
+            //                         icon: Icon(
+            //                           Icons.remove_circle_outline,
+            //                           color: Colors.red,
+            //                         ))
+            //                   ],
+            //                 ),
+            //               ),
+            //             );
+            //           },
+            //         )),
             const SizedBox(height: 18),
             ElevatedButton(
               onPressed: () {

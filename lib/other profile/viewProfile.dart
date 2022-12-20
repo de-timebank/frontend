@@ -86,6 +86,7 @@ class _ViewProfileState extends State<ViewProfile> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile Summary'),
+        backgroundColor: themeData2().primaryColor,
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -102,7 +103,7 @@ class _ViewProfileState extends State<ViewProfile> {
                     child: Card(
                       shape: RoundedRectangleBorder(
                         side: BorderSide(
-                          color: themeData1().primaryColor,
+                          color: themeData2().primaryColor,
                           width: 3,
                         ),
                         borderRadius:
@@ -168,7 +169,7 @@ class _ViewProfileState extends State<ViewProfile> {
                   Row(
                     children: [
                       ContactWidget(
-                          containerColor: themeData1().primaryColor,
+                          containerColor: themeData2().primaryColor,
                           theIcon: const Icon(
                             Icons.email,
                             color: Colors.white,
@@ -182,7 +183,7 @@ class _ViewProfileState extends State<ViewProfile> {
                   Row(
                     children: [
                       ContactWidget(
-                          containerColor: themeData1().primaryColor,
+                          containerColor: themeData2().primaryColor,
                           theIcon: const Icon(
                             Icons.phone,
                             color: Colors.white,
@@ -196,7 +197,7 @@ class _ViewProfileState extends State<ViewProfile> {
                   Row(
                     children: [
                       ContactWidget(
-                          containerColor: themeData1().primaryColor,
+                          containerColor: themeData2().primaryColor,
                           theIcon: const FaIcon(
                             FontAwesomeIcons.twitter,
                             color: Colors.white,
@@ -210,7 +211,7 @@ class _ViewProfileState extends State<ViewProfile> {
                   Row(
                     children: [
                       ContactWidget(
-                          containerColor: themeData1().primaryColor,
+                          containerColor: themeData2().primaryColor,
                           theIcon: const FaIcon(
                             FontAwesomeIcons.whatsapp,
                             color: Colors.white,

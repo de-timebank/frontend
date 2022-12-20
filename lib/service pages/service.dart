@@ -21,14 +21,14 @@ class _ServicePageState extends State<ServicePage> {
               backgroundColor: Theme.of(context).secondaryHeaderColor,
               bottom:
                   TabBar(indicatorColor: Theme.of(context).primaryColor, tabs: [
-                Tab(text: 'Ongoing\n\t\t\tJob'),
+                Tab(text: 'Ongoing\nRequest'),
                 Badge(
                     showBadge: false,
                     badgeContent: Text('!'),
                     animationType: BadgeAnimationType.scale,
                     animationDuration: Duration(milliseconds: 100),
-                    child: Tab(text: 'Available\n\t\t\t\tJob')),
-                Tab(text: 'Completed\n\t\t\t\t\tJob')
+                    child: Tab(text: 'Available\n\tRequest')),
+                Tab(text: 'Completed\n\t\tRequest')
               ]),
               // backgroundColor: Color.fromARGB(255, 127, 17, 224),
               title: const Text('Want to help other people?'),

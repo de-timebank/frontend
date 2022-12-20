@@ -917,7 +917,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
                       child: Heading2('Other Information')),
                   Heading2('Date of the Job'),
                   Text(
-                      'Date: ${dateJob.day}-${dateJob.month}-${dateJob.year}\nTime: ${dateJob.hour}:${dateJob.minute}'),
+                      'Date: ${dateJob.day}-${dateJob.month}-${dateJob.year}\nTime: ${dateJob.hour.toString().padLeft(2, '0')}:${dateJob.minute.toString().padLeft(2, '0')}'),
                   const SizedBox(height: 15),
                   Heading2('Category'),
                   Text(requestDetails.request.category),

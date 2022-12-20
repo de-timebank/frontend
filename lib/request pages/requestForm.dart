@@ -230,7 +230,7 @@ class _RequestFormState extends State<RequestForm> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: CustomHeadline(heading: 'Title'),
+                          child: CustomHeadline(heading: 'Title*'),
                         ),
                         TextFormField(
                           controller: _titleController,
@@ -251,7 +251,7 @@ class _RequestFormState extends State<RequestForm> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: CustomHeadline(heading: 'Description'),
+                          child: CustomHeadline(heading: 'Description*'),
                         ),
                         TextFormField(
                           controller: _descriptionController,
@@ -269,7 +269,7 @@ class _RequestFormState extends State<RequestForm> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: CustomHeadline(heading: 'Date & Time'),
+                          child: CustomHeadline(heading: 'Date & Time*'),
                         ),
                         ElevatedButton(
                             onPressed: () {
@@ -479,7 +479,7 @@ class _RequestFormState extends State<RequestForm> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: CustomHeadline(heading: 'Category'),
+                          child: CustomHeadline(heading: 'Category*'),
                         ),
                         Container(
                           alignment: Alignment.center,
@@ -522,7 +522,7 @@ class _RequestFormState extends State<RequestForm> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: CustomHeadline(heading: 'Location'),
+                          child: CustomHeadline(heading: 'Location*'),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -803,7 +803,7 @@ class _RequestFormState extends State<RequestForm> {
                                 )),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: CustomHeadline(heading: 'Time Limit'),
+                          child: CustomHeadline(heading: 'Time Limit*'),
                         ),
                         TextFormField(
                           controller: _timeLimitController,
@@ -824,7 +824,7 @@ class _RequestFormState extends State<RequestForm> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: CustomHeadline(heading: 'Rate'),
+                          child: CustomHeadline(heading: 'Rate*'),
                         ),
                         Row(
                           children: [
@@ -865,7 +865,7 @@ class _RequestFormState extends State<RequestForm> {
                             // ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text('\$ time/hour'),
+                              child: Text('\$ Time/hour'),
                             ),
                           ],
                         ),

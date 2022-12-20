@@ -88,7 +88,7 @@ class _UpdatePageState extends State<UpdatePage> {
     return Scaffold(
       appBar: AppBar(
           title: Text('Update Job'),
-          backgroundColor: themeData1().primaryColor),
+          backgroundColor: themeData2().primaryColor),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -99,14 +99,14 @@ class _UpdatePageState extends State<UpdatePage> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 border: Border.all(
-                  color: Theme.of(context).primaryColor,
+                  color: themeData2().primaryColor,
                   width: 2,
                 )),
             child: DropdownButton<String>(
               underline: Container(
                 height: 0,
               ),
-              iconEnabledColor: Theme.of(context).primaryColor,
+              iconEnabledColor: themeData2().primaryColor,
               value: _elementController.text,
               items: listElement.map<DropdownMenuItem<String>>((e) {
                 return DropdownMenuItem<String>(
@@ -116,7 +116,7 @@ class _UpdatePageState extends State<UpdatePage> {
                       child: Text(
                         e.toString().capitalize(),
                         style: TextStyle(
-                            color: Theme.of(context).primaryColor,
+                            color: themeData2().primaryColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 15),
                       ),
@@ -162,6 +162,7 @@ class _UpdatePageState extends State<UpdatePage> {
                     ),
                     SizedBox(height: 8),
                     ElevatedButton(
+                        style: themeData2().elevatedButtonTheme.style,
                         onPressed: (() {
                           updateJob(
                               '{"title": "${_titleController.text.toString()}"}');
@@ -182,14 +183,14 @@ class _UpdatePageState extends State<UpdatePage> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(
-                              color: Theme.of(context).primaryColor,
+                              color: themeData2().primaryColor,
                               width: 2,
                             )),
                         child: DropdownButton<String>(
                           underline: Container(
                             height: 0,
                           ),
-                          iconEnabledColor: Theme.of(context).primaryColor,
+                          iconEnabledColor: themeData2().primaryColor,
                           value: _categoryController.text,
                           items:
                               listCategories.map<DropdownMenuItem<String>>((e) {
@@ -201,7 +202,7 @@ class _UpdatePageState extends State<UpdatePage> {
                                   child: Text(
                                     e,
                                     style: TextStyle(
-                                        color: Theme.of(context).primaryColor,
+                                        color: themeData2().primaryColor,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15),
                                   ),
@@ -216,6 +217,7 @@ class _UpdatePageState extends State<UpdatePage> {
                         ),
                       ),
                       ElevatedButton(
+                          style: themeData2().elevatedButtonTheme.style,
                           onPressed: (() {
                             updateJob(
                                 '{"category": "${_categoryController.text.toString()}"}');
@@ -252,6 +254,7 @@ class _UpdatePageState extends State<UpdatePage> {
                     ),
                     SizedBox(height: 8),
                     ElevatedButton(
+                        style: themeData2().elevatedButtonTheme.style,
                         onPressed: (() {
                           updateJob(
                               '{"description": "${_descriptionController.text.toString()}"}');
@@ -290,7 +293,7 @@ class _UpdatePageState extends State<UpdatePage> {
                       dropdownDecoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color: Theme.of(context).primaryColor,
+                            color: themeData2().primaryColor,
                             width: 2,
                           )),
                       cityDropdownLabel: 'Pick a City',
@@ -320,6 +323,7 @@ class _UpdatePageState extends State<UpdatePage> {
                       },
                     ),
                     ElevatedButton(
+                        style: themeData2().elevatedButtonTheme.style,
                         onPressed: (() {
                           updateJob(
                               '{"location":{"address": "${_locationController.text.toString()}", "city" : "${_cityController.text.toString()}", "state": "${_stateController.text.toString()}"}}');
@@ -332,11 +336,12 @@ class _UpdatePageState extends State<UpdatePage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     ElevatedButton(
+                        style: themeData2().elevatedButtonTheme.style,
                         onPressed: () {
                           DatePicker.showDateTimePicker(context,
                               theme: DatePickerTheme(
                                   doneStyle: TextStyle(
-                                      color: themeData1().primaryColor)),
+                                      color: themeData2().primaryColor)),
                               showTitleActions: true,
                               minTime: DateTime(
                                   _dateTime.year,
@@ -382,6 +387,7 @@ class _UpdatePageState extends State<UpdatePage> {
                       },
                     ),
                     ElevatedButton(
+                        style: themeData2().elevatedButtonTheme.style,
                         onPressed: (() {
                           updateJob(
                               '{"date": "${_dateController.text.toString()}"}');

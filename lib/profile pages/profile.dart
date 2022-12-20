@@ -28,6 +28,9 @@ class _ProfilePageState extends State<ProfilePage> {
   late List<dynamic> twitter;
   late List<dynamic> whatsapp;
 
+  final _idController = TextEditingController();
+  final _genderController = TextEditingController();
+
   //late final dynamic contacts = [];
 
   bool isLoad = true;
@@ -41,6 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
   getInstance() async {
     final user = supabase.auth.currentUser!.id;
     profile = await ClientUser(Common().channel).getProfile1(user);
+
     //print(profile);
     // print('the type is : ' + profile.user.profile.contacts[0].type.toString());
     skills = [];
@@ -68,11 +72,21 @@ class _ProfilePageState extends State<ProfilePage> {
         whatsapp.add(profile.user.profile.contacts[i].address.toString());
       }
     }
+    _idController.text = profile.user.profile.identificationNo.value.toString();
+    _genderController.text = profile.user.profile.gender.toString();
     //print(contacts);
     setState(() {
       isLoad = false;
     });
     //print(skills);
+  }
+
+  @override
+  void dispose() {
+    _genderController.dispose();
+    _idController.dispose();
+    // TODO: implement dispose
+    super.dispose();
   }
 
   bool isEmpty(stuff) {
@@ -87,7 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 245, 167, 44),
+        backgroundColor: themeData2().primaryColor,
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -121,7 +135,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Card(
                       shape: RoundedRectangleBorder(
                         side: BorderSide(
-                          color: themeData1().primaryColor,
+                          color: themeData2().primaryColor,
                           width: 3,
                         ),
                         borderRadius:
@@ -143,10 +157,17 @@ class _ProfilePageState extends State<ProfilePage> {
                               children: [
                                 Text(
                                     '${profile.user.profile.identificationNo.type.toString().capitalize()}: '),
+                                // Expanded(
+                                //   child: TextFormField(
+                                //     controller: _idController,
+                                //     enabled: false,
+                                //   ),
+                                // )
                                 Text(
                                     '${profile.user.profile.identificationNo.value}'),
                               ],
                             ),
+                            SizedBox(height: 8),
                             Row(
                               children: [
                                 Text('Gender: '),
@@ -183,7 +204,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Center(
-                                      child: Text(skills[index].toString())),
+                                      child: Text(skills[index]
+                                          .toString()
+                                          .capitalize())),
                                 ),
                               );
                             },
@@ -193,7 +216,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Row(
                     children: [
                       ContactWidget(
-                          containerColor: themeData1().primaryColor,
+                          containerColor: themeData2().primaryColor,
                           theIcon: const Icon(
                             Icons.email,
                             color: Colors.white,
@@ -207,7 +230,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Row(
                     children: [
                       ContactWidget(
-                          containerColor: themeData1().primaryColor,
+                          containerColor: themeData2().primaryColor,
                           theIcon: const Icon(
                             Icons.phone,
                             color: Colors.white,
@@ -221,7 +244,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Row(
                     children: [
                       ContactWidget(
-                          containerColor: themeData1().primaryColor,
+                          containerColor: themeData2().primaryColor,
                           theIcon: const FaIcon(
                             FontAwesomeIcons.twitter,
                             color: Colors.white,
@@ -235,7 +258,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Row(
                     children: [
                       ContactWidget(
-                          containerColor: themeData1().primaryColor,
+                          containerColor: themeData2().primaryColor,
                           theIcon: const FaIcon(
                             FontAwesomeIcons.whatsapp,
                             color: Colors.white,

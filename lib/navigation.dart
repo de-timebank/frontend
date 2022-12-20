@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/components/constants.dart';
+import 'package:testfyp/custom%20widgets/theme.dart';
 import 'package:testfyp/dashboard%20pages/dashboard.dart';
 import 'package:testfyp/profile%20pages/profile.dart';
 
@@ -87,19 +88,19 @@ class _BottomBarNavigationState extends State<BottomBarNavigation> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: 'Home',
-                backgroundColor: Color.fromARGB(255, 127, 17, 224)),
+                backgroundColor: themeData2().primaryColor),
             BottomNavigationBarItem(
                 icon: Icon(Icons.handshake),
-                label: 'Need Help?',
-                backgroundColor: Color.fromARGB(255, 127, 17, 224)),
+                label: 'Need Help',
+                backgroundColor: themeData1().primaryColor),
             BottomNavigationBarItem(
                 icon: Icon(Icons.emoji_people),
-                label: 'Offer Help?',
-                backgroundColor: Color.fromARGB(255, 245, 167, 44)),
+                label: 'Offer Help',
+                backgroundColor: themeData1().secondaryHeaderColor),
             BottomNavigationBarItem(
                 icon: Icon(Icons.account_box),
                 label: 'Account',
-                backgroundColor: Color.fromARGB(255, 245, 167, 44))
+                backgroundColor: themeData2().primaryColor)
           ],
           currentIndex: _selectedIndex,
           onTap: onItemTapped,

@@ -28,7 +28,7 @@ class _CustomListviewContactState extends State<CustomListviewContact> {
             return Card(
               shape: RoundedRectangleBorder(
                 side: BorderSide(
-                  color: themeData1().primaryColor,
+                  color: themeData2().primaryColor,
                   width: 3,
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(12)),
@@ -37,7 +37,7 @@ class _CustomListviewContactState extends State<CustomListviewContact> {
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
                   child: Text(
-                    '${index + 1}) ${widget.contactList[index].toString()}',
+                    '${widget.contactList[index].toString()}',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),

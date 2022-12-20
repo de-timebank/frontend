@@ -14,21 +14,21 @@ class RatingCardDetails1 extends StatefulWidget {
 }
 
 class _RatingCardDetails1State extends State<RatingCardDetails1> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    //print('the count is woi: ' + widget.userRating.count.toString());
-    //print('the count is length: ' + widget.userRating.count);
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   //print('the count is woi: ' + widget.userRating.count.toString());
+  //   //print('the count is length: ' + widget.userRating.count);
+  //   super.initState();
+  // }
 
-  bool isEmpty() {
-    if (widget.userRating.count == 0) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // bool isEmpty() {
+  //   if (widget.userRating.count == 0) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -68,44 +68,38 @@ class _RatingCardDetails1State extends State<RatingCardDetails1> {
                         style: TextStyle(color: Colors.white))
               ],
             ),
-            isEmpty()
-                ? Padding(
-                    padding: const EdgeInsets.only(right: 15.0),
-                    child: Text('No Rating yet',
-                        style: TextStyle(color: Colors.white)),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.only(right: 15.0),
-                    child: Row(
-                      children: [
-                        Text('Count: ', style: TextStyle(color: Colors.white)),
-                        Text(widget.userRating.count.toString(),
-                            style: TextStyle(color: Colors.white)),
-                        Text(' | ', style: TextStyle(color: Colors.white)),
-                        // Text('Average: ',
-                        //     style: TextStyle(color: Colors.white)),
-                        RatingBar.builder(
-                          allowHalfRating: true,
-                          ignoreGestures: true,
-                          itemSize: 15,
-                          initialRating:
-                              double.parse(widget.userRating.avg.toString()),
-                          itemBuilder: (context, index) => Icon(
-                            Icons.star,
-                            color: widget.isProvider
-                                ? themeData1().secondaryHeaderColor
-                                : themeData1().primaryColor,
-                          ),
-                          onRatingUpdate: (value) {
-                            //_value1Controller = value;
-                            //print(_valueController);
-                          },
-                        ),
-                        // Text(widget.userRating.avg.toString(),
-                        //     style: TextStyle(color: Colors.white)),
-                      ],
+            Padding(
+              padding: const EdgeInsets.only(right: 15.0),
+              child: Row(
+                children: [
+                  Text('Count: ', style: TextStyle(color: Colors.white)),
+                  Text(widget.userRating.count.toString(),
+                      style: TextStyle(color: Colors.white)),
+                  Text(' | ', style: TextStyle(color: Colors.white)),
+                  // Text('Average: ',
+                  //     style: TextStyle(color: Colors.white)),
+                  RatingBar.builder(
+                    allowHalfRating: true,
+                    ignoreGestures: true,
+                    itemSize: 15,
+                    initialRating:
+                        double.parse(widget.userRating.avg.toString()),
+                    itemBuilder: (context, index) => Icon(
+                      Icons.star,
+                      color: widget.isProvider
+                          ? themeData1().secondaryHeaderColor
+                          : themeData1().primaryColor,
                     ),
+                    onRatingUpdate: (value) {
+                      //_value1Controller = value;
+                      //print(_valueController);
+                    },
                   ),
+                  // Text(widget.userRating.avg.toString(),
+                  //     style: TextStyle(color: Colors.white)),
+                ],
+              ),
+            ),
           ],
         ));
   }

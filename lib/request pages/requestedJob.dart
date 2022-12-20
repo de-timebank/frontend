@@ -193,13 +193,18 @@ class _RequestedJobState extends State<RequestedJob> {
                         );
                       } else {
                         if (finalCount < 6) {
-                          return const Center(child: Text('No more data...'));
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 15.0),
+                            child: Text('No more data...'),
+                          );
                         }
                         if (finalCount < from) {
-                          return const Center(child: Text('No more data...'));
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 15.0),
+                            child: Text('No more data...'),
+                          );
                         } else {
-                          return const Center(
-                              child: CircularProgressIndicator());
+                          return CircularProgressIndicator();
                         }
                       }
                     },
