@@ -127,6 +127,7 @@ class _RequestedJobState extends State<RequestedJob> {
                                 ));
                       },
                       child: CustomCardServiceRequest(
+                        date: listFiltered[index]['date'],
                         state: listFiltered[index].state,
                         //function: getinstance,
                         //id: listFiltered[index].id,

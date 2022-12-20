@@ -9,6 +9,7 @@ class CustomCardServiceRequest extends StatefulWidget {
   // final provider;
   final title; //details
   final rate;
+  final date;
 
   const CustomCardServiceRequest({
     super.key,
@@ -16,6 +17,7 @@ class CustomCardServiceRequest extends StatefulWidget {
     required this.title, //details /
     required this.rate,
     required this.state,
+    required this.date,
   });
 
   @override
@@ -28,12 +30,14 @@ class _CustomCardServiceRequestState extends State<CustomCardServiceRequest> {
   late dynamic _userCurrent;
   bool isLoading = false;
 
+  late dynamic dateJob;
+
   @override
   void initState() {
     isLoading = true;
     getRequestorName();
     // TODO: implement initState
-
+    dateJob = DateTime.parse(widget.date);
     super.initState();
   }
 
@@ -84,6 +88,21 @@ class _CustomCardServiceRequestState extends State<CustomCardServiceRequest> {
                           ),
                           Text(_userCurrent.user.name.toString().titleCase(),
                               style: TextStyle(fontSize: 12)),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              Text('Date: ',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold, fontSize: 14)
+                                  //     Theme.of(context).textTheme.headline1,
+                                  ),
+                              Text(
+                                  '${dateJob.day}-${dateJob.month}-${dateJob.year}',
+                                  style: TextStyle(fontSize: 12)),
+                            ],
+                          ),
                         ],
                       ),
                     ),

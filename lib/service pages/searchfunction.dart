@@ -65,6 +65,7 @@ class CustomSearchDelegate extends SearchDelegate {
                     user: user)));
           },
           child: CustomCardServiceRequest(
+            date: matchQuery[index]['date'],
             state: changeState(matchQuery[index]['state']),
             requestor: matchQuery[index]['requestor'],
             title: matchQuery[index]['title'],
@@ -96,6 +97,7 @@ class CustomSearchDelegate extends SearchDelegate {
                     user: user)));
           },
           child: CustomCardServiceRequest(
+            date: matchQuery[index]['date'],
             state: changeState(matchQuery[index]['state']),
             requestor: matchQuery[index]['requestor'],
             title: matchQuery[index]['title'],

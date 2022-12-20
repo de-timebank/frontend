@@ -185,6 +185,7 @@ class _CompletedRequestState extends State<CompletedRequest> {
                                     ));
                           },
                           child: CustomCardServiceRequest(
+                            date: listFiltered[index]['date'],
                             state: changeState(listFiltered[index]['state']),
                             requestor: listFiltered[index]['requestor'],
                             title: listFiltered[index]['title'],

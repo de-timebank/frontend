@@ -135,6 +135,7 @@ class _CompletedRequestState extends State<CompletedRequest> {
                                 ));
                       },
                       child: CustomCardServiceRequest(
+                        date: listFiltered[index]['date'],
                         state: listFiltered[index].state,
                         //function: getinstance,
                         //id: listFiltered[index].id,

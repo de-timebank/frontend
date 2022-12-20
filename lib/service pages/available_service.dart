@@ -407,6 +407,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                                           ));
                                 },
                                 child: CustomCardServiceRequest(
+                                  date: listFiltered[index]['date'],
                                   state:
                                       changeState(listFiltered[index]['state']),
                                   requestor: listFiltered[index]['requestor'],
