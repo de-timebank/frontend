@@ -70,6 +70,8 @@ class _RequestedJobState extends State<RequestedJob> {
     }
   }
 
+  hasApplicants(applicants) {}
+
   void fetch() async {
     //setState(() {});
     from += 7;
@@ -185,6 +187,7 @@ class _RequestedJobState extends State<RequestedJob> {
                                     ));
                           },
                           child: CustomCardServiceRequest(
+                            location: listFiltered[index]['location']['state'],
                             date: listFiltered[index]['date'],
                             state: changeState(listFiltered[index]['state']),
                             requestor: listFiltered[index]['requestor'],

@@ -71,6 +71,14 @@ class _YourRequestState extends State<YourRequest> {
     }
   }
 
+  isRequested(list) {
+    if (list.length == 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   void fetch() async {
     //setState(() {});
     from += 7;
@@ -184,8 +192,13 @@ class _YourRequestState extends State<YourRequest> {
                                       ));
                             },
                             child: CustomCardServiceRequest(
+                              location: listFiltered[index]['location']
+                                  ['state'],
                               date: listFiltered[index]['date'],
-                              state: changeState(listFiltered[index]['state']),
+                              state: isRequested(
+                                      listFiltered[index]['applicants'])
+                                  ? 'No Applicants'
+                                  : changeState(listFiltered[index]['state']),
                               requestor: listFiltered[index]['requestor'],
                               title: listFiltered[index]['title'],
                               rate: listFiltered[index]['rate'],

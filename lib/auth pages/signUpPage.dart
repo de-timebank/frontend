@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:grpc/grpc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -6,6 +7,7 @@ import 'package:testfyp/bin/client_auth.dart';
 import 'package:testfyp/bin/common.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/custom%20widgets/customHeadline.dart';
+import 'package:testfyp/custom%20widgets/heading2.dart';
 import 'package:testfyp/extension_string.dart';
 
 import '../generated/user.pb.dart';
@@ -183,9 +185,17 @@ class _SignUpPageState extends State<SignUpPage> {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: const Text('Do not close this page when signing up'),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CustomHeadline(heading: 'Email*'),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 8),
+                  child: CustomHeadline(heading: 'Email'),
+                ),
+                CustomHeadline(
+                  heading: '*',
+                  color: Colors.red,
+                )
+              ],
             ),
             TextFormField(
               controller: _emailController,
@@ -200,9 +210,17 @@ class _SignUpPageState extends State<SignUpPage> {
                 return null;
               },
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CustomHeadline(heading: 'Password*'),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 8),
+                  child: CustomHeadline(heading: 'Password'),
+                ),
+                CustomHeadline(
+                  heading: '*',
+                  color: Colors.red,
+                )
+              ],
             ),
             TextFormField(
               controller: _passwordController,
@@ -241,9 +259,17 @@ class _SignUpPageState extends State<SignUpPage> {
                 thickness: 2,
                 indent: 15,
                 endIndent: 15),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CustomHeadline(heading: 'Name*'),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 8),
+                  child: CustomHeadline(heading: 'Name'),
+                ),
+                CustomHeadline(
+                  heading: '*',
+                  color: Colors.red,
+                )
+              ],
             ),
             TextFormField(
               controller: _usernameController,
@@ -265,9 +291,17 @@ class _SignUpPageState extends State<SignUpPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomHeadline(heading: 'Gender*'),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 8),
+                      child: CustomHeadline(heading: 'Gender'),
+                    ),
+                    CustomHeadline(
+                      heading: '*',
+                      color: Colors.red,
+                    )
+                  ],
                 ),
                 Container(
                   //padding: EdgeInsets.all(8),
@@ -311,9 +345,17 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CustomHeadline(heading: 'Identification*'),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 8),
+                  child: CustomHeadline(heading: 'Identification'),
+                ),
+                CustomHeadline(
+                  heading: '*',
+                  color: Colors.red,
+                )
+              ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -345,6 +387,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         width: 2,
                       )),
                   child: DropdownButton<String>(
+                    isExpanded: true,
                     underline: Container(
                       height: 0,
                     ),

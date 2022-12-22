@@ -28,9 +28,6 @@ class _ProfilePageState extends State<ProfilePage> {
   late List<dynamic> twitter;
   late List<dynamic> whatsapp;
 
-  final _idController = TextEditingController();
-  final _genderController = TextEditingController();
-
   //late final dynamic contacts = [];
 
   bool isLoad = true;
@@ -72,21 +69,12 @@ class _ProfilePageState extends State<ProfilePage> {
         whatsapp.add(profile.user.profile.contacts[i].address.toString());
       }
     }
-    _idController.text = profile.user.profile.identificationNo.value.toString();
-    _genderController.text = profile.user.profile.gender.toString();
+
     //print(contacts);
     setState(() {
       isLoad = false;
     });
     //print(skills);
-  }
-
-  @override
-  void dispose() {
-    _genderController.dispose();
-    _idController.dispose();
-    // TODO: implement dispose
-    super.dispose();
   }
 
   bool isEmpty(stuff) {
@@ -152,29 +140,21 @@ class _ProfilePageState extends State<ProfilePage> {
                                 heading: profile.user.profile.name
                                     .toString()
                                     .titleCase()),
-                            SizedBox(height: 8),
-                            Row(
-                              children: [
-                                Text(
-                                    '${profile.user.profile.identificationNo.type.toString().capitalize()}: '),
-                                // Expanded(
-                                //   child: TextFormField(
-                                //     controller: _idController,
-                                //     enabled: false,
-                                //   ),
-                                // )
-                                Text(
-                                    '${profile.user.profile.identificationNo.value}'),
-                              ],
-                            ),
-                            SizedBox(height: 8),
-                            Row(
-                              children: [
-                                Text('Gender: '),
-                                Text(
-                                    '${profile.user.profile.gender.toString().capitalize()}'),
-                              ],
-                            ),
+                            //SizedBox(height: 8),
+                            Text(
+                                '${profile.user.profile.identificationNo.type.toString().capitalize()}',
+                                style: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.bold)),
+                            Text(
+                                '${profile.user.profile.identificationNo.value}',
+                                style: TextStyle(fontSize: 12)),
+                            const SizedBox(height: 10),
+                            Text('Gender',
+                                style: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.bold)),
+                            Text(
+                                '${profile.user.profile.gender.toString().capitalize()}',
+                                style: TextStyle(fontSize: 12)),
                           ],
                         ),
                       ),

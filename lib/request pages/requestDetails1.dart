@@ -87,6 +87,15 @@ class _RequestDetails1State extends State<RequestDetails1> {
     }
   }
 
+  // isRequested() {
+  //   for (int i = 0; i < requestDetails.request.applicants.length; i++) {
+  //     if (requestDetails.request.applicants[i] == user) {
+  //       return true;
+  //     }
+  //   }
+  //   return false;
+  // }
+
   isRated() {
     if (ratedUser.ratings.length == 1) {
       // setState(() {
@@ -757,83 +766,92 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                     //   style: TextStyle(
                                     //       fontWeight: FontWeight.bold, fontSize: 15),
                                     // ),
-                                    CustomDivider(
-                                        color: themeData2().primaryColor),
-                                    Heading2('Rate the requestor'),
-                                    CustomHeadline(
-                                        heading: _userRequestor.user.name
-                                            .toString()
-                                            .titleCase()),
+                                    // CustomDivider(
+                                    //     color: themeData2().primaryColor),
+                                    // Heading2('Rate the requestor'),
+                                    // CustomHeadline(
+                                    //     heading: _userRequestor.user.name
+                                    //         .toString()
+                                    //         .titleCase()),
                                     //SizedBox(height: 5),
-                                    isRated() //for providor
-                                        ? isRequestorRated()
-                                            ? Text('Requestor has been rated')
-                                            : Column(
-                                                children: [
-                                                  Center(
-                                                    child: RatingBar.builder(
-                                                      initialRating: 0,
-                                                      itemBuilder:
-                                                          (context, index) =>
-                                                              Icon(
-                                                        Icons.star,
-                                                        color: themeData1()
-                                                            .primaryColor,
-                                                      ),
-                                                      onRatingUpdate: (value) {
-                                                        _valueController =
-                                                            value;
-                                                        //print(_valueController);
-                                                      },
-                                                    ),
-                                                  ),
-                                                  TextFormField(
-                                                    controller:
-                                                        _commentController,
-                                                    decoration: InputDecoration(
-                                                        hintText:
-                                                            'Enter comment'),
-                                                  ),
-                                                  ElevatedButton(
-                                                      style: themeData2()
-                                                          .elevatedButtonTheme
-                                                          .style,
-                                                      onPressed: () {
-                                                        _rateRequestor(
-                                                            widget.user,
-                                                            _valueController
-                                                                .toInt(),
-                                                            _commentController
-                                                                .text,
-                                                            requestDetails
-                                                                .request.id);
-                                                      },
-                                                      child: Text(
-                                                          'Rate Requestor')),
-                                                ],
-                                              )
-                                        : Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: TextButton(
-                                                style: themeData2()
-                                                    .textButtonTheme
-                                                    .style,
-                                                onPressed: () {
-                                                  Navigator.of(context)
-                                                      .push(MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            RateGivenPage(),
-                                                      ))
-                                                      .then((value) => setState(
-                                                            () {
-                                                              //_isEmpty = true;
-                                                              _getAllinstance();
-                                                            },
-                                                          ));
-                                                },
-                                                child:
-                                                    Text('Go to rating page')),
-                                          )
+                                    // isRated() //for providor
+                                    //     ?
+                                    //     // isRequestorRated()
+                                    //     //     ?
+                                    //     Padding(
+                                    //         padding: const EdgeInsets.all(8.0),
+                                    //         child: Text(
+                                    //           'Requestor has been rated',
+                                    //           style: TextStyle(
+                                    //               fontWeight: FontWeight.bold),
+                                    //         ),
+                                    //       )
+                                    //     // : Column(
+                                    //     //     children: [
+                                    //     //       Center(
+                                    //     //         child: RatingBar.builder(
+                                    //     //           initialRating: 0,
+                                    //     //           itemBuilder:
+                                    //     //               (context, index) =>
+                                    //     //                   Icon(
+                                    //     //             Icons.star,
+                                    //     //             color: themeData1()
+                                    //     //                 .primaryColor,
+                                    //     //           ),
+                                    //     //           onRatingUpdate: (value) {
+                                    //     //             _valueController =
+                                    //     //                 value;
+                                    //     //             //print(_valueController);
+                                    //     //           },
+                                    //     //         ),
+                                    //     //       ),
+                                    //     //       TextFormField(
+                                    //     //         controller:
+                                    //     //             _commentController,
+                                    //     //         decoration: InputDecoration(
+                                    //     //             hintText:
+                                    //     //                 'Enter comment'),
+                                    //     //       ),
+                                    //     //       ElevatedButton(
+                                    //     //           style: themeData2()
+                                    //     //               .elevatedButtonTheme
+                                    //     //               .style,
+                                    //     //           onPressed: () {
+                                    //     //             _rateRequestor(
+                                    //     //                 widget.user,
+                                    //     //                 _valueController
+                                    //     //                     .toInt(),
+                                    //     //                 _commentController
+                                    //     //                     .text,
+                                    //     //                 requestDetails
+                                    //     //                     .request.id);
+                                    //     //           },
+                                    //     //           child: Text(
+                                    //     //               'Rate Requestor')),
+                                    //     //     ],
+                                    //     //   )
+                                    //     : Padding(
+                                    //         padding: const EdgeInsets.all(5.0),
+                                    //         child: TextButton(
+                                    //             style: themeData2()
+                                    //                 .textButtonTheme
+                                    //                 .style,
+                                    //             onPressed: () {
+                                    //               Navigator.of(context)
+                                    //                   .push(MaterialPageRoute(
+                                    //                     builder: (context) =>
+                                    //                         RateGivenPage(),
+                                    //                   ))
+                                    //                   .then((value) => setState(
+                                    //                         () {
+                                    //                           //_isEmpty = true;
+                                    //                           _getAllinstance();
+                                    //                         },
+                                    //                       ));
+                                    //             },
+                                    //             child:
+                                    //                 Text('Go to rating page')),
+                                    //       )
                                   ],
                                 ),
                               ),
@@ -891,25 +909,33 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                       //sini oi the service
                                       elevation: 5,
                                       child: Padding(
-                                        padding: const EdgeInsets.all(15.0),
-                                        child: Column(
-                                          children: [
-                                            Heading2('Interested in the job?'),
-                                            ElevatedButton(
-                                                style: themeData2()
-                                                    .elevatedButtonTheme
-                                                    .style,
-                                                onPressed: () {
-                                                  // print(widget.id);
-                                                  // print(widget.user);
-                                                  applyJob(
-                                                      requestDetails.request.id,
-                                                      widget.user);
-                                                },
-                                                child: Text('Request Job')),
-                                          ],
-                                        ),
-                                      ),
+                                          padding: const EdgeInsets.all(15.0),
+                                          child: isNull(requestDetails
+                                                  .request.applicants)
+                                              ? Column(
+                                                  children: [
+                                                    Heading2(
+                                                        'Interested in the job?'),
+                                                    ElevatedButton(
+                                                        style: themeData2()
+                                                            .elevatedButtonTheme
+                                                            .style,
+                                                        onPressed: () {
+                                                          // print(widget.id);
+                                                          // print(widget.user);
+                                                          applyJob(
+                                                              requestDetails
+                                                                  .request.id,
+                                                              widget.user);
+                                                        },
+                                                        child: Text(
+                                                            'Request Job')),
+                                                  ],
+                                                )
+                                              : Center(
+                                                  child: Text(
+                                                      'You have requested for the job\nContact Requestor to accept you as Provider'),
+                                                )),
                                     ),
                   const SizedBox(height: 15),
                   Container(

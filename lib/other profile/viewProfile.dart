@@ -121,19 +121,17 @@ class _ViewProfileState extends State<ViewProfile> {
                                     .toString()
                                     .titleCase()),
                             SizedBox(height: 8),
-                            Row(
-                              children: [
-                                Text('Gender: '),
-                                Text(
-                                    '${profile.user.profile.gender.toString().capitalize()}'),
-                              ],
-                            ),
+                            Text('Gender',
+                                style: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.bold)),
+                            Text(
+                                '${profile.user.profile.gender.toString().capitalize()}',
+                                style: TextStyle(fontSize: 12)),
                           ],
                         ),
                       ),
                     ),
                   ),
-
                   CustomHeadline(heading: ' Ratings'),
                   RatingCardDetails1(
                       isProvider: true,
@@ -164,7 +162,6 @@ class _ViewProfileState extends State<ViewProfile> {
                               );
                             },
                           )),
-
                   CustomHeadline(heading: ' Contact List'),
                   Row(
                     children: [
@@ -222,18 +219,6 @@ class _ViewProfileState extends State<ViewProfile> {
                           : CustomListviewContact(contactList: whatsapp)
                     ],
                   ),
-                  // RatingCardWidget(
-                  //   isProvider: true,
-                  //   title: 'Provider Rating',
-                  //   iconRating: Icons.emoji_people,
-                  //   userRating: profile.user.rating.asProvider,
-                  // ),
-                  // RatingCardWidget(
-                  //   isProvider: false,
-                  //   title: 'Requestor Rating',
-                  //   iconRating: Icons.handshake,
-                  //   userRating: profile.user.rating.asRequestor,
-                  // ),
                 ],
               ),
       ),

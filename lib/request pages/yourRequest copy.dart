@@ -127,6 +127,7 @@ class _YourRequestState extends State<YourRequest> {
                                   ));
                         },
                         child: CustomCardServiceRequest(
+                          location: listFiltered[index]['location']['address'],
                           date: listFiltered[index]['date'],
                           state: listFiltered[index].state,
                           //function: getinstance,

@@ -66,7 +66,7 @@ class _RateReceivedPageState extends State<RateReceivedPage> {
       body: isLoad
           ? const Center(child: CircularProgressIndicator())
           : _isEmpty
-              ? const Center(child: Text('No comment...'))
+              ? const Center(child: Text('No rating received...'))
               : ListView.builder(
                   itemCount: listRequest.ratings.length,
                   itemBuilder: (context, index) {

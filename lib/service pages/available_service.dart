@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:testfyp/custom%20widgets/customHeadline.dart';
+import 'package:testfyp/custom%20widgets/theme.dart';
 import 'package:testfyp/request%20pages/requestDetails1.dart';
-import '../bin/client_service_request.dart';
-import '../bin/common.dart';
 import 'searchfunction.dart';
 import '../components/constants.dart';
 import '../custom widgets/customCardServiceRequest.dart';
-import '../generated/misc.pb.dart';
-import '../request pages/requestDetails.dart';
 
 class AvailableServices extends StatefulWidget {
   AvailableServices({Key? key}) : super(key: key);
@@ -32,6 +27,14 @@ class _AvailableServicesState extends State<AvailableServices> {
   // late Filter _filter;
   final _scrollController = ScrollController();
   final _categoryController = TextEditingController();
+  final _stateController = TextEditingController();
+  final _filterController = TextEditingController();
+
+  List<String> listFilter = <String>[
+    'Category',
+    'State',
+  ];
+
   List<String> listCategories = <String>[
     'All Categories',
     'Arts, Crafts & Music',
@@ -45,33 +48,38 @@ class _AvailableServicesState extends State<AvailableServices> {
     'Wellness',
   ];
 
-  // List<String> listFilter = <String>[
-  //   'Categories',
-  //   'Location',
-  //   'Date',
-  //   'Community Activities',
-  //   'Companionship',
-  //   'Education',
-  //   'Help at Home',
-  //   'Recreation',
-  //   'Transportation',
-  //   'Wellness',
-  // ];
+  List<String> listState = <String>[
+    'Malaysia',
+    'Kuala Lumpur',
+    'Kelantan',
+    'Kedah',
+    'Johor',
+    'labuan',
+    'Melaka',
+    'Negeri Sembilan',
+    'Pahang',
+    'Penang',
+    'Perak',
+    'Perlis',
+    'Putrajaya',
+    'Sabah',
+    'Sarawak',
+    'Selangor',
+    'Terengganu',
+  ];
 
   @override
   void initState() {
-    // _filter = Filter();
-
     _isEmpty = true;
     _categoryController.text = listCategories[0];
+    _stateController.text = listState[0];
+    _filterController.text = listFilter[0];
+
     _scrollController.addListener(
       () {
         if (_scrollController.position.maxScrollExtent ==
             _scrollController.offset) {
           fetch();
-          // from += 5;
-          // to += 5;
-
         }
       },
     );
@@ -82,8 +90,17 @@ class _AvailableServicesState extends State<AvailableServices> {
   @override
   void dispose() {
     // TODO: implement dispose
+
     _scrollController.dispose();
     super.dispose();
+  }
+
+  isRequested(list) {
+    if (list.length == 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   changeState(state) {
@@ -108,13 +125,32 @@ class _AvailableServicesState extends State<AvailableServices> {
     // print('from ' + from.toString());
     // print('to ' + to.toString());
     final data1;
-    //print('fetching data...');
-    if (_categoryController.text == 'All Categories') {
+
+    if (_categoryController.text == 'All Categories' &&
+        _stateController.text == listState[0]) {
       data1 = await supabase
           .from('service_requests')
           .select()
           .neq('requestor', user)
           .eq('state', 0)
+          .range(from, to);
+    } else if (_categoryController.text == 'All Categories' &&
+        _stateController.text != listState[0]) {
+      data1 = await supabase
+          .from('service_requests')
+          .select()
+          .neq('requestor', user)
+          .eq('state', 0)
+          .eq('location->>state', _stateController.text)
+          .range(from, to);
+    } else if (_categoryController.text != 'All Categories' &&
+        _stateController.text == listState[0]) {
+      data1 = await supabase
+          .from('service_requests')
+          .select()
+          .neq('requestor', user)
+          .eq('state', 0)
+          .eq('category', _categoryController.text)
           .range(from, to);
     } else {
       data1 = await supabase
@@ -123,14 +159,10 @@ class _AvailableServicesState extends State<AvailableServices> {
           .neq('requestor', user)
           .eq('state', 0)
           .eq('category', _categoryController.text)
+          .eq('location->>state', _stateController.text)
           .range(from, to);
     }
 
-    // final data1 = await supabase
-    //     .from('service_requests')
-    //     .select()
-    //     .neq('requestor', user)
-    //     .range(from, to);
     setState(() {
       listFiltered.addAll(data1);
     });
@@ -161,7 +193,8 @@ class _AvailableServicesState extends State<AvailableServices> {
     //_filter..by = 'state'..value = '0';
     // print('from ' + from.toString());
     // print('to ' + to.toString());
-    if (_categoryController.text == 'All Categories') {
+    if (_categoryController.text == 'All Categories' &&
+        _stateController.text == listState[0]) {
       listFiltered.addAll(await supabase
           .from('service_requests')
           .select()
@@ -173,13 +206,29 @@ class _AvailableServicesState extends State<AvailableServices> {
           .select()
           .eq('state', 0)
           .neq('requestor', user);
-    } else {
+    } else if (_categoryController.text == 'All Categories' &&
+        _stateController.text != listState[0]) {
       listFiltered.addAll(await supabase
           .from('service_requests')
           .select()
           .neq('requestor', user)
-          .eq('category', _categoryController.text)
           .eq('state', 0)
+          .eq('location->>state', _stateController.text)
+          .range(from, to));
+      data = await supabase
+          .from('service_requests')
+          .select()
+          .neq('requestor', user)
+          .eq('state', 0)
+          .eq('location->>state', _stateController.text);
+    } else if (_categoryController.text != 'All Categories' &&
+        _stateController.text == listState[0]) {
+      listFiltered.addAll(await supabase
+          .from('service_requests')
+          .select()
+          .neq('requestor', user)
+          .eq('state', 0)
+          .eq('category', _categoryController.text)
           .range(from, to));
       data = await supabase
           .from('service_requests')
@@ -187,42 +236,32 @@ class _AvailableServicesState extends State<AvailableServices> {
           .neq('requestor', user)
           .eq('state', 0)
           .eq('category', _categoryController.text);
+
+      // .like('location', '%${_stateController.text.toString()}%')
+
+    } else if (_categoryController.text != 'All Categories' &&
+        _stateController.text != listState[0]) {
+      listFiltered.addAll(await supabase
+          .from('service_requests')
+          .select()
+          .neq('requestor', user)
+          .eq('state', 0)
+          .eq('category', _categoryController.text)
+          .eq('location->>state', _stateController.text)
+          .range(from, to));
+      data = await supabase
+          .from('service_requests')
+          .select()
+          .neq('requestor', user)
+          .eq('state', 0)
+          .eq('category', _categoryController.text)
+          .eq('location->>state', _stateController.text);
     }
-    // from += 7;
-    // to += 7;
-    // listFiltered.addAll(await supabase
-    //     .from('service_requests')
-    //     .select()
-    //     .neq('requestor', user));
-    // print(finalCount.count);
-    // from += 7;
-    // to += 7;
 
     finalCount = data.length;
-    //print('the final count is $finalCount');
-    // print(data['id']);
-    //listFiltered.addAll(data);
-    // print(listFiltered);
-    // print('length' + listFiltered.length.toString());
-    // await ClientServiceRequest(Common().channel)
-    //     .getAvailable1('state', '0');
-    //await ClientServiceRequest(Common().channel).getResponse('state', '0');
-    //print(listRequest);
-    // for (var i = 0; i < listRequest.requests.length; i++) {
-    //   if (listRequest.requests[i].requestor != user &&
-    //       _categoryController.text == 'All Categories') {
-    //     listFiltered.add(listRequest.requests[i]);
-    //     //print(listFiltered);
-    //     //_listuserCurrent.add(listRequest.request[i].requestor)
-    //   } else if (listRequest.requests[i].requestor != user &&
-    //       listRequest.requests[i].category.contains(_categoryController.text)) {
-    //     print(_categoryController.text);
-    //     listFiltered.add(listRequest.requests[i]);
-    //     //_listuserCurrent.add(listRequest.request[i].requestor)
-    //   }
-    // }
-    //print(listFiltered);
-    //print(listRequest);
+
+    print(listFiltered);
+
     setState(() {
       isLoad = false;
       isEmpty();
@@ -254,7 +293,11 @@ class _AvailableServicesState extends State<AvailableServices> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            CustomHeadline(heading: 'Filter by: '),
+                            Icon(
+                              Icons.tune,
+                              color: themeData1().secondaryHeaderColor,
+                            ),
+                            const SizedBox(width: 3),
                             Container(
                               alignment: Alignment.center,
                               //margin: EdgeInsets.all(8),
@@ -269,10 +312,10 @@ class _AvailableServicesState extends State<AvailableServices> {
                                 underline: Container(
                                   height: 0,
                                 ),
-                                // iconEnabledColor:
-                                //     Theme.of(context).secondaryHeaderColor,
-                                value: _categoryController.text,
-                                items: listCategories
+                                iconEnabledColor:
+                                    Theme.of(context).secondaryHeaderColor,
+                                value: _filterController.text,
+                                items: listFilter
                                     .map<DropdownMenuItem<String>>((e) {
                                   return DropdownMenuItem<String>(
                                       value: e,
@@ -291,11 +334,121 @@ class _AvailableServicesState extends State<AvailableServices> {
                                 }).toList(),
                                 onChanged: (value) {
                                   setState(() {
-                                    _categoryController.text = value.toString();
+                                    _filterController.text = value.toString();
                                     //print(_categoryController.text);
-                                    getinstance();
+                                    //getinstance();
                                     //print(_genderController.text);
                                   });
+                                },
+                              ),
+                            ),
+                            SizedBox(width: 5),
+                            Expanded(
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: 1,
+                                itemBuilder: (BuildContext context, int index) {
+                                  if (_filterController.text == listFilter[1]) {
+                                    return Container(
+                                      alignment: Alignment.center,
+                                      //margin: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          border: Border.all(
+                                            color: Theme.of(context)
+                                                .secondaryHeaderColor,
+                                            width: 2,
+                                          )),
+                                      child: DropdownButton<String>(
+                                        isExpanded: true,
+                                        underline: Container(
+                                          height: 0,
+                                        ),
+                                        iconEnabledColor: Theme.of(context)
+                                            .secondaryHeaderColor,
+                                        value: _stateController.text,
+                                        items: listState
+                                            .map<DropdownMenuItem<String>>((e) {
+                                          return DropdownMenuItem<String>(
+                                              value: e,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10),
+                                                child: Text(
+                                                  e,
+                                                  style: TextStyle(
+                                                      color: Theme.of(context)
+                                                          .secondaryHeaderColor,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 15),
+                                                ),
+                                              ));
+                                        }).toList(),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _stateController.text =
+                                                value.toString();
+                                            //print(_categoryController.text);
+                                            getinstance();
+                                            //print(_genderController.text);
+                                          });
+                                        },
+                                      ),
+                                    );
+                                  } else {
+                                    return Container(
+                                      alignment: Alignment.center,
+                                      //margin: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          border: Border.all(
+                                            color: Theme.of(context)
+                                                .secondaryHeaderColor,
+                                            width: 2,
+                                          )),
+                                      child: DropdownButton<String>(
+                                        isExpanded: true,
+                                        underline: Container(
+                                          height: 0,
+                                        ),
+                                        iconEnabledColor: Theme.of(context)
+                                            .secondaryHeaderColor,
+                                        value: _categoryController.text,
+                                        items: listCategories
+                                            .map<DropdownMenuItem<String>>((e) {
+                                          return DropdownMenuItem<String>(
+                                              value: e,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10),
+                                                child: Text(
+                                                  e,
+                                                  style: TextStyle(
+                                                      color: Theme.of(context)
+                                                          .secondaryHeaderColor,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 15),
+                                                ),
+                                              ));
+                                        }).toList(),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _categoryController.text =
+                                                value.toString();
+                                            //print(_categoryController.text);
+                                            getinstance();
+                                            //print(_genderController.text);
+                                          });
+                                        },
+                                      ),
+                                    );
+                                  }
                                 },
                               ),
                             ),
@@ -328,14 +481,23 @@ class _AvailableServicesState extends State<AvailableServices> {
                     ],
                   )
                 : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     //physics: NeverScrollableScrollPhysics(),
                     children: [
+                      // Padding(
+                      //   padding: const EdgeInsets.only(left: 15.0),
+                      //   child: CustomHeadline(heading: 'Filter'),
+                      // ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            CustomHeadline(heading: 'Filter by: '),
+                            Icon(
+                              Icons.tune,
+                              color: themeData1().secondaryHeaderColor,
+                            ),
+                            const SizedBox(width: 3),
                             Container(
                               alignment: Alignment.center,
                               //margin: EdgeInsets.all(8),
@@ -352,8 +514,8 @@ class _AvailableServicesState extends State<AvailableServices> {
                                 ),
                                 iconEnabledColor:
                                     Theme.of(context).secondaryHeaderColor,
-                                value: _categoryController.text,
-                                items: listCategories
+                                value: _filterController.text,
+                                items: listFilter
                                     .map<DropdownMenuItem<String>>((e) {
                                   return DropdownMenuItem<String>(
                                       value: e,
@@ -363,8 +525,8 @@ class _AvailableServicesState extends State<AvailableServices> {
                                         child: Text(
                                           e,
                                           style: TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 245, 167, 44),
+                                              color: Theme.of(context)
+                                                  .secondaryHeaderColor,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 15),
                                         ),
@@ -372,11 +534,121 @@ class _AvailableServicesState extends State<AvailableServices> {
                                 }).toList(),
                                 onChanged: (value) {
                                   setState(() {
-                                    _categoryController.text = value.toString();
+                                    _filterController.text = value.toString();
                                     //print(_categoryController.text);
-                                    getinstance();
+                                    //getinstance();
                                     //print(_genderController.text);
                                   });
+                                },
+                              ),
+                            ),
+                            SizedBox(width: 5),
+                            Expanded(
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: 1,
+                                itemBuilder: (BuildContext context, int index) {
+                                  if (_filterController.text == listFilter[1]) {
+                                    return Container(
+                                      alignment: Alignment.center,
+                                      //margin: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          border: Border.all(
+                                            color: Theme.of(context)
+                                                .secondaryHeaderColor,
+                                            width: 2,
+                                          )),
+                                      child: DropdownButton<String>(
+                                        isExpanded: true,
+                                        underline: Container(
+                                          height: 0,
+                                        ),
+                                        iconEnabledColor: Theme.of(context)
+                                            .secondaryHeaderColor,
+                                        value: _stateController.text,
+                                        items: listState
+                                            .map<DropdownMenuItem<String>>((e) {
+                                          return DropdownMenuItem<String>(
+                                              value: e,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10),
+                                                child: Text(
+                                                  e,
+                                                  style: TextStyle(
+                                                      color: Theme.of(context)
+                                                          .secondaryHeaderColor,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 15),
+                                                ),
+                                              ));
+                                        }).toList(),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _stateController.text =
+                                                value.toString();
+                                            //print(_categoryController.text);
+                                            getinstance();
+                                            //print(_genderController.text);
+                                          });
+                                        },
+                                      ),
+                                    );
+                                  } else {
+                                    return Container(
+                                      alignment: Alignment.center,
+                                      //margin: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          border: Border.all(
+                                            color: Theme.of(context)
+                                                .secondaryHeaderColor,
+                                            width: 2,
+                                          )),
+                                      child: DropdownButton<String>(
+                                        isExpanded: true,
+                                        underline: Container(
+                                          height: 0,
+                                        ),
+                                        iconEnabledColor: Theme.of(context)
+                                            .secondaryHeaderColor,
+                                        value: _categoryController.text,
+                                        items: listCategories
+                                            .map<DropdownMenuItem<String>>((e) {
+                                          return DropdownMenuItem<String>(
+                                              value: e,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10),
+                                                child: Text(
+                                                  e,
+                                                  style: TextStyle(
+                                                      color: Theme.of(context)
+                                                          .secondaryHeaderColor,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 15),
+                                                ),
+                                              ));
+                                        }).toList(),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _categoryController.text =
+                                                value.toString();
+                                            //print(_categoryController.text);
+                                            getinstance();
+                                            //print(_genderController.text);
+                                          });
+                                        },
+                                      ),
+                                    );
+                                  }
                                 },
                               ),
                             ),
@@ -384,7 +656,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                         ),
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height / 1.5,
+                        height: MediaQuery.of(context).size.height / 1.6,
                         child: ListView.builder(
                           controller: _scrollController,
                           itemCount: listFiltered.length + 1,
@@ -407,9 +679,14 @@ class _AvailableServicesState extends State<AvailableServices> {
                                           ));
                                 },
                                 child: CustomCardServiceRequest(
+                                  location: listFiltered[index]['location']
+                                      ['state'],
                                   date: listFiltered[index]['date'],
-                                  state:
-                                      changeState(listFiltered[index]['state']),
+                                  state: isRequested(
+                                          listFiltered[index]['applicants'])
+                                      ? 'Available'
+                                      : changeState(
+                                          listFiltered[index]['state']),
                                   requestor: listFiltered[index]['requestor'],
                                   title: listFiltered[index]['title'],
                                   rate: listFiltered[index]['rate'],

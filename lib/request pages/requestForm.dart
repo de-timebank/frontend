@@ -228,9 +228,17 @@ class _RequestFormState extends State<RequestForm> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CustomHeadline(heading: 'Title*'),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 8),
+                              child: CustomHeadline(heading: 'Title'),
+                            ),
+                            CustomHeadline(
+                              heading: '*',
+                              color: Colors.red,
+                            )
+                          ],
                         ),
                         TextFormField(
                           controller: _titleController,
@@ -249,9 +257,17 @@ class _RequestFormState extends State<RequestForm> {
                           //   reqList[0]['Title'] = value;
                           // },
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CustomHeadline(heading: 'Description*'),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 8),
+                              child: CustomHeadline(heading: 'Desription'),
+                            ),
+                            CustomHeadline(
+                              heading: '*',
+                              color: Colors.red,
+                            )
+                          ],
                         ),
                         TextFormField(
                           controller: _descriptionController,
@@ -267,9 +283,17 @@ class _RequestFormState extends State<RequestForm> {
                             return null;
                           },
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CustomHeadline(heading: 'Date & Time*'),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 8),
+                              child: CustomHeadline(heading: 'Date & Time'),
+                            ),
+                            CustomHeadline(
+                              heading: '*',
+                              color: Colors.red,
+                            )
+                          ],
                         ),
                         ElevatedButton(
                             onPressed: () {
@@ -301,162 +325,6 @@ class _RequestFormState extends State<RequestForm> {
                               'Pick date & time',
                               //style: TextStyle(color: Colors.blue),
                             )),
-                        // Row(
-                        //   children: [
-                        //     // Expanded(
-                        //     //   child: TextFormField(
-                        //     //     enabled: false,
-                        //     //     controller: _dateControllerDisplay,
-                        //     //     decoration: InputDecoration(
-                        //     //         border: OutlineInputBorder(),
-                        //     //         hintText: 'Pick a date'),
-                        //     //     validator: (value) {
-                        //     //       if (value == null || value.isEmpty) {
-                        //     //         return 'Please enter date...';
-                        //     //       }
-                        //     //       return null;
-                        //     //     },
-                        //     //   ),
-                        //     // ),
-                        //     Icon(
-                        //       Icons.calendar_month,
-                        //       color: themeData1().primaryColor,
-                        //     ),
-                        //     Expanded(
-                        //       child: Padding(
-                        //         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        //         child: ElevatedButton(
-                        //             onPressed: () async {
-                        //               newDate = await showDatePicker(
-                        //                 builder: (context, child) {
-                        //                   return Theme(
-                        //                     data: Theme.of(context).copyWith(
-                        //                       colorScheme: ColorScheme.light(
-                        //                         primary: themeData1()
-                        //                             .primaryColor, // header background color
-                        //                         onPrimary:
-                        //                             Colors.white, // header text color
-                        //                         onSurface:
-                        //                             Colors.black, // body text color
-                        //                       ),
-                        //                       // textButtonTheme: TextButtonThemeData(
-                        //                       //   style: TextButton.styleFrom(
-                        //                       //     foregroundColor:
-                        //                       //         Colors.red, // button text color
-                        //                       //   ),
-                        //                       // ),
-                        //                     ),
-                        //                     child: child!,
-                        //                   );
-                        //                 },
-                        //                 context: context,
-                        //                 initialDate: _dateTime,
-                        //                 firstDate: DateTime(_dateTime.year,
-                        //                     _dateTime.month, _dateTime.day),
-                        //                 lastDate: _dateTime.add(Duration(days: 365)),
-                        //               );
-
-                        //               setState(() {
-                        //                 _dateControllerDisplay.text =
-                        //                     '${newDate?.day}-${newDate?.month}-${newDate?.year}';
-                        //                 //newDate.
-                        //                 // _dateControllerDisplay.text =
-                        //                 //     newDate.toString();
-                        //                 _dateController.text = newDate.toString();
-                        //                 //print(_dateController.text);
-                        //                 //;
-                        //               });
-                        //               // _addmedia(_mediaController.text);
-                        //               // _mediaController.clear();
-                        //             },
-                        //             child: Text('Pick a Date')),
-                        //       ),
-                        //     )
-                        //   ],
-                        // ),
-                        // Row(
-                        //   children: [
-                        //     // Expanded(
-                        //     //   child: TextFormField(
-                        //     //     enabled: false,
-                        //     //     controller: _dateControllerDisplay,
-                        //     //     decoration: InputDecoration(
-                        //     //         border: OutlineInputBorder(),
-                        //     //         hintText: 'Pick a date'),
-                        //     //     validator: (value) {
-                        //     //       if (value == null || value.isEmpty) {
-                        //     //         return 'Please enter date...';
-                        //     //       }
-                        //     //       return null;
-                        //     //     },
-                        //     //   ),
-                        //     // ),
-                        //     Icon(
-                        //       Icons.alarm,
-                        //       color: themeData1().primaryColor,
-                        //     ),
-                        //     Expanded(
-                        //       child: Padding(
-                        //         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        //         child: ElevatedButton(
-                        //             onPressed: () async {
-                        //               newTime = await showTimePicker(
-                        //                 builder: (context, child) {
-                        //                   return Theme(
-                        //                     data: Theme.of(context).copyWith(
-                        //                       colorScheme: ColorScheme.light(
-                        //                         primary: themeData1()
-                        //                             .primaryColor, // header background color
-                        //                         onPrimary:
-                        //                             Colors.white, // header text color
-                        //                         onSurface:
-                        //                             Colors.black, // body text color
-                        //                       ),
-                        //                       // textButtonTheme: TextButtonThemeData(
-                        //                       //   style: TextButton.styleFrom(
-                        //                       //     foregroundColor:
-                        //                       //         Colors.red, // button text color
-                        //                       //   ),
-                        //                       // ),
-                        //                     ),
-                        //                     child: child!,
-                        //                   );
-                        //                 },
-                        //                 context: context,
-                        //                 initialTime: TimeOfDay.now(),
-
-                        //                 // initialDate: _dateTime,
-                        //                 // firstDate: DateTime(_dateTime.year,
-                        //                 //     _dateTime.month, _dateTime.day),
-                        //                 // lastDate: _dateTime.add(Duration(days: 365)), initialTime: null,
-                        //               );
-
-                        //               setState(() {
-                        //                 try {
-                        //                   _dateControllerDisplay.text =
-                        //                       'Date: ${newDate?.day}-${newDate?.month}-${newDate?.year} | Time: ${newTime?.hour}:${newTime?.minute}';
-                        //                   _dateController.text = newDate!
-                        //                       .add(Duration(
-                        //                           hours: newTime!.hour,
-                        //                           minutes: newTime!.minute))
-                        //                       .toString();
-                        //                 } catch (e) {
-                        //                   context.showErrorSnackBar(
-                        //                       message: 'Pick a date first...');
-                        //                 }
-
-                        //                 // '${newDate?.year}-${newDate?.month}-${newDate?.day} ${newTime?.hour}:${newTime?.minute}:00.000';
-                        //                 //print(_dateController.text);
-                        //                 //;
-                        //               });
-                        //               // _addmedia(_mediaController.text);
-                        //               // _mediaController.clear();
-                        //             },
-                        //             child: Text('Pick a Time')),
-                        //       ),
-                        //     )
-                        //   ],
-                        // ),
                         SizedBox(height: 8),
                         TextFormField(
                           enabled: false,
@@ -477,9 +345,17 @@ class _RequestFormState extends State<RequestForm> {
                             return null;
                           },
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CustomHeadline(heading: 'Category*'),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 8),
+                              child: CustomHeadline(heading: 'Category'),
+                            ),
+                            CustomHeadline(
+                              heading: '*',
+                              color: Colors.red,
+                            )
+                          ],
                         ),
                         Container(
                           alignment: Alignment.center,
@@ -520,9 +396,17 @@ class _RequestFormState extends State<RequestForm> {
                             },
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CustomHeadline(heading: 'Location*'),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 8),
+                              child: CustomHeadline(heading: 'Location'),
+                            ),
+                            CustomHeadline(
+                              heading: '*',
+                              color: Colors.red,
+                            )
+                          ],
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -740,6 +624,8 @@ class _RequestFormState extends State<RequestForm> {
                               child: TextFormField(
                                 controller: _mediaController,
                                 decoration: InputDecoration(
+                                    helperText:
+                                        'Enter any relevant documents \nrelated to the job',
                                     border: OutlineInputBorder(),
                                     hintText: 'Enter attachment'),
                               ),
@@ -801,9 +687,17 @@ class _RequestFormState extends State<RequestForm> {
                                     );
                                   },
                                 )),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CustomHeadline(heading: 'Time Limit*'),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 8),
+                              child: CustomHeadline(heading: 'Time Limit'),
+                            ),
+                            CustomHeadline(
+                              heading: '*',
+                              color: Colors.red,
+                            )
+                          ],
                         ),
                         TextFormField(
                           controller: _timeLimitController,
@@ -822,9 +716,17 @@ class _RequestFormState extends State<RequestForm> {
                           //   reqList[0]['Title'] = value;
                           // },
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CustomHeadline(heading: 'Rate*'),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 8),
+                              child: CustomHeadline(heading: 'Rate'),
+                            ),
+                            CustomHeadline(
+                              heading: '*',
+                              color: Colors.red,
+                            )
+                          ],
                         ),
                         Row(
                           children: [

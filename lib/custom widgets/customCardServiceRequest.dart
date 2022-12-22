@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:testfyp/bin/client_user.dart';
 import 'package:testfyp/bin/common.dart';
+import 'package:testfyp/custom%20widgets/customHeadline.dart';
 import 'package:testfyp/extension_string.dart';
 
 class CustomCardServiceRequest extends StatefulWidget {
@@ -10,6 +11,7 @@ class CustomCardServiceRequest extends StatefulWidget {
   final title; //details
   final rate;
   final date;
+  final location;
 
   const CustomCardServiceRequest({
     super.key,
@@ -18,6 +20,7 @@ class CustomCardServiceRequest extends StatefulWidget {
     required this.rate,
     required this.state,
     required this.date,
+    required this.location,
   });
 
   @override
@@ -67,82 +70,65 @@ class _CustomCardServiceRequestState extends State<CustomCardServiceRequest> {
           ? const Card()
           : Card(
               elevation: 5,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Flexible(
-                    fit: FlexFit.tight,
-                    flex: 4,
-                    child: Container(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(widget.title.toString().capitalize(),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 14)
-                              //     Theme.of(context).textTheme.headline1,
-                              ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(_userCurrent.user.name.toString().titleCase(),
-                              style: TextStyle(fontSize: 12)),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            children: [
-                              Text('Date: ',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: 14)
-                                  //     Theme.of(context).textTheme.headline1,
+                  Container(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(Icons.work_outline_rounded),
+                                SizedBox(width: 5),
+                                Text(widget.title.toString().capitalize(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14)
+                                    //     Theme.of(context).textTheme.headline1,
+                                    ),
+                              ],
+                            ),
+                            Container(
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 219, 216, 233),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    '${widget.state.toString().titleCase()}',
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold),
                                   ),
-                              Text(
-                                  '${dateJob.day}-${dateJob.month}-${dateJob.year}',
-                                  style: TextStyle(fontSize: 12)),
-                            ],
-                          ),
-                        ],
-                      ),
+                                )),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Text(_userCurrent.user.name.toString().titleCase(),
+                            style: TextStyle(fontSize: 12)),
+                        SizedBox(height: 10),
+                        Text('${widget.location}',
+                            style: TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.bold)),
+                        SizedBox(height: 6),
+                        Text(
+                          '${widget.rate} \$Time/hour',
+                          style: TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text('${dateJob.day}-${dateJob.month}-${dateJob.year}',
+                            style: TextStyle(fontSize: 12)),
+                      ],
                     ),
                   ),
-                  Flexible(
-                      flex: 2,
-                      child: Container(
-                          decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 219, 216, 233),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              '${widget.state.toString().titleCase()}',
-                              style: TextStyle(
-                                  fontSize: 10, fontWeight: FontWeight.bold),
-                            ),
-                          ))),
-                  Flexible(
-                      flex: 4,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 219, 216, 233),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                '${widget.rate} \$Time/hour',
-                                style: TextStyle(fontSize: 12),
-                              ),
-                            )),
-                      )),
-                  // Flexible(
-                  //   flex: 1,
-                  //   child: IconButton(
-                  //       onPressed: (() {}),
-                  //       icon: Icon(Icons.favorite_border_outlined)),
-                  // )
                 ],
               ),
             ),

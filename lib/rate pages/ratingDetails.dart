@@ -225,17 +225,18 @@ class _RatingDetailsState extends State<RatingDetails> {
                       ),
                     ),
                   ),
+                  SizedBox(height: 15),
                   Heading2(' Created On'),
                   Text(
                       ' Date: ${dateCreatedOn.day}-${dateCreatedOn.month}-${dateCreatedOn.year}\n\tTime: ${dateCreatedOn.hour}:${dateCreatedOn.minute}'),
-                  Heading2(' Updated On'),
-                  Text(
-                      ' Date: ${dateUpdatedOn.day}-${dateUpdatedOn.month}-${dateUpdatedOn.year}\n\tTime: ${dateUpdatedOn.hour}:${dateUpdatedOn.minute}'),
+                  SizedBox(height: 15),
+                  // Heading2(' Updated On'),
+                  // Text(
+                  //     ' Date: ${dateUpdatedOn.day}-${dateUpdatedOn.month}-${dateUpdatedOn.year}\n\tTime: ${dateUpdatedOn.hour}:${dateUpdatedOn.minute}'),
+                  // SizedBox(height: 15),
                   Heading2(' Job Id'),
                   Text(' ${widget.requestId}'),
-                  SizedBox(
-                    height: 15,
-                  ),
+                  SizedBox(height: 15),
                   widget.isProvider
                       ? TextButton(
                           onPressed: () {

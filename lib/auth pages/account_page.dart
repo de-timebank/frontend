@@ -548,6 +548,7 @@ class _AccountPageState extends State<AccountPage> {
                               width: 2,
                             )),
                         child: DropdownButton<String>(
+                          isExpanded: true,
                           //dropdownColor: themeData2().primaryColor,
                           iconEnabledColor: themeData2().primaryColor,
                           underline: Container(
