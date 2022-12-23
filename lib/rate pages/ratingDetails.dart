@@ -172,8 +172,8 @@ class _RatingDetailsState extends State<RatingDetails> {
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
                         color: widget.isProvider
-                            ? themeData1().primaryColor
-                            : themeData2().secondaryHeaderColor,
+                            ? themeData1().secondaryHeaderColor
+                            : themeData2().primaryColor,
                         width: 3,
                       ),
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
@@ -189,8 +189,8 @@ class _RatingDetailsState extends State<RatingDetails> {
                               CustomHeadline(
                                 heading: 'Recipient',
                                 color: widget.isProvider
-                                    ? themeData1().primaryColor
-                                    : themeData2().secondaryHeaderColor,
+                                    ? themeData1().secondaryHeaderColor
+                                    : themeData2().primaryColor,
                               ),
                               Text(_userProvider.user.name
                                   .toString()
@@ -202,8 +202,8 @@ class _RatingDetailsState extends State<RatingDetails> {
                               CustomHeadline(
                                 heading: 'Author',
                                 color: widget.isProvider
-                                    ? themeData1().primaryColor
-                                    : themeData2().secondaryHeaderColor,
+                                    ? themeData1().secondaryHeaderColor
+                                    : themeData2().primaryColor,
                               ),
                               Text(_userRequestor.user.name
                                   .toString()
@@ -215,8 +215,8 @@ class _RatingDetailsState extends State<RatingDetails> {
                               CustomHeadline(
                                 heading: 'Rating As:',
                                 color: widget.isProvider
-                                    ? themeData1().primaryColor
-                                    : themeData2().secondaryHeaderColor,
+                                    ? themeData1().secondaryHeaderColor
+                                    : themeData2().primaryColor,
                               ),
                               Text(widget.ratingFor.toString().capitalize()),
                             ],

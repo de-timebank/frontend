@@ -565,8 +565,16 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                     : isComplete() //when request is complete
                                         ? isRated() //still for request
                                             ? isProviderRated()
-                                                ? Text(
-                                                    'You have rated the provider.')
+                                                ? Column(
+                                                    children: [
+                                                      Text(
+                                                          'You have rated the provider.'),
+                                                      Text(
+                                                          'Completed On: ${dateCompletedOn.day}-${dateCompletedOn.month}-${dateCompletedOn.year}'),
+                                                      Text(
+                                                          'Time: ${dateCompletedOn.hour}:${dateCompletedOn.minute}:${dateCompletedOn.second}'),
+                                                    ],
+                                                  )
                                                 : Column(children: [
                                                     Text(
                                                       'Rate the provider',
@@ -758,7 +766,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                   children: [
                                     Heading2('Completed On'),
                                     Text(
-                                        'Completed On: ${dateCompletedOn.day}-${dateCompletedOn.month}-${dateCompletedOn.year}\n'),
+                                        'Date: ${dateCompletedOn.day}-${dateCompletedOn.month}-${dateCompletedOn.year}\n'),
                                     Text(
                                         'Time: ${dateCompletedOn.hour}:${dateCompletedOn.minute}:${dateCompletedOn.second}'),
                                     // Text(

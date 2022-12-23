@@ -107,8 +107,8 @@ class _CustomCardRatingState extends State<CustomCardRating> {
                             decoration: BoxDecoration(
                                 border: Border.all(
                                     color: isProvider()
-                                        ? themeData1().primaryColor
-                                        : themeData1().secondaryHeaderColor,
+                                        ? themeData1().secondaryHeaderColor
+                                        : themeData1().primaryColor,
                                     width: 2),
                                 //color: Color.fromARGB(255, 219, 216, 233),
                                 borderRadius: BorderRadius.circular(10)),
