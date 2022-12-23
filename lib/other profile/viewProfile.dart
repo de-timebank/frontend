@@ -136,9 +136,9 @@ class _ViewProfileState extends State<ViewProfile> {
                   RatingCardDetails1(
                       isProvider: true,
                       userRating: profile.user.rating.asProvider),
-                  RatingCardDetails1(
-                      isProvider: false,
-                      userRating: profile.user.rating.asRequestor),
+                  // RatingCardDetails1(
+                  //     isProvider: false,
+                  //     userRating: profile.user.rating.asRequestor),
                   CustomHeadline(heading: ' Skill List'),
                   isEmpty(skills)
                       ? Text('No skills entered')
