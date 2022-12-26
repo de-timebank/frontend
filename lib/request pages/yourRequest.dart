@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:testfyp/custom%20widgets/theme.dart';
 import 'package:testfyp/request%20pages/requestDetails1.dart';
 
 import '../bin/client_service_request.dart';
@@ -165,7 +166,7 @@ class _YourRequestState extends State<YourRequest> {
                           margin: EdgeInsets.only(bottom: 0),
                           alignment: Alignment.center,
                           child: Image.asset(
-                            'asset/need_help.png',
+                            'asset/Team spirit-amico.png',
                             height: MediaQuery.of(context).size.height / 2.3,
                           )),
                     ],
@@ -192,6 +193,7 @@ class _YourRequestState extends State<YourRequest> {
                                       ));
                             },
                             child: CustomCardServiceRequest(
+                              category: listFiltered[index]['category'],
                               location: listFiltered[index]['location']
                                   ['state'],
                               date: listFiltered[index]['date'],
@@ -225,7 +227,7 @@ class _YourRequestState extends State<YourRequest> {
                     ),
                   ),
         floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: Color.fromARGB(255, 127, 17, 224),
+          backgroundColor: themeData1().primaryColor,
           onPressed: () async {
             Navigator.push(
                 context,

@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:testfyp/bin/client_user.dart';
 import 'package:testfyp/bin/common.dart';
-import 'package:testfyp/custom%20widgets/customHeadline.dart';
 import 'package:testfyp/extension_string.dart';
 
 class CustomCardServiceRequest extends StatefulWidget {
   final requestor;
   final state;
-  // final provider;
   final title; //details
   final rate;
   final date;
   final location;
+  final category;
 
   const CustomCardServiceRequest({
     super.key,
@@ -21,6 +20,7 @@ class CustomCardServiceRequest extends StatefulWidget {
     required this.state,
     required this.date,
     required this.location,
+    required this.category,
   });
 
   @override
@@ -42,6 +42,23 @@ class _CustomCardServiceRequestState extends State<CustomCardServiceRequest> {
     // TODO: implement initState
     dateJob = DateTime.parse(widget.date);
     super.initState();
+  }
+
+  changeColor(state) {
+    switch (state) {
+      case 'Available':
+        return const Color.fromARGB(255, 163, 223, 66);
+      case 'Pending':
+        return const Color.fromARGB(255, 0, 146, 143);
+      case 'Accepted':
+        return const Color.fromARGB(255, 199, 202, 11);
+      case 'Ongoing':
+        return const Color.fromARGB(255, 213, 159, 15);
+      case 'Completed':
+        return const Color.fromARGB(255, 89, 175, 89);
+      default:
+        return const Color.fromARGB(255, 127, 124, 139);
+    }
   }
 
   getRequestorName() async {
@@ -81,34 +98,44 @@ class _CustomCardServiceRequestState extends State<CustomCardServiceRequest> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Icon(Icons.work_outline_rounded),
-                                SizedBox(width: 5),
-                                Text(widget.title.toString().capitalize(),
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14)
-                                    //     Theme.of(context).textTheme.headline1,
-                                    ),
+                                Row(
+                                  children: [
+                                    Icon(Icons.work_outline_rounded),
+                                    SizedBox(width: 5),
+                                    Text(widget.title.toString().capitalize(),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14)
+                                        //     Theme.of(context).textTheme.headline1,
+                                        ),
+                                  ],
+                                ),
+                                const SizedBox(height: 5),
+                                Text(widget.category,
+                                    style: const TextStyle(fontSize: 11)),
                               ],
                             ),
                             Container(
                                 decoration: BoxDecoration(
-                                    color: Color.fromARGB(255, 219, 216, 233),
+                                    color: changeColor(widget.state),
                                     borderRadius: BorderRadius.circular(10)),
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
                                     '${widget.state.toString().titleCase()}',
                                     style: TextStyle(
+                                        color: Colors.white,
                                         fontSize: 10,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 )),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        Divider(),
+                        //SizedBox(height: 10),
                         Text(_userCurrent.user.name.toString().titleCase(),
                             style: TextStyle(fontSize: 12)),
                         SizedBox(height: 10),

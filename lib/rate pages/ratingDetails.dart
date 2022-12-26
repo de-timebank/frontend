@@ -119,7 +119,7 @@ class _RatingDetailsState extends State<RatingDetails> {
                   Card(
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
-                        color: themeData2().primaryColor,
+                        color: themeData1().primaryColor,
                         width: 3,
                       ),
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
@@ -135,7 +135,7 @@ class _RatingDetailsState extends State<RatingDetails> {
                               Row(
                                 children: [
                                   Icon(Icons.comment,
-                                      color: themeData2().primaryColor),
+                                      color: themeData1().primaryColor),
                                   SizedBox(width: 5),
                                   Heading2('Comment'),
                                 ],
@@ -154,7 +154,7 @@ class _RatingDetailsState extends State<RatingDetails> {
                                       double.parse(widget.value.toString()),
                                   itemBuilder: (context, index) => Icon(
                                     Icons.star,
-                                    color: themeData2().primaryColor,
+                                    color: themeData1().secondaryHeaderColor,
                                   ),
                                   onRatingUpdate: (value) {
                                     //_value1Controller = value;

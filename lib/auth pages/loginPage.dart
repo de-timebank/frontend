@@ -157,8 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                 // ),
                 border: UnderlineInputBorder(),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide:
-                      BorderSide(color: Color.fromARGB(255, 127, 17, 224)),
+                  borderSide: BorderSide(color: themeData1().primaryColor),
                 ),
                 // suffixIconColor: Color.fromARGB(255, 127, 17, 224),
               ),
@@ -170,8 +169,7 @@ class _LoginPageState extends State<LoginPage> {
               decoration: InputDecoration(
                 border: UnderlineInputBorder(),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide:
-                      BorderSide(color: Color.fromARGB(255, 127, 17, 224)),
+                  borderSide: BorderSide(color: themeData1().primaryColor),
                 ),
                 labelText: 'Password',
                 suffixIcon: IconButton(
@@ -217,6 +215,8 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(fontWeight: FontWeight.bold)),
             ),
             TextButton(
+              style: TextButton.styleFrom(
+                  foregroundColor: themeData1().secondaryHeaderColor),
               onPressed: (() {
                 Navigator.push(
                     context,

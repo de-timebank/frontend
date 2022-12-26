@@ -43,7 +43,9 @@ class _BottomBarNavigationState extends State<BottomBarNavigation> {
     DashBoard(),
     RequestPage(),
     ServicePage(),
-    ProfilePage()
+    ProfilePage(
+      isMyProfile: true,
+    )
   ];
 
   @override

@@ -158,7 +158,7 @@ class _CompletedRequestState extends State<CompletedRequest> {
                         margin: EdgeInsets.only(bottom: 0),
                         alignment: Alignment.center,
                         child: Image.asset(
-                          'asset/complete_request.png',
+                          'asset/Business deal-pana.png',
                           height: MediaQuery.of(context).size.height / 2.3,
                         )),
                   ],
@@ -185,6 +185,7 @@ class _CompletedRequestState extends State<CompletedRequest> {
                                     ));
                           },
                           child: CustomCardServiceRequest(
+                            category: listFiltered[index]['category'],
                             location: listFiltered[index]['location']['state'],
                             date: listFiltered[index]['date'],
                             state: changeState(listFiltered[index]['state']),

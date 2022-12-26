@@ -86,6 +86,9 @@ flutter:
     - asset/complete_request.png
     - asset/completed_job.png
     - asset/Rate given.png
+    - asset/Business deal-pana.png
+    - asset/Team spirit-amico.png
+    - asset/Profiling-pana.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

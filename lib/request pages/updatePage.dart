@@ -22,6 +22,8 @@ class _UpdatePageState extends State<UpdatePage> {
   @override
   void initState() {
     // TODO: implement initState
+    //print(_dateControllerDisplay.text);
+
     _elementController.text = listElement[0];
     _categoryController.text = listCategories[0];
   }
@@ -88,7 +90,7 @@ class _UpdatePageState extends State<UpdatePage> {
     return Scaffold(
       appBar: AppBar(
           title: Text('Update Job'),
-          backgroundColor: themeData2().primaryColor),
+          backgroundColor: themeData1().primaryColor),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -99,14 +101,14 @@ class _UpdatePageState extends State<UpdatePage> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 border: Border.all(
-                  color: themeData2().primaryColor,
+                  color: themeData1().primaryColor,
                   width: 2,
                 )),
             child: DropdownButton<String>(
               underline: Container(
                 height: 0,
               ),
-              iconEnabledColor: themeData2().primaryColor,
+              iconEnabledColor: themeData1().primaryColor,
               value: _elementController.text,
               items: listElement.map<DropdownMenuItem<String>>((e) {
                 return DropdownMenuItem<String>(
@@ -116,7 +118,7 @@ class _UpdatePageState extends State<UpdatePage> {
                       child: Text(
                         e.toString().capitalize(),
                         style: TextStyle(
-                            color: themeData2().primaryColor,
+                            color: themeData1().primaryColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 15),
                       ),
@@ -148,14 +150,14 @@ class _UpdatePageState extends State<UpdatePage> {
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'Enter Title'),
-                      validator: (value) {
-                        if (value == null ||
-                            value.isEmpty ||
-                            _titleController.text == '') {
-                          return 'Please enter title...';
-                        }
-                        return null;
-                      },
+                      // validator: (value) {
+                      //   if (value == null ||
+                      //       value.isEmpty ||
+                      //       _titleController.text == '') {
+                      //     return 'Please enter title...';
+                      //   }
+                      //   return null;
+                      // },
                       // onFieldSubmitted: (value) {
                       //   reqList[0]['Title'] = value;
                       // },
@@ -164,8 +166,13 @@ class _UpdatePageState extends State<UpdatePage> {
                     ElevatedButton(
                         style: themeData2().elevatedButtonTheme.style,
                         onPressed: (() {
-                          updateJob(
-                              '{"title": "${_titleController.text.toString()}"}');
+                          if (_titleController.text == '') {
+                            context.showErrorSnackBar(
+                                message: 'Please Enter Title...');
+                          } else {
+                            updateJob(
+                                '{"title": "${_titleController.text.toString()}"}');
+                          }
                         }),
                         child: Text('Update Title'))
                   ],
@@ -183,14 +190,14 @@ class _UpdatePageState extends State<UpdatePage> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(
-                              color: themeData2().primaryColor,
+                              color: themeData1().primaryColor,
                               width: 2,
                             )),
                         child: DropdownButton<String>(
                           underline: Container(
                             height: 0,
                           ),
-                          iconEnabledColor: themeData2().primaryColor,
+                          iconEnabledColor: themeData1().primaryColor,
                           value: _categoryController.text,
                           items:
                               listCategories.map<DropdownMenuItem<String>>((e) {
@@ -202,7 +209,7 @@ class _UpdatePageState extends State<UpdatePage> {
                                   child: Text(
                                     e,
                                     style: TextStyle(
-                                        color: themeData2().primaryColor,
+                                        color: themeData1().primaryColor,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15),
                                   ),
@@ -217,7 +224,7 @@ class _UpdatePageState extends State<UpdatePage> {
                         ),
                       ),
                       ElevatedButton(
-                          style: themeData2().elevatedButtonTheme.style,
+                          style: themeData1().elevatedButtonTheme.style,
                           onPressed: (() {
                             updateJob(
                                 '{"category": "${_categoryController.text.toString()}"}');
@@ -240,24 +247,22 @@ class _UpdatePageState extends State<UpdatePage> {
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'Enter Description'),
-                      validator: (value) {
-                        if (value == null ||
-                            value.isEmpty ||
-                            _descriptionController.text == '') {
-                          return 'Please enter title...';
-                        }
-                        return null;
-                      },
+
                       // onFieldSubmitted: (value) {
                       //   reqList[0]['Title'] = value;
                       // },
                     ),
                     SizedBox(height: 8),
                     ElevatedButton(
-                        style: themeData2().elevatedButtonTheme.style,
+                        style: themeData1().elevatedButtonTheme.style,
                         onPressed: (() {
-                          updateJob(
-                              '{"description": "${_descriptionController.text.toString()}"}');
+                          if (_descriptionController.text == '') {
+                            context.showErrorSnackBar(
+                                message: 'Please Enter Description');
+                          } else {
+                            updateJob(
+                                '{"description": "${_descriptionController.text.toString()}"}');
+                          }
                         }),
                         child: Text('Update Description'))
                   ],
@@ -293,7 +298,7 @@ class _UpdatePageState extends State<UpdatePage> {
                       dropdownDecoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color: themeData2().primaryColor,
+                            color: themeData1().primaryColor,
                             width: 2,
                           )),
                       cityDropdownLabel: 'Pick a City',
@@ -323,12 +328,18 @@ class _UpdatePageState extends State<UpdatePage> {
                       },
                     ),
                     ElevatedButton(
-                        style: themeData2().elevatedButtonTheme.style,
+                        style: themeData1().elevatedButtonTheme.style,
                         onPressed: (() {
-                          updateJob(
-                              '{"location":{"address": "${_locationController.text.toString()}", "city" : "${_cityController.text.toString()}", "state": "${_stateController.text.toString()}"}}');
+                          if (_locationController.text == 'null' ||
+                              _stateController.text == 'null') {
+                            context.showErrorSnackBar(
+                                message: 'Please full Address...');
+                          } else {
+                            updateJob(
+                                '{"location":{"address": "${_locationController.text.toString()}", "city" : "${_cityController.text.toString()}", "state": "${_stateController.text.toString()}"}}');
+                          }
                         }),
-                        child: Text('Update Description'))
+                        child: Text('Update Location'))
                   ],
                 );
               } else {
@@ -336,12 +347,12 @@ class _UpdatePageState extends State<UpdatePage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     ElevatedButton(
-                        style: themeData2().elevatedButtonTheme.style,
+                        style: themeData1().elevatedButtonTheme.style,
                         onPressed: () {
                           DatePicker.showDateTimePicker(context,
                               theme: DatePickerTheme(
                                   doneStyle: TextStyle(
-                                      color: themeData2().primaryColor)),
+                                      color: themeData1().primaryColor)),
                               showTitleActions: true,
                               minTime: DateTime(
                                   _dateTime.year,
@@ -375,22 +386,17 @@ class _UpdatePageState extends State<UpdatePage> {
                           ),
                           border: OutlineInputBorder(),
                           hintText: 'Date & Time'),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          context.showErrorSnackBar(
-                              message: 'Please enter new value');
-                        }
-                        // else if (newDate!.hour == 0 || newDate!.minute == 0) {
-                        //   return 'Pick a time';
-                        // }
-                        return null;
-                      },
                     ),
                     ElevatedButton(
-                        style: themeData2().elevatedButtonTheme.style,
+                        style: themeData1().elevatedButtonTheme.style,
                         onPressed: (() {
-                          updateJob(
-                              '{"date": "${_dateController.text.toString()}"}');
+                          if (_dateControllerDisplay.text == '') {
+                            context.showErrorSnackBar(
+                                message: 'Enter Date & Time');
+                          } else {
+                            updateJob(
+                                '{"date": "${_dateController.text.toString()}"}');
+                          }
                         }),
                         child: Text('Update Date & Time'))
                   ],

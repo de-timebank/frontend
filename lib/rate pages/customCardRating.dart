@@ -136,7 +136,7 @@ class _CustomCardRatingState extends State<CustomCardRating> {
                         initialRating: double.parse(widget.value.toString()),
                         itemBuilder: (context, index) => Icon(
                           Icons.star,
-                          color: themeData2().primaryColor,
+                          color: themeData1().secondaryHeaderColor,
                         ),
                         onRatingUpdate: (value) {
                           //_value1Controller = value;

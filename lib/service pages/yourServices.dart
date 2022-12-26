@@ -183,6 +183,7 @@ class _YourServicesState extends State<YourServices> {
                                     ));
                           },
                           child: CustomCardServiceRequest(
+                            category: listFiltered[index]['category'],
                             location: listFiltered[index]['location']['state'],
                             date: listFiltered[index]['date'],
                             state: changeState(listFiltered[index]['state']),

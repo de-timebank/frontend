@@ -679,6 +679,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                                           ));
                                 },
                                 child: CustomCardServiceRequest(
+                                  category: listFiltered[index]['category'],
                                   location: listFiltered[index]['location']
                                       ['state'],
                                   date: listFiltered[index]['date'],

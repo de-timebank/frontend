@@ -637,10 +637,10 @@ class _AccountPageState extends State<AccountPage> {
                           )),
                   SizedBox(height: 10),
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: themeData2().primaryColor,
-                    ),
+                    // style: ElevatedButton.styleFrom(
+                    //   foregroundColor: Colors.white,
+                    //   backgroundColor: themeData2().primaryColor,
+                    // ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _updateProfile();
@@ -660,9 +660,7 @@ class _AccountPageState extends State<AccountPage> {
                   //   child: Text('Go to DashBoard'),
                   // ),
                   TextButton(
-                      style: TextButton.styleFrom(
-                        foregroundColor: themeData2().primaryColor,
-                      ),
+                      style: TextButton.styleFrom(foregroundColor: Colors.red),
                       onPressed: _signOut,
                       child: const Text('Sign Out')),
                 ],

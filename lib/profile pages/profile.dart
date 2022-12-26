@@ -14,7 +14,8 @@ import '../profile pages/emptyCardWidget.dart';
 import '../profile pages/listViewContact.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  final bool isMyProfile;
+  const ProfilePage({super.key, required this.isMyProfile});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -140,7 +141,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 heading: profile.user.profile.name
                                     .toString()
                                     .titleCase()),
-                            //SizedBox(height: 8),
+                            const SizedBox(height: 10),
                             Text(
                                 '${profile.user.profile.identificationNo.type.toString().capitalize()}',
                                 style: TextStyle(

@@ -619,6 +619,8 @@ class _RequestFormState extends State<RequestForm> {
                           child: CustomHeadline(heading: 'Attachment'),
                         ),
                         Row(
+                          // mainAxisAlignment: MainAxisAlignment.center,
+                          // crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Expanded(
                               child: TextFormField(
@@ -631,7 +633,7 @@ class _RequestFormState extends State<RequestForm> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.only(bottom: 40.0),
                               child: TextButton(
                                   onPressed: () {
                                     if (_mediaController.text.length == 0) {
@@ -643,7 +645,7 @@ class _RequestFormState extends State<RequestForm> {
                                       _mediaController.clear();
                                     }
                                   },
-                                  child: Icon(Icons.add)),
+                                  child: Center(child: Icon(Icons.add))),
                             )
                           ],
                         ),
@@ -775,17 +777,18 @@ class _RequestFormState extends State<RequestForm> {
                         ElevatedButton(
                             onPressed: () async {
                               final user = supabase.auth.currentUser!.id;
-                              print(_stateController.text);
-                              print(_cityController.text);
+                              // print(_stateController.text);
+                              // print(_cityController.text);
                               //final _userCurrent = getCurrentUser(user);
                               //print(_userCurrent);
                               // print(stateValue == 'null');
+                              //  else if (_cityController.text == 'null') {
+                              //   context.showErrorSnackBar(
+                              //       message: 'Pick a city..');
+                              // }
                               if (_stateController.text == 'null') {
                                 context.showErrorSnackBar(
                                     message: 'Pick a state..');
-                              } else if (_cityController.text == 'null') {
-                                context.showErrorSnackBar(
-                                    message: 'Pick a city..');
                               } else if (_formKey.currentState!.validate()) {
                                 var rate = double.parse(
                                     _rateController.text); //convert to double

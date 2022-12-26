@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:testfyp/bin/client_rating.dart';
+import 'package:testfyp/custom%20widgets/theme.dart';
 import 'package:testfyp/rate%20pages/customCardRating.dart';
 
 import '../bin/common.dart';
@@ -62,7 +63,9 @@ class _RateReceivedPageState extends State<RateReceivedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Received Rating')),
+      appBar: AppBar(
+          title: Text('Received Rating'),
+          backgroundColor: themeData1().secondaryHeaderColor),
       body: isLoad
           ? const Center(child: CircularProgressIndicator())
           : _isEmpty

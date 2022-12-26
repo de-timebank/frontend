@@ -228,7 +228,7 @@ class _DashBoardState extends State<DashBoard> {
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(12)),
                                     ),
-                                    color: themeData1().secondaryHeaderColor,
+                                    color: themeData1().primaryColor,
                                     child: InkWell(
                                         onTap: () {},
                                         child: Column(
@@ -237,13 +237,15 @@ class _DashBoardState extends State<DashBoard> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: const [
-                                            Icon(Icons.receipt_long),
+                                            Icon(Icons.receipt_long,
+                                                color: Colors.white),
                                             Padding(
                                               padding: EdgeInsets.all(5.0),
                                               child: Text(
                                                   'View Transaction History',
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
+                                                      color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.bold)
                                                   // style: Theme.of(context)
@@ -258,6 +260,8 @@ class _DashBoardState extends State<DashBoard> {
                                               child: Text(
                                                 'Keep your balance in check',
                                                 textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Colors.white),
                                               ),
                                             ),
                                             //SizedBox(height: 10),
@@ -281,7 +285,7 @@ class _DashBoardState extends State<DashBoard> {
                                 child: Card(
                                   shape: RoundedRectangleBorder(
                                     side: BorderSide(
-                                      color: themeData2().primaryColor,
+                                      color: themeData1().primaryColor,
                                       width: 3,
                                     ),
                                     borderRadius: const BorderRadius.all(
@@ -303,14 +307,14 @@ class _DashBoardState extends State<DashBoard> {
                                             CrossAxisAlignment.center,
                                         children: [
                                           Icon(Icons.rate_review,
-                                              color: themeData2().primaryColor),
+                                              color: themeData1().primaryColor),
                                           Padding(
                                             padding: const EdgeInsets.all(5.0),
                                             child: Text(
                                               'Rate Given',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  color: themeData2()
+                                                  color: themeData1()
                                                       .primaryColor),
                                               textAlign: TextAlign.center,
                                               //Theme.of(context).textTheme.headline1,
@@ -323,7 +327,7 @@ class _DashBoardState extends State<DashBoard> {
                                               'Give feedback to other people',
                                               style: TextStyle(
                                                   fontSize: 13,
-                                                  color: themeData2()
+                                                  color: themeData1()
                                                       .primaryColor),
                                               textAlign: TextAlign.center,
                                             ),
@@ -342,7 +346,7 @@ class _DashBoardState extends State<DashBoard> {
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(12)),
                                   ),
-                                  color: themeData2().primaryColor,
+                                  color: themeData1().secondaryHeaderColor,
                                   child: InkWell(
                                       onTap: () {
                                         Navigator.of(context).push(

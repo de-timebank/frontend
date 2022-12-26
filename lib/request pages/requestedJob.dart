@@ -160,7 +160,7 @@ class _RequestedJobState extends State<RequestedJob> {
                         margin: EdgeInsets.only(bottom: 0),
                         alignment: Alignment.center,
                         child: Image.asset(
-                          'asset/applicants.png',
+                          'asset/Profiling-pana.png',
                           height: MediaQuery.of(context).size.height / 2.3,
                         )),
                   ],
@@ -187,6 +187,7 @@ class _RequestedJobState extends State<RequestedJob> {
                                     ));
                           },
                           child: CustomCardServiceRequest(
+                            category: listFiltered[index]['category'],
                             location: listFiltered[index]['location']['state'],
                             date: listFiltered[index]['date'],
                             state: changeState(listFiltered[index]['state']),

@@ -37,7 +37,14 @@ class _PersistentBottomNavigationBarState
   // ];
 
   List<Widget> _buildScreens() {
-    return [DashBoard(), RequestPage(), ServicePage(), ProfilePage()];
+    return [
+      DashBoard(),
+      RequestPage(),
+      ServicePage(),
+      ProfilePage(
+        isMyProfile: true,
+      )
+    ];
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {

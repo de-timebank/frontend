@@ -13,8 +13,8 @@ class Heading2 extends StatelessWidget {
       child: Text(
         heading2,
         style: TextStyle(
-          color: themeData2().primaryColor,
-          fontSize: 18,
+          color: Colors.black,
+          fontSize: 15,
           fontWeight: FontWeight.bold,
           // decoration: TextDecoration.underline,
           //decorationThickness: 1.5

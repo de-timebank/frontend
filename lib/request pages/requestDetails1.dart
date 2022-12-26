@@ -3,7 +3,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grpc/grpc.dart';
 import 'package:testfyp/components/constants.dart';
-import 'package:testfyp/custom%20widgets/customDivider.dart';
 import 'package:testfyp/custom%20widgets/customHeadline.dart';
 import 'package:testfyp/custom%20widgets/theme.dart';
 import 'package:testfyp/extension_string.dart';
@@ -216,24 +215,20 @@ class _RequestDetails1State extends State<RequestDetails1> {
     }
   }
 
-  void _rateRequestor(
-      String author, int value, String comment, String id) async {
-    //widget.counter++;
-    try {
-      await ClientRating(Common().channel)
-          .ratingForRequestor(author, value, comment, id);
-      setState(() {
-        //ddwidget.hasRequestorRated = true;
-        //print
-      });
-      context.showSnackBar(message: 'Requestor rated!!');
-      Navigator.of(context).pop();
-    } on GrpcError catch (e) {
-      context.showErrorSnackBar(message: 'Caught error: ${e.message}');
-    } catch (e) {
-      context.showErrorSnackBar(message: e.toString());
-    }
-  }
+  // void _rateRequestor(
+  //     String author, int value, String comment, String id) async {
+  //   try {
+  //     await ClientRating(Common().channel)
+  //         .ratingForRequestor(author, value, comment, id);
+  //     setState(() {});
+  //     context.showSnackBar(message: 'Requestor rated!!');
+  //     Navigator.of(context).pop();
+  //   } on GrpcError catch (e) {
+  //     context.showErrorSnackBar(message: 'Caught error: ${e.message}');
+  //   } catch (e) {
+  //     context.showErrorSnackBar(message: e.toString());
+  //   }
+  // }
 
   void _rateProvider(
       String author, int value, String comment, String id) async {
@@ -308,6 +303,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
                       child: Text(requestDetails.request.title
                           .toString()
                           .capitalize())),
+                  Divider(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     // crossAxisAlignment: CrossAxisAlignment.start,
@@ -400,6 +396,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                         children: [
                                           Heading2('Applicants'),
                                           Text('No Applicants'),
+                                          const SizedBox(height: 5)
                                         ],
                                       )
                                     : isNull(requestDetails.request
@@ -471,7 +468,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                             FontAwesomeIcons
                                                                 .solidCircleQuestion,
                                                             color: themeData2()
-                                                                .primaryColor,
+                                                                .secondaryHeaderColor,
                                                           ),
                                                         )
                                                       ],
@@ -486,16 +483,8 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                             children: [
                                               Container(
                                                   alignment: Alignment.center,
-                                                  child: Text(
-                                                    'Provider Selected',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 16,
-                                                        color: themeData2()
-                                                            .primaryColor),
-                                                  )),
-                                              SizedBox(height: 5),
+                                                  child: Heading2(
+                                                      'Provider Selected')),
                                               isNull(requestDetails
                                                       .request.provider)
                                                   ? Text('No provider selected')
@@ -653,29 +642,12 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                     'The job has started, make sure to tap \n"Complete Job" when the provider has finished the job.',
                                                     textAlign: TextAlign.center,
                                                   ),
+                                                  Divider(),
                                                   ElevatedButton(
                                                       style: themeData2()
                                                           .elevatedButtonTheme
                                                           .style,
                                                       onPressed: () {
-                                                        // try {
-                                                        //   ClientServiceRequest(
-                                                        //           Common().channel)
-                                                        //       .startService1(
-                                                        //           widget.id,
-                                                        //           widget.user);
-                                                        //   context.showSnackBar(
-                                                        //       message:
-                                                        //           'Job Started!!');
-                                                        //   Navigator.of(context).pop();
-                                                        // } on GrpcError catch (e) {
-                                                        //   context.showErrorSnackBar(
-                                                        //       message: e.toString());
-                                                        // } catch (e) {
-                                                        //   context.showErrorSnackBar(
-                                                        //       message: e.toString());
-                                                        // }
-
                                                         _completeJob(
                                                             requestDetails
                                                                 .request.id,
@@ -715,8 +687,8 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                 child: Text('Start Job')),
                                 isNull(requestDetails.request.provider)
                                     ? TextButton(
-                                        style:
-                                            themeData2().textButtonTheme.style,
+                                        style: TextButton.styleFrom(
+                                            foregroundColor: Colors.red),
                                         onPressed: () {
                                           _deleteRequest(
                                               requestDetails.request.id);
@@ -739,20 +711,21 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                 child:
                                                     Text('Go to rating page')),
                                           )
-                                        : TextButton(
-                                            style: themeData2()
-                                                .textButtonTheme
-                                                .style,
-                                            onPressed: () {
-                                              _deleteRequest(
-                                                  requestDetails.request.id);
-                                              context.showSnackBar(
-                                                  message: 'Job Deleted');
-                                              Navigator.of(context).pop();
-                                              //Navigator.of(context).popUntil((route) => route.i);
-                                              //Navigator.of(context).pushNamed('/navigation');
-                                            },
-                                            child: Text('Abort Job')),
+                                        : const Text('')
+                                // TextButton(
+                                //     style: themeData2()
+                                //         .textButtonTheme
+                                //         .style,
+                                //     onPressed: () {
+                                //       _deleteRequest(
+                                //           requestDetails.request.id);
+                                //       context.showSnackBar(
+                                //           message: 'Job Deleted');
+                                //       Navigator.of(context).pop();
+                                //       //Navigator.of(context).popUntil((route) => route.i);
+                                //       //Navigator.of(context).pushNamed('/navigation');
+                                //     },
+                                //     child: Text('Abort Jobs')),
                               ],
                             ),
                           ),
@@ -949,24 +922,26 @@ class _RequestDetails1State extends State<RequestDetails1> {
                   Container(
                       alignment: Alignment.center,
                       child: Heading2('Other Information')),
+                  Divider(),
                   Heading2('Date of the Job'),
                   Text(
                       'Date: ${dateJob.day}-${dateJob.month}-${dateJob.year}\nTime: ${dateJob.hour.toString().padLeft(2, '0')}:${dateJob.minute.toString().padLeft(2, '0')}'),
-                  const SizedBox(height: 15),
+                  //const SizedBox(height: 15),
+                  Divider(),
                   Heading2('Category'),
                   Text(requestDetails.request.category),
-                  const SizedBox(height: 15),
+                  Divider(),
                   Heading2('Description'),
                   Text(requestDetails.request.description
                       .toString()
                       .capitalize()),
-                  const SizedBox(height: 15),
+                  Divider(),
                   Heading2('Location'),
                   Text(
                       'Address: ${requestDetails.request.location.address.toString()}'),
                   Text('State: ${requestDetails.request.location.state}'),
                   Text('City: ${requestDetails.request.location.city}'),
-                  const SizedBox(height: 15),
+                  Divider(),
                   Heading2('Media'),
                   isNull(requestDetails.request.mediaAttachments)
                       ? Text('No Attachment')
@@ -986,7 +961,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
                             },
                           ),
                         ),
-                  const SizedBox(height: 15),
+                  Divider(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
