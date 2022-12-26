@@ -12,8 +12,8 @@ class emptyCardContact extends StatelessWidget {
     return Card(
       shape: RoundedRectangleBorder(
         side: BorderSide(
-          color: themeData2().primaryColor,
-          width: 3,
+          color: themeData3().primaryColor,
+          width: 2,
         ),
         borderRadius: const BorderRadius.all(Radius.circular(12)),
       ),

@@ -22,7 +22,7 @@ class _RequestPageState extends State<RequestPage> {
               indicatorColor: Theme.of(context).secondaryHeaderColor,
               tabs: [
                 Tab(text: '\t\t\tYour\nRequest'),
-                Tab(text: 'Requested\n\t\t\t\tJob'),
+                Tab(text: 'Requested\n\t\t\t\t\t Job'),
                 Tab(text: 'Completed\n\t\t Request')
               ]),
           title: const Text('Need help from other people?'),

@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         '/signup': (_) => const SignUpPage(),
         '/login': (_) => const LoginPage(),
         '/account': (_) => const AccountPage(),
-        '/navigation': (_) => BottomBarNavigation(valueListenable: 0),
+        '/navigation': (_) => const BottomBarNavigation(valueListenable: 0),
         '/navigationP': (_) => const PersistentBottomNavigationBar(),
         '/profile': (_) => const ProfilePage(isMyProfile: true),
         '/passwordReset': (_) => const PasswordPage(),

@@ -197,7 +197,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Row(
                     children: [
                       ContactWidget(
-                          containerColor: themeData2().primaryColor,
+                          containerColor: themeData3().primaryColor,
                           theIcon: const Icon(
                             Icons.email,
                             color: Colors.white,
@@ -211,7 +211,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Row(
                     children: [
                       ContactWidget(
-                          containerColor: themeData2().primaryColor,
+                          containerColor: themeData3().primaryColor,
                           theIcon: const Icon(
                             Icons.phone,
                             color: Colors.white,
@@ -225,7 +225,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Row(
                     children: [
                       ContactWidget(
-                          containerColor: themeData2().primaryColor,
+                          containerColor: themeData3().primaryColor,
                           theIcon: const FaIcon(
                             FontAwesomeIcons.twitter,
                             color: Colors.white,
@@ -239,7 +239,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Row(
                     children: [
                       ContactWidget(
-                          containerColor: themeData2().primaryColor,
+                          containerColor: themeData3().primaryColor,
                           theIcon: const FaIcon(
                             FontAwesomeIcons.whatsapp,
                             color: Colors.white,

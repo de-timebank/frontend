@@ -5,13 +5,9 @@ ThemeData themeData1() {
   return ThemeData(
     textSelectionTheme:
         TextSelectionThemeData(cursorColor: Color.fromARGB(255, 0, 146, 143)),
-    //iconTheme: IconThemeData(color: Color.fromARGB(255, 127, 17, 224)),
     inputDecorationTheme: const InputDecorationTheme(
       border: OutlineInputBorder(),
-      // contentPadding: EdgeInsets.symmetric(
-      //   vertical: 22,
-      //   horizontal: 26,
-      // ),
+
       focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Color.fromARGB(255, 0, 146, 143))),
       //Color.fromARGB(255, 245, 167, 44)
@@ -64,4 +60,8 @@ ThemeData themeData2() {
       ),
     ),
   );
+}
+
+ThemeData themeData3() {
+  return ThemeData(primaryColor: const Color.fromARGB(255, 71, 85, 92));
 }
