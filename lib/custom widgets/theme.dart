@@ -40,6 +40,17 @@ ThemeData themeData1() {
 
 ThemeData themeData2() {
   return ThemeData(
+    inputDecorationTheme: const InputDecorationTheme(
+      border: OutlineInputBorder(),
+
+      focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Color.fromARGB(255, 89, 175, 89))),
+      //Color.fromARGB(255, 245, 167, 44)
+      labelStyle: TextStyle(
+        //fontSize: 35,
+        color: Color.fromARGB(255, 89, 175, 89),
+      ),
+    ),
     appBarTheme: const AppBarTheme(color: Color.fromARGB(255, 65, 13, 214)),
     //Color.fromARGB(255, 65, 13, 214)
     primaryColor: const Color.fromARGB(255, 89, 175, 89),

@@ -8,6 +8,7 @@ import 'package:testfyp/bin/common.dart';
 import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/custom%20widgets/customHeadline.dart';
 import 'package:testfyp/custom%20widgets/heading2.dart';
+import 'package:testfyp/custom%20widgets/theme.dart';
 import 'package:testfyp/extension_string.dart';
 
 import '../generated/user.pb.dart';
@@ -166,9 +167,8 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign Up'),
-        // backgroundColor: Color.fromARGB(255, 127, 17, 224),
-      ),
+          title: const Text('Sign Up'),
+          backgroundColor: themeData2().primaryColor),
       body: Form(
         key: _formKey,
         child: ListView(
@@ -254,7 +254,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             Divider(
                 //horizontal line
-                color: Theme.of(context).primaryColor,
+                color: themeData2().primaryColor,
                 height: 30,
                 thickness: 2,
                 indent: 15,
@@ -310,7 +310,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       border: Border.all(
-                        color: Theme.of(context).primaryColor,
+                        color: themeData2().primaryColor,
                         width: 2,
                       )),
                   child: DropdownButton<String>(
@@ -329,7 +329,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             child: Text(
                               e.titleCase(),
                               style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
+                                  color: themeData2().primaryColor,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15),
                             ),
@@ -383,7 +383,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       border: Border.all(
-                        color: Theme.of(context).primaryColor,
+                        color: themeData2().primaryColor,
                         width: 2,
                       )),
                   child: DropdownButton<String>(
@@ -401,7 +401,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             child: Text(
                               e.titleCase(),
                               style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
+                                  color: themeData2().primaryColor,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15),
                             ),

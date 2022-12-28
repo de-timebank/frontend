@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/components/constants.dart';
+import 'package:testfyp/custom%20widgets/heading2.dart';
+import 'package:testfyp/custom%20widgets/theme.dart';
 // import 'package:testfyp/pages/signUpPage.dart';
 
 class PasswordPage extends StatefulWidget {
@@ -14,6 +16,7 @@ class PasswordPage extends StatefulWidget {
 
 class PasswordPageState extends State<PasswordPage> {
   bool _isLoading = false;
+  bool _passwordVisible = false;
   //bool _redirecting = false;
   //late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
@@ -77,17 +80,39 @@ class PasswordPageState extends State<PasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Password Reset'),
-        // backgroundColor: Color.fromARGB(255, 127, 17, 224),
-      ),
+          title: const Text('Password Reset'),
+          backgroundColor: themeData2().primaryColor),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
         children: [
-          const Text('Enter new password'),
+          Heading2('Enter new password'),
           const SizedBox(height: 18),
           TextFormField(
             controller: _passwordController,
-            decoration: const InputDecoration(labelText: 'Password'),
+            obscureText: !_passwordVisible,
+            decoration: InputDecoration(
+              labelText: 'Password',
+              labelStyle: TextStyle(
+                //fontSize: 35,
+                color: Color.fromARGB(255, 89, 175, 89),
+              ),
+              focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: Color.fromARGB(255, 89, 175, 89))),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  // Based on passwordVisible state choose the icon
+                  _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: themeData2().primaryColor,
+                ),
+                onPressed: () {
+                  // Update the state i.e. toogle the state of passwordVisible variable
+                  setState(() {
+                    _passwordVisible = !_passwordVisible;
+                  });
+                },
+              ),
+            ),
           ),
           // const SizedBox(height: 18),
           // TextFormField(

@@ -5,6 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:testfyp/components/constants.dart';
 //import 'package:testfyp/pages/password.dart';
 import 'package:testfyp/auth%20pages/signUpPage.dart';
+import 'package:testfyp/custom%20widgets/theme.dart';
 
 // import '../splash_page.dart';
 
@@ -79,7 +80,7 @@ class PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Password Change'),
-        // backgroundColor: Color.fromARGB(255, 127, 17, 224),
+        backgroundColor: themeData2().primaryColor,
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
@@ -89,9 +90,17 @@ class PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
           TextFormField(
             controller: _emailController,
             decoration: const InputDecoration(
-                labelText: 'Email',
-                //hintText: 'Do not close this page during password change',
-                helperText: 'Do not close this page during password change'),
+              labelText: 'Email',
+              //hintText: 'Do not close this page during password change',
+              helperText: 'Do not close this page during password change',
+              labelStyle: TextStyle(
+                //fontSize: 35,
+                color: Color.fromARGB(255, 89, 175, 89),
+              ),
+              focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: Color.fromARGB(255, 89, 175, 89))),
+            ),
           ),
           // const SizedBox(height: 18),
           // TextFormField(

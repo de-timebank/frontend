@@ -9,6 +9,14 @@ class CustomSearchDelegate extends SearchDelegate {
   String user;
   CustomSearchDelegate(this.listRequest, this.user);
 
+  isRequested(list) {
+    if (list.length == 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   changeState(state) {
     switch (state) {
       case 0:
@@ -102,7 +110,9 @@ class CustomSearchDelegate extends SearchDelegate {
             category: matchQuery[index]['category'],
             location: matchQuery[index]['location']['state'],
             date: matchQuery[index]['date'],
-            state: changeState(matchQuery[index]['state']),
+            state: isRequested(matchQuery[index]['applicants'])
+                ? 'Available'
+                : changeState(matchQuery[index]['state']),
             requestor: matchQuery[index]['requestor'],
             title: matchQuery[index]['title'],
             rate: matchQuery[index]['rate'],

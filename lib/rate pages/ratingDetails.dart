@@ -105,7 +105,9 @@ class _RatingDetailsState extends State<RatingDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        //backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: widget.isProvider
+            ? themeData1().primaryColor
+            : themeData1().secondaryHeaderColor,
         title: Text('Rating Details'),
       ),
       body: Padding(
@@ -171,9 +173,7 @@ class _RatingDetailsState extends State<RatingDetails> {
                   Card(
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
-                        color: widget.isProvider
-                            ? themeData1().secondaryHeaderColor
-                            : themeData2().primaryColor,
+                        color: themeData1().secondaryHeaderColor,
                         width: 3,
                       ),
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
@@ -187,11 +187,8 @@ class _RatingDetailsState extends State<RatingDetails> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               CustomHeadline(
-                                heading: 'Recipient',
-                                color: widget.isProvider
-                                    ? themeData1().secondaryHeaderColor
-                                    : themeData2().primaryColor,
-                              ),
+                                  heading: 'Recipient',
+                                  color: themeData1().secondaryHeaderColor),
                               Text(_userProvider.user.name
                                   .toString()
                                   .titleCase()),
@@ -201,9 +198,7 @@ class _RatingDetailsState extends State<RatingDetails> {
                             children: [
                               CustomHeadline(
                                 heading: 'Author',
-                                color: widget.isProvider
-                                    ? themeData1().secondaryHeaderColor
-                                    : themeData2().primaryColor,
+                                color: themeData1().secondaryHeaderColor,
                               ),
                               Text(_userRequestor.user.name
                                   .toString()
@@ -214,9 +209,7 @@ class _RatingDetailsState extends State<RatingDetails> {
                             children: [
                               CustomHeadline(
                                 heading: 'Rating As:',
-                                color: widget.isProvider
-                                    ? themeData1().secondaryHeaderColor
-                                    : themeData2().primaryColor,
+                                color: themeData1().secondaryHeaderColor,
                               ),
                               Text(widget.ratingFor.toString().capitalize()),
                             ],
@@ -239,6 +232,9 @@ class _RatingDetailsState extends State<RatingDetails> {
                   SizedBox(height: 15),
                   widget.isProvider
                       ? TextButton(
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.red,
+                          ),
                           onPressed: () {
                             // var ratingFor = '';
                             // if (widget.ratingFor == 'provider') {

@@ -86,7 +86,7 @@ class _ViewProfileState extends State<ViewProfile> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile Summary'),
-        backgroundColor: themeData2().primaryColor,
+        //backgroundColor: themeData2().primaryColor,
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),

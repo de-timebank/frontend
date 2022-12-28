@@ -614,81 +614,81 @@ class _RequestFormState extends State<RequestForm> {
                         // ),
                         // SizedBox(height: 8),
 
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CustomHeadline(heading: 'Attachment'),
-                        ),
-                        Row(
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          // crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: TextFormField(
-                                controller: _mediaController,
-                                decoration: InputDecoration(
-                                    helperText:
-                                        'Enter any relevant documents \nrelated to the job',
-                                    border: OutlineInputBorder(),
-                                    hintText: 'Enter attachment'),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 40.0),
-                              child: TextButton(
-                                  onPressed: () {
-                                    if (_mediaController.text.length == 0) {
-                                      context.showErrorSnackBar(
-                                          message:
-                                              'You have not entered any attachment..');
-                                    } else {
-                                      _addmedia(_mediaController.text);
-                                      _mediaController.clear();
-                                    }
-                                  },
-                                  child: Center(child: Icon(Icons.add))),
-                            )
-                          ],
-                        ),
-                        _isMediaEmpty(mediaList)
-                            ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child:
-                                    Text('You have not entered any attachment'),
-                              )
-                            : SizedBox(
-                                height: 60,
-                                child: ListView.builder(
-                                  physics: const BouncingScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  shrinkWrap: true,
-                                  itemCount: mediaList.length,
-                                  itemBuilder: (context, index) {
-                                    return Card(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          children: [
-                                            Text(mediaList[index]
-                                                .toString()
-                                                .titleCase()),
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            IconButton(
-                                                onPressed: () {
-                                                  _deleteMedia(mediaList[index]
-                                                      .toString());
-                                                },
-                                                icon: Icon(
-                                                  Icons.remove_circle_outline,
-                                                  color: Colors.red,
-                                                ))
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                )),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(8.0),
+                        //   child: CustomHeadline(heading: 'Attachment'),
+                        // ),
+                        // Row(
+                        //   // mainAxisAlignment: MainAxisAlignment.center,
+                        //   // crossAxisAlignment: CrossAxisAlignment.start,
+                        //   children: [
+                        //     Expanded(
+                        //       child: TextFormField(
+                        //         controller: _mediaController,
+                        //         decoration: InputDecoration(
+                        //             helperText:
+                        //                 'Enter any relevant documents \nrelated to the job',
+                        //             border: OutlineInputBorder(),
+                        //             hintText: 'Enter attachment'),
+                        //       ),
+                        //     ),
+                        //     Padding(
+                        //       padding: const EdgeInsets.only(bottom: 40.0),
+                        //       child: TextButton(
+                        //           onPressed: () {
+                        //             if (_mediaController.text.length == 0) {
+                        //               context.showErrorSnackBar(
+                        //                   message:
+                        //                       'You have not entered any attachment..');
+                        //             } else {
+                        //               _addmedia(_mediaController.text);
+                        //               _mediaController.clear();
+                        //             }
+                        //           },
+                        //           child: Center(child: Icon(Icons.add))),
+                        //     )
+                        //   ],
+                        // ),
+                        // _isMediaEmpty(mediaList)
+                        //     ? Padding(
+                        //         padding: const EdgeInsets.all(8.0),
+                        //         child:
+                        //             Text('You have not entered any attachment'),
+                        //       )
+                        //     : SizedBox(
+                        //         height: 60,
+                        //         child: ListView.builder(
+                        //           physics: const BouncingScrollPhysics(),
+                        //           scrollDirection: Axis.horizontal,
+                        //           shrinkWrap: true,
+                        //           itemCount: mediaList.length,
+                        //           itemBuilder: (context, index) {
+                        //             return Card(
+                        //               child: Padding(
+                        //                 padding: const EdgeInsets.all(8.0),
+                        //                 child: Row(
+                        //                   children: [
+                        //                     Text(mediaList[index]
+                        //                         .toString()
+                        //                         .titleCase()),
+                        //                     SizedBox(
+                        //                       height: 5,
+                        //                     ),
+                        //                     IconButton(
+                        //                         onPressed: () {
+                        //                           _deleteMedia(mediaList[index]
+                        //                               .toString());
+                        //                         },
+                        //                         icon: Icon(
+                        //                           Icons.remove_circle_outline,
+                        //                           color: Colors.red,
+                        //                         ))
+                        //                   ],
+                        //                 ),
+                        //               ),
+                        //             );
+                        //           },
+                        //         )),
                         Row(
                           children: [
                             Padding(

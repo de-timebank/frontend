@@ -875,7 +875,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                         child: Center(
                                             child: CustomHeadline(
                                                 heading:
-                                                    'You are currently taking this Job')),
+                                                    'You are currently doing this request')),
                                       ),
                                     )
                                   : Card(

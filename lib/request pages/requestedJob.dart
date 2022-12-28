@@ -200,13 +200,13 @@ class _RequestedJobState extends State<RequestedJob> {
                         if (finalCount < 6) {
                           return Padding(
                             padding: const EdgeInsets.only(left: 15.0),
-                            child: Text('No more data...'),
+                            child: Text('No more request...'),
                           );
                         }
                         if (finalCount < from) {
                           return Padding(
                             padding: const EdgeInsets.only(left: 15.0),
-                            child: Text('No more data...'),
+                            child: Text('No more request...'),
                           );
                         } else {
                           return CircularProgressIndicator();
