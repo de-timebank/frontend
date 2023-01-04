@@ -195,6 +195,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
           .applyProvider1(reqid, provider);
       context.showSnackBar(message: 'Job requested!!');
       Navigator.of(context).pop();
+      Navigator.of(context).pop();
     } on GrpcError catch (e) {
       context.showErrorSnackBar(message: '${e.message}');
       //print(e);
@@ -207,6 +208,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
     try {
       await ClientServiceRequest(Common().channel).completeService1(id, user);
       context.showSnackBar(message: 'Job Completed');
+      Navigator.of(context).pop();
       Navigator.of(context).pop();
     } on GrpcError catch (e) {
       context.showErrorSnackBar(message: 'Caught error: ${e.message}');
@@ -234,9 +236,13 @@ class _RequestDetails1State extends State<RequestDetails1> {
       String author, int value, String comment, String id) async {
     // widget.counter++;
     try {
+      // if(_comment1Controller.text == ''){
+      //   context.showErrorSnackBar(message: '');
+      // }
       await ClientRating(Common().channel)
           .ratingForProvider(author, value, comment, id);
       context.showSnackBar(message: 'Provider rated!!');
+      Navigator.of(context).pop();
       Navigator.of(context).pop();
     } on GrpcError catch (e) {
       context.showErrorSnackBar(message: 'Caught error: ${e.message}');
@@ -255,6 +261,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
       await ClientServiceRequest(Common().channel).deleteService(id);
       context.showSnackBar(message: 'Job Deleted');
       Navigator.of(context).pop();
+      Navigator.of(context).pop();
     } on GrpcError catch (e) {
       context.showErrorSnackBar(message: 'Caught error: ${e.message}');
       print(e);
@@ -268,6 +275,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
       await ClientServiceRequest(Common().channel)
           .selectProvider1(id, provider, caller);
       context.showSnackBar(message: 'Applicant Selected');
+      Navigator.of(context).pop();
       Navigator.of(context).pop();
     } on GrpcError catch (e) {
       context.showErrorSnackBar(message: 'Caught error: ${e.message}');
@@ -283,11 +291,11 @@ class _RequestDetails1State extends State<RequestDetails1> {
       appBar: widget.isRequest
           ? AppBar(
               backgroundColor: Theme.of(context).primaryColor,
-              title: Text('Job Details'),
+              title: const Text('Request Details'),
             )
           : AppBar(
               backgroundColor: Theme.of(context).secondaryHeaderColor,
-              title: Text('Job Details'),
+              title: const Text('Request Details'),
             ),
       body: isLoad
           ? Center(child: CircularProgressIndicator())
@@ -426,25 +434,48 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                               style: themeData2()
                                                                   .elevatedButtonTheme
                                                                   .style,
-                                                              onPressed: () {
-                                                                // print(widget.id);
-                                                                // print(
-                                                                //     widget.applicants[
-                                                                //         index]);
-                                                                // print(widget.user);
-                                                                _selectProvider(
-                                                                    requestDetails
-                                                                        .request
-                                                                        .id
-                                                                        .toString(),
-                                                                    requestDetails
-                                                                        .request
-                                                                        .applicants[
-                                                                            index]
-                                                                        .toString(),
-                                                                    widget.user
-                                                                        .toString());
-                                                              },
+                                                              onPressed: () =>
+                                                                  showDialog<
+                                                                      String>(
+                                                                    context:
+                                                                        context,
+                                                                    builder: (BuildContext
+                                                                            context) =>
+                                                                        AlertDialog(
+                                                                      title: Text(
+                                                                          'Select ${_listApplicants[index].user.name.toString().titleCase()}?'),
+                                                                      content: Text(
+                                                                          '${_listApplicants[index].user.name.toString().titleCase()} will be your provider.'),
+                                                                      actions: <
+                                                                          Widget>[
+                                                                        TextButton(
+                                                                          onPressed: () => Navigator.pop(
+                                                                              context,
+                                                                              'Cancel'),
+                                                                          child:
+                                                                              const Text('Cancel'),
+                                                                        ),
+                                                                        TextButton(
+                                                                          onPressed:
+                                                                              () {
+                                                                            _selectProvider(
+                                                                                requestDetails.request.id.toString(),
+                                                                                requestDetails.request.applicants[index].toString(),
+                                                                                widget.user.toString());
+                                                                          },
+                                                                          child:
+                                                                              const Text('Yes'),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                              // onPressed: () {
+                                                              //   // print(widget.id);
+                                                              //   // print(
+                                                              //   //     widget.applicants[
+                                                              //   //         index]);
+                                                              //   // print(widget.user);
+
                                                               child: Text(
                                                                 '${index + 1}) ${_listApplicants[index].user.name.toString().titleCase()}',
                                                               )),
@@ -562,6 +593,21 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                           'Completed On: ${dateCompletedOn.day}-${dateCompletedOn.month}-${dateCompletedOn.year}'),
                                                       Text(
                                                           'Time: ${dateCompletedOn.hour}:${dateCompletedOn.minute}:${dateCompletedOn.second}'),
+                                                      TextButton(
+                                                          style: themeData2()
+                                                              .textButtonTheme
+                                                              .style,
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .push(
+                                                                    MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  RateGivenPage(),
+                                                            ));
+                                                          },
+                                                          child: Text(
+                                                              'Go to rating page'))
                                                     ],
                                                   )
                                                 : Column(children: [
@@ -604,42 +650,108 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                         style: themeData2()
                                                             .elevatedButtonTheme
                                                             .style,
-                                                        onPressed: () {
-                                                          //print(ratedUser);
-                                                          // print(user);
-                                                          // print(
-                                                          //     _value1Controller.toInt());
-                                                          // print(_comment1Controller.text);
-                                                          // print(id);
-                                                          _rateProvider(
-                                                              widget.user,
-                                                              _value1Controller
-                                                                  .toInt(),
-                                                              _comment1Controller
-                                                                  .text,
-                                                              requestDetails
-                                                                  .request.id);
-                                                        },
+                                                        onPressed: () =>
+                                                            showDialog<String>(
+                                                              context: context,
+                                                              builder: (BuildContext
+                                                                      context) =>
+                                                                  AlertDialog(
+                                                                title: const Text(
+                                                                    'Submit Review?'),
+                                                                actions: <
+                                                                    Widget>[
+                                                                  TextButton(
+                                                                    onPressed: () =>
+                                                                        Navigator.pop(
+                                                                            context,
+                                                                            'Cancel'),
+                                                                    child: const Text(
+                                                                        'Cancel'),
+                                                                  ),
+                                                                  TextButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      _rateProvider(
+                                                                          widget
+                                                                              .user,
+                                                                          _value1Controller
+                                                                              .toInt(),
+                                                                          _comment1Controller
+                                                                              .text,
+                                                                          requestDetails
+                                                                              .request
+                                                                              .id);
+                                                                    },
+                                                                    child: const Text(
+                                                                        'Submit'),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                        // onPressed: () {
+                                                        //   //print(ratedUser);
+                                                        //   // print(user);
+                                                        //   // print(
+                                                        //   //     _value1Controller.toInt());
+                                                        //   // print(_comment1Controller.text);
+                                                        //   // print(id);
+
                                                         child: Text(
                                                             'Rate Provider'))
                                                   ])
                                             : Column(
                                                 children: [
                                                   Heading2(
-                                                      'The job is completed'),
+                                                      'The request is completed'),
 
                                                   Text(
                                                       'Completed On: ${dateCompletedOn.day}-${dateCompletedOn.month}-${dateCompletedOn.year}'),
                                                   Text(
                                                       'Time: ${dateCompletedOn.hour}:${dateCompletedOn.minute}:${dateCompletedOn.second}'), //completed on 2
-                                                  //Text(widget.completed),
+                                                  TextButton(
+                                                      style:
+                                                          TextButton.styleFrom(
+                                                              foregroundColor:
+                                                                  Colors.red),
+                                                      onPressed: () =>
+                                                          showDialog<String>(
+                                                            context: context,
+                                                            builder: (BuildContext
+                                                                    context) =>
+                                                                AlertDialog(
+                                                              title: const Text(
+                                                                  'Delete Request?'),
+                                                              actions: <Widget>[
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          context,
+                                                                          'Cancel'),
+                                                                  child: const Text(
+                                                                      'Cancel'),
+                                                                ),
+                                                                TextButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    _deleteRequest(
+                                                                        requestDetails
+                                                                            .request
+                                                                            .id);
+                                                                  },
+                                                                  child: const Text(
+                                                                      'Delete'),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                      child: Text('Delete Job'))
                                                 ],
                                               )
                                         : isOngoing()
                                             ? Column(
                                                 children: [
                                                   Text(
-                                                    'The job has started, make sure to tap \n"Complete Job" when the provider has finished the job.',
+                                                    'The request has started, make sure to tap \n"Complete Request" when the provider has finished the request.',
                                                     textAlign: TextAlign.center,
                                                   ),
                                                   Divider(),
@@ -647,71 +759,165 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                       style: themeData2()
                                                           .elevatedButtonTheme
                                                           .style,
-                                                      onPressed: () {
-                                                        _completeJob(
-                                                            requestDetails
-                                                                .request.id,
-                                                            widget.user);
-                                                      },
-                                                      child:
-                                                          Text('Complete Job')),
+                                                      onPressed: () =>
+                                                          showDialog<String>(
+                                                            context: context,
+                                                            builder: (BuildContext
+                                                                    context) =>
+                                                                AlertDialog(
+                                                              title: const Text(
+                                                                  'Complete Request?'),
+                                                              content: Text(
+                                                                  'Once the request is complete, transaction of Time/hour will be made.'),
+                                                              actions: <Widget>[
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          context,
+                                                                          'Cancel'),
+                                                                  child: const Text(
+                                                                      'Cancel'),
+                                                                ),
+                                                                TextButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    _completeJob(
+                                                                        requestDetails
+                                                                            .request
+                                                                            .id,
+                                                                        widget
+                                                                            .user);
+                                                                  },
+                                                                  child: const Text(
+                                                                      'Complete'),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                      // onPressed: () {
+                                                      //   _completeJob(
+                                                      //       requestDetails
+                                                      //           .request.id,
+                                                      //       widget.user);
+                                                      // },
+                                                      child: Text(
+                                                          'Complete Request')),
                                                 ],
                                               )
-                                            : ElevatedButton(
-                                                style: themeData2()
-                                                    .elevatedButtonTheme
-                                                    .style,
-                                                onPressed: () {
-                                                  try {
-                                                    ClientServiceRequest(
-                                                            Common().channel)
-                                                        .startService1(
-                                                            requestDetails
-                                                                .request.id,
-                                                            widget.user);
-                                                    context.showSnackBar(
-                                                        message:
-                                                            'Job Started!!');
-                                                    Navigator.of(context).pop();
-                                                  } on GrpcError catch (e) {
-                                                    context.showErrorSnackBar(
-                                                        message: e.toString());
-                                                  } catch (e) {
-                                                    context.showErrorSnackBar(
-                                                        message: e.toString());
-                                                  }
+                                            : Column(
+                                                children: [
+                                                  const Text(
+                                                    'Start the request to record the request in the blockchain',
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                  const SizedBox(height: 8),
+                                                  ElevatedButton(
+                                                      style: themeData2()
+                                                          .elevatedButtonTheme
+                                                          .style,
+                                                      onPressed:
+                                                          () => showDialog<
+                                                                  String>(
+                                                                context:
+                                                                    context,
+                                                                builder: (BuildContext
+                                                                        context) =>
+                                                                    AlertDialog(
+                                                                  title: const Text(
+                                                                      'Start Request'),
+                                                                  actions: <
+                                                                      Widget>[
+                                                                    TextButton(
+                                                                      onPressed: () => Navigator.pop(
+                                                                          context,
+                                                                          'Cancel'),
+                                                                      child: const Text(
+                                                                          'Cancel'),
+                                                                    ),
+                                                                    TextButton(
+                                                                      onPressed:
+                                                                          () {
+                                                                        try {
+                                                                          ClientServiceRequest(Common().channel).startService1(
+                                                                              requestDetails.request.id,
+                                                                              widget.user);
+                                                                          context.showSnackBar(
+                                                                              message: 'Request Started!!');
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                        } on GrpcError catch (e) {
+                                                                          context.showErrorSnackBar(
+                                                                              message: e.toString());
+                                                                        } catch (e) {
+                                                                          context.showErrorSnackBar(
+                                                                              message: e.toString());
+                                                                        }
+                                                                      },
+                                                                      child: const Text(
+                                                                          'Start'),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                      // onPressed: () {
 
-                                                  // _completeJob(
-                                                  //     widget.id, widget.user);
-                                                },
-                                                child: Text('Start Job')),
+                                                      //   // _completerequest(
+                                                      //   //     widget.id, widget.user);
+                                                      // },
+                                                      child: Text(
+                                                          'Start Request')),
+                                                ],
+                                              ),
                                 isNull(requestDetails.request.provider)
                                     ? TextButton(
                                         style: TextButton.styleFrom(
                                             foregroundColor: Colors.red),
-                                        onPressed: () {
-                                          _deleteRequest(
-                                              requestDetails.request.id);
-                                        },
-                                        child: Text('Delete Job'))
-                                    : isComplete()
-                                        ? Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: TextButton(
-                                                style: themeData2()
-                                                    .textButtonTheme
-                                                    .style,
-                                                onPressed: () {
-                                                  Navigator.of(context)
-                                                      .push(MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        RateGivenPage(),
-                                                  ));
-                                                },
-                                                child:
-                                                    Text('Go to rating page')),
-                                          )
-                                        : const Text('')
+                                        onPressed: () => showDialog<String>(
+                                              context: context,
+                                              builder: (BuildContext context) =>
+                                                  AlertDialog(
+                                                title: const Text(
+                                                    'Delete Request?'),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            context, 'Cancel'),
+                                                    child: const Text('Cancel'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      _deleteRequest(
+                                                          requestDetails
+                                                              .request.id);
+                                                    },
+                                                    child: const Text('Delete'),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                        child: Text('Delete request'))
+                                    : Text('')
+                                // : isComplete()
+                                //     ? Padding(
+                                //         padding: const EdgeInsets.all(8.0),
+                                //         child: TextButton(
+                                //             style: themeData2()
+                                //                 .textButtonTheme
+                                //                 .style,
+                                //             onPressed: () {
+                                //               Navigator.of(context)
+                                //                   .push(MaterialPageRoute(
+                                //                 builder: (context) =>
+                                //                     RateGivenPage(),
+                                //               ));
+                                //             },
+                                //             child:
+                                //                 Text('Go to rating page')),
+                                //       )
+                                //     : Text('')
                                 // TextButton(
                                 //     style: themeData2()
                                 //         .textButtonTheme
@@ -720,12 +926,12 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                 //       _deleteRequest(
                                 //           requestDetails.request.id);
                                 //       context.showSnackBar(
-                                //           message: 'Job Deleted');
+                                //           message: 'request Deleted');
                                 //       Navigator.of(context).pop();
                                 //       //Navigator.of(context).popUntil((route) => route.i);
                                 //       //Navigator.of(context).pushNamed('/navigation');
                                 //     },
-                                //     child: Text('Abort Jobs')),
+                                //     child: Text('Abort requests')),
                               ],
                             ),
                           ),
@@ -742,6 +948,34 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                         'Date: ${dateCompletedOn.day}-${dateCompletedOn.month}-${dateCompletedOn.year}\n'),
                                     Text(
                                         'Time: ${dateCompletedOn.hour}:${dateCompletedOn.minute}:${dateCompletedOn.second}'),
+                                    TextButton(
+                                        style: TextButton.styleFrom(
+                                            foregroundColor: Colors.red),
+                                        onPressed: () => showDialog<String>(
+                                              context: context,
+                                              builder: (BuildContext context) =>
+                                                  AlertDialog(
+                                                title: const Text(
+                                                    'Delete Request?'),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            context, 'Cancel'),
+                                                    child: const Text('Cancel'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      _deleteRequest(
+                                                          requestDetails
+                                                              .request.id);
+                                                    },
+                                                    child: const Text('Delete'),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                        child: Text('Delete Request'))
                                     // Text(
                                     //   'Rate The requestor',
                                     //   style: TextStyle(
@@ -855,7 +1089,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                             heading:
                                                 'You have been accepted as the provider'),
                                         Text(
-                                            'Contact your requestor to start the job when you are ready')
+                                            'Contact your requestor to start the request when you are ready')
                                       ],
                                     ),
                                   ),
@@ -891,39 +1125,68 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                       elevation: 5,
                                       child: Padding(
                                           padding: const EdgeInsets.all(15.0),
-                                          child: isNull(requestDetails
-                                                  .request.applicants)
-                                              ? Column(
-                                                  children: [
-                                                    Heading2(
-                                                        'Interested in the job?'),
-                                                    ElevatedButton(
-                                                        style: themeData2()
-                                                            .elevatedButtonTheme
-                                                            .style,
-                                                        onPressed: () {
-                                                          // print(widget.id);
-                                                          // print(widget.user);
-                                                          applyJob(
-                                                              requestDetails
-                                                                  .request.id,
-                                                              widget.user);
-                                                        },
-                                                        child: Text(
-                                                            'Request Job')),
-                                                  ],
-                                                )
-                                              : Center(
-                                                  child: Text(
-                                                      'You have requested for the job\nContact Requestor to accept you as Provider'),
-                                                )),
+                                          child:
+                                              isNull(requestDetails
+                                                      .request.applicants)
+                                                  ? Column(
+                                                      children: [
+                                                        Heading2(
+                                                            'Want to help?'),
+                                                        ElevatedButton(
+                                                            style: themeData2()
+                                                                .elevatedButtonTheme
+                                                                .style,
+                                                            onPressed:
+                                                                () =>
+                                                                    showDialog<
+                                                                        String>(
+                                                                      context:
+                                                                          context,
+                                                                      builder: (BuildContext
+                                                                              context) =>
+                                                                          AlertDialog(
+                                                                        title: const Text(
+                                                                            'Apply request?'),
+                                                                        actions: <
+                                                                            Widget>[
+                                                                          TextButton(
+                                                                            onPressed: () =>
+                                                                                Navigator.pop(context, 'Cancel'),
+                                                                            child:
+                                                                                const Text('Cancel'),
+                                                                          ),
+                                                                          TextButton(
+                                                                            onPressed:
+                                                                                () {
+                                                                              applyJob(requestDetails.request.id, widget.user);
+                                                                            },
+                                                                            child:
+                                                                                const Text('Apply'),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                            // onPressed: () {
+
+                                                            //   // print(widget.id);
+                                                            //   // print(widget.user);
+
+                                                            // },
+                                                            child: Text(
+                                                                'Apply Request')),
+                                                      ],
+                                                    )
+                                                  : Center(
+                                                      child: Text(
+                                                          'You have apply for the request\nContact the Requestor to accept you as Provider'),
+                                                    )),
                                     ),
                   const SizedBox(height: 15),
                   Container(
                       alignment: Alignment.center,
                       child: Heading2('Other Information')),
                   Divider(),
-                  Heading2('Date of the Job'),
+                  Heading2('Date of the request'),
                   Text(
                       'Date: ${dateJob.day}-${dateJob.month}-${dateJob.year}\nTime: ${dateJob.hour.toString().padLeft(2, '0')}:${dateJob.minute.toString().padLeft(2, '0')}'),
                   //const SizedBox(height: 15),

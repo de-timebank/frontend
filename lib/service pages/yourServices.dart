@@ -162,7 +162,7 @@ class _YourServicesState extends State<YourServices> {
                   ],
                 )
               : SizedBox(
-                  height: MediaQuery.of(context).size.height / 1.5,
+                  height: MediaQuery.of(context).size.height / 1.2,
                   child: ListView.builder(
                     controller: _scrollController,
                     itemCount: listFiltered.length + 1,
@@ -196,13 +196,13 @@ class _YourServicesState extends State<YourServices> {
                         if (finalCount < 6) {
                           return Padding(
                             padding: const EdgeInsets.only(left: 15.0),
-                            child: Text('No more data...'),
+                            child: Text('No more request...'),
                           );
                         }
                         if (finalCount < from) {
                           return const Padding(
                             padding: EdgeInsets.only(left: 15.0),
-                            child: Text('No more data...'),
+                            child: Text('No more request...'),
                           );
                         } else {
                           return const Center(

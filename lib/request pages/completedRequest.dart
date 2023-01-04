@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:testfyp/request%20pages/requestDetails1.dart';
-
-import '../bin/client_rating.dart';
-import '../bin/client_service_request.dart';
-import '../bin/common.dart';
 import '../components/constants.dart';
 import '../custom widgets/customCardServiceRequest.dart';
-import 'requestDetails.dart';
 
 class CompletedRequest extends StatefulWidget {
   CompletedRequest({Key? key}) : super(key: key);
@@ -19,6 +14,7 @@ class _CompletedRequestState extends State<CompletedRequest> {
   late bool isLoad;
   //late dynamic listRequest;
   late dynamic listFiltered;
+  late dynamic listRating;
   late String user;
   late bool _isEmpty;
   bool isRequest = true;
@@ -27,6 +23,7 @@ class _CompletedRequestState extends State<CompletedRequest> {
   late int to;
   late int finalCount;
   late dynamic data;
+
   //for listview controller;
   final _scrollController = ScrollController();
 
@@ -71,6 +68,14 @@ class _CompletedRequestState extends State<CompletedRequest> {
     }
   }
 
+  isRated(jobId) {
+    if (listRating.toString().contains(jobId)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   void fetch() async {
     //setState(() {});
     from += 7;
@@ -78,6 +83,7 @@ class _CompletedRequestState extends State<CompletedRequest> {
     // print('from ' + from.toString());
     // print('to ' + to.toString());
     final data1;
+    final ratingData;
     //print('fetching data...');
 
     data1 = await supabase
@@ -86,12 +92,19 @@ class _CompletedRequestState extends State<CompletedRequest> {
         .eq('requestor', user)
         .eq('applicants', []).range(from, to);
 
+    ratingData = await supabase
+        .from('ratings')
+        .select()
+        .eq('author', user)
+        .range(from, to);
+
     // final data1 = await supabase
     //     .from('service_requests')
     //     .select()
     //     .neq('requestor', user)
     //     .range(from, to);
     setState(() {
+      listRating.addAll(ratingData);
       listFiltered.addAll(data1);
     });
 
@@ -107,6 +120,7 @@ class _CompletedRequestState extends State<CompletedRequest> {
       to = 6;
     });
     listFiltered = [];
+    listRating = [];
     user = supabase.auth.currentUser!.id;
 
     listFiltered.addAll(await supabase
@@ -123,6 +137,12 @@ class _CompletedRequestState extends State<CompletedRequest> {
         .neq('applicants', []);
 
     finalCount = data.length;
+
+    listRating.addAll(await supabase
+        .from('ratings')
+        .select()
+        .eq('author', user)
+        .range(from, to));
 
     setState(() {
       isLoad = false;
@@ -164,7 +184,7 @@ class _CompletedRequestState extends State<CompletedRequest> {
                   ],
                 )
               : SizedBox(
-                  height: MediaQuery.of(context).size.height / 1.5,
+                  height: MediaQuery.of(context).size.height / 1.2,
                   child: ListView.builder(
                     controller: _scrollController,
                     itemCount: listFiltered.length + 1,
@@ -188,7 +208,9 @@ class _CompletedRequestState extends State<CompletedRequest> {
                             category: listFiltered[index]['category'],
                             location: listFiltered[index]['location']['state'],
                             date: listFiltered[index]['date'],
-                            state: changeState(listFiltered[index]['state']),
+                            state: isRated(listFiltered[index]['id'])
+                                ? 'Completed | Rated'
+                                : 'Completed | Unrated',
                             requestor: listFiltered[index]['requestor'],
                             title: listFiltered[index]['title'],
                             rate: listFiltered[index]['rate'],

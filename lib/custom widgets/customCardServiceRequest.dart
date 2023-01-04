@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:testfyp/bin/client_user.dart';
 import 'package:testfyp/bin/common.dart';
+import 'package:testfyp/custom%20widgets/theme.dart';
 import 'package:testfyp/extension_string.dart';
 
 class CustomCardServiceRequest extends StatefulWidget {
@@ -54,8 +55,10 @@ class _CustomCardServiceRequestState extends State<CustomCardServiceRequest> {
         return const Color.fromARGB(255, 199, 202, 11);
       case 'Ongoing':
         return const Color.fromARGB(255, 213, 159, 15);
-      case 'Completed':
+      case 'Completed | Rated':
         return const Color.fromARGB(255, 89, 175, 89);
+      case 'Completed | Unrated':
+        return themeData2().secondaryHeaderColor;
       default:
         return const Color.fromARGB(255, 127, 124, 139);
     }

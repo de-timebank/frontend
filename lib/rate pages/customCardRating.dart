@@ -79,16 +79,23 @@ class _CustomCardRatingState extends State<CustomCardRating> {
                 children: [
                   Flexible(
                     flex: 4,
+                    fit: FlexFit.tight,
                     child: Container(
                       padding: const EdgeInsets.all(15.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('${widget.title.toString().capitalize()}',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 14)
-                              //     Theme.of(context).textTheme.headline1,
-                              ),
+                          widget.title.toString().isEmpty
+                              ? Text('No comment from the requestor',
+                                  style: TextStyle(
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14))
+                              : Text('${widget.title.toString().capitalize()}',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold, fontSize: 14)
+                                  //     Theme.of(context).textTheme.headline1,
+                                  ),
                           SizedBox(
                             height: 10,
                           ),

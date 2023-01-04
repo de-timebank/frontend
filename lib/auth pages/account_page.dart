@@ -661,7 +661,26 @@ class _AccountPageState extends State<AccountPage> {
                   // ),
                   TextButton(
                       style: TextButton.styleFrom(foregroundColor: Colors.red),
-                      onPressed: _signOut,
+                      onPressed: () => showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('Confirm Sign Out?'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(context, 'Cancel'),
+                                  child: const Text('Cancel'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    _signOut();
+                                  },
+                                  child: const Text('Sign Out'),
+                                ),
+                              ],
+                            ),
+                          ),
+                      // onPressed: _signOut,
                       child: const Text('Sign Out')),
                 ],
               ),

@@ -172,7 +172,7 @@ class _YourRequestState extends State<YourRequest> {
                     ],
                   )
                 : SizedBox(
-                    height: MediaQuery.of(context).size.height / 1.5,
+                    height: MediaQuery.of(context).size.height / 1.2,
                     child: ListView.builder(
                       controller: _scrollController,
                       itemCount: listFiltered.length + 1,

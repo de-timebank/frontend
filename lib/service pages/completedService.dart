@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../bin/client_rating.dart';
-import '../bin/client_service_request.dart';
-import '../bin/common.dart';
 import '../components/constants.dart';
 import '../custom widgets/customCardServiceRequest.dart';
-import '../request pages/requestDetails.dart';
 import '../request pages/requestDetails1.dart';
 
 class CompletedServices extends StatefulWidget {
@@ -19,6 +14,7 @@ class _CompletedServicesState extends State<CompletedServices> {
   late bool isLoad;
   //late dynamic listRequest;
   late dynamic listFiltered;
+  late dynamic listRating;
   late String user;
   late bool _isEmpty;
   bool isRequest = true;
@@ -56,6 +52,8 @@ class _CompletedServicesState extends State<CompletedServices> {
       to = 6;
     });
     listFiltered = [];
+    listRating = [];
+
     user = supabase.auth.currentUser!.id;
     listFiltered.addAll(await supabase
         .from('service_requests')
@@ -68,6 +66,12 @@ class _CompletedServicesState extends State<CompletedServices> {
         .select()
         .eq('state', 3)
         .eq('provider', user);
+
+    listRating.addAll(await supabase
+        .from('ratings')
+        .select()
+        .eq('recipient', user)
+        .range(from, to));
 
     finalCount = data.length;
 
@@ -101,6 +105,14 @@ class _CompletedServicesState extends State<CompletedServices> {
     }
   }
 
+  isRated(jobId) {
+    if (listRating.toString().contains(jobId)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   bool isEmpty() {
     if (listFiltered.length == 0) {
       _isEmpty = true;
@@ -112,13 +124,11 @@ class _CompletedServicesState extends State<CompletedServices> {
   }
 
   void fetch() async {
-    //setState(() {});
     from += 7;
     to += 7;
-    // print('from ' + from.toString());
-    // print('to ' + to.toString());
+
     final data1;
-    //print('fetching data...');
+    final ratingData;
 
     data1 = await supabase
         .from('service_requests')
@@ -126,18 +136,16 @@ class _CompletedServicesState extends State<CompletedServices> {
         .eq('requestor', user)
         .eq('applicants', []).range(from, to);
 
-    // final data1 = await supabase
-    //     .from('service_requests')
-    //     .select()
-    //     .neq('requestor', user)
-    //     .range(from, to);
+    ratingData = await supabase
+        .from('ratings')
+        .select()
+        .eq('recipient', user)
+        .range(from, to);
+
     setState(() {
+      listRating.addAll(ratingData);
       listFiltered.addAll(data1);
     });
-
-    //print('new added list $listFiltered');
-    // print(listFiltered);
-    // print(listFiltered.length);
   }
 
   @override
@@ -163,7 +171,7 @@ class _CompletedServicesState extends State<CompletedServices> {
                   ],
                 )
               : SizedBox(
-                  height: MediaQuery.of(context).size.height / 1.5,
+                  height: MediaQuery.of(context).size.height / 1.2,
                   child: ListView.builder(
                     controller: _scrollController,
                     itemCount: listFiltered.length + 1,
@@ -187,7 +195,9 @@ class _CompletedServicesState extends State<CompletedServices> {
                             category: listFiltered[index]['category'],
                             location: listFiltered[index]['location']['state'],
                             date: listFiltered[index]['date'],
-                            state: changeState(listFiltered[index]['state']),
+                            state: isRated(listFiltered[index]['id'])
+                                ? 'Completed | Rated'
+                                : 'Completed | Unrated',
                             requestor: listFiltered[index]['requestor'],
                             title: listFiltered[index]['title'],
                             rate: listFiltered[index]['rate'],
@@ -197,13 +207,13 @@ class _CompletedServicesState extends State<CompletedServices> {
                         if (finalCount < 6) {
                           return Padding(
                             padding: const EdgeInsets.only(left: 15.0),
-                            child: Text('No more data...'),
+                            child: Text('No more request...'),
                           );
                         }
                         if (finalCount < from) {
                           return const Padding(
                             padding: EdgeInsets.only(left: 15.0),
-                            child: Text('No more data...'),
+                            child: Text('No more request...'),
                           );
                         } else {
                           return const Center(

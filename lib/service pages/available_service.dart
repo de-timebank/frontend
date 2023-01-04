@@ -312,8 +312,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                                 underline: Container(
                                   height: 0,
                                 ),
-                                iconEnabledColor:
-                                    Theme.of(context).secondaryHeaderColor,
+                                iconEnabledColor: Colors.black,
                                 value: _filterController.text,
                                 items: listFilter
                                     .map<DropdownMenuItem<String>>((e) {
@@ -325,8 +324,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                                         child: Text(
                                           e,
                                           style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .secondaryHeaderColor,
+                                              color: Colors.black,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 15),
                                         ),
@@ -365,8 +363,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                                         underline: Container(
                                           height: 0,
                                         ),
-                                        iconEnabledColor: Theme.of(context)
-                                            .secondaryHeaderColor,
+                                        iconEnabledColor: Colors.black,
                                         value: _stateController.text,
                                         items: listState
                                             .map<DropdownMenuItem<String>>((e) {
@@ -379,8 +376,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                                                 child: Text(
                                                   e,
                                                   style: TextStyle(
-                                                      color: Theme.of(context)
-                                                          .secondaryHeaderColor,
+                                                      color: Colors.black,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 15),
@@ -415,8 +411,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                                         underline: Container(
                                           height: 0,
                                         ),
-                                        iconEnabledColor: Theme.of(context)
-                                            .secondaryHeaderColor,
+                                        iconEnabledColor: Colors.black,
                                         value: _categoryController.text,
                                         items: listCategories
                                             .map<DropdownMenuItem<String>>((e) {
@@ -429,8 +424,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                                                 child: Text(
                                                   e,
                                                   style: TextStyle(
-                                                      color: Theme.of(context)
-                                                          .secondaryHeaderColor,
+                                                      color: Colors.black,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 15),
@@ -512,8 +506,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                                 underline: Container(
                                   height: 0,
                                 ),
-                                iconEnabledColor:
-                                    Theme.of(context).secondaryHeaderColor,
+                                iconEnabledColor: Colors.black,
                                 value: _filterController.text,
                                 items: listFilter
                                     .map<DropdownMenuItem<String>>((e) {
@@ -565,8 +558,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                                         underline: Container(
                                           height: 0,
                                         ),
-                                        iconEnabledColor: Theme.of(context)
-                                            .secondaryHeaderColor,
+                                        iconEnabledColor: Colors.black,
                                         value: _stateController.text,
                                         items: listState
                                             .map<DropdownMenuItem<String>>((e) {
@@ -615,8 +607,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                                         underline: Container(
                                           height: 0,
                                         ),
-                                        iconEnabledColor: Theme.of(context)
-                                            .secondaryHeaderColor,
+                                        iconEnabledColor: Colors.black,
                                         value: _categoryController.text,
                                         items: listCategories
                                             .map<DropdownMenuItem<String>>((e) {

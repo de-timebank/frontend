@@ -89,6 +89,7 @@ class _RatingDetailsState extends State<RatingDetails> {
       ClientRating(Common().channel).deleteRating(id, ratingFor);
       context.showSnackBar(message: 'Rate Deleted');
       Navigator.of(context).pop();
+      Navigator.of(context).pop();
     } on GrpcError catch (e) {
       context.showErrorSnackBar(message: e.toString());
     } catch (e) {
@@ -142,7 +143,13 @@ class _RatingDetailsState extends State<RatingDetails> {
                                   Heading2('Comment'),
                                 ],
                               ),
-                              Text(widget.comment.toString().capitalize()),
+                              widget.comment.toString().isEmpty
+                                  ? Text(
+                                      'No comment from provider',
+                                      style: TextStyle(color: Colors.grey),
+                                    )
+                                  : Text(
+                                      widget.comment.toString().capitalize()),
                             ],
                           ),
                           Column(
@@ -235,17 +242,29 @@ class _RatingDetailsState extends State<RatingDetails> {
                           style: TextButton.styleFrom(
                             foregroundColor: Colors.red,
                           ),
-                          onPressed: () {
-                            // var ratingFor = '';
-                            // if (widget.ratingFor == 'provider') {
-                            //   ratingFor = widget.ratingFor;
-                            // }
-                            //print(id);
-                            _deleteRating(widget.requestId, widget.ratingFor);
-
-                            //Navigator.of(context).popUntil((route) => route.i);
-                            //Navigator.of(context).pushNamed('/navigation');
-                          },
+                          onPressed: () => showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('Delete Rating?'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'Cancel'),
+                                      child: const Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        _deleteRating(
+                                            widget.requestId, widget.ratingFor);
+                                      },
+                                      child: const Text('Delete'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                          // onPressed: () {
+                          //   _deleteRating(widget.requestId, widget.ratingFor);
+                          // },
                           child: Text('Delete Rating'))
                       : Text('')
                 ],
