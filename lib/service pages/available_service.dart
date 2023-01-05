@@ -181,7 +181,7 @@ class _AvailableServicesState extends State<AvailableServices> {
     return _userCurrent['name'];
   }
 
-  void getinstance() async {
+  Future getinstance() async {
     setState(() {
       isLoad = true;
       from = 0;
@@ -285,194 +285,213 @@ class _AvailableServicesState extends State<AvailableServices> {
         body: isLoad
             ? const Center(child: CircularProgressIndicator())
             : _isEmpty
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                ? RefreshIndicator(
+                    onRefresh: getinstance,
+                    child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height / 1.3,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Icon(
-                              Icons.tune,
-                              color: themeData1().secondaryHeaderColor,
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Icon(
+                                    Icons.tune,
+                                    color: themeData1().secondaryHeaderColor,
+                                  ),
+                                  const SizedBox(width: 3),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    //margin: EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        border: Border.all(
+                                          color: Theme.of(context)
+                                              .secondaryHeaderColor,
+                                          width: 2,
+                                        )),
+                                    child: DropdownButton<String>(
+                                      underline: Container(
+                                        height: 0,
+                                      ),
+                                      iconEnabledColor: Colors.black,
+                                      value: _filterController.text,
+                                      items: listFilter
+                                          .map<DropdownMenuItem<String>>((e) {
+                                        return DropdownMenuItem<String>(
+                                            value: e,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                              child: Text(
+                                                e,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 15),
+                                              ),
+                                            ));
+                                      }).toList(),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _filterController.text =
+                                              value.toString();
+                                          //print(_categoryController.text);
+                                          //getinstance();
+                                          //print(_genderController.text);
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(width: 5),
+                                  Expanded(
+                                    child: ListView.builder(
+                                      // physics: const AlwaysScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: 1,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        if (_filterController.text ==
+                                            listFilter[1]) {
+                                          return Container(
+                                            alignment: Alignment.center,
+                                            //margin: EdgeInsets.all(8),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                border: Border.all(
+                                                  color: Theme.of(context)
+                                                      .secondaryHeaderColor,
+                                                  width: 2,
+                                                )),
+                                            child: DropdownButton<String>(
+                                              isExpanded: true,
+                                              underline: Container(
+                                                height: 0,
+                                              ),
+                                              iconEnabledColor: Colors.black,
+                                              value: _stateController.text,
+                                              items: listState.map<
+                                                      DropdownMenuItem<String>>(
+                                                  (e) {
+                                                return DropdownMenuItem<String>(
+                                                    value: e,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 10),
+                                                      child: Text(
+                                                        e,
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 15),
+                                                      ),
+                                                    ));
+                                              }).toList(),
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _stateController.text =
+                                                      value.toString();
+                                                  //print(_categoryController.text);
+                                                  getinstance();
+                                                  //print(_genderController.text);
+                                                });
+                                              },
+                                            ),
+                                          );
+                                        } else {
+                                          return Container(
+                                            alignment: Alignment.center,
+                                            //margin: EdgeInsets.all(8),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                border: Border.all(
+                                                  color: Theme.of(context)
+                                                      .secondaryHeaderColor,
+                                                  width: 2,
+                                                )),
+                                            child: DropdownButton<String>(
+                                              isExpanded: true,
+                                              underline: Container(
+                                                height: 0,
+                                              ),
+                                              iconEnabledColor: Colors.black,
+                                              value: _categoryController.text,
+                                              items: listCategories.map<
+                                                      DropdownMenuItem<String>>(
+                                                  (e) {
+                                                return DropdownMenuItem<String>(
+                                                    value: e,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 10),
+                                                      child: Text(
+                                                        e,
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 15),
+                                                      ),
+                                                    ));
+                                              }).toList(),
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _categoryController.text =
+                                                      value.toString();
+                                                  //print(_categoryController.text);
+                                                  getinstance();
+                                                  //print(_genderController.text);
+                                                });
+                                              },
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                            const SizedBox(width: 3),
+                            Text(
+                              'All available jobs based on category will be listed here...\nSo far there are no available job...',
+                              textAlign: TextAlign.center,
+                            ),
                             Container(
-                              alignment: Alignment.center,
-                              //margin: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(
-                                    color:
-                                        Theme.of(context).secondaryHeaderColor,
-                                    width: 2,
-                                  )),
-                              child: DropdownButton<String>(
-                                underline: Container(
-                                  height: 0,
-                                ),
-                                iconEnabledColor: Colors.black,
-                                value: _filterController.text,
-                                items: listFilter
-                                    .map<DropdownMenuItem<String>>((e) {
-                                  return DropdownMenuItem<String>(
-                                      value: e,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        child: Text(
-                                          e,
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15),
-                                        ),
-                                      ));
-                                }).toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    _filterController.text = value.toString();
-                                    //print(_categoryController.text);
-                                    //getinstance();
-                                    //print(_genderController.text);
-                                  });
-                                },
-                              ),
-                            ),
-                            SizedBox(width: 5),
-                            Expanded(
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: 1,
-                                itemBuilder: (BuildContext context, int index) {
-                                  if (_filterController.text == listFilter[1]) {
-                                    return Container(
-                                      alignment: Alignment.center,
-                                      //margin: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                          border: Border.all(
-                                            color: Theme.of(context)
-                                                .secondaryHeaderColor,
-                                            width: 2,
-                                          )),
-                                      child: DropdownButton<String>(
-                                        isExpanded: true,
-                                        underline: Container(
-                                          height: 0,
-                                        ),
-                                        iconEnabledColor: Colors.black,
-                                        value: _stateController.text,
-                                        items: listState
-                                            .map<DropdownMenuItem<String>>((e) {
-                                          return DropdownMenuItem<String>(
-                                              value: e,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 10),
-                                                child: Text(
-                                                  e,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 15),
-                                                ),
-                                              ));
-                                        }).toList(),
-                                        onChanged: (value) {
-                                          setState(() {
-                                            _stateController.text =
-                                                value.toString();
-                                            //print(_categoryController.text);
-                                            getinstance();
-                                            //print(_genderController.text);
-                                          });
-                                        },
-                                      ),
-                                    );
-                                  } else {
-                                    return Container(
-                                      alignment: Alignment.center,
-                                      //margin: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                          border: Border.all(
-                                            color: Theme.of(context)
-                                                .secondaryHeaderColor,
-                                            width: 2,
-                                          )),
-                                      child: DropdownButton<String>(
-                                        isExpanded: true,
-                                        underline: Container(
-                                          height: 0,
-                                        ),
-                                        iconEnabledColor: Colors.black,
-                                        value: _categoryController.text,
-                                        items: listCategories
-                                            .map<DropdownMenuItem<String>>((e) {
-                                          return DropdownMenuItem<String>(
-                                              value: e,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 10),
-                                                child: Text(
-                                                  e,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 15),
-                                                ),
-                                              ));
-                                        }).toList(),
-                                        onChanged: (value) {
-                                          setState(() {
-                                            _categoryController.text =
-                                                value.toString();
-                                            //print(_categoryController.text);
-                                            getinstance();
-                                            //print(_genderController.text);
-                                          });
-                                        },
-                                      ),
-                                    );
-                                  }
-                                },
-                              ),
-                            ),
+                                //padding: EdgeInsets.only(top: 5),
+                                height:
+                                    MediaQuery.of(context).size.height / 4.6,
+                                width: MediaQuery.of(context).size.width,
+                                // decoration: BoxDecoration(
+                                //   image: DecorationImage(
+                                //       image: AssetImage('asset/available_job.png'),
+                                //       fit: BoxFit.fitWidth),
+                                // ),
+                                margin: EdgeInsets.only(bottom: 0),
+                                child: FittedBox(
+                                  child: Image.asset(
+                                    'asset/available_job.png',
+                                    height:
+                                        MediaQuery.of(context).size.height / 3,
+                                    // width: double.infinity,
+                                    // repeat: ImageRepeat.repeatX,
+                                  ),
+                                  fit: BoxFit.fitWidth,
+                                )),
                           ],
                         ),
                       ),
-                      Text(
-                        'All available jobs based on category will be listed here...\nSo far there are no available job...',
-                        textAlign: TextAlign.center,
-                      ),
-                      Container(
-                          //padding: EdgeInsets.only(top: 5),
-                          height: MediaQuery.of(context).size.height / 4.6,
-                          width: MediaQuery.of(context).size.width,
-                          // decoration: BoxDecoration(
-                          //   image: DecorationImage(
-                          //       image: AssetImage('asset/available_job.png'),
-                          //       fit: BoxFit.fitWidth),
-                          // ),
-                          margin: EdgeInsets.only(bottom: 0),
-                          child: FittedBox(
-                            child: Image.asset(
-                              'asset/available_job.png',
-                              height: MediaQuery.of(context).size.height / 3,
-                              // width: double.infinity,
-                              // repeat: ImageRepeat.repeatX,
-                            ),
-                            fit: BoxFit.fitWidth,
-                          )),
-                    ],
+                    ),
                   )
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -538,6 +557,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                             SizedBox(width: 5),
                             Expanded(
                               child: ListView.builder(
+                                // physics: const AlwaysScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: 1,
                                 itemBuilder: (BuildContext context, int index) {
@@ -648,58 +668,64 @@ class _AvailableServicesState extends State<AvailableServices> {
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height / 1.6,
-                        child: ListView.builder(
-                          controller: _scrollController,
-                          itemCount: listFiltered.length + 1,
-                          itemBuilder: (context, index) {
-                            if (index < listFiltered.length) {
-                              return InkWell(
-                                onTap: () {
-                                  Navigator.of(context)
-                                      .push(MaterialPageRoute(
-                                          builder: (context) => RequestDetails1(
-                                              requestId: listFiltered[index]
-                                                  ['id'],
-                                              isRequest: false,
-                                              user: user)))
-                                      .then((value) => setState(
-                                            () {
-                                              //_isEmpty = true;
-                                              getinstance();
-                                            },
-                                          ));
-                                },
-                                child: CustomCardServiceRequest(
-                                  category: listFiltered[index]['category'],
-                                  location: listFiltered[index]['location']
-                                      ['state'],
-                                  date: listFiltered[index]['date'],
-                                  state: isRequested(
-                                          listFiltered[index]['applicants'])
-                                      ? 'Available'
-                                      : changeState(
-                                          listFiltered[index]['state']),
-                                  requestor: listFiltered[index]['requestor'],
-                                  title: listFiltered[index]['title'],
-                                  rate: listFiltered[index]['rate'],
-                                ),
-                              );
-                            } else {
-                              if (finalCount < 6) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(left: 15.0),
-                                  child: Text('No more request...'),
+                        child: RefreshIndicator(
+                          onRefresh: getinstance,
+                          child: ListView.builder(
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            controller: _scrollController,
+                            itemCount: listFiltered.length + 1,
+                            itemBuilder: (context, index) {
+                              if (index < listFiltered.length) {
+                                return InkWell(
+                                  onTap: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                            builder: (context) =>
+                                                RequestDetails1(
+                                                    requestId:
+                                                        listFiltered[index]
+                                                            ['id'],
+                                                    isRequest: false,
+                                                    user: user)))
+                                        .then((value) => setState(
+                                              () {
+                                                //_isEmpty = true;
+                                                getinstance();
+                                              },
+                                            ));
+                                  },
+                                  child: CustomCardServiceRequest(
+                                    category: listFiltered[index]['category'],
+                                    location: listFiltered[index]['location']
+                                        ['state'],
+                                    date: listFiltered[index]['date'],
+                                    state: isRequested(
+                                            listFiltered[index]['applicants'])
+                                        ? 'Available'
+                                        : changeState(
+                                            listFiltered[index]['state']),
+                                    requestor: listFiltered[index]['requestor'],
+                                    title: listFiltered[index]['title'],
+                                    rate: listFiltered[index]['rate'],
+                                  ),
                                 );
-                              }
-                              if (finalCount < from) {
-                                return const Center(
-                                    child: Text('No more request...'));
                               } else {
-                                return const Center(
-                                    child: CircularProgressIndicator());
+                                if (finalCount < 6) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(left: 15.0),
+                                    child: Text('No more request...'),
+                                  );
+                                }
+                                if (finalCount < from) {
+                                  return const Center(
+                                      child: Text('No more request...'));
+                                } else {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                }
                               }
-                            }
-                          },
+                            },
+                          ),
                         ),
                       ),
                     ],

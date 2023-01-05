@@ -109,7 +109,7 @@ class _YourRequestState extends State<YourRequest> {
     // print(listFiltered.length);
   }
 
-  void getinstance() async {
+  Future getinstance() async {
     setState(() {
       isLoad = true;
       from = 0;
@@ -155,75 +155,90 @@ class _YourRequestState extends State<YourRequest> {
         body: isLoad
             ? const Center(child: CircularProgressIndicator())
             : _isEmpty
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Need help from other people?\nRequest help to let people know...',
-                        textAlign: TextAlign.center,
+                ? RefreshIndicator(
+                    onRefresh: getinstance,
+                    child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height / 1.3,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              'Need help from other people?\nRequest help to let people know...',
+                              textAlign: TextAlign.center,
+                            ),
+                            Container(
+                                margin: EdgeInsets.only(bottom: 0),
+                                alignment: Alignment.center,
+                                child: Image.asset(
+                                  'asset/Team spirit-amico.png',
+                                  height:
+                                      MediaQuery.of(context).size.height / 2.3,
+                                )),
+                          ],
+                        ),
                       ),
-                      Container(
-                          margin: EdgeInsets.only(bottom: 0),
-                          alignment: Alignment.center,
-                          child: Image.asset(
-                            'asset/Team spirit-amico.png',
-                            height: MediaQuery.of(context).size.height / 2.3,
-                          )),
-                    ],
+                    ),
                   )
                 : SizedBox(
                     height: MediaQuery.of(context).size.height / 1.2,
-                    child: ListView.builder(
-                      controller: _scrollController,
-                      itemCount: listFiltered.length + 1,
-                      itemBuilder: (context, index) {
-                        if (index < listFiltered.length) {
-                          return InkWell(
-                            onTap: () {
-                              Navigator.of(context)
-                                  .push(MaterialPageRoute(
-                                      builder: (context) => RequestDetails1(
-                                          requestId: listFiltered[index]['id'],
-                                          isRequest: isRequest,
-                                          user: user)))
-                                  .then((value) => setState(
-                                        () {
-                                          getinstance();
-                                        },
-                                      ));
-                            },
-                            child: CustomCardServiceRequest(
-                              category: listFiltered[index]['category'],
-                              location: listFiltered[index]['location']
-                                  ['state'],
-                              date: listFiltered[index]['date'],
-                              state: isRequested(
-                                      listFiltered[index]['applicants'])
-                                  ? 'No Applicants'
-                                  : changeState(listFiltered[index]['state']),
-                              requestor: listFiltered[index]['requestor'],
-                              title: listFiltered[index]['title'],
-                              rate: listFiltered[index]['rate'],
-                            ),
-                          );
-                        } else {
-                          if (finalCount < 6) {
-                            return Padding(
-                              padding: const EdgeInsets.only(left: 15.0),
-                              child: Text('No more request...'),
-                            );
-                          }
-                          if (finalCount < from) {
-                            return const Padding(
-                              padding: EdgeInsets.only(left: 15.0),
-                              child: Text('No more request...'),
+                    child: RefreshIndicator(
+                      onRefresh: getinstance,
+                      child: ListView.builder(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        controller: _scrollController,
+                        itemCount: listFiltered.length + 1,
+                        itemBuilder: (context, index) {
+                          if (index < listFiltered.length) {
+                            return InkWell(
+                              onTap: () {
+                                Navigator.of(context)
+                                    .push(MaterialPageRoute(
+                                        builder: (context) => RequestDetails1(
+                                            requestId: listFiltered[index]
+                                                ['id'],
+                                            isRequest: isRequest,
+                                            user: user)))
+                                    .then((value) => setState(
+                                          () {
+                                            getinstance();
+                                          },
+                                        ));
+                              },
+                              child: CustomCardServiceRequest(
+                                category: listFiltered[index]['category'],
+                                location: listFiltered[index]['location']
+                                    ['state'],
+                                date: listFiltered[index]['date'],
+                                state: isRequested(
+                                        listFiltered[index]['applicants'])
+                                    ? 'No Applicants'
+                                    : changeState(listFiltered[index]['state']),
+                                requestor: listFiltered[index]['requestor'],
+                                title: listFiltered[index]['title'],
+                                rate: listFiltered[index]['rate'],
+                              ),
                             );
                           } else {
-                            return const Center(
-                                child: CircularProgressIndicator());
+                            if (finalCount < 6) {
+                              return Padding(
+                                padding: const EdgeInsets.only(left: 15.0),
+                                child: Text('No more request...'),
+                              );
+                            }
+                            if (finalCount < from) {
+                              return const Padding(
+                                padding: EdgeInsets.only(left: 15.0),
+                                child: Text('No more request...'),
+                              );
+                            } else {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            }
                           }
-                        }
-                      },
+                        },
+                      ),
                     ),
                   ),
         floatingActionButton: FloatingActionButton.extended(

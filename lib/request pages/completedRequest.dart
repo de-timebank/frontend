@@ -113,7 +113,7 @@ class _CompletedRequestState extends State<CompletedRequest> {
     // print(listFiltered.length);
   }
 
-  void getinstance() async {
+  Future getinstance() async {
     setState(() {
       isLoad = true;
       from = 0;
@@ -185,55 +185,60 @@ class _CompletedRequestState extends State<CompletedRequest> {
                 )
               : SizedBox(
                   height: MediaQuery.of(context).size.height / 1.2,
-                  child: ListView.builder(
-                    controller: _scrollController,
-                    itemCount: listFiltered.length + 1,
-                    itemBuilder: (context, index) {
-                      if (index < listFiltered.length) {
-                        return InkWell(
-                          onTap: () {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(
-                                    builder: (context) => RequestDetails1(
-                                        requestId: listFiltered[index]['id'],
-                                        isRequest: isRequest,
-                                        user: user)))
-                                .then((value) => setState(
-                                      () {
-                                        getinstance();
-                                      },
-                                    ));
-                          },
-                          child: CustomCardServiceRequest(
-                            category: listFiltered[index]['category'],
-                            location: listFiltered[index]['location']['state'],
-                            date: listFiltered[index]['date'],
-                            state: isRated(listFiltered[index]['id'])
-                                ? 'Completed | Rated'
-                                : 'Completed | Unrated',
-                            requestor: listFiltered[index]['requestor'],
-                            title: listFiltered[index]['title'],
-                            rate: listFiltered[index]['rate'],
-                          ),
-                        );
-                      } else {
-                        if (finalCount < 6) {
-                          return Padding(
-                            padding: const EdgeInsets.only(left: 15.0),
-                            child: Text('No more request...'),
-                          );
-                        }
-                        if (finalCount < from) {
-                          return Padding(
-                            padding: const EdgeInsets.only(left: 15.0),
-                            child: Text('No more request...'),
+                  child: RefreshIndicator(
+                    onRefresh: getinstance,
+                    child: ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      controller: _scrollController,
+                      itemCount: listFiltered.length + 1,
+                      itemBuilder: (context, index) {
+                        if (index < listFiltered.length) {
+                          return InkWell(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(
+                                      builder: (context) => RequestDetails1(
+                                          requestId: listFiltered[index]['id'],
+                                          isRequest: isRequest,
+                                          user: user)))
+                                  .then((value) => setState(
+                                        () {
+                                          getinstance();
+                                        },
+                                      ));
+                            },
+                            child: CustomCardServiceRequest(
+                              category: listFiltered[index]['category'],
+                              location: listFiltered[index]['location']
+                                  ['state'],
+                              date: listFiltered[index]['date'],
+                              state: isRated(listFiltered[index]['id'])
+                                  ? 'Completed | Rated'
+                                  : 'Completed | Unrated',
+                              requestor: listFiltered[index]['requestor'],
+                              title: listFiltered[index]['title'],
+                              rate: listFiltered[index]['rate'],
+                            ),
                           );
                         } else {
-                          return const Center(
-                              child: CircularProgressIndicator());
+                          if (finalCount < 6) {
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 15.0),
+                              child: Text('No more request...'),
+                            );
+                          }
+                          if (finalCount < from) {
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 15.0),
+                              child: Text('No more request...'),
+                            );
+                          } else {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
                         }
-                      }
-                    },
+                      },
+                    ),
                   ),
                 ),
     );

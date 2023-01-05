@@ -45,7 +45,7 @@ class _CompletedServicesState extends State<CompletedServices> {
     super.initState();
   }
 
-  void getinstance() async {
+  Future getinstance() async {
     setState(() {
       isLoad = true;
       from = 0;
@@ -154,73 +154,88 @@ class _CompletedServicesState extends State<CompletedServices> {
       body: isLoad
           ? const Center(child: CircularProgressIndicator())
           : _isEmpty
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'When you service/help is completed, the job will be listed here. No completed job yet...',
-                      textAlign: TextAlign.center,
+              ? RefreshIndicator(
+                  onRefresh: getinstance,
+                  child: SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height / 1.3,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            'When you service/help is completed, the job will be listed here. No completed job yet...',
+                            textAlign: TextAlign.center,
+                          ),
+                          Container(
+                              margin: EdgeInsets.only(bottom: 0),
+                              alignment: Alignment.center,
+                              child: Image.asset(
+                                'asset/completed_job.png',
+                                height:
+                                    MediaQuery.of(context).size.height / 2.3,
+                              )),
+                        ],
+                      ),
                     ),
-                    Container(
-                        margin: EdgeInsets.only(bottom: 0),
-                        alignment: Alignment.center,
-                        child: Image.asset(
-                          'asset/completed_job.png',
-                          height: MediaQuery.of(context).size.height / 2.3,
-                        )),
-                  ],
+                  ),
                 )
               : SizedBox(
                   height: MediaQuery.of(context).size.height / 1.2,
-                  child: ListView.builder(
-                    controller: _scrollController,
-                    itemCount: listFiltered.length + 1,
-                    itemBuilder: (context, index) {
-                      if (index < listFiltered.length) {
-                        return InkWell(
-                          onTap: () {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(
-                                    builder: (context) => RequestDetails1(
-                                        requestId: listFiltered[index]['id'],
-                                        isRequest: false,
-                                        user: user)))
-                                .then((value) => setState(
-                                      () {
-                                        getinstance();
-                                      },
-                                    ));
-                          },
-                          child: CustomCardServiceRequest(
-                            category: listFiltered[index]['category'],
-                            location: listFiltered[index]['location']['state'],
-                            date: listFiltered[index]['date'],
-                            state: isRated(listFiltered[index]['id'])
-                                ? 'Completed | Rated'
-                                : 'Completed | Unrated',
-                            requestor: listFiltered[index]['requestor'],
-                            title: listFiltered[index]['title'],
-                            rate: listFiltered[index]['rate'],
-                          ),
-                        );
-                      } else {
-                        if (finalCount < 6) {
-                          return Padding(
-                            padding: const EdgeInsets.only(left: 15.0),
-                            child: Text('No more request...'),
-                          );
-                        }
-                        if (finalCount < from) {
-                          return const Padding(
-                            padding: EdgeInsets.only(left: 15.0),
-                            child: Text('No more request...'),
+                  child: RefreshIndicator(
+                    onRefresh: getinstance,
+                    child: ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      controller: _scrollController,
+                      itemCount: listFiltered.length + 1,
+                      itemBuilder: (context, index) {
+                        if (index < listFiltered.length) {
+                          return InkWell(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(
+                                      builder: (context) => RequestDetails1(
+                                          requestId: listFiltered[index]['id'],
+                                          isRequest: false,
+                                          user: user)))
+                                  .then((value) => setState(
+                                        () {
+                                          getinstance();
+                                        },
+                                      ));
+                            },
+                            child: CustomCardServiceRequest(
+                              category: listFiltered[index]['category'],
+                              location: listFiltered[index]['location']
+                                  ['state'],
+                              date: listFiltered[index]['date'],
+                              state: isRated(listFiltered[index]['id'])
+                                  ? 'Completed | Rated'
+                                  : 'Completed | Unrated',
+                              requestor: listFiltered[index]['requestor'],
+                              title: listFiltered[index]['title'],
+                              rate: listFiltered[index]['rate'],
+                            ),
                           );
                         } else {
-                          return const Center(
-                              child: CircularProgressIndicator());
+                          if (finalCount < 6) {
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 15.0),
+                              child: Text('No more request...'),
+                            );
+                          }
+                          if (finalCount < from) {
+                            return const Padding(
+                              padding: EdgeInsets.only(left: 15.0),
+                              child: Text('No more request...'),
+                            );
+                          } else {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
                         }
-                      }
-                    },
+                      },
+                    ),
                   ),
                 ),
     );
