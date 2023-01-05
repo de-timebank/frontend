@@ -593,6 +593,24 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                           'Completed On: ${dateCompletedOn.day}-${dateCompletedOn.month}-${dateCompletedOn.year}'),
                                                       Text(
                                                           'Time: ${dateCompletedOn.hour}:${dateCompletedOn.minute}:${dateCompletedOn.second}'),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text('Payment: '),
+                                                          Text(
+                                                            '${requestDetails.request.actualPayment.toStringAsFixed(2)} Time/hour',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    Colors.red,
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          )
+                                                        ],
+                                                      ),
                                                       TextButton(
                                                           style: themeData2()
                                                               .textButtonTheme
@@ -947,126 +965,21 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                     Text(
                                         'Date: ${dateCompletedOn.day}-${dateCompletedOn.month}-${dateCompletedOn.year}\n'),
                                     Text(
-                                        'Time: ${dateCompletedOn.hour}:${dateCompletedOn.minute}:${dateCompletedOn.second}'),
-                                    TextButton(
-                                        style: TextButton.styleFrom(
-                                            foregroundColor: Colors.red),
-                                        onPressed: () => showDialog<String>(
-                                              context: context,
-                                              builder: (BuildContext context) =>
-                                                  AlertDialog(
-                                                title: const Text(
-                                                    'Delete Request?'),
-                                                actions: <Widget>[
-                                                  TextButton(
-                                                    onPressed: () =>
-                                                        Navigator.pop(
-                                                            context, 'Cancel'),
-                                                    child: const Text('Cancel'),
-                                                  ),
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      _deleteRequest(
-                                                          requestDetails
-                                                              .request.id);
-                                                    },
-                                                    child: const Text('Delete'),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                        child: Text('Delete Request'))
-                                    // Text(
-                                    //   'Rate The requestor',
-                                    //   style: TextStyle(
-                                    //       fontWeight: FontWeight.bold, fontSize: 15),
-                                    // ),
-                                    // CustomDivider(
-                                    //     color: themeData2().primaryColor),
-                                    // Heading2('Rate the requestor'),
-                                    // CustomHeadline(
-                                    //     heading: _userRequestor.user.name
-                                    //         .toString()
-                                    //         .titleCase()),
-                                    //SizedBox(height: 5),
-                                    // isRated() //for providor
-                                    //     ?
-                                    //     // isRequestorRated()
-                                    //     //     ?
-                                    //     Padding(
-                                    //         padding: const EdgeInsets.all(8.0),
-                                    //         child: Text(
-                                    //           'Requestor has been rated',
-                                    //           style: TextStyle(
-                                    //               fontWeight: FontWeight.bold),
-                                    //         ),
-                                    //       )
-                                    //     // : Column(
-                                    //     //     children: [
-                                    //     //       Center(
-                                    //     //         child: RatingBar.builder(
-                                    //     //           initialRating: 0,
-                                    //     //           itemBuilder:
-                                    //     //               (context, index) =>
-                                    //     //                   Icon(
-                                    //     //             Icons.star,
-                                    //     //             color: themeData1()
-                                    //     //                 .primaryColor,
-                                    //     //           ),
-                                    //     //           onRatingUpdate: (value) {
-                                    //     //             _valueController =
-                                    //     //                 value;
-                                    //     //             //print(_valueController);
-                                    //     //           },
-                                    //     //         ),
-                                    //     //       ),
-                                    //     //       TextFormField(
-                                    //     //         controller:
-                                    //     //             _commentController,
-                                    //     //         decoration: InputDecoration(
-                                    //     //             hintText:
-                                    //     //                 'Enter comment'),
-                                    //     //       ),
-                                    //     //       ElevatedButton(
-                                    //     //           style: themeData2()
-                                    //     //               .elevatedButtonTheme
-                                    //     //               .style,
-                                    //     //           onPressed: () {
-                                    //     //             _rateRequestor(
-                                    //     //                 widget.user,
-                                    //     //                 _valueController
-                                    //     //                     .toInt(),
-                                    //     //                 _commentController
-                                    //     //                     .text,
-                                    //     //                 requestDetails
-                                    //     //                     .request.id);
-                                    //     //           },
-                                    //     //           child: Text(
-                                    //     //               'Rate Requestor')),
-                                    //     //     ],
-                                    //     //   )
-                                    //     : Padding(
-                                    //         padding: const EdgeInsets.all(5.0),
-                                    //         child: TextButton(
-                                    //             style: themeData2()
-                                    //                 .textButtonTheme
-                                    //                 .style,
-                                    //             onPressed: () {
-                                    //               Navigator.of(context)
-                                    //                   .push(MaterialPageRoute(
-                                    //                     builder: (context) =>
-                                    //                         RateGivenPage(),
-                                    //                   ))
-                                    //                   .then((value) => setState(
-                                    //                         () {
-                                    //                           //_isEmpty = true;
-                                    //                           _getAllinstance();
-                                    //                         },
-                                    //                       ));
-                                    //             },
-                                    //             child:
-                                    //                 Text('Go to rating page')),
-                                    //       )
+                                        'Time: ${dateCompletedOn.hour}:${dateCompletedOn.minute}:${dateCompletedOn.second}\n'),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text('Payment received: '),
+                                        Text(
+                                          '${requestDetails.request.actualPayment.toStringAsFixed(2)} Time/hour',
+                                          style: TextStyle(
+                                              color: Colors.green,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    )
                                   ],
                                 ),
                               ),
