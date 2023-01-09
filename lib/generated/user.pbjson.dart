@@ -253,3 +253,41 @@ const GetProfile_Response$json = const {
 
 /// Descriptor for `GetProfile`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getProfileDescriptor = $convert.base64Decode('CgpHZXRQcm9maWxlGiIKB1JlcXVlc3QSFwoHdXNlcl9pZBgBIAEoCVIGdXNlcklkGjQKCFJlc3BvbnNlEigKBHVzZXIYASABKAsyFC51c2VyLlByb2ZpbGVTdW1tYXJ5UgR1c2Vy');
+@$core.Deprecated('Use creditTransactionDescriptor instead')
+const CreditTransaction$json = const {
+  '1': 'CreditTransaction',
+  '2': const [
+    const {'1': 'request_id', '3': 1, '4': 1, '5': 9, '10': 'requestId'},
+    const {'1': 'from', '3': 2, '4': 1, '5': 9, '10': 'from'},
+    const {'1': 'to', '3': 3, '4': 1, '5': 9, '10': 'to'},
+    const {'1': 'amount', '3': 4, '4': 1, '5': 2, '10': 'amount'},
+    const {'1': 'timestamp', '3': 5, '4': 1, '5': 9, '10': 'timestamp'},
+  ],
+};
+
+/// Descriptor for `CreditTransaction`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List creditTransactionDescriptor = $convert.base64Decode('ChFDcmVkaXRUcmFuc2FjdGlvbhIdCgpyZXF1ZXN0X2lkGAEgASgJUglyZXF1ZXN0SWQSEgoEZnJvbRgCIAEoCVIEZnJvbRIOCgJ0bxgDIAEoCVICdG8SFgoGYW1vdW50GAQgASgCUgZhbW91bnQSHAoJdGltZXN0YW1wGAUgASgJUgl0aW1lc3RhbXA=');
+@$core.Deprecated('Use getTransactionHistoryDescriptor instead')
+const GetTransactionHistory$json = const {
+  '1': 'GetTransactionHistory',
+  '3': const [GetTransactionHistory_Request$json, GetTransactionHistory_Response$json],
+};
+
+@$core.Deprecated('Use getTransactionHistoryDescriptor instead')
+const GetTransactionHistory_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'user_id', '3': 1, '4': 1, '5': 9, '10': 'userId'},
+  ],
+};
+
+@$core.Deprecated('Use getTransactionHistoryDescriptor instead')
+const GetTransactionHistory_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'data', '3': 1, '4': 3, '5': 11, '6': '.user.CreditTransaction', '10': 'data'},
+  ],
+};
+
+/// Descriptor for `GetTransactionHistory`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getTransactionHistoryDescriptor = $convert.base64Decode('ChVHZXRUcmFuc2FjdGlvbkhpc3RvcnkaIgoHUmVxdWVzdBIXCgd1c2VyX2lkGAEgASgJUgZ1c2VySWQaNwoIUmVzcG9uc2USKwoEZGF0YRgBIAMoCzIXLnVzZXIuQ3JlZGl0VHJhbnNhY3Rpb25SBGRhdGE=');

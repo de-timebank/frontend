@@ -260,7 +260,7 @@ class _AvailableServicesState extends State<AvailableServices> {
 
     finalCount = data.length;
 
-    print(listFiltered);
+    //print(listFiltered);
 
     setState(() {
       isLoad = false;

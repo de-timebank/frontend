@@ -7,6 +7,7 @@ import 'package:testfyp/dashboard%20pages/serviceDashboardCard.dart';
 import 'package:testfyp/navigation.dart';
 import 'package:testfyp/rate%20pages/rateGiven.dart';
 import 'package:testfyp/request%20pages/request.dart';
+import 'package:testfyp/transactions%20pages/transaction.dart';
 import '../components/constants.dart';
 import '../custom widgets/customHeadline.dart';
 import '../rate pages/rateReceived.dart';
@@ -23,6 +24,7 @@ class DashBoard extends StatefulWidget {
 class _DashBoardState extends State<DashBoard> {
   late final credit;
   late final data;
+  // late final data1;
   bool isLoading = false;
 
   @override
@@ -37,7 +39,11 @@ class _DashBoardState extends State<DashBoard> {
       isLoading = true;
     });
     final user = supabase.auth.currentUser!.id;
+    //print(user);
     data = await ClientUser(Common().channel).getUserCreditBalance(user);
+    // data1 = await ClientUser(Common().channel).getTransactionHistory(user);
+    //print(data1.toString());
+
     //print(data);
 
     // data = await supabase
@@ -106,7 +112,7 @@ class _DashBoardState extends State<DashBoard> {
                             Padding(
                               padding: EdgeInsets.all(10.0),
                               child: Text(
-                                  '\$ Time/hour: ${data.total.toStringAsFixed(2)}',
+                                  'Time/hour: ${(data.total - data.reserved).toStringAsFixed(2)}',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white)),
@@ -230,7 +236,12 @@ class _DashBoardState extends State<DashBoard> {
                                     ),
                                     color: themeData1().primaryColor,
                                     child: InkWell(
-                                        onTap: () {},
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      TransactionPage()));
+                                        },
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,

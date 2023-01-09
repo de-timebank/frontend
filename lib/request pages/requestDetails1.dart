@@ -169,7 +169,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
     dateJob = DateTime.parse(requestDetails.request.date);
 
     isComplete()
-        ? dateCompletedOn = DateTime.parse(requestDetails.request.completedAt)
+        ? dateCompletedOn = DateTime.parse(requestDetails.request.date)
         : dateCompletedOn = '';
     //print(widget.id);
     ratedUser = await ClientRating(Common().channel)
@@ -374,8 +374,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
                             //crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Heading2('Rate'),
-                              Text('\$time/hour ' +
-                                  requestDetails.request.rate.toString()),
+                              Text('${requestDetails.request.rate} Time/hour'),
                             ],
                           ),
                         ),

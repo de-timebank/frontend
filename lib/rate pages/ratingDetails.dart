@@ -7,8 +7,10 @@ import 'package:testfyp/components/constants.dart';
 import 'package:testfyp/custom%20widgets/customHeadline.dart';
 import 'package:testfyp/custom%20widgets/theme.dart';
 import 'package:testfyp/extension_string.dart';
+import '../bin/client_service_request.dart';
 import '../bin/common.dart';
 import '../custom widgets/heading2.dart';
+import '../request pages/requestDetails1.dart';
 
 class RatingDetails extends StatefulWidget {
   //final function;
@@ -49,6 +51,8 @@ class _RatingDetailsState extends State<RatingDetails> {
 
   late final dateCreatedOn;
   late final dateUpdatedOn;
+  late final requestName;
+  late final user;
 
   bool isLoad = false;
 
@@ -67,6 +71,11 @@ class _RatingDetailsState extends State<RatingDetails> {
 
     _userProvider =
         await ClientUser(Common().channel).getUserById(widget.recipient);
+
+    requestName = await ClientServiceRequest(Common().channel)
+        .getResponseById(widget.requestId);
+
+    user = supabase.auth.currentUser!.id;
 
     dateCreatedOn = DateTime.parse(widget.createdAt);
     dateUpdatedOn = DateTime.parse(widget.updatedAt);
@@ -234,8 +243,18 @@ class _RatingDetailsState extends State<RatingDetails> {
                   // Text(
                   //     ' Date: ${dateUpdatedOn.day}-${dateUpdatedOn.month}-${dateUpdatedOn.year}\n\tTime: ${dateUpdatedOn.hour}:${dateUpdatedOn.minute}'),
                   // SizedBox(height: 15),
-                  Heading2(' Job Id'),
-                  Text(' ${widget.requestId}'),
+                  Heading2(' Request Title'),
+                  ElevatedButton(
+                    onPressed: (() {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => RequestDetails1(
+                              requestId: requestName.request.id,
+                              isRequest: widget.isProvider,
+                              user: user)));
+                    }),
+                    child: Text(' ${requestName.request.title}'),
+                  ),
+
                   SizedBox(height: 15),
                   widget.isProvider
                       ? TextButton(

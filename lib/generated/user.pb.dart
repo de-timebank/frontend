@@ -1401,3 +1401,223 @@ class GetProfile extends $pb.GeneratedMessage {
   static GetProfile? _defaultInstance;
 }
 
+class CreditTransaction extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreditTransaction', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'user'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'requestId')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'from')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'to')
+    ..a<$core.double>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'amount', $pb.PbFieldType.OF)
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp')
+    ..hasRequiredFields = false
+  ;
+
+  CreditTransaction._() : super();
+  factory CreditTransaction({
+    $core.String? requestId,
+    $core.String? from,
+    $core.String? to,
+    $core.double? amount,
+    $core.String? timestamp,
+  }) {
+    final _result = create();
+    if (requestId != null) {
+      _result.requestId = requestId;
+    }
+    if (from != null) {
+      _result.from = from;
+    }
+    if (to != null) {
+      _result.to = to;
+    }
+    if (amount != null) {
+      _result.amount = amount;
+    }
+    if (timestamp != null) {
+      _result.timestamp = timestamp;
+    }
+    return _result;
+  }
+  factory CreditTransaction.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreditTransaction.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CreditTransaction clone() => CreditTransaction()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CreditTransaction copyWith(void Function(CreditTransaction) updates) => super.copyWith((message) => updates(message as CreditTransaction)) as CreditTransaction; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static CreditTransaction create() => CreditTransaction._();
+  CreditTransaction createEmptyInstance() => create();
+  static $pb.PbList<CreditTransaction> createRepeated() => $pb.PbList<CreditTransaction>();
+  @$core.pragma('dart2js:noInline')
+  static CreditTransaction getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreditTransaction>(create);
+  static CreditTransaction? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get requestId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set requestId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasRequestId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearRequestId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get from => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set from($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasFrom() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearFrom() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get to => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set to($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasTo() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearTo() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.double get amount => $_getN(3);
+  @$pb.TagNumber(4)
+  set amount($core.double v) { $_setFloat(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasAmount() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearAmount() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get timestamp => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set timestamp($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasTimestamp() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearTimestamp() => clearField(5);
+}
+
+class GetTransactionHistory_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetTransactionHistory.Request', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'user'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userId')
+    ..hasRequiredFields = false
+  ;
+
+  GetTransactionHistory_Request._() : super();
+  factory GetTransactionHistory_Request({
+    $core.String? userId,
+  }) {
+    final _result = create();
+    if (userId != null) {
+      _result.userId = userId;
+    }
+    return _result;
+  }
+  factory GetTransactionHistory_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetTransactionHistory_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetTransactionHistory_Request clone() => GetTransactionHistory_Request()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetTransactionHistory_Request copyWith(void Function(GetTransactionHistory_Request) updates) => super.copyWith((message) => updates(message as GetTransactionHistory_Request)) as GetTransactionHistory_Request; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetTransactionHistory_Request create() => GetTransactionHistory_Request._();
+  GetTransactionHistory_Request createEmptyInstance() => create();
+  static $pb.PbList<GetTransactionHistory_Request> createRepeated() => $pb.PbList<GetTransactionHistory_Request>();
+  @$core.pragma('dart2js:noInline')
+  static GetTransactionHistory_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetTransactionHistory_Request>(create);
+  static GetTransactionHistory_Request? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get userId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set userId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasUserId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUserId() => clearField(1);
+}
+
+class GetTransactionHistory_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetTransactionHistory.Response', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'user'), createEmptyInstance: create)
+    ..pc<CreditTransaction>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'data', $pb.PbFieldType.PM, subBuilder: CreditTransaction.create)
+    ..hasRequiredFields = false
+  ;
+
+  GetTransactionHistory_Response._() : super();
+  factory GetTransactionHistory_Response({
+    $core.Iterable<CreditTransaction>? data,
+  }) {
+    final _result = create();
+    if (data != null) {
+      _result.data.addAll(data);
+    }
+    return _result;
+  }
+  factory GetTransactionHistory_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetTransactionHistory_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetTransactionHistory_Response clone() => GetTransactionHistory_Response()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetTransactionHistory_Response copyWith(void Function(GetTransactionHistory_Response) updates) => super.copyWith((message) => updates(message as GetTransactionHistory_Response)) as GetTransactionHistory_Response; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetTransactionHistory_Response create() => GetTransactionHistory_Response._();
+  GetTransactionHistory_Response createEmptyInstance() => create();
+  static $pb.PbList<GetTransactionHistory_Response> createRepeated() => $pb.PbList<GetTransactionHistory_Response>();
+  @$core.pragma('dart2js:noInline')
+  static GetTransactionHistory_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetTransactionHistory_Response>(create);
+  static GetTransactionHistory_Response? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<CreditTransaction> get data => $_getList(0);
+}
+
+class GetTransactionHistory extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetTransactionHistory', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'user'), createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  GetTransactionHistory._() : super();
+  factory GetTransactionHistory() => create();
+  factory GetTransactionHistory.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetTransactionHistory.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetTransactionHistory clone() => GetTransactionHistory()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetTransactionHistory copyWith(void Function(GetTransactionHistory) updates) => super.copyWith((message) => updates(message as GetTransactionHistory)) as GetTransactionHistory; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetTransactionHistory create() => GetTransactionHistory._();
+  GetTransactionHistory createEmptyInstance() => create();
+  static $pb.PbList<GetTransactionHistory> createRepeated() => $pb.PbList<GetTransactionHistory>();
+  @$core.pragma('dart2js:noInline')
+  static GetTransactionHistory getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetTransactionHistory>(create);
+  static GetTransactionHistory? _defaultInstance;
+}
+

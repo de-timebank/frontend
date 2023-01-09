@@ -855,6 +855,7 @@ class _RequestFormState extends State<RequestForm> {
       print(e.toString());
     } catch (e) {
       context.showErrorSnackBar(message: e.toString());
+      print(e.toString());
     }
   }
 }

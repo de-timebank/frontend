@@ -48,6 +48,12 @@ class UserClient extends $grpc.Client {
       ($1.GetCreditBalance_Request value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
           $1.GetCreditBalance_Response.fromBuffer(value));
+  static final _$getTransactionHistory = $grpc.ClientMethod<
+          $1.GetTransactionHistory_Request, $1.GetTransactionHistory_Response>(
+      '/user.User/getTransactionHistory',
+      ($1.GetTransactionHistory_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $1.GetTransactionHistory_Response.fromBuffer(value));
 
   UserClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -85,6 +91,12 @@ class UserClient extends $grpc.Client {
       $1.GetCreditBalance_Request request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getCreditBalance, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.GetTransactionHistory_Response> getTransactionHistory(
+      $1.GetTransactionHistory_Request request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getTransactionHistory, request, options: options);
   }
 }
 
@@ -138,6 +150,15 @@ abstract class UserServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $1.GetCreditBalance_Request.fromBuffer(value),
         ($1.GetCreditBalance_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.GetTransactionHistory_Request,
+            $1.GetTransactionHistory_Response>(
+        'getTransactionHistory',
+        getTransactionHistory_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $1.GetTransactionHistory_Request.fromBuffer(value),
+        ($1.GetTransactionHistory_Response value) => value.writeToBuffer()));
   }
 
   $async.Future<$1.Get_Response> get_Pre(
@@ -171,6 +192,12 @@ abstract class UserServiceBase extends $grpc.Service {
     return getCreditBalance(call, await request);
   }
 
+  $async.Future<$1.GetTransactionHistory_Response> getTransactionHistory_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$1.GetTransactionHistory_Request> request) async {
+    return getTransactionHistory(call, await request);
+  }
+
   $async.Future<$1.Get_Response> get(
       $grpc.ServiceCall call, $1.Get_Request request);
   $async.Future<$1.GetById_Response> getById(
@@ -183,4 +210,6 @@ abstract class UserServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $1.GetRating_Request request);
   $async.Future<$1.GetCreditBalance_Response> getCreditBalance(
       $grpc.ServiceCall call, $1.GetCreditBalance_Request request);
+  $async.Future<$1.GetTransactionHistory_Response> getTransactionHistory(
+      $grpc.ServiceCall call, $1.GetTransactionHistory_Request request);
 }

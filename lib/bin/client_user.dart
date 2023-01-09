@@ -37,4 +37,10 @@ class ClientUser {
   Future<GetCreditBalance_Response> getUserCreditBalance(String id) async {
     return await stub.getCreditBalance(GetCreditBalance_Request()..userId = id);
   }
+
+  Future<GetTransactionHistory_Response> getTransactionHistory(
+      String id) async {
+    return await stub
+        .getTransactionHistory(GetTransactionHistory_Request()..userId = id);
+  }
 }
