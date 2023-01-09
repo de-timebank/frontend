@@ -576,8 +576,8 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                             },
                                                           ));
                                                 },
-                                                child:
-                                                    Text('Update Job Details')),
+                                                child: Text(
+                                                    'Update Request Details')),
                                           ],
                                         ),
                                       )
@@ -1090,7 +1090,7 @@ class _RequestDetails1State extends State<RequestDetails1> {
                                                     )
                                                   : Center(
                                                       child: Text(
-                                                          'You have apply for the request\nContact the Requestor to accept you as Provider'),
+                                                          'You have applied the request.\nContact the Requestor to accept you as Provider'),
                                                     )),
                                     ),
                   const SizedBox(height: 15),

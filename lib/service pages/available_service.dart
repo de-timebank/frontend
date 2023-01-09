@@ -537,8 +537,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                                         child: Text(
                                           e,
                                           style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .secondaryHeaderColor,
+                                              color: Colors.black,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 15),
                                         ),
@@ -591,8 +590,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                                                 child: Text(
                                                   e,
                                                   style: TextStyle(
-                                                      color: Theme.of(context)
-                                                          .secondaryHeaderColor,
+                                                      color: Colors.black,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 15),
@@ -640,8 +638,7 @@ class _AvailableServicesState extends State<AvailableServices> {
                                                 child: Text(
                                                   e,
                                                   style: TextStyle(
-                                                      color: Theme.of(context)
-                                                          .secondaryHeaderColor,
+                                                      color: Colors.black,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 15),
@@ -717,8 +714,10 @@ class _AvailableServicesState extends State<AvailableServices> {
                                   );
                                 }
                                 if (finalCount < from) {
-                                  return const Center(
-                                      child: Text('No more request...'));
+                                  return Padding(
+                                    padding: const EdgeInsets.only(left: 15.0),
+                                    child: Text('No more request...'),
+                                  );
                                 } else {
                                   return const Center(
                                       child: CircularProgressIndicator());

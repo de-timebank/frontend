@@ -89,7 +89,7 @@ class _UpdatePageState extends State<UpdatePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Update Job'),
+          title: Text('Update Request'),
           backgroundColor: themeData1().primaryColor),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
