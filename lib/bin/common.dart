@@ -16,8 +16,7 @@ class Common {
   final String ipv4laptop = '10.121.182.155';
   final String subnetMask = '255.255.128.0';
   final String defaultgateway = '10.121.128.2';
-  final String aws =
-      '13.214.35.242';
+  final aws = '13.214.35.242';
   Common() {
     channel = ClientChannel(aws,
         port: 8080,
