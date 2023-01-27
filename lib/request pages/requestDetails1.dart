@@ -316,25 +316,30 @@ class _RequestDetails1State extends State<RequestDetails1> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          // side: BorderSide(
-                          //   color: themeData1().secondaryHeaderColor,
-                          //   width: 3,
-                          // ),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(12)),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            //crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Heading2('Requestor'),
-                              Text(_userRequestor.user.name
-                                  .toString()
-                                  .titleCase()),
-                            ],
+                      Flexible(
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            // side: BorderSide(
+                            //   color: themeData1().secondaryHeaderColor,
+                            //   width: 3,
+                            // ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              //crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Heading2('Requestor'),
+                                Text(
+                                  _userRequestor.user.name
+                                      .toString()
+                                      .titleCase(),
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -352,9 +357,12 @@ class _RequestDetails1State extends State<RequestDetails1> {
                           child: Column(
                             children: [
                               Heading2('State'),
-                              Text(requestDetails.request.state
-                                  .toString()
-                                  .capitalize()),
+                              Text(
+                                requestDetails.request.state
+                                    .toString()
+                                    .capitalize(),
+                                style: TextStyle(fontSize: 12),
+                              ),
                             ],
                           ),
                         ),
@@ -374,7 +382,10 @@ class _RequestDetails1State extends State<RequestDetails1> {
                             //crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Heading2('Rate'),
-                              Text('${requestDetails.request.rate} Time/hour'),
+                              Text(
+                                '${requestDetails.request.rate} Time/hour',
+                                style: TextStyle(fontSize: 12),
+                              ),
                             ],
                           ),
                         ),

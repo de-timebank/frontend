@@ -63,19 +63,21 @@ class _RatingCardDetails1State extends State<RatingCardDetails1> {
                 ),
                 widget.isProvider
                     ? Text('Provider Rating',
-                        style: TextStyle(color: Colors.white))
+                        style: TextStyle(color: Colors.white, fontSize: 12))
                     : Text('Requestor Rating',
-                        style: TextStyle(color: Colors.white))
+                        style: TextStyle(color: Colors.white, fontSize: 12))
               ],
             ),
             Padding(
               padding: const EdgeInsets.only(right: 15.0),
               child: Row(
                 children: [
-                  Text('Count: ', style: TextStyle(color: Colors.white)),
+                  Text('Count: ',
+                      style: TextStyle(color: Colors.white, fontSize: 12)),
                   Text(widget.userRating.count.toString(),
-                      style: TextStyle(color: Colors.white)),
-                  Text(' | ', style: TextStyle(color: Colors.white)),
+                      style: TextStyle(color: Colors.white, fontSize: 12)),
+                  Text(' | ',
+                      style: TextStyle(color: Colors.white, fontSize: 12)),
                   // Text('Average: ',
                   //     style: TextStyle(color: Colors.white)),
                   RatingBar.builder(

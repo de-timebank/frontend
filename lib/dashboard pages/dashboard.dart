@@ -103,6 +103,7 @@ class _DashBoardState extends State<DashBoard> {
                                   Text(
                                     'Time Balance',
                                     style: TextStyle(
+                                        fontSize: 12,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
                                   ),
@@ -114,6 +115,7 @@ class _DashBoardState extends State<DashBoard> {
                               child: Text(
                                   'Time/hour: ${(data.total - data.reserved).toStringAsFixed(2)}',
                                   style: TextStyle(
+                                      fontSize: 12,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white)),
                             )

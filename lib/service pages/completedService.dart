@@ -210,8 +210,8 @@ class _CompletedServicesState extends State<CompletedServices> {
                                   ['state'],
                               date: listFiltered[index]['date'],
                               state: isRated(listFiltered[index]['id'])
-                                  ? 'Completed | Rated'
-                                  : 'Completed | Unrated',
+                                  ? 'Completed (Rated)'
+                                  : 'Completed (Unrated)',
                               requestor: listFiltered[index]['requestor'],
                               title: listFiltered[index]['title'],
                               rate: listFiltered[index]['rate'],

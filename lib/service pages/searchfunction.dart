@@ -56,7 +56,10 @@ class CustomSearchDelegate extends SearchDelegate {
   Widget buildResults(BuildContext context) {
     List<dynamic> matchQuery = [];
     for (int i = 0; i < listRequest.length; i++) {
-      if (listRequest[i]['title'].contains(query.toLowerCase())) {
+      if (listRequest[i]['title']
+          .toString()
+          .toLowerCase()
+          .contains(query.toLowerCase())) {
         matchQuery.add(listRequest[i]);
       }
     }
@@ -90,7 +93,10 @@ class CustomSearchDelegate extends SearchDelegate {
   Widget buildSuggestions(BuildContext context) {
     List<dynamic> matchQuery = [];
     for (int i = 0; i < listRequest.length; i++) {
-      if (listRequest[i]['title'].contains(query.toLowerCase())) {
+      if (listRequest[i]['title']
+          .toString()
+          .toLowerCase()
+          .contains(query.toLowerCase())) {
         matchQuery.add(listRequest[i]);
       }
     }

@@ -55,9 +55,9 @@ class _CustomCardServiceRequestState extends State<CustomCardServiceRequest> {
         return const Color.fromARGB(255, 199, 202, 11);
       case 'Ongoing':
         return const Color.fromARGB(255, 213, 159, 15);
-      case 'Completed | Rated':
+      case 'Completed (Rated)':
         return const Color.fromARGB(255, 89, 175, 89);
-      case 'Completed | Unrated':
+      case 'Completed (Unrated)':
         return themeData2().secondaryHeaderColor;
       default:
         return const Color.fromARGB(255, 127, 124, 139);
@@ -101,40 +101,53 @@ class _CustomCardServiceRequestState extends State<CustomCardServiceRequest> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(Icons.work_outline_rounded),
-                                    SizedBox(width: 5),
-                                    Text(widget.title.toString().capitalize(),
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14)
-                                        //     Theme.of(context).textTheme.headline1,
-                                        ),
-                                  ],
-                                ),
-                                const SizedBox(height: 5),
-                                Text(widget.category,
-                                    style: const TextStyle(fontSize: 11)),
-                              ],
-                            ),
-                            Container(
-                                decoration: BoxDecoration(
-                                    color: changeColor(widget.state),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    '${widget.state.toString().titleCase()}',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold),
+                            Flexible(
+                              flex: 4,
+                              fit: FlexFit.tight,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(Icons.work_outline_rounded),
+                                      SizedBox(width: 5),
+                                      Flexible(
+                                        child: Text(
+                                            widget.title
+                                                .toString()
+                                                .capitalize(),
+                                            //overflow: TextOverflow.fade,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14)
+                                            //     Theme.of(context).textTheme.headline1,
+                                            ),
+                                      ),
+                                    ],
                                   ),
-                                )),
+                                  const SizedBox(height: 5),
+                                  Text(widget.category,
+                                      style: const TextStyle(fontSize: 11)),
+                                ],
+                              ),
+                            ),
+                            Flexible(
+                              flex: 2,
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      color: changeColor(widget.state),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      '${widget.state.toString()}',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  )),
+                            ),
                           ],
                         ),
                         Divider(),
