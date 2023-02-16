@@ -7,7 +7,7 @@ The functionality of the appication is determined through meeting with stakehold
 
 | Screen        | Functionality | 
 |:--------------|:-------------:|
-|    <img src="https://user-images.githubusercontent.com/25504609/219471073-897d7689-3f1f-4b50-abe8-e0fc6f02bc4f.png" width="260" height="250">  | **Sign in Screen:** This screen allows user to log-in/sign-up. The application is equipped with validation using password and email authentication handle by Supabase database. |
+|    <img src="https://user-images.githubusercontent.com/25504609/219471073-897d7689-3f1f-4b50-abe8-e0fc6f02bc4f.png" width="260" height="280">  | **Sign in Screen:** This screen allows user to log-in/sign-up. The application is equipped with validation using password and email authentication handle by Supabase database. |
 |    <img src="https://user-images.githubusercontent.com/25504609/219471181-4420a284-4bd1-42e9-a6a5-e317438b6e51.png" width="260" height="250">  | **Profile Screen:** This page allows user to change and update their personal information. Function include addition of skills, contact and change of age, name and gender. |
 |    <img src="https://user-images.githubusercontent.com/25504609/219471335-8c2bd2b6-8f7c-46d4-9902-f323d6daf4b8.png" width="260" height="250">  | **Requestor Screen:** User will be able to create request. The form will prompt the user to enter relevant information. The page will classify each request based on their state eg 'available' , 'pending' etc...|
 |    <img src="https://user-images.githubusercontent.com/25504609/219471430-ee377906-4a7e-48cb-beb5-e3d72c6e3826.png" width="260" height="250">  | **Provider Page:** This page allow user to search and apply for request. This page also classify each request based on their state|
